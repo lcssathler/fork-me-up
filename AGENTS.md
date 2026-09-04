@@ -98,7 +98,8 @@ Ask for user direction when a choice materially changes scope, risk, accessed da
 - Keep commits atomic, buildable, and attributable to one requirement, defect, or bootstrap roadmap slice.
 - Review the complete diff before reporting completion.
 - Never force-push, rewrite shared history, push, merge, publish, deploy, tag, or release unless explicitly authorized.
-- The default branch should remain protected and receive changes through reviewable pull requests with required checks once a remote collaboration workflow exists.
+- The default branch should remain protected and receive changes through reviewable pull requests with required checks once public visibility or external collaboration begins.
+- The owner-selected GitHub Free M0 bootstrap may temporarily leave a private, single-owner remote without server-side enforcement only when `docs/ROADMAP.md` records the limitation and its closeout path. This is not equivalent protection: use short-lived branches, review complete diffs, run all available checks, do not push directly to `main`, accept no external contributions, and end the exception through verified public cutover and protection before M0 exits.
 - Until Git, CI, or a documented command exists, dependent controls are `bootstrap-not-applicable`. The task creating each control runs the closest local equivalent, reports the gap, and ends the exception as soon as the control exists.
 
 Recommended branch patterns:

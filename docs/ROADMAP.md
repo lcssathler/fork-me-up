@@ -44,7 +44,7 @@ Remove ambiguity before implementation and create the smallest safe repository f
 - Define protocol compatibility and initial conformance fixtures.
 - Define the threat model, data classes, trust boundaries, and security invariants.
 - Decide and record the public license and trademark policy before the first public code or package release.
-- Initialize Git before implementation and protect `main` when a remote exists.
+- Initialize Git before implementation. For the owner-selected GitHub Free path, keep the remote private during private-safe M0 preparation, then protect `main` immediately after the separately authorized public cutover and before M0 exits.
 - Pin the exact Node.js version used by development/CI, declare the supported runtime range, pin the exact package-manager/Corepack version, commit the lockfile, and define the clean-install command.
 - Define workspace/package boundaries and dependency direction.
 - Establish formatter, lint, strict type checking, test runner, schema validation, and CI skeleton.
@@ -65,6 +65,7 @@ Remove ambiguity before implementation and create the smallest safe repository f
 - Threats have named controls and planned negative tests.
 - Toolchain installs and baseline checks run from a clean checkout on the first declared platform.
 - License and ownership implications are explicitly accepted by the project owner.
+- Under the GitHub Free path, the repository passes its pre-publication audit before visibility changes, then `main` protection and the established required CI checks are read back as active before M0 exits. Between the public cutover and required-check enforcement, only the already full-diff-reviewed M0-S02 state-transition pull request may merge, and its checks must pass even though they are not yet server-required.
 - The first M1 branch can be scoped to one observable outcome without an unresolved architecture decision.
 
 ## 4. M1 — Client-neutral behavioral vertical slice
@@ -281,6 +282,7 @@ No milestone may advance while any of the following is true:
 The project owner explicitly decides before:
 
 - selecting and publishing a license;
+- changing repository visibility or exposing previously private Git history;
 - accessing any private repository;
 - running a public Cloud beta;
 - charging users;
@@ -305,19 +307,46 @@ A slice branch may propose `Complete` for itself and update the next dependent s
 | Order | Slice | State | Observable outcome | Prerequisites and traceability |
 |---:|---|---|---|---|
 | 1 | `M0-S01` — Documentation and Git baseline | `Complete` | The initial documentation set, accepted ADR baseline, root agent guidance, Git repository, and baseline commit exist on `main`. | M0 documentation/Git deliverables; ADR-0001 through ADR-0003. |
-| 2 | `M0-S02` — Basic remote branch protection | `External authorization required` | With explicit external authorization, remote settings are verified and `main` requires reviewed pull requests and prevents force pushes or deletion. A platform limitation is recorded; without a formally accepted equivalent control, the slice remains incomplete and later work stays blocked. | M0 Git deliverable; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. |
-| 3 | `M0-S03` — License and trademark decision | `Blocked by M0-S02` | The owner completes the required legal/trademark review, explicitly accepts the public-code license and trademark policy and their Community/Cloud implications, and adds the corresponding license and policy files before any public code or package release. | M0 license deliverable and exit gate; Section 11; ADR-0001 or an accepted successor. A pending review cannot complete this slice. After M0-S02 integrates, change state to `Owner decision required`. |
-| 4 | `M0-S04` — Toolchain/workspace decision and package foundation | `Blocked by M0-S03` | An accepted M0 tooling/workspace ADR pins Node.js and package-manager/Corepack versions, declares the supported runtime range and dependency direction, and establishes a minimal workspace, committed lockfile, and documented clean-install path. | `FMU-NFR-017`; M0 toolchain/workspace deliverables; `ARCHITECTURE.md` Section 10. |
-| 5 | `M0-S05` — Baseline checks and CI skeleton | `Blocked by M0-S04` | Formatter, lint, strict type checking, test, and aggregate check commands run deterministically through a least-privilege CI skeleton from a clean checkout on the first declared platform. | `FMU-NFR-011`, `FMU-NFR-017`; M0 checks and clean-checkout gate. |
-| 6 | `M0-S06` — Required CI checks on `main` | `Blocked by M0-S05` | With explicit external authorization, the established CI checks are required for reviewed changes to `main`, and the remote configuration is verified. | M0 Git/checks deliverables; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. After M0-S05 integrates, change state to `External authorization required`. |
-| 7 | `M0-S07` — Repository governance policies | `Blocked by M0-S06` | Contribution, vulnerability-reporting, changelog, and versioning policies reference the actual verification path and are in place before external contributions are accepted. | M0 governance deliverable and gate; no behavioral evaluation applies. |
-| 8 | `M0-S08` — First DCP schema slice | `Blocked by M0-S07` | One versioned draft DCP schema, valid and invalid synthetic fixtures, and its executable schema-validation command run locally and in CI, without M1 behavior. | `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`; protocol compatibility rules. |
-| 9 | `M0-S09` — Evidence and Claim contracts | `Blocked by M0-S08` | Versioned Evidence and Claim schemas preserve provenance and distinguish observation, inference, declaration, dispute, and insufficient evidence, with valid and invalid synthetic fixtures. | `FMU-FR-004` through `FMU-FR-006`, `FMU-FR-009`, `FMU-NFR-006`, `FMU-NFR-009`, `FMU-NFR-011`. |
-| 10 | `M0-S10` — Profile-store and export boundary | `Blocked by M0-S09` | The reference provider's implementation-internal Developer Profile Store schema and the public Portable Profile Export contract are explicitly distinct from each other and from every DCP, with boundary-appropriate valid and invalid synthetic fixtures. | `FMU-FR-004`, `FMU-FR-008`, `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`; contract preparation for `FMU-FR-015`. |
-| 11 | `M0-S11` — Demand Profile contract | `Blocked by M0-S10` | A versioned Demand Profile schema represents project/task demand and has valid and invalid synthetic fixtures. | `FMU-FR-003`, `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`. |
-| 12 | `M0-S12` — Provider and conformance contracts | `Blocked by M0-S11` | Client-neutral Provider contracts, compatibility rules, and public provider/consumer conformance fixtures and tests are draft-complete. | `FMU-FR-010`, `FMU-FR-023`, `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-011`. |
-| 13 | `M0-S13` — M0 exit audit | `Blocked by M0-S02 through M0-S12` | An integrated audit demonstrates every M0 exit criterion or names a remaining blocker; only then may an ordered M1 queue be added and become routable. | Full M0 exit gate and applicable requirements, evaluations, ADRs, and security checks. |
+| 2 | `M0-S03` — License and trademark decision | `Owner decision required` | The owner completes the required legal/trademark review, explicitly accepts the public-code license and trademark policy and their Community/Cloud implications, and adds the corresponding license and policy files before any public code or package release. | M0 license deliverable and exit gate; Section 11; ADR-0001 or an accepted successor. The GitHub Free/private-preparation decision removes the former M0-S02 dependency; a pending legal or trademark review cannot complete this slice. |
+| 3 | `M0-S04` — Toolchain/workspace decision and package foundation | `Blocked by M0-S03` | An accepted M0 tooling/workspace ADR pins Node.js and package-manager/Corepack versions, declares the supported runtime range and dependency direction, and establishes a minimal workspace, committed lockfile, and documented clean-install path. | `FMU-NFR-017`; M0 toolchain/workspace deliverables; `ARCHITECTURE.md` Section 10. |
+| 4 | `M0-S05` — Baseline checks and CI skeleton | `Blocked by M0-S04` | Formatter, lint, strict type checking, test, and aggregate check commands run deterministically through a least-privilege CI skeleton from a clean checkout on the first declared platform. | `FMU-NFR-011`, `FMU-NFR-017`; M0 checks and clean-checkout gate. |
+| 5 | `M0-S07` — Repository governance policies | `Blocked by M0-S05` | Contribution, vulnerability-reporting, changelog, and versioning policies reference the actual verification path and are in place before external contributions are accepted. | M0 governance deliverable and gate; no behavioral evaluation applies. After M0-S05 integrates, change state to `Ready`. |
+| 6 | `M0-S08` — First DCP schema slice | `Blocked by M0-S07` | One versioned draft DCP schema, valid and invalid synthetic fixtures, and its executable schema-validation command run locally and in CI, without M1 behavior. | `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`; protocol compatibility rules. |
+| 7 | `M0-S09` — Evidence and Claim contracts | `Blocked by M0-S08` | Versioned Evidence and Claim schemas preserve provenance and distinguish observation, inference, declaration, dispute, and insufficient evidence, with valid and invalid synthetic fixtures. | `FMU-FR-004` through `FMU-FR-006`, `FMU-FR-009`, `FMU-NFR-006`, `FMU-NFR-009`, `FMU-NFR-011`. |
+| 8 | `M0-S10` — Profile-store and export boundary | `Blocked by M0-S09` | The reference provider's implementation-internal Developer Profile Store schema and the public Portable Profile Export contract are explicitly distinct from each other and from every DCP, with boundary-appropriate valid and invalid synthetic fixtures. | `FMU-FR-004`, `FMU-FR-008`, `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`; contract preparation for `FMU-FR-015`. |
+| 9 | `M0-S11` — Demand Profile contract | `Blocked by M0-S10` | A versioned Demand Profile schema represents project/task demand and has valid and invalid synthetic fixtures. | `FMU-FR-003`, `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`. |
+| 10 | `M0-S12` — Provider and conformance contracts | `Blocked by M0-S11` | Client-neutral Provider contracts, compatibility rules, and public provider/consumer conformance fixtures and tests are draft-complete. | `FMU-FR-010`, `FMU-FR-023`, `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-011`. |
+| 11 | `M0-S02` — GitHub Free public cutover and basic branch protection | `Blocked by M0-S03, M0-S04, M0-S05, and M0-S07 through M0-S12` | After the pre-publication gate and explicit authorization, the repository becomes public and an active branch ruleset targets exactly `refs/heads/main`, has no bypass actors, requires a pull request before merge, restricts deletion, and blocks non-fast-forward updates. Visibility, target, bypass list, and every required rule are read back before work continues. | M0 Git deliverable; Section 11; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. After all named prerequisites integrate, change state to `External authorization required`. |
+| 12 | `M0-S06` — Required CI checks on `main` | `Blocked by M0-S02 and M0-S05` | With explicit external authorization, the real CI checks established by M0-S05 and extended by later contract slices are required for changes to `main`, and the remote configuration is read back. Other than the already full-diff-reviewed M0-S02 state-transition pull request, whose real checks must pass voluntarily, no change merges after the public cutover before M0-S06. | M0 Git/checks deliverables; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. After M0-S02 integrates, change state to `External authorization required`. |
+| 13 | `M0-S13` — M0 exit audit | `Blocked by M0-S02 through M0-S12` | An integrated audit demonstrates every M0 exit criterion or names a remaining blocker; only then may M0 become complete and an ordered M1 queue be added and become routable. | Full M0 exit gate and applicable requirements, evaluations, ADRs, and security checks. |
 
-The immediate next action is `M0-S02`, which requires explicit authorization to inspect and configure the remote protection for `main`. No implementation slice is currently `Ready`. The license/trademark decision remains the next owner checkpoint before any public code or package release. Any behavioral spike before the M0 exit gate is disposable and cannot enter product code.
+### M0-S02 GitHub Free decision and platform verification
+
+Authorized read-only verification on September 4, 2026 established the following:
+
+- `lcssathler/fork-me-up` is a private repository, its default branch is `main`, and the authenticated repository permission is `ADMIN`;
+- the GitHub branch API reports `main` as `protected: false`;
+- classic branch-protection, repository-ruleset, and effective-branch-rule endpoints each return HTTP `403`, requiring GitHub Pro or public repository visibility;
+- the available merge-hygiene settings already allow only squash merges and automatically delete merged head branches, but they do not protect `main` from direct, forced, or deletion operations;
+- the owner selected GitHub Free, rejected a paid GitHub plan, and chose to keep the repository private during private-safe M0 preparation;
+- no remote mutation was attempted after the platform limitation was detected; rollback is not applicable;
+- no local hook, workflow, bot, or procedural convention is treated as equivalent server-side protection, and no such substitute will be pursued.
+
+The former queue created a deadlock by making the license/trademark decision depend on protection that GitHub Free exposes only after public visibility, while public visibility itself requires the license/trademark decision. The ordered queue now completes all private-safe prerequisites first, then uses M0-S02 for the separately authorized public cutover and immediate basic protection. The owner's plan decision does not authorize that future visibility change. Making the repository public in M0-S02 is a visibility transition, not a GitHub Release or the M3 Community release.
+
+After every prerequisite named in the queue is integrated, M0-S02 changes to `External authorization required`. Within an explicitly authorized M0-S02, the following gate must pass before any visibility change; failure keeps the repository private and stops the cutover:
+
+- M0-S03 through M0-S05 and M0-S07 through M0-S12 are `Complete` on `main`;
+- the license and trademark policy are integrated;
+- clean installation, project checks, and CI pass at the expected revision;
+- tracked files and full Git history pass secret, private-data, fixture, license, dependency, and public/private-boundary review;
+- GitHub Actions runs, logs, and artifacts plus repository-hosted metadata and content that would become public—including pull requests, reviews, comments, issues, releases, packages, wiki pages, and discussions when present—are reviewed; secrets, credentials, protected personal or profile data, and private source content are removed or redacted and affected credentials are revoked or rotated before cutover; any external or destructive cleanup is separately authorized; only deliberate publication of non-sensitive material may be explicitly accepted by the owner;
+- workflows use least privilege, immutable action revisions, and no unsafe privileged trigger for untrusted pull-request code;
+- contribution, vulnerability-reporting, changelog, and versioning policies are present; and
+- no confirmed, unresolved, unmitigated critical or high-severity finding remains.
+
+The future cutover authorization must name the visibility change, the exact `main` protections, verification, failure containment, and approval policy. Zero required approvals may be selected only if the owner explicitly accepts that GitHub will not independently enforce review while there is only one eligible maintainer; otherwise at least one approval from an eligible independent reviewer is required. Pull requests remain reviewable and full-diff review is mandatory in either case. After public visibility, only the already full-diff-reviewed M0-S02 state-transition pull request may merge before M0-S06 requires the real CI checks; every other merge remains blocked. M0-S02 and M0-S06 become `Complete` only after their remote controls are configured and read back and their verification evidence and state transitions are reviewed and integrated into `main`.
+
+The immediate next action is the M0-S03 license and trademark decision. No implementation slice is currently `Ready`. No `FMU-E-*` evaluation applies to this routing change because it governs repository delivery rather than product behavior. Any behavioral spike before the M0 exit gate is disposable and cannot enter product code.
 
 

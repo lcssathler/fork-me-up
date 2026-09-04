@@ -67,10 +67,11 @@ Passing tests does not authorize publishing. Release is a separately authorized 
 
 ### 3.1 Default branch
 
-- `main` stays protected and green.
-- Changes arrive through reviewable pull requests after the repository is public or collaboration begins.
-- Required checks must pass before merge.
-- Direct pushes, force pushes, and history rewrites are disabled for normal work.
+- `main` stays protected and green after public visibility or external collaboration begins.
+- An owner-selected, roadmap-recorded GitHub Free M0 bootstrap may keep a single-owner repository private without server-side enforcement while preparing it for publication. This limitation is not equivalent protection: short-lived branches, complete-diff review, and all available checks remain mandatory; direct pushes to `main`, external contributions, and releases remain prohibited; and the exception ends through verified public cutover and protection before M0 exits.
+- Changes use short-lived branches and reviewable pull requests throughout; server-side pull-request enforcement begins at the public cutover or before external collaboration.
+- Required checks pass before merge and become server-enforced after their real check names exist and the roadmap authorizes the remote configuration.
+- During the private bootstrap, direct pushes, force pushes, and history rewrites are prohibited by policy but are not represented as server-enforced controls. After the public cutover, they are disabled server-side for normal work.
 
 ### 3.2 Branches
 
