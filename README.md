@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is in progress. There is no runnable product yet. The repository now has an accepted toolchain/workspace decision and a minimal package foundation; baseline checks and CI remain a separate M0 slice.
+M0 is in progress. There is no runnable product yet, but the repository now has a pinned development toolchain and executable baseline checks. Protocol schemas, runtime behavior, and compatibility claims remain future slices.
 
 ## Development foundation
 
@@ -40,7 +40,17 @@ npm ci --ignore-scripts
 
 The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`; product packages are intentionally not scaffolded by this slice. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
 
-The root package is private to prevent accidental publication, while its repository content remains licensed under Apache-2.0. M0-S04 intentionally adds no formatter, linter, type checker, test runner, aggregate check, or CI workflow; those controls belong to M0-S05.
+Run the complete deterministic baseline:
+
+```text
+npm run check
+```
+
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, integration tests, and behavioral evaluations. The unit suite must never be empty. Integration and evaluation suites report a committed `bootstrap-not-applicable` exception only while their corresponding product boundary or behavior does not exist; each exception becomes an error as soon as matching tests are added.
+
+The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
+
+This baseline does not yet claim the complete pull-request fast gate. Schema validation belongs to M0-S08; documentation links, secret scanning, dependency review, and broader platform coverage remain later gates. The root package stays private to prevent accidental publication, while all repository content remains licensed under Apache-2.0.
 
 ## Documentation
 

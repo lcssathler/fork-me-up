@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "exceptions": {
+    "integration": {
+      "status": "bootstrap-not-applicable",
+      "milestone": "M0",
+      "reason": "No product runtime or integration boundary exists in M0-S05.",
+      "endsWhen": "The first integration boundary is introduced."
+    },
+    "eval": {
+      "status": "bootstrap-not-applicable",
+      "milestone": "M0",
+      "reason": "No product behavior exists to evaluate in M0-S05.",
+      "endsWhen": "The first behavior covered by an FMU-E evaluation is introduced."
+    }
+  }
+}

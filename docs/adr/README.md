@@ -9,6 +9,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0003](0003-separate-source-and-sharing-grants.md) | Accepted | Treat evidence-source access and context sharing as independent grants. |
 | [ADR-0004](0004-apache-license-and-trademark-policy.md) | Accepted | License public repository content under Apache-2.0 and govern project marks separately. |
 | [ADR-0005](0005-node-npm-workspace-toolchain.md) | Accepted | Pin the Node.js/npm toolchain and define the public npm workspace foundation. |
+| [ADR-0006](0006-baseline-checks-and-ci.md) | Accepted | Establish deterministic baseline checks and least-privilege Windows CI. |
 
 ## Record format
 
