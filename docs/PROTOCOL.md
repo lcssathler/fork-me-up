@@ -4,7 +4,7 @@
 > Draft version: 0.1  
 > Last updated: September 4, 2026
 
-This document defines the intended public interoperability boundary. Field names remain draft until M0 produces JSON Schemas and fixtures. Once a schema version is released, compatibility follows the rules in this document.
+This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema and synthetic fixtures; the remaining independent contracts are still pending their M0 slices. Once a schema version is released, compatibility follows the rules in this document.
 
 ## 1. Purpose
 
@@ -62,7 +62,7 @@ A conforming DCP:
 
 ```json
 {
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.1.0",
   "packetId": "dcp_opaque_id",
   "profileVersion": "profile_opaque_version",
   "purpose": "coding-assistance",
@@ -72,7 +72,9 @@ A conforming DCP:
   },
   "task": {
     "summary": "Add a CI workflow for the current project",
-    "requiredCapabilities": ["delivery.ci.github-actions"]
+    "requiredCapabilities": [
+      "delivery.ci.github-actions"
+    ]
   },
   "claims": [
     {
@@ -82,9 +84,13 @@ A conforming DCP:
       "observedDepth": null,
       "confidence": "low",
       "scope": "global",
-      "adjacentFrom": ["delivery.ci.generic"],
+      "adjacentFrom": [
+        "delivery.ci.generic"
+      ],
       "evidenceRefs": [],
-      "limitations": ["No attributable workflow evidence in selected repositories"],
+      "limitations": [
+        "No attributable workflow evidence in selected repositories"
+      ],
       "freshness": {
         "observedThrough": "2026-09-04T00:00:00Z",
         "stale": false
@@ -103,24 +109,62 @@ A conforming DCP:
     "explainPurposeBeforeCommands": true,
     "includeExpectedResult": true,
     "includeRiskAndRollback": true,
-    "analogyCapabilities": ["delivery.ci.generic"],
+    "analogyCapabilities": [
+      "delivery.ci.generic"
+    ],
     "questionBudget": 1
   },
   "provenanceSummary": {
     "evidenceCount": 0,
-    "sourceClasses": ["selected-local-repository"]
+    "sourceClasses": [
+      "selected-local-repository"
+    ]
   },
   "disclosure": {
     "class": "task-context",
-
-    "redactionsApplied": ["absolute-paths", "private-source-names"]
+    "redactionsApplied": [
+      "absolute-paths",
+      "private-source-names"
+    ]
   },
   "generatedAt": "2026-09-04T00:00:00Z",
-  "expiresAt": "2026-09-05T00:00:00Z"
+  "expiresAt": "2026-09-05T00:00:00Z",
+  "budget": {
+    "maxBytes": 32768
+  }
 }
 ```
 
-The example is illustrative, not yet a released schema.
+The example is the [insufficient-evidence fixture](../fixtures/dcp/0.1.0/valid/insufficient-evidence.json) for the [DCP 0.1.0 schema](../schemas/dcp/0.1.0.schema.json). It is an unreleased draft, not proof of runtime support or consumer conformance. [ADR-0007](adr/0007-dcp-draft-schema-validation.md) records the decision.
+
+### 4.1 Exact draft authoring rules
+
+The schema validates the exact producer/fixture shape and rejects unknown properties at every object boundary. It is not the future consumer acceptance path: Section 12 still requires released consumers to ignore unknown optional fields within a supported major, subject to capability declarations. This development checker accepts only draft `0.1.0`; negotiation and provider/consumer conformance belong to M0-S12.
+
+The draft gives existing concepts explicit representations:
+
+- `audience.class` is `local-assistant` or `external-consumer`; the latter requires a non-null opaque `consumerId`. These labels do not prove identity or a Sharing Grant.
+- `responsePolicy.mode` is `concise`, `analogy`, or `teach-while-doing`. Policy fields contain only the declared enums, booleans, capability identifiers, and a question budget of 0 or 1; free-form instruction properties are rejected.
+- Compact `demonstrated` summaries require non-null observed depth and at least one evidence reference. `adjacent`, `self-declared`, and `insufficient-evidence` summaries have null observed depth; transfer or declaration is not an observation of the target capability.
+- An `adjacent` summary requires non-empty `adjacentFrom` and an inert `adjacentRationale`. A `disputed` summary requires an opaque `correctionRef` and inert `correctionSummary`, retaining its original evidence references. Full Claim/Evidence schemas and precedence enforcement remain M0-S09 and later runtime work.
+- `freshness.observedThrough` can be null when there is no observation. Otherwise timestamps use real calendar dates in canonical UTC whole seconds (`YYYY-MM-DDTHH:mm:ssZ`). Expiry must follow generation. Validation does not consult the current clock or treat historical/stale data as fresh.
+
+### 4.2 Draft limits and validation scope
+
+| Value | Draft bound |
+|---|---|
+| `budget.maxBytes` | Integer from 1 through 32,768; the entire compact JSON serialization in UTF-8, including the budget, must fit. |
+| Opaque references | 1–128 ASCII letters, digits, underscores, or hyphens; first character is alphanumeric. Syntax alone does not prove redaction or pairwise identity. |
+| Capability and metadata labels | 1–128 lowercase ASCII letters/digits with dot or hyphen separators. No taxonomy registry is established here. |
+| Task summary | 1–1,024 Unicode code points. |
+| Limitation, uncertainty reason, adjacent rationale, correction summary | 1–256 Unicode code points each. |
+| Claims, uncertainties, required/analogy/adjacent capabilities, evidence references | At most 32 entries per array; identifier arrays are unique. |
+| Limitations, source classes, applied-redaction labels | At most 8, 8, and 16 entries respectively. |
+| Evidence count | Integer from 0 through 1,000,000; this metadata is not verification of the underlying evidence. |
+
+`npm run schema:check` checks the committed corpus and supplements JSON Schema with expiry ordering and the compact-byte check. Fixture files may contain whitespace and are separately capped at 65,536 raw bytes before JSON parsing. A failed check returns a fixed diagnostic and no input content. The command does not accept file arguments, fetch references, compile context, truncate a packet, or read a developer's repositories/profile.
+
+These checks cannot establish source attribution, task relevance, actual redaction, grant validity, correction precedence, or unlinkability. Bounded free text remains unprivileged data and may be structurally valid even when it contains instruction-like or sensitive text. Future runtime boundaries must enforce the security and disclosure invariants before any packet is shared. This slice does not satisfy MCP integration or behavioral evaluation gates.
 
 ## 5. Claim semantics
 

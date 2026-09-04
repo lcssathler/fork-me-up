@@ -10,6 +10,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0004](0004-apache-license-and-trademark-policy.md) | Accepted | License public repository content under Apache-2.0 and govern project marks separately. |
 | [ADR-0005](0005-node-npm-workspace-toolchain.md) | Accepted | Pin the Node.js/npm toolchain and define the public npm workspace foundation. |
 | [ADR-0006](0006-baseline-checks-and-ci.md) | Accepted | Establish deterministic baseline checks and least-privilege Windows CI. |
+| [ADR-0007](0007-dcp-draft-schema-validation.md) | Accepted | Define the first DCP draft schema and offline authoring-fixture validation. |
 
 ## Record format
 

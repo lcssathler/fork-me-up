@@ -4,7 +4,7 @@ This policy applies the existing [protocol compatibility rules](docs/PROTOCOL.md
 
 ## Development status and version boundaries
 
-The private root workspace is versioned `0.0.0` as a development placeholder and remains non-publishable. The protocol document's `0.1` label and illustrative packet are unreleased drafts, not a released schema or compatibility claim. M0-S08 through M0-S12 prepare the draft contracts and fixtures; runnable behavior and releases have separate roadmap gates.
+The private root workspace is versioned `0.0.0` as a development placeholder and remains non-publishable. The protocol document's `0.1` revision and DCP schema `0.1.0` are unreleased drafts, not a release or compatibility claim. M0-S08 supplies the first exact DCP authoring schema and fixtures; M0-S09 through M0-S12 prepare the remaining independent contracts. Runnable behavior and releases have separate roadmap gates.
 
 Keep these versions distinct:
 
