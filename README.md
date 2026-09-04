@@ -21,7 +21,26 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-The project is in pre-implementation design. There is no runnable product yet. The current work defines the product boundary, open protocol, security invariants, engineering process, and risk-driven roadmap before code is written.
+M0 is in progress. There is no runnable product yet. The repository now has an accepted toolchain/workspace decision and a minimal package foundation; baseline checks and CI remain a separate M0 slice.
+
+## Development foundation
+
+The first declared and locally verified platform is Windows. Release support for Windows, macOS, and Linux remains a later gate.
+
+Prerequisites:
+
+- Node.js `24.20.0` (also recorded in `.nvmrc`);
+- npm `11.19.0`, bundled with that Node.js release.
+
+Install exactly the committed dependency graph without running dependency lifecycle scripts:
+
+```text
+npm ci --ignore-scripts
+```
+
+The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`; product packages are intentionally not scaffolded by this slice. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+
+The root package is private to prevent accidental publication, while its repository content remains licensed under Apache-2.0. M0-S04 intentionally adds no formatter, linter, type checker, test runner, aggregate check, or CI workflow; those controls belong to M0-S05.
 
 ## Documentation
 
