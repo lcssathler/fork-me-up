@@ -14,6 +14,7 @@ Before planning or changing implementation, read:
 4. `docs/SECURITY_PRIVACY.md` for mandatory invariants.
 5. `docs/ENGINEERING.md` for the delivery process.
 6. `docs/ROADMAP.md` for milestone scope and gates.
+7. `docs/adr/README.md` and every accepted ADR relevant to the requested work.
 
 Use subject-specific authority when sources disagree:
 
@@ -27,7 +28,26 @@ Use subject-specific authority when sources disagree:
 8. Code for implementation details.
 9. README and handoff material.
 
-An ADR may refine architecture but cannot weaken product, security, or privacy invariants unless those normative sources are updated and explicitly accepted in the same decision. Do not silently choose between conflicting sources; update every affected source in the same change.
+An ADR may refine architecture but cannot weaken any preceding product, security/privacy, delivery-process, milestone, or released-contract invariant unless every affected higher-authority source is updated and explicitly accepted in the same decision. Do not silently choose between conflicting sources; update every affected source in the same change.
+
+## Milestone request routing
+
+Only the active milestone with an explicit current execution queue is routable from a milestone-only request. A later milestone remains blocked until every prior exit gate passes and its own current queue is added.
+
+The eligibility, prerequisite, ownership, and transition rules below apply to every roadmap slice, whether inferred from a milestone-only request or explicitly assigned. Before roadmap work:
+
+1. Read the milestone, its ordered current execution queue, and the ADRs relevant to the explicitly assigned slice or, for an unassigned milestone-only request, its next incomplete slice.
+2. Inspect the actual branch, base revision, working tree, local branches, worktrees, active lead assignments, and available review or pull-request evidence. An active, unintegrated assignment, branch, worktree, or pull request owned by another task means the slice is claimed; do not duplicate it. The current task may proceed when that evidence matches its own assignment. Verify that stale or integrated artifacts are not active claims.
+3. For an unassigned milestone-only request, start with the earliest incomplete slice in queue order. For an explicitly assigned slice, execute only that slice and only when it is eligible under the same state, prerequisite, and ownership rules. A `Ready` slice is executable only when every prerequisite holds and ownership is clear. A slice marked `Owner decision required` or `External authorization required` becomes executable only when the current task contains the exact missing decision or authorization. A `Blocked` slice is never executable. An explicit lead assignment may select another `Ready` slice only when its prerequisites are integrated and no earlier owner decision or blocker governs it.
+4. Before editing, a single unassigned task claims its selected slice by creating or using a slice-specific branch, plus a worktree only when concurrent isolation requires one, after confirming that no active claim exists. A task with an explicit lead assignment uses only its assigned branch and worktree.
+5. Treat the milestone-only request as authorization for discovery and at most one eligible slice, not for the entire milestone. Record the task contract before editing.
+6. Stop before implementation and request direction or re-coordinate when a required decision or authorization is absent; no slice is eligible; recorded state disagrees with repository evidence; or ownership is uncertain.
+7. Never start multiple unassigned milestone-only tasks concurrently. For parallel work, one lead first assigns each agent an explicit, distinct eligible slice ID, branch, and worktree plus exclusive file ownership. Unassigned agents remain read-only.
+8. After its required checks pass, a slice branch may propose `Complete` for itself and update the next dependent slice to its accurate state in the same diff. Those transitions become authoritative only after lead review and integration into `main`; before integration, no other task may rely on them.
+
+A slice ID narrows scope; it never bypasses a gate.
+
+The ordered queue in `docs/ROADMAP.md` routes active milestone work but cannot redefine product behavior or weaken any authority above it. A milestone-only request never authorizes push, merge, publication, deployment, release, license selection, private-data access, or another external effect.
 
 ## Product invariants
 
@@ -45,7 +65,7 @@ An ADR may refine architecture but cannot weaken product, security, or privacy i
 ## Working method
 
 - Implement one small vertical slice and one observable outcome at a time.
-- Map every change to applicable requirement and evaluation IDs. Bootstrap infrastructure may instead cite a milestone gate or ADR when no behavioral evaluation applies.
+- Map every change to applicable requirement and evaluation IDs. When no behavioral evaluation applies, record that fact with a reason and cite the milestone slice, gate, or ADR instead; never invent an ID.
 - Prefer the smallest implementation that satisfies the acceptance criteria.
 - Keep public contracts stable and client-neutral from the first slice.
 - Extract abstractions from repeated working code, not hypothetical future needs.
@@ -58,7 +78,7 @@ An ADR may refine architecture but cannot weaken product, security, or privacy i
 
 For every task, record:
 
-1. The requirement, use case, and milestone being served.
+1. The applicable requirement, use case, evaluation, milestone slice, gate, or ADR being served. When no behavioral evaluation applies, record that fact and its reason instead of inventing an ID.
 2. The expected observable result.
 3. Files, packages, data classes, and external systems in scope.
 4. Hard constraints and explicit non-goals.
@@ -75,7 +95,7 @@ Ask for user direction when a choice materially changes scope, risk, accessed da
 - Use one short-lived branch per observable outcome after Git is initialized.
 - Keep branches small and cohesive; split work when a diff represents more than one decision.
 - Do not mix feature work, broad refactoring, dependency upgrades, generated churn, and unrelated formatting.
-- Keep commits atomic, buildable, and attributable to one requirement or defect.
+- Keep commits atomic, buildable, and attributable to one requirement, defect, or bootstrap roadmap slice.
 - Review the complete diff before reporting completion.
 - Never force-push, rewrite shared history, push, merge, publish, deploy, tag, or release unless explicitly authorized.
 - The default branch should remain protected and receive changes through reviewable pull requests with required checks once a remote collaboration workflow exists.

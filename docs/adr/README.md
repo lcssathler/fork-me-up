@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Accepted ADRs outrank the product specification when they address the same decision. Superseded records remain in place and link to their replacement.
+Accepted ADRs refine architecture within the subject-specific authority order in [`AGENTS.md`](../../AGENTS.md). They cannot override product, security/privacy, delivery-process, milestone, or released-contract invariants unless every affected higher-authority source is updated and explicitly accepted in the same change. Superseded records remain in place and link to their replacement.
 
 | ADR | Status | Decision |
 |---|---|---|

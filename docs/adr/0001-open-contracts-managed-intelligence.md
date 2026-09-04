@@ -32,7 +32,7 @@ Fork Me Up uses the following boundary:
 - A permissive public runtime can be reused by competitors.
 - Public and private repositories or workspaces require a disciplined dependency boundary.
 - Protocol compatibility and conformance become long-term maintenance commitments.
-- Licensing and trademark review must be completed before publication.
+- Licensing and trademark review must be completed before the first public code or package release.
 
 ## Rejected alternatives
 
@@ -44,4 +44,3 @@ Fork Me Up uses the following boundary:
 ## Validation
 
 This decision is successful when Community completes the full local value loop, an independent provider can implement the protocol, and users still choose to pay for managed quality and delivery.
-

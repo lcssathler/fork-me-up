@@ -45,7 +45,7 @@ Defines the portable contracts:
 
 - Evidence references and visibility classes.
 - Claims and uncertainty.
-- Developer Profile interchange and migrations.
+- Portable Profile Export interchange and migrations; Developer Profile Store schemas remain implementation-internal.
 - Demand Profile.
 - Developer Context Packet.
 - Provider and consumer conformance.
