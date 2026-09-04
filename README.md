@@ -62,6 +62,10 @@ This baseline does not yet claim the complete pull-request fast gate. Schema val
 - [Roadmap](docs/ROADMAP.md)
 - [Competitive landscape](docs/COMPETITIVE_ANALYSIS.md)
 - [Decision records](docs/adr/)
+- [Contributing guide](CONTRIBUTING.md)
+- [Vulnerability reporting](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [Versioning policy](VERSIONING.md)
 - [Apache License 2.0](LICENSE)
 - [Trademark policy](TRADEMARKS.md)
 
