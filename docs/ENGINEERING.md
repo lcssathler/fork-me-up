@@ -30,7 +30,7 @@ Discovery → Contract/ADR → Implementation → Verification
 
 Read-only inspection ends with:
 
-- requirement, use case, and milestone IDs;
+- applicable requirement, use-case, evaluation, milestone-slice, gate, and ADR identifiers, as applicable; when no behavioral evaluation applies, record that fact and its reason instead of inventing an ID;
 - current behavior and evidence;
 - observable outcome;
 - files, packages, data classes, and systems in scope;
@@ -76,7 +76,7 @@ Passing tests does not authorize publishing. Release is a separately authorized 
 
 - Use one short-lived branch per observable outcome.
 - Name branches by change type and intent, such as `feat/m1-bootstrap-context`, `fix/profile-atomic-write`, `security/path-boundary`, or `docs/protocol-draft`.
-- A branch should map primarily to one requirement or defect.
+- A branch should map primarily to one requirement, defect, or bootstrap roadmap slice.
 - Split a branch when its diff represents multiple independent decisions; do not use a rigid line-count rule.
 - Keep broad refactoring, dependency upgrades, generated changes, and features separate whenever practical.
 - Rebase or update safely before review, but never rewrite shared history without explicit coordination.
@@ -92,7 +92,7 @@ Passing tests does not authorize publishing. Release is a separately authorized 
 
 Every substantive pull request describes:
 
-- motivation and linked requirements;
+- motivation and applicable requirement, defect, milestone-slice, gate, or ADR identifiers, as applicable;
 - observable behavior before and after;
 - scope and non-goals;
 - data, security, and privacy impact;
@@ -300,7 +300,8 @@ The lead reviews changed files, resolves conflicts intentionally, reruns integra
 
 - Requirements use stable `FMU-FR-*` and `FMU-NFR-*` IDs.
 - Behavioral evaluations use stable `FMU-E-*` IDs.
-- Pull requests link implementation, tests, and documentation to those IDs.
+- Active roadmap slices use stable `M*-S*` IDs and explicit states for execution routing; they sequence work but do not define product behavior.
+- Pull requests link implementation, tests, and documentation to every applicable requirement, evaluation, slice, gate, and ADR. When no behavioral evaluation applies, they record that fact and its reason and cite the slice, gate, or ADR instead.
 - Public schema changes include fixtures, generated types, compatibility notes, migration behavior, and changelog.
 - ADRs record decisions; they are not used as progress logs.
 - `ROADMAP.md` records milestone state and gates; it does not redefine product behavior.
@@ -313,7 +314,7 @@ A change is done only when:
 
 Until Git, CI, or a documented command exists during M0 bootstrap, the dependent item is marked `bootstrap-not-applicable`; the task creating it runs the closest local equivalent, reports the gap, and ends the exception immediately after the control exists.
 
-- observable behavior and acceptance criteria trace to requirements or defects;
+- observable behavior and acceptance criteria trace to applicable requirements, defects, evaluations, or bootstrap slices, gates, and ADRs;
 - the branch and diff are cohesive and contain no accidental files;
 - applicable tests and evaluations pass;
 - invalid, missing, stale, unauthorized, and degraded states are covered proportionally to risk;
