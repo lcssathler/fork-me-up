@@ -1,7 +1,7 @@
 # Fork Me Up — Product Specification
 
 > Status: pre-implementation product contract  
-> Version: 0.4  
+> Version: 0.5
 > Last updated: September 4, 2026  
 > Canonical language: English
 
@@ -104,16 +104,16 @@ Connect is the set of public schemas, SDKs, conformance fixtures, and adapters t
 
 Local delivery may use a file, SDK, CLI, or MCP `stdio`. A future hosted service may use HTTPS and MCP Streamable HTTP with OAuth. Compatibility is limited by the transports, authentication flows, lifecycle hooks, and context controls supported by each client. Fork Me Up must document tested compatibility rather than claim universal drop-in support.
 
-### 5.4 Licensing direction
+### 5.4 Licensing model
 
-The intended model is:
+The adopted model is:
 
-- a permissive open-source license, with Apache-2.0 as the current candidate, for protocols, schemas, SDKs, the Community runtime, reference adapters, examples, and conformance tests;
-- proprietary terms for the hosted Cloud/Pro implementation and operations;
-- a separate trademark policy for the Fork Me Up name and visual identity;
-- user-owned, fully exportable profile data with no format lock-in.
+- the [Apache License 2.0](../LICENSE) for content distributed from the public repository, including protocols, schemas, SDKs, the Community runtime, reference adapters, examples, conformance tests, and project documentation, unless a file explicitly states otherwise;
+- proprietary terms for a separately controlled hosted Cloud/Pro implementation and its operations;
+- a separate [trademark policy](../TRADEMARKS.md) for the Fork Me Up name and visual identity;
+- user-owned, fully exportable profile data with no format lock-in and no relicensing merely because Fork Me Up processes it.
 
-The project owner must complete legal and trademark review and add explicit license files before public code is released.
+On September 4, 2026, the project owner confirmed authority to license the current project content and explicitly accepted this license, its Community/Cloud implications, the separate trademark policy, and the residual risk from the preliminary name review. [ADR-0004](adr/0004-apache-license-and-trademark-policy.md) records the decision. Publishing code, packages, or repository history remains separately gated.
 
 ## 6. Goals
 
@@ -441,6 +441,7 @@ The following require a validated need, a dedicated ADR, and an updated threat m
 - [ADR-0001: Open contracts and managed intelligence](adr/0001-open-contracts-managed-intelligence.md)
 - [ADR-0002: Client-neutral core](adr/0002-client-neutral-core.md)
 - [ADR-0003: Separate source and sharing grants](adr/0003-separate-source-and-sharing-grants.md)
+- [ADR-0004: Adopt Apache-2.0 and a separate trademark policy](adr/0004-apache-license-and-trademark-policy.md)
 
 ## 21. External references
 

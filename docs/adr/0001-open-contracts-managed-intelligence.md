@@ -15,8 +15,8 @@ Fork Me Up uses the following boundary:
 - Independent providers may create and consume conforming profiles and DCPs.
 - Fork Me Up Cloud may remain proprietary and charge for managed source connectivity, deeper multi-repository compilation, continuous refresh, secure storage, review history, authenticated remote delivery, auditability, quotas, support, and service levels.
 - The developer owns their profile data and can inspect, correct, export, and delete it. Paid access does not gate the right to use the open format.
-- Apache-2.0 is the current candidate for public code because permissive adoption supports commercial clients and harnesses. The owner must complete legal/trademark review and add explicit license files before public code release.
-- The Fork Me Up name and visual identity are governed separately from the code license.
+- Apache-2.0 is adopted for public repository content because permissive adoption and an express patent grant support commercial clients and harnesses. [ADR-0004](0004-apache-license-and-trademark-policy.md) records the final license, ownership, and notice decision.
+- The Fork Me Up name and visual identity are governed separately from the code license by the root trademark policy.
 
 ## Consequences
 
@@ -32,7 +32,7 @@ Fork Me Up uses the following boundary:
 - A permissive public runtime can be reused by competitors.
 - Public and private repositories or workspaces require a disciplined dependency boundary.
 - Protocol compatibility and conformance become long-term maintenance commitments.
-- Licensing and trademark review must be completed before the first public code or package release.
+- Apache-2.0 compliance and the separate trademark boundary must be preserved in public code, packages, and documentation.
 
 ## Rejected alternatives
 

@@ -250,7 +250,7 @@ Do not rebuild generic agent memory, semantic code editing, or a complete reposi
 
 The original working name was rejected because it collided with existing repositories and products, including [aiurda/devcontext](https://github.com/aiurda/devcontext), [astraedus/devcontext](https://github.com/astraedus/devcontext), a similarly named [Visual Studio Marketplace extension](https://marketplace.visualstudio.com/items?itemName=devcontext.devcontext), [devcontext.xyz](https://www.devcontext.xyz/), and [devcontext.com.br](https://www.devcontext.com.br/).
 
-The project name is now **Fork Me Up**. Adoption in planning documents is not legal clearance. Before public packages, domains, branding, or commercial launch, the owner must check relevant source registries, package registries, domains, social handles, and trademark databases and record the decision.
+The project name is now **Fork Me Up**. Adoption in planning documents is not legal clearance. [ADR-0004](adr/0004-apache-license-and-trademark-policy.md) records the preliminary review and the owner's acceptance of residual risk for continued repository use. Before introducing a public package, domain, visual identity, or commercial launch in a target market, the applicable release or branding task must recheck relevant source and package identifiers, domains, social handles, and trademark databases for that market—including INPI for Brazil—and record the results and residual-risk decision. This follow-up gate does not block documentation or private-safe M0 implementation.
 
 ## 11. Strategic conclusion
 
