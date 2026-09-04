@@ -254,6 +254,8 @@ Required cases include:
 - cross-tenant identifiers and poisoned caches before Cloud;
 - dependency, artifact, and release-content inspection.
 
+M0-S08 adds development-only [DCP draft checks](PROTOCOL.md#42-draft-limits-and-validation-scope): exact authoring fields, bounded fixture reads, invalid-input and symlink cases, and fixed CLI diagnostics. These tests do not prove runtime authorization, redaction, task relevance, pairwise identity, or safe adapter behavior; a structurally valid free-text field can still contain sensitive or instruction-like content. The runtime and conformance gates above remain mandatory.
+
 ## 11. Gates
 
 ### Before Community implementation is considered safe

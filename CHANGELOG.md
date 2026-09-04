@@ -19,3 +19,4 @@ This file records notable repository and public-contract changes. There are no p
 - Pinned Node.js/npm workspace foundation and lockfile-enforced installation, verified initially on Windows (`M0-S04`; ADR-0005).
 - Deterministic formatter, lint, strict type checking, non-empty unit tests, explicit temporary integration/evaluation exceptions, and least-privilege Windows CI (`M0-S05`; ADR-0006).
 - Contribution, vulnerability-reporting, changelog, and versioning policies tied to the existing verification path and public-cutover gates (`M0-S07`).
+- Unreleased DCP `0.1.0` authoring schema, synthetic positive/negative fixtures, bounded offline validation, and `npm run schema:check` in the local/CI aggregate (`M0-S08`; `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`; ADR-0007). This replaces the illustrative packet version `0.1`; no released data requires migration. Runtime security enforcement and consumer conformance remain separate gates.

@@ -35,11 +35,13 @@
     "test": "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",
     "eval": "node scripts/run-test-suite.mjs eval",
-    "check": "node scripts/run-checks.mjs"
+    "check": "node scripts/run-checks.mjs",
+    "schema:check": "node scripts/check-dcp-schema.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/node": "24.13.3",
+    "ajv": "8.20.0",
     "eslint": "10.9.1",
     "prettier": "3.9.6",
     "typescript": "6.0.3",

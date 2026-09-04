@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "0.1.0",
+  "packetId": "dcp_synthetic_states",
+  "profileVersion": "profile_synthetic_1",
+  "purpose": "coding-assistance",
+  "audience": {
+    "class": "external-consumer",
+    "consumerId": "consumer_synthetic"
+  },
+  "task": {
+    "summary": "Review a synthetic fixture",
+    "requiredCapabilities": [
+      "language.java",
+      "language.kotlin",
+      "language.rust",
+      "delivery.ci.generic",
+      "delivery.ci.github-actions"
+    ]
+  },
+  "budget": {
+    "maxBytes": 32768
+  },
+  "claims": [
+    {
+      "claimId": "claim_synthetic_direct",
+      "capability": "language.java",
+      "state": "demonstrated",
+      "observedDepth": "practical-use",
+      "confidence": "medium",
+      "scope": "global",
+      "adjacentFrom": [],
+      "evidenceRefs": ["evidence_synthetic_1"],
+      "limitations": ["Synthetic evidence; no real developer assessment"],
+      "freshness": {
+        "observedThrough": "2026-09-04T00:00:00Z",
+        "stale": false
+      }
+    },
+    {
+      "claimId": "claim_synthetic_adjacent",
+      "capability": "language.kotlin",
+      "state": "adjacent",
+      "observedDepth": null,
+      "confidence": "low",
+      "scope": "global",
+      "adjacentFrom": ["language.java"],
+      "evidenceRefs": ["evidence_synthetic_1"],
+      "limitations": ["No direct attributable Kotlin evidence; transfer is a hypothesis"],
+      "freshness": {
+        "observedThrough": "2026-09-04T00:00:00Z",
+        "stale": false
+      },
+      "adjacentRationale": "Class concepts may transfer; Kotlin idioms are not established"
+    },
+    {
+      "claimId": "claim_synthetic_declared",
+      "capability": "language.rust",
+      "state": "self-declared",
+      "observedDepth": null,
+      "confidence": "low",
+      "scope": "global",
+      "adjacentFrom": [],
+      "evidenceRefs": [],
+      "limitations": ["Synthetic declaration, not an observation"],
+      "freshness": {
+        "observedThrough": null,
+        "stale": false
+      }
+    },
+    {
+      "claimId": "claim_synthetic_disputed",
+      "capability": "delivery.ci.generic",
+      "state": "disputed",
+      "observedDepth": null,
+      "confidence": "low",
+      "scope": "global",
+      "adjacentFrom": [],
+      "evidenceRefs": ["evidence_synthetic_2"],
+      "limitations": [
+        "Original attribution is disputed; the developer correction takes precedence"
+      ],
+      "freshness": {
+        "observedThrough": "2025-01-01T00:00:00Z",
+        "stale": true
+      },
+      "correctionRef": "correction_synthetic_1",
+      "correctionSummary": "The developer rejects attribution of the synthetic workflow"
+    },
+    {
+      "claimId": "claim_synthetic_insufficient",
+      "capability": "delivery.ci.github-actions",
+      "state": "insufficient-evidence",
+      "observedDepth": null,
+      "confidence": "low",
+      "scope": "global",
+      "adjacentFrom": ["delivery.ci.generic"],
+      "evidenceRefs": [],
+      "limitations": ["No attributable workflow evidence in selected repositories"],
+      "freshness": {
+        "observedThrough": "2026-09-04T00:00:00Z",
+        "stale": false
+      }
+    }
+  ],
+  "uncertainties": [],
+  "responsePolicy": {
+    "mode": "teach-while-doing",
+    "explainPurposeBeforeCommands": true,
+    "includeExpectedResult": true,
+    "includeRiskAndRollback": true,
+    "analogyCapabilities": [],
+    "questionBudget": 1
+  },
+  "provenanceSummary": {
+    "evidenceCount": 2,
+    "sourceClasses": ["selected-local-repository"]
+  },
+  "disclosure": {
+    "class": "consumer-session",
+    "redactionsApplied": ["absolute-paths", "private-source-names"]
+  },
+  "generatedAt": "2026-09-04T00:00:00Z",
+  "expiresAt": "2026-09-05T00:00:00Z"
+}

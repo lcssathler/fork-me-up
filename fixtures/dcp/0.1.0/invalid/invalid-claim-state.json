@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "0.1.0",
+  "packetId": "dcp_opaque_id",
+  "profileVersion": "profile_opaque_version",
+  "purpose": "coding-assistance",
+  "audience": {
+    "class": "local-assistant",
+    "consumerId": null
+  },
+  "task": {
+    "summary": "Add a CI workflow for the current project",
+    "requiredCapabilities": ["delivery.ci.github-actions"]
+  },
+  "claims": [
+    {
+      "claimId": "claim_opaque_id",
+      "capability": "delivery.ci.github-actions",
+      "state": "does-not-know",
+      "observedDepth": null,
+      "confidence": "low",
+      "scope": "global",
+      "adjacentFrom": ["delivery.ci.generic"],
+      "evidenceRefs": [],
+      "limitations": ["No attributable workflow evidence in selected repositories"],
+      "freshness": {
+        "observedThrough": "2026-09-04T00:00:00Z",
+        "stale": false
+      }
+    }
+  ],
+  "uncertainties": [
+    {
+      "capability": "delivery.ci.github-actions",
+      "reason": "insufficient-evidence",
+      "material": true
+    }
+  ],
+  "responsePolicy": {
+    "mode": "teach-while-doing",
+    "explainPurposeBeforeCommands": true,
+    "includeExpectedResult": true,
+    "includeRiskAndRollback": true,
+    "analogyCapabilities": ["delivery.ci.generic"],
+    "questionBudget": 1
+  },
+  "provenanceSummary": {
+    "evidenceCount": 0,
+    "sourceClasses": ["selected-local-repository"]
+  },
+  "disclosure": {
+    "class": "task-context",
+    "redactionsApplied": ["absolute-paths", "private-source-names"]
+  },
+  "generatedAt": "2026-09-04T00:00:00Z",
+  "expiresAt": "2026-09-05T00:00:00Z",
+  "budget": {
+    "maxBytes": 32768
+  }
+}

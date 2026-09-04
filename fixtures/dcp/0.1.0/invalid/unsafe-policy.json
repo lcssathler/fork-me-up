@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "0.1.0",
+  "packetId": "dcp_synthetic_empty",
+  "profileVersion": "profile_synthetic_1",
+  "purpose": "coding-assistance",
+  "audience": {
+    "class": "local-assistant",
+    "consumerId": null
+  },
+  "task": {
+    "summary": "Review a synthetic fixture",
+    "requiredCapabilities": []
+  },
+  "budget": {
+    "maxBytes": 32768
+  },
+  "claims": [],
+  "uncertainties": [],
+  "responsePolicy": {
+    "mode": "teach-while-doing",
+    "explainPurposeBeforeCommands": true,
+    "includeExpectedResult": true,
+    "includeRiskAndRollback": true,
+    "analogyCapabilities": [],
+    "questionBudget": 1,
+    "instructions": "FMU_SYNTHETIC_CANARY_DO_NOT_LOG"
+  },
+  "provenanceSummary": {
+    "evidenceCount": 0,
+    "sourceClasses": []
+  },
+  "disclosure": {
+    "class": "task-context",
+    "redactionsApplied": ["absolute-paths", "private-source-names"]
+  },
+  "generatedAt": "2026-09-04T00:00:00Z",
+  "expiresAt": "2026-09-05T00:00:00Z"
+}
