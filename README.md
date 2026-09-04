@@ -33,9 +33,13 @@ The project is in pre-implementation design. There is no runnable product yet. T
 - [Roadmap](docs/ROADMAP.md)
 - [Competitive landscape](docs/COMPETITIVE_ANALYSIS.md)
 - [Decision records](docs/adr/)
+- [Apache License 2.0](LICENSE)
+- [Trademark policy](TRADEMARKS.md)
 
 Repository instructions for coding agents are in [AGENTS.md](AGENTS.md).
 
-## Licensing direction
+## License and trademarks
 
-The intended model is permissive licensing for the public protocol, SDKs, reference runtime, and adapters, with a separately operated proprietary cloud service. The exact license and trademark policy must be finalized before the first public code release; no license is implied while the repository contains only planning documents.
+Content in this repository is licensed under the [Apache License 2.0](LICENSE) unless a file states otherwise. See [NOTICE](NOTICE) for attribution. The license covers the public protocol, schemas, SDKs, Community runtime, adapters, examples, tests, and project documentation. Developer profiles and other user-owned data processed by Fork Me Up are not relicensed by using the software.
+
+The separately operated Fork Me Up Cloud/Pro implementation may remain proprietary and is not included in this repository. The Fork Me Up name and visual identity are governed separately by the [trademark policy](TRADEMARKS.md).
