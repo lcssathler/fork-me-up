@@ -1,6 +1,6 @@
 # Contributing to Fork Me Up
 
-Fork Me Up is in M0 private preparation. External contributions are not accepted during the private, single-owner bootstrap. The [roadmap](docs/ROADMAP.md) governs the public cutover, protection of `main`, and required CI checks. This guide prepares that workflow; it does not authorize publication or open contributions early.
+Fork Me Up is in public M0 preparation. The repository is visible and `main` has basic server-side protection, but external contributions remain temporarily paused until M0-S06 makes the real CI check mandatory. The [roadmap](docs/ROADMAP.md) governs that closeout. Public visibility is not a product release or permission to bypass the current queue.
 
 ## Before starting
 
@@ -57,7 +57,7 @@ A pull request should explain the problem and resulting behavior, traceability, 
 
 Run the documented checks on the revision submitted for review and inspect the complete diff. Relevant CI must pass before merge. The [engineering process](docs/ENGINEERING.md#34-pull-request-evidence) requires focused human review for authentication, persistence, redaction, filesystem boundaries, public schemas, lifecycle hooks, release automation, and private-source access.
 
-Use pull requests to integrate into `main`; direct pushes, force pushes, and shared-history rewrites are prohibited under the private bootstrap policy. After public cutover, normal work uses the server-side protections required by the roadmap. During private preparation these controls are procedural, not server-enforced. The roadmap records the temporary limitation and the M0-S02/M0-S06 closeout sequence, including the post-cutover merge restriction. Agents must stop before push, external pull-request creation, merge, publication, release, deployment, or remote configuration unless the current task explicitly authorizes that effect.
+Use pull requests to integrate into `main`; its active ruleset requires a pull request and blocks deletion and non-fast-forward updates without bypass actors. Until M0-S06 integrates the real required CI check, only the reviewed M0-S02 state-transition pull request may merge. Direct pushes, force pushes, deletion, and shared-history rewrites remain prohibited. Agents must stop before push, external pull-request creation, merge, publication, release, deployment, or remote configuration unless the current task explicitly authorizes that effect.
 
 ## Licensing and attribution
 

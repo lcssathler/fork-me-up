@@ -4,7 +4,7 @@ This policy applies the existing [protocol compatibility rules](docs/PROTOCOL.md
 
 ## Development status and version boundaries
 
-The private root workspace is versioned `0.0.0` as a development placeholder and remains non-publishable. The protocol document's `0.1` revision and DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and Profile Provider/conformance schemas `0.1.0` are unreleased drafts, not releases or compatibility claims. M0-S08 through M0-S12 supply these authoring contracts plus the separate implementation-internal Community Profile Store `0.1.0` draft. Runnable behavior and releases have separate roadmap gates.
+The root npm workspace is versioned `0.0.0` as a development placeholder, has `private: true`, and remains non-publishable even though the source repository is public. The protocol document's `0.1` revision and DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and Profile Provider/conformance schemas `0.1.0` are unreleased drafts, not releases or compatibility claims. M0-S08 through M0-S12 supply these authoring contracts plus the separate implementation-internal Community Profile Store `0.1.0` draft. Runnable behavior and releases have separate roadmap gates.
 
 Keep these versions distinct:
 
