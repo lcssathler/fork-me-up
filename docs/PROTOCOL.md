@@ -4,7 +4,7 @@
 > Draft version: 0.1  
 > Last updated: September 5, 2026
 
-This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema, M0-S09 provides independent unreleased Evidence and Claim `0.1.0` authoring schemas, M0-S10 provides the unreleased public Portable Profile Export `0.1.0` authoring schema while keeping the Community Profile Store implementation-internal, and M0-S11 provides the unreleased Demand Profile `0.1.0` authoring schema. Provider/conformance contracts remain pending M0-S12. Once a schema version is released, compatibility follows the rules in this document.
+This document defines the public interoperability boundary. M0-S08 through M0-S11 provide the unreleased DCP, Evidence, Claim, Portable Profile Export, and Demand Profile `0.1.0` authoring schemas while keeping the Community Profile Store implementation-internal. M0-S12 adds the unreleased client-neutral Profile Provider and provider/consumer conformance `0.1.0` contracts. Once a schema version is released, compatibility follows the rules in this document.
 
 ## 1. Purpose
 
@@ -171,7 +171,7 @@ The example is the [insufficient-evidence fixture](../fixtures/dcp/0.1.0/valid/i
 
 ### 4.1 Exact draft authoring rules
 
-The schema validates the exact producer/fixture shape and rejects unknown properties at every object boundary. It is not the future consumer acceptance path: Section 12 still requires released consumers to ignore unknown optional fields within a supported major, subject to capability declarations. This development checker accepts only draft `0.1.0`; negotiation and provider/consumer conformance belong to M0-S12.
+The schema validates the exact producer/fixture shape and rejects unknown properties at every object boundary. Released consumers remain governed by Section 12. The M0-S12 provider contract contains an explicit bounded `extensions` object for safely ignorable namespaced additions while arbitrary fields remain invalid. This development checker accepts only draft `0.1.0`; it does not claim released-version compatibility.
 
 The draft gives existing concepts explicit representations:
 
@@ -287,9 +287,15 @@ A provider advertises:
 
 An independent provider may implement only a subset, but unsupported operations must return typed errors and must not silently change semantics.
 
+The public [Profile Provider `0.1.0` schema](../schemas/profile-provider/0.1.0.schema.json) defines the capability descriptor and reusable request/response fragments. A descriptor reveals protocol versions, read-oriented operation/source/disclosure subsets, local or remote-managed deployment, deterministic task/output limits, and partial/stale support without revealing whether a profile exists. `get-provider-capabilities` is mandatory; advertising `get-task-context` requires `task-context` disclosure support.
+
+Requests and responses carry matching opaque request IDs and exact operation names. Success data is discriminated by operation; errors carry no data. The Provider interface accepts no source root, source credential, collection instruction, owner-administrative operation, or arbitrary developer identifier. `EvidenceCollector` and `SourceAdapter` remain separate producer-side ports rather than Provider operations. [ADR-0011](adr/0011-provider-conformance-draft-contracts.md) records the boundary.
+
 ## 9. Initial MCP contract
 
 The initial surface is deliberately small and read-oriented.
+
+The transport-neutral request and response envelopes are `urn:fork-me-up:profile-provider:0.1.0#/$defs/request` and `#/$defs/response`. MCP, SDK, CLI, or file adapters map these envelopes without changing their meaning; this schema does not define transport framing, authentication, lifecycle, or side-effect metadata.
 
 ### 9.1 `get_task_context`
 
@@ -364,6 +370,7 @@ The token and Sharing Grant are validated on every call. Revocation blocks subse
 Errors are structured, typed, and safe to share. Initial categories:
 
 - `unsupported-version`
+- `unsupported-operation`
 - `invalid-input`
 - `profile-unavailable`
 - `partial-profile`
@@ -378,13 +385,15 @@ Errors are structured, typed, and safe to share. Initial categories:
 
 Errors must not contain tokens, raw source, absolute paths, private repository names, task content beyond a bounded safe summary, or internal stack traces.
 
+The draft Provider error shape exposes only `category`, `retryable`, and bounded `supportedVersions`; it has no free-form message. `supportedVersions` is non-empty for `unsupported-version`. Unsupported optional operations return `unsupported-operation` and no protected payload.
+
 Availability errors may permit the host to continue without context. Authorization, isolation, schema, and redaction errors return no protected payload.
 
 ## 12. Compatibility
 
 - Schemas use semantic versioning once released.
 - A consumer must reject unsupported major versions safely.
-- Within a major version, consumers ignore unknown optional fields unless a capability declaration says otherwise.
+- Within a released major version, consumers ignore compatible optional additions unless a capability declaration says otherwise. The exact `0.1.0` draft permits unknown extension metadata only inside bounded, namespaced `extensions`; arbitrary fields and prose-bearing extension values fail closed.
 - Providers do not remove or change the meaning of existing required fields within a major version.
 - Schemas, generated types, fixtures, examples, changelog, and conformance tests change together.
 - Migrations preserve correction precedence and provenance.
@@ -408,6 +417,8 @@ A provider or consumer is conforming only if automated tests verify:
 - a malicious imported profile, provider response, or DCP free-text field remains unprivileged data; adapters map only allowlisted enums, booleans, and identifiers into instructions;
 - partial, stale, unsupported, and unauthorized states;
 - the same fixture has equivalent meaning across clients.
+
+M0-S12 adds the public [Profile Provider conformance corpus](../fixtures/conformance/profile-provider/0.1.0/README.md) and its [transcript schema](../schemas/conformance/profile-provider/0.1.0.schema.json). The fixtures cover all four operations, explicit subsets, typed failures, request/response correlation, advertised versions and operations, provider limits, exact DCP success, safe namespaced extensions, and content-free errors. They establish draft contract expectations only; executable provider/consumer SDKs, transports, authorization, redaction, and cross-client behavioral equivalence retain their later gates.
 
 ## 14. Open extension points
 

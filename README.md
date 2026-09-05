@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is in progress. There is no runnable product yet, but the repository now has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, and Demand Profile `0.1.0` draft authoring schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft; provider/conformance contracts, runtime behavior, and compatibility claims remain future slices.
+M0 is in progress. There is no runnable product yet, but the repository now has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and client-neutral Profile Provider/conformance `0.1.0` draft schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft. Runtime behavior and released compatibility claims remain future milestones.
 
 ## Development foundation
 
@@ -46,7 +46,7 @@ Run the complete deterministic baseline:
 npm run check
 ```
 
-The aggregate command fails fast across formatting, lint, strict type checking, unit tests, DCP/Evidence/Claim/Store/Export/Demand schema fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. Integration and evaluation suites report a committed `bootstrap-not-applicable` exception only while their corresponding product boundary or behavior does not exist; each exception becomes an error as soon as matching tests are added.
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. Integration and evaluation suites report a committed `bootstrap-not-applicable` exception only while their corresponding product boundary or behavior does not exist; each exception becomes an error as soon as matching tests are added.
 
 The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
 

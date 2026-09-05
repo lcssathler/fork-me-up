@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "profile-provider-capabilities",
+  "providerId": "provider_synthetic_local",
+  "protocolVersions": ["0.1.0"],
+  "operations": [
+    "get-provider-capabilities",
+    "get-profile-metadata",
+    "get-task-context",
+    "get-capability-evidence"
+  ],
+  "sourceClasses": ["selected-local-repository"],
+  "disclosureClasses": ["task-context"],
+  "deployment": "local",
+  "limits": {
+    "maxTaskBytes": 4096,
+    "maxOutputBytes": 32768,
+    "maxOutputTokens": 4096,
+    "maxRequestedCapabilities": 32
+  },
+  "freshnessSupport": {
+    "partialResults": true,
+    "staleResults": true
+  },
+  "extensions": {
+    "org.fork-me-up.fixture": "local"
+  }
+}

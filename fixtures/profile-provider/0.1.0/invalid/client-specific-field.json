@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "profile-provider-capabilities",
+  "providerId": "provider_synthetic_client_field",
+  "protocolVersions": ["0.1.0"],
+  "operations": ["get-provider-capabilities"],
+  "sourceClasses": [],
+  "disclosureClasses": [],
+  "deployment": "local",
+  "limits": {
+    "maxTaskBytes": 1024,
+    "maxOutputBytes": 8192,
+    "maxOutputTokens": 1024,
+    "maxRequestedCapabilities": 8
+  },
+  "freshnessSupport": {
+    "partialResults": false,
+    "staleResults": false
+  },
+  "codexHook": "synthetic-client-coupling"
+}

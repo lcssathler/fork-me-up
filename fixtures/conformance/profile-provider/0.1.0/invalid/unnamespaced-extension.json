@@ -1,0 +1,51 @@
+{
+  "conformanceVersion": "0.1.0",
+  "kind": "profile-provider-conformance",
+  "provider": {
+    "schemaVersion": "0.1.0",
+    "kind": "profile-provider-capabilities",
+    "providerId": "provider_synthetic_extension",
+    "protocolVersions": ["0.1.0"],
+    "operations": ["get-provider-capabilities"],
+    "sourceClasses": [],
+    "disclosureClasses": [],
+    "deployment": "local",
+    "limits": {
+      "maxTaskBytes": 1024,
+      "maxOutputBytes": 8192,
+      "maxOutputTokens": 1024,
+      "maxRequestedCapabilities": 8
+    },
+    "freshnessSupport": {
+      "partialResults": false,
+      "staleResults": false
+    },
+    "extensions": {
+      "feature": true
+    }
+  },
+  "exchanges": [
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_extension",
+        "operation": "get-provider-capabilities",
+        "input": {}
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_extension",
+        "operation": "get-provider-capabilities",
+        "outcome": "error",
+        "data": null,
+        "error": {
+          "category": "internal-error",
+          "retryable": false,
+          "supportedVersions": []
+        }
+      }
+    }
+  ]
+}
