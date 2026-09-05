@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "portable-profile-export",
+  "exportId": "export_synthetic_dangling",
+  "profileVersion": "profile_synthetic_dangling",
+  "subjectRef": "subject_synthetic_owner",
+  "generatedAt": "2026-09-05T12:00:00Z",
+  "profile": {
+    "projectRefs": [],
+    "evidence": [],
+    "claims": [
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_synthetic_dangling",
+        "capability": "language.typescript",
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "medium",
+        "scope": "global",
+        "projectRef": null,
+        "basis": {
+          "kind": "evidence",
+          "evidenceRefs": ["evidence_missing"],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": null,
+          "correctionRef": null,
+          "correctionSummary": null
+        },
+        "limitations": [],
+        "freshness": {
+          "observedThrough": "2026-09-01T00:00:00Z",
+          "stale": false
+        }
+      }
+    ],
+    "declarations": [],
+    "corrections": [],
+    "preferences": {
+      "explanationMode": "balanced",
+      "explainPurposeBeforeCommands": true,
+      "includeExpectedResult": true,
+      "includeRiskAndRollback": true,
+      "questionBudget": 1
+    }
+  },
+  "exclusions": {
+    "credentials": true,
+    "rawSource": true,
+    "sourceGrants": true,
+    "sharingGrants": true,
+    "internalState": true
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "portable-profile-export",
+  "exportId": "export_synthetic_complete",
+  "profileVersion": "profile_synthetic_complete",
+  "subjectRef": "subject_synthetic_owner",
+  "generatedAt": "2026-09-05T12:00:00Z",
+  "profile": {
+    "projectRefs": [],
+    "evidence": [
+      {
+        "schemaVersion": "0.1.0",
+        "evidenceId": "evidence_synthetic_export",
+        "kind": "observation",
+        "capabilitySignal": "language.typescript",
+        "source": {
+          "class": "selected-local-repository",
+          "sourceRelativeRef": "src/synthetic.ts",
+          "repositoryRef": "repository_synthetic_export",
+          "revisionRef": "revision_synthetic_export",
+          "visibility": "local-only"
+        },
+        "authorAssessment": {
+          "state": "attributed",
+          "subjectRef": "subject_synthetic_owner"
+        },
+        "freshness": {
+          "observedAt": "2026-09-01T00:00:00Z",
+          "collectedAt": "2026-09-02T00:00:00Z"
+        },
+        "strength": "moderate",
+        "limitations": [],
+        "extractor": {
+          "name": "fixture.collector",
+          "version": "0.1.0"
+        },
+        "invalidation": {
+          "rule": "source-changed",
+          "fingerprint": "fingerprint_synthetic_export"
+        }
+      }
+    ],
+    "claims": [
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_synthetic_export_demonstrated",
+        "capability": "language.typescript",
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "medium",
+        "scope": "global",
+        "projectRef": null,
+        "basis": {
+          "kind": "evidence",
+          "evidenceRefs": ["evidence_synthetic_export"],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": null,
+          "correctionRef": null,
+          "correctionSummary": null
+        },
+        "limitations": [],
+        "freshness": {
+          "observedThrough": "2026-09-01T00:00:00Z",
+          "stale": false
+        }
+      },
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_synthetic_export_declared",
+        "capability": "database.postgresql",
+        "state": "self-declared",
+        "observedDepth": null,
+        "confidence": "medium",
+        "scope": "global",
+        "projectRef": null,
+        "basis": {
+          "kind": "declaration",
+          "evidenceRefs": [],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": "declaration_synthetic_export",
+          "correctionRef": null,
+          "correctionSummary": null
+        },
+        "limitations": ["Synthetic declaration is not independently evidenced"],
+        "freshness": {
+          "observedThrough": null,
+          "stale": false
+        }
+      },
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_synthetic_export_disputed",
+        "capability": "language.typescript",
+        "state": "disputed",
+        "observedDepth": "practical-use",
+        "confidence": "low",
+        "scope": "global",
+        "projectRef": null,
+        "basis": {
+          "kind": "dispute",
+          "evidenceRefs": ["evidence_synthetic_export"],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": null,
+          "correctionRef": "correction_synthetic_export",
+          "correctionSummary": "Developer disputed the automated scope"
+        },
+        "limitations": ["Original evidence remains traceable"],
+        "freshness": {
+          "observedThrough": "2026-09-01T00:00:00Z",
+          "stale": false
+        }
+      }
+    ],
+    "declarations": [
+      {
+        "declarationId": "declaration_synthetic_export",
+        "capability": "database.postgresql",
+        "summary": "Synthetic owner declaration",
+        "declaredAt": "2026-09-03T00:00:00Z"
+      }
+    ],
+    "corrections": [
+      {
+        "correctionId": "correction_synthetic_export",
+        "kind": "adjustment",
+        "capability": "language.typescript",
+        "targetClaimRef": "claim_synthetic_export_demonstrated",
+        "summary": "Synthetic scope adjustment",
+        "createdAt": "2026-09-04T00:00:00Z"
+      }
+    ],
+    "preferences": {
+      "explanationMode": "concise",
+      "explainPurposeBeforeCommands": false,
+      "includeExpectedResult": true,
+      "includeRiskAndRollback": true,
+      "questionBudget": 1
+    }
+  },
+  "exclusions": {
+    "credentials": true,
+    "rawSource": true,
+    "sourceGrants": true,
+    "sharingGrants": true,
+    "internalState": true
+  }
+}

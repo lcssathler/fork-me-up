@@ -15,11 +15,14 @@ export function isCanonicalTimestamp(value) {
  * Compile one committed, self-contained authoring schema.
  * @param {URL} schemaUrl
  * @param {string} contractName
+ * @param {URL[]} dependencyUrls
  * @returns {Promise<import("ajv").ValidateFunction>}
  */
-export async function compileAuthoringSchema(schemaUrl, contractName) {
-  const schema = await readBoundedJson(schemaUrl);
-  if (schema === null || typeof schema !== "object" || Array.isArray(schema)) {
+export async function compileAuthoringSchema(schemaUrl, contractName, dependencyUrls = []) {
+  const [schema, ...dependencies] = await Promise.all(
+    [schemaUrl, ...dependencyUrls].map((url) => readBoundedJson(url)),
+  );
+  if (!isSchemaDocument(schema)) {
     throw new Error(`Invalid ${contractName} schema document.`);
   }
   const ajv = new Ajv2020({
@@ -33,5 +36,17 @@ export async function compileAuthoringSchema(schemaUrl, contractName) {
     coerceTypes: false,
   });
   ajv.addFormat("date-time", { type: "string", validate: isCanonicalTimestamp });
+  for (const dependency of dependencies) {
+    if (!isSchemaDocument(dependency)) throw new Error("Invalid dependency schema document.");
+    ajv.addSchema(dependency);
+  }
   return ajv.compile(schema);
+}
+
+/**
+ * @param {unknown} value
+ * @returns {value is import("ajv").AnySchema}
+ */
+function isSchemaDocument(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
 }

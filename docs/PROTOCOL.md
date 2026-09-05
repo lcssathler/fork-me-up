@@ -4,7 +4,7 @@
 > Draft version: 0.1  
 > Last updated: September 5, 2026
 
-This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema and M0-S09 provides independent unreleased Evidence and Claim `0.1.0` authoring schemas. Portable Profile Export, Demand Profile, and Provider/conformance contracts remain pending their M0 slices. Once a schema version is released, compatibility follows the rules in this document.
+This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema, M0-S09 provides independent unreleased Evidence and Claim `0.1.0` authoring schemas, and M0-S10 provides the unreleased public Portable Profile Export `0.1.0` authoring schema while keeping the Community Profile Store implementation-internal. Demand Profile and Provider/conformance contracts remain pending their M0 slices. Once a schema version is released, compatibility follows the rules in this document.
 
 ## 1. Purpose
 
@@ -48,9 +48,15 @@ Project-scoped claims require an opaque project reference; global claims prohibi
 
 The provider's canonical private state containing claims, corrections, preferences, and evidence references. Its internal schema is not an interchange contract and may differ between providers.
 
+The reference Community provider's [internal Store `0.1.0` schema](../schemas/internal/community-profile-store/0.1.0.schema.json) is published for implementation review, not provider interoperability. It declares `storeSchemaVersion` and `kind: community-profile-store`, contains the canonical profile payload, and adds store identity plus generation, creation, update, validation, and migration bookkeeping. Independent providers do not consume or reproduce this envelope. Credentials, raw source, and grants remain outside it.
+
 ### 2.4 Portable Profile Export
 
 An owner-initiated, open, versioned export used for portability or migration. It is distinct from internal provider storage and from a DCP.
+
+The public [Portable Profile Export `0.1.0` schema](../schemas/portable-profile-export/0.1.0.schema.json) declares `schemaVersion` and `kind: portable-profile-export`. Its profile payload contains bounded Evidence and Claim records using their exact independent schemas, plus typed declarations, corrections, project references, and preferences. Opaque references must resolve within the envelope and referenced declaration/correction capabilities must match the Claim.
+
+The export requires fixed exclusions for credentials, raw source, Source Grants, Sharing Grants, and provider-internal state. Closed authoring validation rejects those fields, but an exclusions object is not proof of redaction or owner intent. A future exporter must construct the projection from authorized private state, validate it, write it safely, and only then report success. The Store, Portable Profile Export, and DCP authoring schemas reject one another. [ADR-0009](adr/0009-profile-store-export-boundary.md) records this boundary.
 
 ### 2.5 Demand Profile
 
@@ -187,6 +193,8 @@ The draft gives existing concepts explicit representations:
 `npm run schema:check` checks the committed corpus and supplements JSON Schema with expiry ordering and the compact-byte check. Fixture files may contain whitespace and are separately capped at 65,536 raw bytes before JSON parsing. A failed check returns a fixed diagnostic and no input content. The command does not accept file arguments, fetch references, compile context, truncate a packet, or read a developer's repositories/profile.
 
 The same command checks the independent Evidence and Claim corpora through the shared bounded fixture reader. Evidence validation additionally enforces collection-at-or-after-observation ordering. All schemas are self-contained and use only local fragment references. These development checks do not resolve opaque references, inspect a source, derive a Claim, apply correction precedence, or authorize disclosure.
+
+M0-S10 extends the command to the internal Store and public Portable Profile Export corpora. Their committed schema dependencies are preloaded by fixed local URLs and referenced through stable URNs; no network or arbitrary schema loader is used. Supplementary checks enforce unique and resolved in-envelope provenance, matching correction/declaration capabilities, resolved project scope, nested Evidence semantics, and ordered Store timestamps. They do not implement persistence, atomic replacement, migration, export, deletion, or correction precedence.
 
 These checks cannot establish source attribution, task relevance, actual redaction, grant validity, correction precedence, or unlinkability. Bounded free text remains unprivileged data and may be structurally valid even when it contains instruction-like or sensitive text. Future runtime boundaries must enforce the security and disclosure invariants before any packet is shared. This slice does not satisfy MCP integration or behavioral evaluation gates.
 
@@ -375,6 +383,7 @@ Availability errors may permit the host to continue without context. Authorizati
 - Schemas, generated types, fixtures, examples, changelog, and conformance tests change together.
 - Migrations preserve correction precedence and provenance.
 - Protocol negotiation must never downgrade authorization or disclosure policy.
+- Developer Profile Store versions and migrations are provider-internal. They never become acceptable where a Portable Profile Export or DCP is required, even when their payload records share public Evidence and Claim schemas.
 
 ## 13. Conformance
 

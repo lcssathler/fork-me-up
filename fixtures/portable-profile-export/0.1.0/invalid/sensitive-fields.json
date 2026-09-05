@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "portable-profile-export",
+  "credentials": "FMU_SYNTHETIC_CANARY_DO_NOT_LOG",
+  "rawSource": "synthetic source"
+}

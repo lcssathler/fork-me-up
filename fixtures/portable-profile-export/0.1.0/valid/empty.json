@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "portable-profile-export",
+  "exportId": "export_synthetic_empty",
+  "profileVersion": "profile_synthetic_empty",
+  "subjectRef": "subject_synthetic_owner",
+  "generatedAt": "2026-09-05T12:00:00Z",
+  "profile": {
+    "projectRefs": [],
+    "evidence": [],
+    "claims": [],
+    "declarations": [],
+    "corrections": [],
+    "preferences": {
+      "explanationMode": "balanced",
+      "explainPurposeBeforeCommands": true,
+      "includeExpectedResult": true,
+      "includeRiskAndRollback": true,
+      "questionBudget": 1
+    }
+  },
+  "exclusions": {
+    "credentials": true,
+    "rawSource": true,
+    "sourceGrants": true,
+    "sharingGrants": true,
+    "internalState": true
+  }
+}
