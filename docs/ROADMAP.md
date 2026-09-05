@@ -1,6 +1,6 @@
 # Fork Me Up — Risk-Driven Roadmap
 
-> Status: pre-implementation  
+> Status: active development; unreleased
 > Version: 0.1  
 > Last updated: September 5, 2026
 
@@ -21,8 +21,8 @@ Cloud work must not outrun protocol, evidence quality, local trust, or willingne
 | Milestone | Outcome | Status |
 |---|---|---|
 | M0 | Normative and reproducible foundation | Complete |
-| M1 | Client-neutral behavioral vertical slice | In progress |
-| M2 | Trustworthy local evidence and profile | Not started |
+| M1 | Client-neutral behavioral vertical slice | Complete |
+| M2 | Trustworthy local evidence and profile | Ready |
 | M3 | Portable Community release | Not started |
 | M4 | Pro alpha with managed selected repositories | Not started |
 | M5 | Commercial MLP with governed remote MCP | Not started |
@@ -292,7 +292,7 @@ The project owner explicitly decides before:
 
 ## 12. M0 execution record
 
-This ordered table records how M0 was delivered. It no longer routes new work; Section 13 is the current execution queue. A historical slice state became authoritative only after its evidence was reviewed and integrated into `main`.
+This ordered table records how M0 was delivered. It no longer routes new work; Section 14 is the current execution queue. A historical slice state became authoritative only after its evidence was reviewed and integrated into `main`.
 
 States have precise meanings:
 
@@ -443,9 +443,9 @@ Fresh authenticated GitHub readback verified public visibility, the protected `m
 
 No `FMU-E-*` evaluation applies because this slice audits foundations and governance without introducing product behavior. The repository still makes no runtime, release, cross-platform, or client-compatibility claim. The proposed M0 `Complete`, M1 `Ready`, M0-S13 `Complete`, and current M1 queue transitions become authoritative only after this audit revision passes required pull-request CI and integrates into `main`.
 
-## 13. Current M1 execution queue
+## 13. M1 execution record
 
-This is the routing source for a request such as "continue the roadmap" after M0-S13 integrates. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 still apply. An unassigned task takes at most the earliest eligible incomplete slice.
+This ordered table records how M1 was delivered. It no longer routes new work; Section 14 is the current execution queue. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 still apply.
 
 | Order | Slice | State | Observable outcome | Prerequisites and traceability |
 |---:|---|---|---|---|
@@ -455,7 +455,7 @@ This is the routing source for a request such as "continue the roadmap" after M0
 | 4 | `M1-S04` — Deterministic bounded DCP compiler | `Complete` | Core emits schema-valid DCPs with injected time/identifiers, deterministic disclosure reduction, strict byte/token budgets, canary redaction, and repository-instruction isolation. | M1 compiler and security deliverables; `FMU-FR-007`, `FMU-FR-009`, `FMU-FR-026`; `FMU-NFR-002`, `FMU-NFR-005`, `FMU-NFR-007`, `FMU-NFR-011`; `FMU-E-012`, `FMU-E-013`; ADR-0007 and ADR-0015. |
 | 5 | `M1-S05` — Local Provider and MCP `stdio` | `Complete` | A local fixture-backed Profile Provider exposes `get_task_context` and `get_profile_metadata` through MCP `stdio`, with typed invalid, incompatible, unavailable, and budget-limited states, no network listener, and integration coverage. | M1 provider/MCP deliverables; `FMU-FR-010`, `FMU-FR-011`, `FMU-FR-016`, `FMU-FR-023`; `FMU-NFR-004`, `FMU-NFR-011`; ADR-0011 and ADR-0016. |
 | 6 | `M1-S06` — Reference adapter and graceful degradation | `Complete` | One reference adapter maps only allowlisted response-policy fields, exercises task/session delivery, preserves ordinary host work when unavailable, and adds compaction restoration only if the selected client capability supports it. | M1 adapter and degraded-operation deliverables; `FMU-FR-012`, `FMU-FR-025`; `FMU-NFR-001`, `FMU-NFR-008`; `FMU-E-014`; ADR-0002 and ADR-0017. |
-| 7 | `M1-S07` — M1 exit audit | `Ready` | An integrated audit runs the required behavioral, integration, schema, offline, redaction, determinism, budget, and adapter-failure evidence and either closes M1 or names a blocker. | Full M1 exit gate and required evaluations; cross-milestone quality gates. |
+| 7 | `M1-S07` — M1 exit audit | `Complete` | An integrated audit runs the required behavioral, integration, schema, offline, redaction, determinism, budget, and adapter-failure evidence and either closes M1 or names a blocker. | Full M1 exit gate and required evaluations; cross-milestone quality gates. The audit is recorded in [`docs/audits/M1_EXIT_AUDIT.md`](audits/M1_EXIT_AUDIT.md). |
 
 ### M1-S01 fixture profile and package foundation
 
@@ -542,3 +542,36 @@ Pinned local Windows verification passed a lockfile-enforced clean installation 
 Traceability is `FMU-FR-012`, `FMU-FR-025`, `FMU-NFR-001`, `FMU-NFR-008`, `FMU-E-014`, and ADR-0017.
 
 The M1-S06 `Complete` and M1-S07 `Ready` transitions become authoritative only after this revision passes the required pull-request CI and integrates into `main`.
+
+### M1-S07 M1 exit audit
+
+The [M1 exit audit](audits/M1_EXIT_AUDIT.md) evaluates every M1 deliverable, required behavioral evaluation, exit criterion, and cross-milestone quality gate against integrated `main` revision `f7b9f83`. It found one evidence gap: the adapter suite exercised all three evidence states, but not with an identical task. A narrow evaluation now sends the same synthetic React task through demonstrated, adjacent, and insufficient-evidence profiles and verifies three distinct, policy-appropriate fixed-renderer outcomes. A second narrow test recursively enforces client/lifecycle neutrality across every Protocol and Core source and the absence of network/listener primitives across all M1 runtime sources.
+
+Pinned Windows verification passed a lockfile-enforced clean installation, the complete aggregate with 109 unit tests, all draft schema corpora, 12 real subprocess integration tests, and ten behavioral evaluations. Both package-level compile checks, an offline dependency inventory, a local Markdown-link audit, current-tree and reachable-history credential scans, source-boundary inspection, and a point-in-time dependency audit reporting zero vulnerabilities also passed. Authenticated GitHub readback confirmed the public repository, protected `main`, exact no-bypass squash-only ruleset and required strict `Windows baseline`, successful current-main CI, automatic branch deletion, and private vulnerability reporting.
+
+The behavioral proof is intentionally bounded to the client-neutral structured policy and the reference adapter's fixed allowlisted renderer. It does not claim model-authored prose, a second consumer, production repository inference, a released protocol, or cross-platform compatibility; those remain later gates. No M2 collector, persistence, owner workflow, dependency, public schema revision, package, release, deployment, or private-source access is introduced.
+
+No M1 exit blocker remains. The proposed M1 `Complete`, M1-S07 `Complete`, M2 `Ready`, and M2-S01 `Ready` transitions become authoritative only after this audit revision passes required pull-request CI and integrates into protected `main`.
+
+## 14. Current M2 execution queue
+
+This is the routing source for a request such as "continue the roadmap" after M1-S07 integrates. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 apply. An unassigned task takes at most the earliest eligible incomplete slice. Each collector slice uses only synthetic repositories and must remain offline, bounded, non-executing, and inside an explicitly authorized root.
+
+| Order | Slice | State | Observable outcome | Prerequisites and traceability |
+|---:|---|---|---|---|
+| 1 | `M2-S01` — Authorized-root configuration boundary | `Ready` | An accepted ADR and implementation-internal configuration boundary define developer-selected repositories, canonical authorized roots, platform-aware path identity, limits, and content-free failures without reading repository contents. | M1 exit; M2 authorized-root deliverable; `FMU-FR-001`, `FMU-FR-026`; `FMU-NFR-009`, `FMU-NFR-013`. |
+| 2 | `M2-S02` — Bounded filesystem metadata collectors | `Blocked by M2-S01` | Deterministic collectors read only selected documents, manifests, and supported source structure under canonical authorized roots while rejecting traversal, symlink/junction escape, binary data, and size/depth/count/time exhaustion without executing repository content. | M2-S01; `FMU-FR-002`; `FMU-NFR-011`, `FMU-NFR-013`; path, binary, malicious-text, and resource-limit security cases. |
+| 3 | `M2-S03` — Bounded Git metadata collector | `Blocked by M2-S02` | A sanitized, non-executing Git boundary extracts only bounded metadata from selected repositories and rejects hooks, filters, external commands, unsafe configuration, and content-bearing diagnostics. | M2-S02; `FMU-FR-002`, `FMU-FR-026`; `FMU-NFR-004`, `FMU-NFR-011`, `FMU-NFR-013`; command-injection security cases. |
+| 4 | `M2-S04` — Developer identity and authorship assessment | `Blocked by M2-S03` | Explicit identity configuration and deterministic attribution distinguish known, shared, coauthored, bot, squash, pair-work, and unknown authorship without allowing unknown authorship alone to establish demonstrated depth. | M2-S03; `FMU-FR-006`, `FMU-FR-018`; `FMU-E-008`; `FMU-NFR-006`. |
+| 5 | `M2-S05` — Evidence source-risk classification | `Blocked by M2-S04` | Collected evidence records deterministically expose and down-rank fork, template, generated, vendored, tutorial, duplicated, and uncertain source contributions while preserving their limitations. | M2-S04; `FMU-FR-005`, `FMU-FR-006`, `FMU-FR-019`; `FMU-E-007`; `FMU-NFR-006`. |
+| 6 | `M2-S06` — Atomic versioned local profile store | `Blocked by M2-S05` | The internal profile store validates versions, writes atomically, preserves the prior valid state on interruption, recovers deterministically, and runs explicit forward migrations over synthetic data. | M2-S05; `FMU-FR-004`, `FMU-FR-009`; `FMU-NFR-009`, `FMU-NFR-014`; persistence and interrupted-write cases from `FMU-E-011`. |
+| 7 | `M2-S07` — Deterministic claim derivation and invalidation | `Blocked by M2-S06` | Evidence produces humble, traceable Claims with provenance, scope, freshness, fingerprints, limitations, and invalidation; no high-confidence automated Claim lacks attributable evidence. | M2-S06; `FMU-FR-004` through `FMU-FR-006`, `FMU-FR-020`; `FMU-NFR-006`; ADR-0008. |
+| 8 | `M2-S08` — Source-backed Demand Profile producer | `Blocked by M2-S07` | Bounded current-project/task inputs produce a schema-valid Demand Profile and ask at most one high-information question only when ambiguity materially changes behavior or risk. | M2-S07; `FMU-FR-003`, `FMU-FR-021`; `FMU-E-009`, `FMU-E-010`; ADR-0010. |
+| 9 | `M2-S09` — Multi-repository incremental orchestration | `Blocked by M2-S08` | Multiple selected local repositories refresh within explicit budgets; unchanged fingerprints avoid full rescans and cache origin, fresh, stale, partial, and invalid states remain observable. | M2-S08; `FMU-FR-017`, `FMU-FR-020`; `FMU-NFR-003`, `FMU-NFR-013`. |
+| 10 | `M2-S10` — Owner inspection and correction workflow | `Blocked by M2-S09` | A no-LLM owner interface inspects, edits, corrects, disputes, and rejects Claims; correction precedence remains traceable and success is reported only after validated persistence. | M2-S09; `FMU-FR-013`, `FMU-FR-014`; `FMU-E-005`, `FMU-E-011`. |
+| 11 | `M2-S11` — Owner import, export, and deletion | `Blocked by M2-S10` | Explicit owner operations validate imports, create bounded Portable Profile Exports without credentials/raw private source, and verifiably delete local profile data and caches. | M2-S10; `FMU-FR-015`, `FMU-FR-026`; `FMU-E-015`; ADR-0009. |
+| 12 | `M2-S12` — Bounded evidence lookup and secret-safe doctor | `Blocked by M2-S11` | The owner can request bounded capability evidence and diagnose installation, schema, adapter, cache, and context-size state without exposing source, secrets, personal paths, or canaries. | M2-S11; `FMU-FR-010`, `FMU-FR-022`, `FMU-FR-023`, `FMU-FR-026`; `FMU-E-015`. |
+| 13 | `M2-S13` — End-to-end local Community workflow | `Blocked by M2-S12` | A clean local workflow selects authorized local repositories, collects evidence, persists/corrects a profile, compiles task context, serves the compatible consumer, diagnoses state, exports, and deletes without an account, network, dedicated LLM API, or proprietary service; verification uses only synthetic repositories. | M2-S12; `FMU-FR-016`, `FMU-FR-023`; `FMU-NFR-004`, `FMU-NFR-011`, `FMU-NFR-016`; M2 local-utility exit gate. |
+| 14 | `M2-S14` — Evidence-quality experiment brief | `Blocked by M2-S13` | Before measurement, the owner freezes the limited taxonomy, synthetic/approved sample, acceptable false-`demonstrated` and correction thresholds, and decision owner in a reviewable brief. | M2-S13 and the M2 measurement exit gate. Exact thresholds require the owner's decision when this slice becomes eligible. |
+| 15 | `M2-S15` — Limited-taxonomy quality measurement | `Blocked by M2-S14` | The frozen sample runs reproducibly and reports false-`demonstrated`, attribution, unknown, correction, and rejection outcomes against the accepted thresholds without tuning the brief after results. | M2-S14; M2 measurement exit gate; Project Specification profile-quality metrics. |
+| 16 | `M2-S16` — M2 exit audit | `Blocked by M2-S15` | An integrated audit runs every required behavioral, persistence, recovery, cache, owner-control, security, clean-install, and local-utility gate and either closes M2 or names a blocker. | M2-S01 through M2-S15; full M2 exit gate, required evaluations, and cross-milestone quality gates. |

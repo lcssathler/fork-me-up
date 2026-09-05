@@ -21,7 +21,7 @@ The first reference adapter targets Codex because it provides MCP and lifecycle 
 
 ## Current status
 
-M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, Community Provider, MCP, and Codex adapter workspaces validate synthetic fixture profiles, compile schema-valid redacted DCPs, and deliver allowlisted task guidance through non-blocking Codex lifecycle hooks. There is still no source-backed Demand Profile producer, canonical profile persistence, owner CLI, release, second consumer, or general client-compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
+M0 and M1 are complete, and M2 is ready to begin. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, Community Provider, MCP, and Codex adapter workspaces validate synthetic fixture profiles, compile schema-valid redacted DCPs, and deliver allowlisted task guidance through non-blocking Codex lifecycle hooks. The [M1 exit audit](docs/audits/M1_EXIT_AUDIT.md) verifies the fixture-backed technical MVP and records its limits. There is still no source-backed Demand Profile producer, canonical profile persistence, owner CLI, release, second consumer, or general client-compatibility claim.
 
 ## Development foundation
 
@@ -71,6 +71,7 @@ This baseline does not yet claim the complete pull-request fast gate. Draft cont
 - [Engineering process](docs/ENGINEERING.md)
 - [Roadmap](docs/ROADMAP.md)
 - [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md)
+- [M1 exit audit](docs/audits/M1_EXIT_AUDIT.md)
 - [Competitive landscape](docs/COMPETITIVE_ANALYSIS.md)
 - [Decision records](docs/adr/)
 - [Contributing guide](CONTRIBUTING.md)
