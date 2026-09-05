@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "0.1.0",
+  "packetId": "dcp_synthetic_cross_boundary",
+  "profileVersion": "profile_synthetic_cross_boundary",
+  "purpose": "coding-assistance"
+}

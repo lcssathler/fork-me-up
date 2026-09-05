@@ -223,6 +223,8 @@ The Community reference provider's Store envelope is implementation-internal eve
 
 The Demand Profile represents capabilities relevant to a current project and task. It is derived from explicit task input and authorized project metadata. It is not a generic repository digest.
 
+The draft public envelope carries only opaque demand/project/revision references, bounded task context, typed project-metadata availability, and unique required or supporting capability identifiers with a typed task/project basis. It deliberately excludes Developer Profile content, Evidence, Claims, response policy, grants, credentials, paths, and raw metadata. An empty capability set is valid when demand cannot be established without inventing it. Schema validation does not perform derivation or authorize project access.
+
 ### 5.6 DCP compilation
 
 The compiler intersects the Demand Profile with the Developer Profile and applies:

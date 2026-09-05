@@ -4,7 +4,7 @@
 > Draft version: 0.1  
 > Last updated: September 5, 2026
 
-This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema, M0-S09 provides independent unreleased Evidence and Claim `0.1.0` authoring schemas, and M0-S10 provides the unreleased public Portable Profile Export `0.1.0` authoring schema while keeping the Community Profile Store implementation-internal. Demand Profile and Provider/conformance contracts remain pending their M0 slices. Once a schema version is released, compatibility follows the rules in this document.
+This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema, M0-S09 provides independent unreleased Evidence and Claim `0.1.0` authoring schemas, M0-S10 provides the unreleased public Portable Profile Export `0.1.0` authoring schema while keeping the Community Profile Store implementation-internal, and M0-S11 provides the unreleased Demand Profile `0.1.0` authoring schema. Provider/conformance contracts remain pending M0-S12. Once a schema version is released, compatibility follows the rules in this document.
 
 ## 1. Purpose
 
@@ -61,6 +61,10 @@ The export requires fixed exclusions for credentials, raw source, Source Grants,
 ### 2.5 Demand Profile
 
 The capabilities relevant to a project and task. It constrains which profile facts can help the consuming tool.
+
+The public [Demand Profile `0.1.0` schema](../schemas/demand-profile/0.1.0.schema.json) binds an opaque current-project reference, bounded explicit task summary and purpose, project-metadata availability, and a bounded list of unique capability identifiers. Each capability is `required` or `supporting` and records whether it arose from task input, authorized project metadata, or both; project-derived bases are invalid when metadata is unavailable. An empty list preserves uncertainty rather than inventing task demand.
+
+Demand Profile describes the task, not the developer. It contains no Claim, Evidence, profile, response policy, grant, credential, raw project metadata, source content, or path. Its task summary is untrusted data and cannot set policy or authorize access. Metadata availability and opaque revision fields do not prove authorization, freshness, or relevance. Runtime derivation and Developer Profile intersection remain M1 work. [ADR-0010](adr/0010-demand-profile-draft-contract.md) records this boundary.
 
 ### 2.6 Developer Context Packet
 
@@ -195,6 +199,8 @@ The draft gives existing concepts explicit representations:
 The same command checks the independent Evidence and Claim corpora through the shared bounded fixture reader. Evidence validation additionally enforces collection-at-or-after-observation ordering. All schemas are self-contained and use only local fragment references. These development checks do not resolve opaque references, inspect a source, derive a Claim, apply correction precedence, or authorize disclosure.
 
 M0-S10 extends the command to the internal Store and public Portable Profile Export corpora. Their committed schema dependencies are preloaded by fixed local URLs and referenced through stable URNs; no network or arbitrary schema loader is used. Supplementary checks enforce unique and resolved in-envelope provenance, matching correction/declaration capabilities, resolved project scope, nested Evidence semantics, and ordered Store timestamps. They do not implement persistence, atomic replacement, migration, export, deletion, or correction precedence.
+
+M0-S11 adds the self-contained Demand Profile corpus. Its supplementary check enforces unique capability identifiers and rejects project-derived bases when metadata is unavailable; schema cases cover metadata/revision consistency, task bounds, typed relevance/basis, prohibited profile/raw/policy fields, and cross-envelope rejection. Validation does not read project metadata, derive task demand, interpret task text, intersect a profile, or compile a DCP.
 
 These checks cannot establish source attribution, task relevance, actual redaction, grant validity, correction precedence, or unlinkability. Bounded free text remains unprivileged data and may be structurally valid even when it contains instruction-like or sensitive text. Future runtime boundaries must enforce the security and disclosure invariants before any packet is shared. This slice does not satisfy MCP integration or behavioral evaluation gates.
 
@@ -384,6 +390,7 @@ Availability errors may permit the host to continue without context. Authorizati
 - Migrations preserve correction precedence and provenance.
 - Protocol negotiation must never downgrade authorization or disclosure policy.
 - Developer Profile Store versions and migrations are provider-internal. They never become acceptable where a Portable Profile Export or DCP is required, even when their payload records share public Evidence and Claim schemas.
+- Demand Profile versions remain public and independent from DCP versions. A Demand Profile is compiler input, not a packet, and must never be accepted as a developer assessment or delivered as a DCP.
 
 ## 13. Conformance
 

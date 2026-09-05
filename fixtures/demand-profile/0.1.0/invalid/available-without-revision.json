@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "demand-profile",
+  "demandId": "demand_synthetic_revision",
+  "project": {
+    "projectRef": "project_synthetic_revision",
+    "metadataStatus": "available",
+    "metadataRevisionRef": null
+  },
+  "task": {
+    "summary": "Perform a synthetic task",
+    "purpose": "coding-assistance"
+  },
+  "capabilities": [],
+  "generatedAt": "2026-09-05T13:00:00Z"
+}
