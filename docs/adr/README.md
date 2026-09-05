@@ -13,6 +13,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0007](0007-dcp-draft-schema-validation.md) | Accepted | Define the first DCP draft schema and offline authoring-fixture validation. |
 | [ADR-0008](0008-evidence-claim-draft-contracts.md) | Accepted | Define independent Evidence and Claim draft contracts with state-matched provenance. |
 | [ADR-0009](0009-profile-store-export-boundary.md) | Accepted | Separate the reference provider's internal Profile Store from the public Portable Profile Export and every DCP. |
+| [ADR-0010](0010-demand-profile-draft-contract.md) | Accepted | Define a task-scoped Demand Profile contract without developer assessment, raw project data, or policy authority. |
 
 ## Record format
 

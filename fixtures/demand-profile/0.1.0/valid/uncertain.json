@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "demand-profile",
+  "demandId": "demand_synthetic_uncertain",
+  "project": {
+    "projectRef": "project_synthetic_uncertain",
+    "metadataStatus": "unavailable",
+    "metadataRevisionRef": null
+  },
+  "task": {
+    "summary": "Plan a synthetic task without inventing capability demand",
+    "purpose": "coding-assistance"
+  },
+  "capabilities": [],
+  "generatedAt": "2026-09-05T13:00:00Z"
+}

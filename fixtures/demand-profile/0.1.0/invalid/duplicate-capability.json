@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "demand-profile",
+  "demandId": "demand_synthetic_duplicate",
+  "project": {
+    "projectRef": "project_synthetic_duplicate",
+    "metadataStatus": "partial",
+    "metadataRevisionRef": null
+  },
+  "task": {
+    "summary": "Add a synthetic test",
+    "purpose": "coding-assistance"
+  },
+  "capabilities": [
+    {
+      "capability": "delivery.testing.node",
+      "relevance": "required",
+      "basis": "task-input"
+    },
+    {
+      "capability": "delivery.testing.node",
+      "relevance": "supporting",
+      "basis": "project-metadata"
+    }
+  ],
+  "generatedAt": "2026-09-05T13:00:00Z"
+}

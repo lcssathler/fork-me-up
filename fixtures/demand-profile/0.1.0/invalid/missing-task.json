@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "demand-profile",
+  "demandId": "demand_synthetic_missing_task",
+  "project": {
+    "projectRef": "project_synthetic_missing_task",
+    "metadataStatus": "unavailable",
+    "metadataRevisionRef": null
+  },
+  "capabilities": [],
+  "generatedAt": "2026-09-05T13:00:00Z"
+}

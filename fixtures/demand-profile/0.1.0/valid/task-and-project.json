@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "demand-profile",
+  "demandId": "demand_synthetic_combined",
+  "project": {
+    "projectRef": "project_synthetic_combined",
+    "metadataStatus": "available",
+    "metadataRevisionRef": "revision_synthetic_combined"
+  },
+  "task": {
+    "summary": "Add a synthetic continuous integration workflow",
+    "purpose": "coding-assistance"
+  },
+  "capabilities": [
+    {
+      "capability": "delivery.ci.github-actions",
+      "relevance": "required",
+      "basis": "task-and-project"
+    },
+    {
+      "capability": "delivery.testing.node",
+      "relevance": "supporting",
+      "basis": "project-metadata"
+    }
+  ],
+  "generatedAt": "2026-09-05T13:00:00Z"
+}

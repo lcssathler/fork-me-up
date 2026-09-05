@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "demand-profile",
+  "demandId": "demand_synthetic_task",
+  "project": {
+    "projectRef": "project_synthetic_task",
+    "metadataStatus": "partial",
+    "metadataRevisionRef": null
+  },
+  "task": {
+    "summary": "Explain a synthetic database migration",
+    "purpose": "technical-learning"
+  },
+  "capabilities": [
+    {
+      "capability": "database.migrations",
+      "relevance": "required",
+      "basis": "task-input"
+    }
+  ],
+  "generatedAt": "2026-09-05T13:00:00Z"
+}
