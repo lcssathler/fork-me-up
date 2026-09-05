@@ -24,6 +24,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0018](0018-authorized-local-repository-configuration.md) | Accepted | Resolve bounded owner-selected local roots and repositories into a private canonical authorization boundary. |
 | [ADR-0019](0019-bounded-filesystem-metadata-collector.md) | Accepted | Collect only bounded sanitized filesystem metadata beneath live authorized roots without executing repository content. |
 | [ADR-0020](0020-quarantined-bounded-git-metadata-collector.md) | Accepted | Extract bounded Git metadata through an isolated command quarantine that cannot load repository-controlled execution paths. |
+| [ADR-0021](0021-explicit-conservative-git-authorship-assessment.md) | Accepted | Resolve private Git identities to digests and assess authorship through explicit conservative attribution and history facets. |
 
 ## Record format
 

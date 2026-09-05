@@ -18,6 +18,7 @@ import {
   type BoundedGitCommandPort,
   type GitObjectFormat,
 } from "./bounded-git-command.ts";
+import { digestGitIdentity, maximumGitIdentityBytes } from "./git-identity.ts";
 
 export const gitMetadataSnapshotVersion = "0.1.0" as const;
 
@@ -25,7 +26,7 @@ export const gitMetadataHardLimits = Object.freeze({
   maxCommits: 256,
   maxParentsPerCommit: 64,
   maxCoauthorsPerCommit: 32,
-  maxIdentityBytes: 512,
+  maxIdentityBytes: maximumGitIdentityBytes,
   maxHeadBytes: 1_024,
 });
 
@@ -548,7 +549,7 @@ function parseCommitObject(
     const name = match[1];
     const email = match[2];
     if (name === undefined || email === undefined) continue;
-    coauthors.add(identityDigest(name, email));
+    coauthors.add(requireIdentityDigest(name, email));
     if (coauthors.size > gitMetadataHardLimits.maxCoauthorsPerCommit) {
       throw new GitCollectorFault("limit-exceeded", false);
     }
@@ -602,31 +603,13 @@ function parseIdentityHeader(line: string, prefix: "author " | "committer "): Pa
   } catch {
     throw new GitCollectorFault("invalid-metadata", false);
   }
-  return Object.freeze({ digest: identityDigest(name, email), timestamp });
+  return Object.freeze({ digest: requireIdentityDigest(name, email), timestamp });
 }
 
-function identityDigest(name: string, email: string): string {
-  const normalizedName = normalizeIdentityPart(name);
-  const normalizedEmail = normalizeIdentityPart(email);
-  if (
-    normalizedName.length === 0 ||
-    normalizedEmail.length === 0 ||
-    Buffer.byteLength(normalizedName, "utf8") > gitMetadataHardLimits.maxIdentityBytes ||
-    Buffer.byteLength(normalizedEmail, "utf8") > gitMetadataHardLimits.maxIdentityBytes ||
-    containsUnsafeControl(normalizedName, false) ||
-    containsUnsafeControl(normalizedEmail, false)
-  ) {
-    throw new GitCollectorFault("invalid-metadata", false);
-  }
-  return createHash("sha256")
-    .update(normalizedName, "utf8")
-    .update("\0", "utf8")
-    .update(normalizedEmail, "utf8")
-    .digest("hex");
-}
-
-function normalizeIdentityPart(value: string): string {
-  return value.normalize("NFKC").trim().replace(/\s+/gu, " ").toLowerCase();
+function requireIdentityDigest(name: string, email: string): string {
+  const digest = digestGitIdentity(name, email);
+  if (digest === undefined) throw new GitCollectorFault("invalid-metadata", false);
+  return digest;
 }
 
 function parseChangedPaths(bytes: Uint8Array): readonly string[] {

@@ -53,3 +53,27 @@ export {
   type GitMetadataSnapshot,
   type RepositoryGitMetadata,
 } from "./git-metadata-collector.ts";
+export {
+  developerIdentityConfigHardLimits,
+  developerIdentityConfigVersion,
+  resolveDeveloperIdentityConfig,
+  type DeveloperIdentityConfigErrorCategory,
+  type GitCommitAnnotationKind,
+  type GitIdentityRole,
+  type ResolvedDeveloperIdentityConfig,
+  type ResolvedGitCommitAnnotation,
+  type ResolvedGitIdentity,
+  type ResolveDeveloperIdentityConfigResult,
+} from "./developer-identity-config.ts";
+export {
+  assessGitAuthorship,
+  gitAuthorshipAssessmentVersion,
+  type AssessGitAuthorshipResult,
+  type GitAttributionState,
+  type GitAuthorshipAssessmentErrorCategory,
+  type GitAuthorshipAssessmentSnapshot,
+  type GitAuthorshipLimitation,
+  type GitCommitAuthorshipAssessment,
+  type GitHistoryShape,
+  type RepositoryGitAuthorshipAssessment,
+} from "./git-authorship-assessment.ts";
