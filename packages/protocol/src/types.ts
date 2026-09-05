@@ -224,3 +224,125 @@ export interface PortableProfileExport {
     readonly internalState: true;
   };
 }
+
+export type ProfileProviderOperation =
+  | "get-provider-capabilities"
+  | "get-profile-metadata"
+  | "get-task-context"
+  | "get-capability-evidence";
+
+export interface ProfileProviderCapabilities {
+  readonly schemaVersion: "0.1.0";
+  readonly kind: "profile-provider-capabilities";
+  readonly providerId: string;
+  readonly protocolVersions: readonly string[];
+  readonly operations: readonly ProfileProviderOperation[];
+  readonly sourceClasses: readonly EvidenceSourceClass[];
+  readonly disclosureClasses: readonly DcpDisclosureClass[];
+  readonly deployment: "local" | "remote-managed";
+  readonly limits: {
+    readonly maxTaskBytes: number;
+    readonly maxOutputBytes: number;
+    readonly maxOutputTokens: number;
+    readonly maxRequestedCapabilities: number;
+  };
+  readonly freshnessSupport: {
+    readonly partialResults: boolean;
+    readonly staleResults: boolean;
+  };
+  readonly extensions?: Readonly<Record<string, boolean | number | string | readonly string[]>>;
+}
+
+export interface TaskContextInput {
+  readonly task: string;
+  readonly purpose: DemandPurpose;
+  readonly maxTokens: number;
+  readonly requestedCapabilities: readonly string[];
+}
+
+export type CapabilityEvidenceInput =
+  | Readonly<{ capability: string; claimRef?: never }>
+  | Readonly<{ capability?: never; claimRef: string }>;
+
+type ProfileProviderRequestFor<
+  Operation extends ProfileProviderOperation,
+  Input extends object,
+> = Readonly<{
+  schemaVersion: "0.1.0";
+  kind: "profile-provider-request";
+  requestId: string;
+  operation: Operation;
+  input: Input;
+  extensions?: Readonly<Record<string, boolean | number | string | readonly string[]>>;
+}>;
+
+export type ProfileProviderRequest =
+  | ProfileProviderRequestFor<"get-provider-capabilities", Readonly<Record<string, never>>>
+  | ProfileProviderRequestFor<"get-profile-metadata", Readonly<Record<string, never>>>
+  | ProfileProviderRequestFor<"get-task-context", TaskContextInput>
+  | ProfileProviderRequestFor<"get-capability-evidence", CapabilityEvidenceInput>;
+
+export type ProfileFreshnessStatus = "fresh" | "stale" | "partial";
+
+export interface ProfileMetadata {
+  readonly profileVersion: string;
+  readonly freshnessStatus: ProfileFreshnessStatus;
+  readonly observedThrough: string | null;
+  readonly claimCount: number;
+  readonly evidenceCount: number;
+}
+
+export interface CapabilityEvidence {
+  readonly capability: string;
+  readonly claimRef: string | null;
+  readonly evidence: readonly {
+    readonly evidenceRef: string;
+    readonly sourceClass: EvidenceSourceClass;
+    readonly strength: EvidenceStrength;
+    readonly observedAt: string;
+    readonly limitations: readonly string[];
+  }[];
+  readonly limitations: readonly string[];
+}
+
+export type ProfileProviderErrorCategory =
+  | "unsupported-version"
+  | "unsupported-operation"
+  | "invalid-input"
+  | "profile-unavailable"
+  | "partial-profile"
+  | "stale-profile"
+  | "budget-too-small"
+  | "unauthorized"
+  | "insufficient-scope"
+  | "source-unavailable"
+  | "persistence-failed"
+  | "redaction-failed"
+  | "internal-error";
+
+export interface ProfileProviderError {
+  readonly category: ProfileProviderErrorCategory;
+  readonly retryable: boolean;
+  readonly supportedVersions: readonly string[];
+}
+
+export type ProfileProviderResponse =
+  | Readonly<{
+      schemaVersion: "0.1.0";
+      kind: "profile-provider-response";
+      requestId: string;
+      operation: ProfileProviderOperation;
+      outcome: "success";
+      data:
+        ProfileProviderCapabilities | ProfileMetadata | DeveloperContextPacket | CapabilityEvidence;
+      error: null;
+    }>
+  | Readonly<{
+      schemaVersion: "0.1.0";
+      kind: "profile-provider-response";
+      requestId: string;
+      operation: ProfileProviderOperation;
+      outcome: "error";
+      data: null;
+      error: ProfileProviderError;
+    }>;

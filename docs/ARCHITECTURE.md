@@ -323,6 +323,8 @@ M1-S01 instantiated the first two boundaries as private unreleased npm workspace
 
 M1-S02 adds pure Claim behavior precedence and Response Policy selection to Core. It accepts already validated, already relevant Claims, preserves their full state-matched provenance, and chooses the most conservative required communication posture without client types or free-form instructions. Demand Profile relevance and DCP projection remain separate downstream boundaries. See [ADR-0013](adr/0013-claim-precedence-response-policy.md).
 
+M1-S05 instantiates the next two boundaries as `packages/community-provider` and `apps/mcp-local`. The fixture-backed provider depends only on Core and Protocol, exposes the accepted transport-neutral request/response contract, and injects time and identifiers. The application owns MCP lifecycle and newline framing, maps only the two model-facing read operations, bounds each input/output line, and has no network module or listener. It intentionally implements the repository's referenced MCP `2025-11-25` profile rather than claiming later-revision or universal-client compatibility. See [ADR-0016](adr/0016-local-provider-mcp-stdio.md).
+
 ## 11. Failure semantics
 
 - Optional evidence provider unavailable: return a typed partial/stale result and continue without weakening disclosure.

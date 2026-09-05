@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol and Core workspaces validate and immutably load synthetic fixture profiles, apply conservative Claim policy, intersect validated Demand Profiles, and compile schema-valid redacted DCPs under deterministic byte/token-accounting limits. There is still no runnable application, Demand Profile producer, provider, transport, adapter, release, or compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
+M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, and Community Provider workspaces validate synthetic fixture profiles, apply conservative Claim policy, intersect validated Demand Profiles, compile schema-valid redacted DCPs, and expose a bounded local MCP `stdio` application. There is still no source-backed Demand Profile producer, persistence, owner CLI, reference adapter, release, or general client-compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
 
 ## Development foundation
 
@@ -38,7 +38,15 @@ Install exactly the committed dependency graph without running dependency lifecy
 npm ci --ignore-scripts
 ```
 
-The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. M1-S01 introduces private unreleased `@fork-me-up/protocol` and `@fork-me-up/core` packages. Protocol validates the canonical profile-export, Demand Profile, and DCP contracts, while Core depends only on Protocol and exposes immutable profile loading, Claim policy, task relevance, and bounded DCP compilation. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. The private unreleased `@fork-me-up/protocol`, `@fork-me-up/core`, `@fork-me-up/community-provider`, and `@fork-me-up/mcp-local` workspaces implement the current fixture-backed vertical slice. Protocol validates canonical exchange contracts, Core owns pure domain behavior, the Community Provider maps typed requests into bounded compilation, and the application maps two read-only tools onto MCP `stdio`. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+
+Run the local synthetic MCP server with the default demonstrated fixture:
+
+```text
+npm run mcp
+```
+
+Development-only fixture selections are `demonstrated`, `adjacent`, `insufficient-evidence`, and `unavailable`; for example, `npm run mcp -- --fixture=adjacent`. The process speaks newline-delimited JSON-RPC on `stdin`/`stdout`, advertises only `get_task_context` and `get_profile_metadata`, and intentionally supports MCP revision `2025-11-25` only. It opens no listener and makes no network request. These fixtures prove the transport boundary, not production profile persistence or compatibility with every MCP client.
 
 Run the complete deterministic baseline:
 
@@ -46,7 +54,7 @@ Run the complete deterministic baseline:
 npm run check
 ```
 
-The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. The evaluation suite executes FMU-E-001 through FMU-E-004, FMU-E-006, FMU-E-012, and FMU-E-013. Integration retains a committed `bootstrap-not-applicable` exception only while no process, transport, persistence, or external-system boundary exists; the exception becomes an error as soon as matching tests are added.
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, MCP subprocess integration tests, and behavioral evaluations. The unit and integration suites must never be empty. The evaluation suite executes FMU-E-001 through FMU-E-004, FMU-E-006, FMU-E-012, and FMU-E-013. The former integration `bootstrap-not-applicable` exception ended when the MCP process boundary was introduced.
 
 The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
 

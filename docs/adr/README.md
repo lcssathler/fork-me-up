@@ -19,6 +19,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0013](0013-claim-precedence-response-policy.md) | Accepted | Preserve Claims under conservative behavior precedence and select a client-neutral Response Policy. |
 | [ADR-0014](0014-demand-profile-intersection.md) | Accepted | Intersect validated task demand with only applicable global or current-project Claims. |
 | [ADR-0015](0015-deterministic-bounded-dcp-compiler.md) | Accepted | Compile immutable task intersections into redacted, deterministic, strictly bounded DCPs. |
+| [ADR-0016](0016-local-provider-mcp-stdio.md) | Accepted | Implement a fixture-backed client-neutral Provider behind a bounded MCP `stdio` mapping. |
 
 ## Record format
 

@@ -6,6 +6,12 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["eslint.config.mjs", "packages/**/*.ts", "scripts/**/*.mjs", "tests/**/*.mjs"],
+  "include": [
+    "apps/**/*.ts",
+    "eslint.config.mjs",
+    "packages/**/*.ts",
+    "scripts/**/*.mjs",
+    "tests/**/*.mjs"
+  ],
   "exclude": ["build", "coverage", "dist", "node_modules"]
 }

@@ -28,6 +28,7 @@ test("the manifest and aggregate expose the declared baseline and draft schema c
     format: 'prettier --write "**/*.{json,jsonc,yaml,yml,js,cjs,mjs,ts,cts,mts}"',
     "format:check": 'prettier --check "**/*.{json,jsonc,yaml,yml,js,cjs,mjs,ts,cts,mts}"',
     lint: "eslint . --max-warnings=0",
+    mcp: "node apps/mcp-local/src/main.ts",
     typecheck: "tsc --project tsconfig.json --pretty false",
     test: "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",

@@ -1,8 +1,15 @@
 export { isDemandProfile } from "./demand-profile.ts";
 export { isDeveloperContextPacket, utf8ByteLength } from "./developer-context-packet.ts";
 export { isPortableProfileExport } from "./portable-profile-export.ts";
+export {
+  isProfileProviderCapabilities,
+  isProfileProviderRequest,
+  isProfileProviderResponse,
+} from "./profile-provider.ts";
 export type {
   AuthorAssessmentState,
+  CapabilityEvidence,
+  CapabilityEvidenceInput,
   Claim,
   ClaimBasis,
   ClaimBasisKind,
@@ -30,6 +37,15 @@ export type {
   PortableProfileExport,
   ProfilePayload,
   ProfilePreferences,
+  ProfileFreshnessStatus,
+  ProfileMetadata,
+  ProfileProviderCapabilities,
+  ProfileProviderError,
+  ProfileProviderErrorCategory,
+  ProfileProviderOperation,
+  ProfileProviderRequest,
+  ProfileProviderResponse,
   ResponsePolicy,
   ResponsePolicyMode,
+  TaskContextInput,
 } from "./types.ts";
