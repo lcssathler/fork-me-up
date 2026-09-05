@@ -2,7 +2,7 @@
 
 > Status: pre-implementation architecture baseline  
 > Version: 0.1  
-> Last updated: September 4, 2026
+> Last updated: September 5, 2026
 
 ## 1. Architectural objective
 
@@ -217,6 +217,8 @@ The Developer Profile is the canonical private state. It may contain more claims
 
 The profile is never implicitly equivalent to a DCP.
 
+The Community reference provider's Store envelope is implementation-internal even though its schema is inspectable in the public repository. Its exportable profile payload may reuse public Evidence and Claim contracts, while store identity, generation, validation, and migration bookkeeping remain private implementation state. An owner-initiated Portable Profile Export wraps only the public profile payload and explicit exclusions; consumers never ingest a Store file as an export or context packet.
+
 ### 5.5 Demand Profile
 
 The Demand Profile represents capabilities relevant to a current project and task. It is derived from explicit task input and authorized project metadata. It is not a generic repository digest.
@@ -353,5 +355,3 @@ Each requires a new hypothesis, accepted ADR, data-flow update, threat-model rev
 - [OpenAI — MCP server](https://developers.openai.com/plugins/concepts/mcp-server)
 - [OpenAI — Plugin authentication](https://developers.openai.com/plugins/build/auth)
 - [GitHub — Deciding when to build a GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app)
-
-

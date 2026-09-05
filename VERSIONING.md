@@ -4,7 +4,7 @@ This policy applies the existing [protocol compatibility rules](docs/PROTOCOL.md
 
 ## Development status and version boundaries
 
-The private root workspace is versioned `0.0.0` as a development placeholder and remains non-publishable. The protocol document's `0.1` revision and DCP, Evidence, and Claim schemas `0.1.0` are unreleased drafts, not releases or compatibility claims. M0-S08 supplies the exact DCP authoring schema and M0-S09 supplies independent Evidence and Claim authoring schemas; M0-S10 through M0-S12 prepare the remaining contracts. Runnable behavior and releases have separate roadmap gates.
+The private root workspace is versioned `0.0.0` as a development placeholder and remains non-publishable. The protocol document's `0.1` revision and DCP, Evidence, Claim, and Portable Profile Export schemas `0.1.0` are unreleased drafts, not releases or compatibility claims. M0-S08 through M0-S10 supply these authoring schemas plus the separate implementation-internal Community Profile Store `0.1.0` draft; M0-S11 and M0-S12 prepare the remaining public contracts. Runnable behavior and releases have separate roadmap gates.
 
 Keep these versions distinct:
 
@@ -33,6 +33,8 @@ The protocol's stricter compatibility obligations apply to every released public
 An unreleased draft can evolve, but it must remain clearly labeled and must not be used to claim conformance to an untested contract. A package update does not silently migrate profile data or make an unsupported schema acceptable.
 
 Evidence and Claim start at unreleased `0.1.0`, so no existing released record requires migration. They remain independent records, while the DCP's inline claim summary is a minimized projection and not an alternate Claim version. Future producer/consumer types, reference resolution, and migrations must preserve state-matched provenance and cannot reinterpret a declaration, adjacency, dispute, or insufficient-evidence record as an observation.
+
+Portable Profile Export and the Community Profile Store also start at unreleased `0.1.0`; no released data requires migration. Store versions are internal to that provider and use `storeSchemaVersion`; export versions are public protocol versions and use `schemaVersion`. Matching numeric versions do not make the envelopes interchangeable. A future store migration must preserve prior valid state and a future export must be explicitly constructed and validated rather than relabeling or copying the Store envelope.
 
 ## Change and migration evidence
 

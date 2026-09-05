@@ -1,0 +1,28 @@
+{
+  "storeSchemaVersion": "0.1.0",
+  "kind": "community-profile-store",
+  "storeId": "store_synthetic_time",
+  "profileVersion": "profile_synthetic_empty",
+  "subjectRef": "subject_synthetic_owner",
+  "profile": {
+    "projectRefs": [],
+    "evidence": [],
+    "claims": [],
+    "declarations": [],
+    "corrections": [],
+    "preferences": {
+      "explanationMode": "balanced",
+      "explainPurposeBeforeCommands": true,
+      "includeExpectedResult": true,
+      "includeRiskAndRollback": true,
+      "questionBudget": 1
+    }
+  },
+  "internalState": {
+    "generation": 1,
+    "createdAt": "2026-09-05T10:00:01Z",
+    "updatedAt": "2026-09-05T10:00:00Z",
+    "lastValidatedAt": "2026-09-05T10:00:00Z",
+    "migratedFromStoreSchemaVersion": null
+  }
+}

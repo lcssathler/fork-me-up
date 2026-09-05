@@ -1,0 +1,6 @@
+{
+  "storeSchemaVersion": "0.1.0",
+  "kind": "community-profile-store",
+  "credentials": "FMU_SYNTHETIC_CANARY_DO_NOT_LOG",
+  "rawSource": "synthetic source"
+}

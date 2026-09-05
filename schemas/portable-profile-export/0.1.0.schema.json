@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fork-me-up:portable-profile-export:0.1.0",
+  "title": "Portable Profile Export 0.1.0 (unreleased authoring draft)",
+  "description": "Owner-initiated public portability envelope. It is not a provider store, DCP, authorization grant, or proof of redaction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "exportId",
+    "profileVersion",
+    "subjectRef",
+    "generatedAt",
+    "profile",
+    "exclusions"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "kind": {
+      "const": "portable-profile-export"
+    },
+    "exportId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "profileVersion": {
+      "$ref": "#/$defs/identifier"
+    },
+    "subjectRef": {
+      "$ref": "#/$defs/identifier"
+    },
+    "generatedAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "profile": {
+      "$ref": "#/$defs/profilePayload"
+    },
+    "exclusions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["credentials", "rawSource", "sourceGrants", "sharingGrants", "internalState"],
+      "properties": {
+        "credentials": {
+          "const": true
+        },
+        "rawSource": {
+          "const": true
+        },
+        "sourceGrants": {
+          "const": true
+        },
+        "sharingGrants": {
+          "const": true
+        },
+        "internalState": {
+          "const": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*(?![\\s\\S])"
+    },
+    "capability": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "shortText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "minLength": 20,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z(?![\\s\\S])"
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declarationId", "capability", "summary", "declaredAt"],
+      "properties": {
+        "declarationId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "capability": {
+          "$ref": "#/$defs/capability"
+        },
+        "summary": {
+          "$ref": "#/$defs/shortText"
+        },
+        "declaredAt": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["correctionId", "kind", "capability", "targetClaimRef", "summary", "createdAt"],
+      "properties": {
+        "correctionId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "kind": {
+          "enum": ["assertion", "rejection", "adjustment"]
+        },
+        "capability": {
+          "$ref": "#/$defs/capability"
+        },
+        "targetClaimRef": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/shortText"
+        },
+        "createdAt": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "assertion"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "properties": {
+              "targetClaimRef": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetClaimRef": {
+                "$ref": "#/$defs/identifier"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "preferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "explanationMode",
+        "explainPurposeBeforeCommands",
+        "includeExpectedResult",
+        "includeRiskAndRollback",
+        "questionBudget"
+      ],
+      "properties": {
+        "explanationMode": {
+          "enum": ["concise", "balanced", "guided"]
+        },
+        "explainPurposeBeforeCommands": {
+          "type": "boolean"
+        },
+        "includeExpectedResult": {
+          "type": "boolean"
+        },
+        "includeRiskAndRollback": {
+          "type": "boolean"
+        },
+        "questionBudget": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "profilePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectRefs",
+        "evidence",
+        "claims",
+        "declarations",
+        "corrections",
+        "preferences"
+      ],
+      "properties": {
+        "projectRefs": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 1000,
+          "items": {
+            "$ref": "urn:fork-me-up:evidence:0.1.0"
+          }
+        },
+        "claims": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "urn:fork-me-up:claim:0.1.0"
+          }
+        },
+        "declarations": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/declaration"
+          }
+        },
+        "corrections": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/correction"
+          }
+        },
+        "preferences": {
+          "$ref": "#/$defs/preferences"
+        }
+      }
+    }
+  }
+}

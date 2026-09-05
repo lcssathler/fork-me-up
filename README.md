@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is in progress. There is no runnable product yet, but the repository now has a pinned development toolchain and executable baseline checks. The DCP, Evidence, and Claim `0.1.0` draft authoring schemas and synthetic fixtures are available; profile/export, demand, provider/conformance contracts, runtime behavior, and compatibility claims remain future slices.
+M0 is in progress. There is no runnable product yet, but the repository now has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, and Portable Profile Export `0.1.0` draft authoring schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft; demand, provider/conformance contracts, runtime behavior, and compatibility claims remain future slices.
 
 ## Development foundation
 
@@ -46,11 +46,11 @@ Run the complete deterministic baseline:
 npm run check
 ```
 
-The aggregate command fails fast across formatting, lint, strict type checking, unit tests, DCP/Evidence/Claim schema fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. Integration and evaluation suites report a committed `bootstrap-not-applicable` exception only while their corresponding product boundary or behavior does not exist; each exception becomes an error as soon as matching tests are added.
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, DCP/Evidence/Claim/Store/Export schema fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. Integration and evaluation suites report a committed `bootstrap-not-applicable` exception only while their corresponding product boundary or behavior does not exist; each exception becomes an error as soon as matching tests are added.
 
 The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
 
-This baseline does not yet claim the complete pull-request fast gate. DCP, Evidence, and Claim draft validation runs through `npm run schema:check`; documentation links, secret scanning, dependency review, and broader platform coverage remain later gates. See the [draft contract and limits](docs/PROTOCOL.md#41-exact-draft-authoring-rules) and [Evidence/Claim boundaries](docs/PROTOCOL.md#2-objects-and-boundaries). The root package stays private to prevent accidental publication, while all repository content remains licensed under Apache-2.0.
+This baseline does not yet claim the complete pull-request fast gate. Draft contract validation runs through `npm run schema:check`; documentation links, secret scanning, dependency review, and broader platform coverage remain later gates. See the [draft contract and limits](docs/PROTOCOL.md#41-exact-draft-authoring-rules) and [object boundaries](docs/PROTOCOL.md#2-objects-and-boundaries). The root package stays private to prevent accidental publication, while all repository content remains licensed under Apache-2.0.
 
 ## Documentation
 

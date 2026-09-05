@@ -1,0 +1,53 @@
+{
+  "storeSchemaVersion": "0.1.0",
+  "kind": "community-profile-store",
+  "storeId": "store_synthetic_populated",
+  "profileVersion": "profile_synthetic_populated",
+  "subjectRef": "subject_synthetic_owner",
+  "profile": {
+    "projectRefs": ["project_synthetic_store"],
+    "evidence": [],
+    "claims": [
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_synthetic_store_insufficient",
+        "capability": "delivery.ci.github-actions",
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "projectRef": "project_synthetic_store",
+        "basis": {
+          "kind": "insufficient-evidence",
+          "evidenceRefs": [],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": null,
+          "correctionRef": null,
+          "correctionSummary": null
+        },
+        "limitations": ["No stronger synthetic evidence is available"],
+        "freshness": {
+          "observedThrough": null,
+          "stale": false
+        }
+      }
+    ],
+    "declarations": [],
+    "corrections": [],
+    "preferences": {
+      "explanationMode": "guided",
+      "explainPurposeBeforeCommands": true,
+      "includeExpectedResult": true,
+      "includeRiskAndRollback": true,
+      "questionBudget": 1
+    }
+  },
+  "internalState": {
+    "generation": 3,
+    "createdAt": "2026-09-01T10:00:00Z",
+    "updatedAt": "2026-09-05T10:00:00Z",
+    "lastValidatedAt": "2026-09-05T10:00:01Z",
+    "migratedFromStoreSchemaVersion": null
+  }
+}
