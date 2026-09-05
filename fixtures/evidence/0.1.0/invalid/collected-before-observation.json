@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceId": "evidence_synthetic_time",
+  "kind": "observation",
+  "capabilitySignal": "delivery.ci.generic",
+  "source": {
+    "class": "selected-local-repository",
+    "sourceRelativeRef": "synthetic/workflow.yml",
+    "repositoryRef": "repository_synthetic_a",
+    "revisionRef": "revision_synthetic_a",
+    "visibility": "local-only"
+  },
+  "authorAssessment": {
+    "state": "unknown",
+    "subjectRef": null
+  },
+  "freshness": {
+    "observedAt": "2026-09-04T00:00:01Z",
+    "collectedAt": "2026-09-04T00:00:00Z"
+  },
+  "strength": "weak",
+  "limitations": [],
+  "extractor": {
+    "name": "fixture.collector",
+    "version": "0.1.0"
+  },
+  "invalidation": {
+    "rule": "source-changed",
+    "fingerprint": "fingerprint_synthetic_a"
+  }
+}

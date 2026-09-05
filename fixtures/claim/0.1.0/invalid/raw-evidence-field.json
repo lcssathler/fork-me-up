@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_raw",
+  "capability": "language.typescript",
+  "state": "demonstrated",
+  "observedDepth": "practical-use",
+  "confidence": "medium",
+  "scope": "global",
+  "projectRef": null,
+  "basis": {
+    "kind": "evidence",
+    "evidenceRefs": ["evidence_synthetic_attributed"],
+    "adjacentFrom": [],
+    "rationale": null,
+    "declarationRef": null,
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": [],
+  "freshness": {
+    "observedThrough": "2026-09-03T12:00:00Z",
+    "stale": false
+  },
+  "rawEvidence": "FMU_SYNTHETIC_CANARY_DO_NOT_LOG"
+}

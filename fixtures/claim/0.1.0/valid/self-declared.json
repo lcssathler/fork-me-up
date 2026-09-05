@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_declared",
+  "capability": "database.postgresql",
+  "state": "self-declared",
+  "observedDepth": null,
+  "confidence": "medium",
+  "scope": "global",
+  "projectRef": null,
+  "basis": {
+    "kind": "declaration",
+    "evidenceRefs": [],
+    "adjacentFrom": [],
+    "rationale": null,
+    "declarationRef": "declaration_synthetic_owner",
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": ["Developer declaration is not independently evidenced"],
+  "freshness": {
+    "observedThrough": null,
+    "stale": false
+  }
+}

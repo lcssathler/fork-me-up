@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_adjacent",
+  "capability": "framework.react",
+  "state": "adjacent",
+  "observedDepth": null,
+  "confidence": "low",
+  "scope": "global",
+  "projectRef": null,
+  "basis": {
+    "kind": "adjacency",
+    "evidenceRefs": ["evidence_synthetic_angular"],
+    "adjacentFrom": ["framework.angular"],
+    "rationale": "Component concepts may transfer, but framework idioms differ",
+    "declarationRef": null,
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": ["No direct React observation"],
+  "freshness": {
+    "observedThrough": "2026-08-01T00:00:00Z",
+    "stale": false
+  }
+}

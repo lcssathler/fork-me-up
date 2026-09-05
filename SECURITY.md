@@ -4,7 +4,7 @@ This policy covers vulnerability reporting for Fork Me Up repository content and
 
 ## Supported versions
 
-The project is in M0 private preparation and has no released runtime or supported release line. The root package version `0.0.0` and unreleased DCP schema `0.1.0` do not represent supported product releases. Reports about the current development revision are welcome through the process below. There is no security-support duration or response-time SLA at this stage.
+The project is in M0 private preparation and has no released runtime or supported release line. The root package version `0.0.0` and unreleased DCP, Evidence, and Claim schemas `0.1.0` do not represent supported product releases. Reports about the current development revision are welcome through the process below. There is no security-support duration or response-time SLA at this stage.
 
 Before a product release, maintainers must update this policy with the supported versions and upgrade path actually provided. A future Cloud/Pro service needs its own operational and incident-response policy before handling real private data.
 

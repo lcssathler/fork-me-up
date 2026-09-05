@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fork-me-up:evidence:0.1.0",
+  "title": "Evidence 0.1.0 (unreleased authoring draft)",
+  "description": "An immutable normalized observation. Evidence is private profile data and is not itself a capability claim or sharing authorization.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "evidenceId",
+    "kind",
+    "capabilitySignal",
+    "source",
+    "authorAssessment",
+    "freshness",
+    "strength",
+    "limitations",
+    "extractor",
+    "invalidation"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "evidenceId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "kind": {
+      "const": "observation"
+    },
+    "capabilitySignal": {
+      "$ref": "#/$defs/capability"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "sourceRelativeRef", "repositoryRef", "revisionRef", "visibility"],
+      "properties": {
+        "class": {
+          "enum": [
+            "selected-local-repository",
+            "selected-public-repository",
+            "selected-private-repository"
+          ]
+        },
+        "sourceRelativeRef": {
+          "$ref": "#/$defs/sourceRelativeRef"
+        },
+        "repositoryRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revisionRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "visibility": {
+          "enum": ["local-only", "public", "private"]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "class": {
+                "const": "selected-local-repository"
+              }
+            },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "visibility": {
+                "const": "local-only"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "class": {
+                "const": "selected-public-repository"
+              }
+            },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "visibility": {
+                "const": "public"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "class": {
+                "const": "selected-private-repository"
+              }
+            },
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {
+              "visibility": {
+                "const": "private"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "authorAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "subjectRef"],
+      "properties": {
+        "state": {
+          "enum": ["attributed", "coauthored", "bot", "unknown", "not-applicable"]
+        },
+        "subjectRef": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": ["attributed", "coauthored"]
+              }
+            },
+            "required": ["state"]
+          },
+          "then": {
+            "properties": {
+              "subjectRef": {
+                "$ref": "#/$defs/identifier"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "subjectRef": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observedAt", "collectedAt"],
+      "properties": {
+        "observedAt": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "collectedAt": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "strength": {
+      "enum": ["weak", "moderate", "strong"]
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/shortText"
+      },
+      "uniqueItems": true
+    },
+    "extractor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/metadataLabel"
+        },
+        "version": {
+          "$ref": "#/$defs/semanticVersion"
+        }
+      }
+    },
+    "invalidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "fingerprint"],
+      "properties": {
+        "rule": {
+          "enum": [
+            "source-changed",
+            "revision-unavailable",
+            "extractor-changed",
+            "authorization-revoked",
+            "manual-review"
+          ]
+        },
+        "fingerprint": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*(?![\\s\\S])"
+    },
+    "capability": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "metadataLabel": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "semanticVersion": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 32,
+      "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?![\\s\\S])"
+    },
+    "sourceRelativeRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*(?![\\s\\S])"
+    },
+    "shortText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "minLength": 20,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z(?![\\s\\S])"
+    }
+  }
+}

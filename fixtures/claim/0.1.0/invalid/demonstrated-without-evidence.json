@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_unproven",
+  "capability": "language.typescript",
+  "state": "demonstrated",
+  "observedDepth": "demonstrated-depth",
+  "confidence": "high",
+  "scope": "global",
+  "projectRef": null,
+  "basis": {
+    "kind": "evidence",
+    "evidenceRefs": [],
+    "adjacentFrom": [],
+    "rationale": null,
+    "declarationRef": null,
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": [],
+  "freshness": {
+    "observedThrough": "2026-09-03T12:00:00Z",
+    "stale": false
+  }
+}

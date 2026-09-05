@@ -23,7 +23,7 @@ test("the package retains the accepted license and publication safeguard", () =>
   assert.equal(lockfile.packages[""].license, "Apache-2.0");
 });
 
-test("the manifest and aggregate expose the declared baseline and DCP schema checks", () => {
+test("the manifest and aggregate expose the declared baseline and draft schema checks", () => {
   assert.deepEqual(packageJson.scripts, {
     format: 'prettier --write "**/*.{json,jsonc,yaml,yml,js,cjs,mjs,ts,cts,mts}"',
     "format:check": 'prettier --check "**/*.{json,jsonc,yaml,yml,js,cjs,mjs,ts,cts,mts}"',
@@ -33,7 +33,7 @@ test("the manifest and aggregate expose the declared baseline and DCP schema che
     "test:integration": "node scripts/run-test-suite.mjs integration",
     eval: "node scripts/run-test-suite.mjs eval",
     check: "node scripts/run-checks.mjs",
-    "schema:check": "node scripts/check-dcp-schema.mjs",
+    "schema:check": "node scripts/check-schemas.mjs",
   });
   assert.deepEqual(baselineChecks, [
     "format:check",

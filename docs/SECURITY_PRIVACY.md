@@ -2,7 +2,7 @@
 
 > Status: mandatory pre-implementation baseline  
 > Version: 0.1  
-> Last updated: September 4, 2026
+> Last updated: September 5, 2026
 
 This document turns “do not leak anything” into explicit, testable boundaries. It is normative for security and privacy. A feature that cannot satisfy these invariants does not ship.
 
@@ -254,7 +254,7 @@ Required cases include:
 - cross-tenant identifiers and poisoned caches before Cloud;
 - dependency, artifact, and release-content inspection.
 
-M0-S08 adds development-only [DCP draft checks](PROTOCOL.md#42-draft-limits-and-validation-scope): exact authoring fields, bounded fixture reads, invalid-input and symlink cases, and fixed CLI diagnostics. These tests do not prove runtime authorization, redaction, task relevance, pairwise identity, or safe adapter behavior; a structurally valid free-text field can still contain sensitive or instruction-like content. The runtime and conformance gates above remain mandatory.
+M0-S08 adds development-only [DCP draft checks](PROTOCOL.md#42-draft-limits-and-validation-scope): exact authoring fields, bounded fixture reads, invalid-input and symlink cases, and fixed CLI diagnostics. M0-S09 extends that bounded offline path to the independent Evidence and Claim contracts, including observation/claim separation, safe source-relative syntax, authorship uncertainty, timestamp ordering, state/basis matching, required automated/declaration/dispute provenance, project scope, and rejection of raw or policy-bearing fields. These tests do not prove source authorization, identity, provenance resolution, claim derivation, correction precedence, runtime redaction, task relevance, pairwise identity, or safe adapter behavior; a structurally valid free-text field can still contain sensitive or instruction-like content. The runtime and conformance gates above remain mandatory.
 
 ## 11. Gates
 
@@ -300,5 +300,3 @@ Google Workspace, email, calendar, and broad personal-document sources are delib
 - [OpenAI — Plugin authentication](https://developers.openai.com/plugins/build/auth)
 - [MCP authorization](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)
 - [GitHub — Deciding when to build a GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app)
-
-

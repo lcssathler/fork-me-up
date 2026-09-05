@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceId": "evidence_synthetic_coauthored",
+  "kind": "observation",
+  "capabilitySignal": "testing.integration",
+  "source": {
+    "class": "selected-private-repository",
+    "sourceRelativeRef": "tests/synthetic.spec.ts",
+    "repositoryRef": "repository_opaque_private",
+    "revisionRef": "revision_opaque_private",
+    "visibility": "private"
+  },
+  "authorAssessment": {
+    "state": "coauthored",
+    "subjectRef": "subject_synthetic_owner"
+  },
+  "freshness": {
+    "observedAt": "2025-01-01T00:00:00Z",
+    "collectedAt": "2026-09-04T00:00:00Z"
+  },
+  "strength": "moderate",
+  "limitations": ["Shared authorship limits individual attribution"],
+  "extractor": {
+    "name": "fixture.collector",
+    "version": "0.1.0"
+  },
+  "invalidation": {
+    "rule": "manual-review",
+    "fingerprint": "fingerprint_synthetic_shared"
+  }
+}

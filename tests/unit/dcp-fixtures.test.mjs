@@ -7,7 +7,7 @@ import { basename, dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 import { checkDcpFixtures } from "../../scripts/dcp-fixtures.mjs";
-import { maximumFixtureFileBytes, readBoundedJson } from "../../scripts/dcp-fixture-files.mjs";
+import { maximumFixtureFileBytes, readBoundedJson } from "../../scripts/schema-fixture-files.mjs";
 
 const minimalText = await readFile(
   new URL("../../fixtures/dcp/0.1.0/valid/minimal.json", import.meta.url),
@@ -98,12 +98,12 @@ test("the CLI rejects path arguments and never echoes a canary or native stack",
   const result = spawnSync(
     process.execPath,
     [
-      fileURLToPath(new URL("../../scripts/check-dcp-schema.mjs", import.meta.url)),
+      fileURLToPath(new URL("../../scripts/check-schemas.mjs", import.meta.url)),
       "FMU_SYNTHETIC_CANARY_DO_NOT_LOG",
     ],
     { encoding: "utf8", timeout: 10000, maxBuffer: 4096, shell: false },
   );
   assert.equal(result.status, 1);
   assert.equal(result.stdout, "");
-  assert.equal(result.stderr.trim(), "DCP schema fixture check failed.");
+  assert.equal(result.stderr.trim(), "Schema fixture check failed.");
 });
