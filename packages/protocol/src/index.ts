@@ -1,4 +1,5 @@
 export { isDemandProfile } from "./demand-profile.ts";
+export { isDeveloperContextPacket, utf8ByteLength } from "./developer-context-packet.ts";
 export { isPortableProfileExport } from "./portable-profile-export.ts";
 export type {
   AuthorAssessmentState,
@@ -15,6 +16,10 @@ export type {
   DemandMetadataStatus,
   DemandProfile,
   DemandPurpose,
+  DcpAudienceClass,
+  DcpClaimSummary,
+  DcpDisclosureClass,
+  DeveloperContextPacket,
   Declaration,
   Evidence,
   EvidenceInvalidationRule,
