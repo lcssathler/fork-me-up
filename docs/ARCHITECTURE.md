@@ -225,6 +225,8 @@ The profile is never implicitly equivalent to a DCP.
 
 The Community reference provider's Store envelope is implementation-internal even though its schema is inspectable in the public repository. Its exportable profile payload may reuse public Evidence and Claim contracts, while store identity, generation, validation, and migration bookkeeping remain private implementation state. An owner-initiated Portable Profile Export wraps only the public profile payload and explicit exclusions; consumers never ingest a Store file as an export or context packet.
 
+M2-S06 persists this envelope as immutable generation-addressed files in one canonical private directory. Same-directory exclusive staging is synced and reread before an exclusive hard link activates the final generation; the final value is reread before success. Expected generation and never-overwritten names form the compare-and-set boundary. Loading validates all bounded recognized candidates, chooses the newest valid generation, preserves an older rollback generation, never activates orphan staging, and exposes recovery or cleanup debt. A synthetic legacy migration uses the same activation path. See [ADR-0023](adr/0023-generation-addressed-atomic-local-profile-store.md).
+
 ### 5.5 Demand Profile
 
 The Demand Profile represents capabilities relevant to a current project and task. It is derived from explicit task input and authorized project metadata. It is not a generic repository digest.
@@ -342,6 +344,8 @@ Git collection separately resolves only bounded `HEAD`, branch/packed-ref, and s
 Identity resolution accepts bounded closed private configuration, hashes each explicit developer/shared/bot identity through the collector's normalization, rejects duplicate cross-role digests, and issues an immutable configuration containing no raw identity. The pure assessor validates the complete Git snapshot and annotation references before classifying target participation, collaboration, bot involvement, and independent merge/squash history. Output contains only opaque IDs, fixed enums/limitations, timestamps, and conservative ceilings; malformed or dangling input returns no partial result. Pair/squash annotations are attribution context rather than capability declarations, and automatic identity/bot/squash heuristics remain prohibited.
 
 Source-risk classification is also pure and all-or-nothing. It validates exact snapshot correspondence and explicit annotation targets before combining fixed path indicators, exact digest duplication, and bounded attribution. The output retains separate source/authorship limitations, never claims originality, always forbids standalone demonstrated depth, and down-ranks every flagged source before Evidence or Claim derivation.
+
+The next Community boundary persists only validated internal Store envelopes. It does not write repositories or expose filesystem paths through Protocol/Core/Provider/MCP objects. Generation-addressed exclusive activation avoids in-place mutation and persistent locks; readback, concurrency, rollback retention, recovery status, and synthetic migration remain explicit implementation behavior below future owner workflows.
 
 ## 11. Failure semantics
 
