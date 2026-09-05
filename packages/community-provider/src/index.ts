@@ -77,3 +77,26 @@ export {
   type GitHistoryShape,
   type RepositoryGitAuthorshipAssessment,
 } from "./git-authorship-assessment.ts";
+export {
+  evidenceSourceRiskConfigHardLimits,
+  evidenceSourceRiskConfigVersion,
+  resolveEvidenceSourceRiskConfig,
+  type ConfigurablePathRisk,
+  type ConfigurableRepositoryRisk,
+  type EvidenceSourceRiskConfigErrorCategory,
+  type EvidenceSourceRiskFlag,
+  type ResolvedEvidenceSourceRiskConfig,
+  type ResolvedPathRiskAnnotation,
+  type ResolvedRepositoryRiskAnnotation,
+  type ResolveEvidenceSourceRiskConfigResult,
+} from "./evidence-source-risk-config.ts";
+export {
+  classifyEvidenceSourceRisk,
+  evidenceSourceRiskSnapshotVersion,
+  type ClassifyEvidenceSourceRiskResult,
+  type EvidenceSourceLimitation,
+  type EvidenceSourceRiskErrorCategory,
+  type EvidenceSourceRiskRecord,
+  type EvidenceSourceRiskSnapshot,
+  type RepositoryEvidenceSourceRisk,
+} from "./evidence-source-risk-classifier.ts";
