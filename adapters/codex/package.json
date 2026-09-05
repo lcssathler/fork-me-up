@@ -1,0 +1,22 @@
+{
+  "name": "@fork-me-up/codex-adapter",
+  "version": "0.0.0",
+  "description": "Codex lifecycle-hook reference adapter for Fork Me Up.",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.20.0 <25",
+    "npm": "11.19.0"
+  },
+  "bin": {
+    "fork-me-up-codex-hook": "./src/main.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@fork-me-up/community-provider": "0.0.0",
+    "@fork-me-up/protocol": "0.0.0"
+  }
+}

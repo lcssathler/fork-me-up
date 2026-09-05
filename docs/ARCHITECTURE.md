@@ -277,7 +277,7 @@ It may not:
 - silently expand disclosure;
 - interpret the profile as authorization.
 
-Codex is the first candidate reference adapter because skills, MCP, and lifecycle hooks can exercise the full flow. Portability is not considered proven until the same protocol semantics work through a materially different consumer without a Core fork.
+Codex is the first reference adapter because MCP and lifecycle hooks can exercise the full flow. Portability is not considered proven until the same protocol semantics work through a materially different consumer without a Core fork.
 
 ## 8. MCP surfaces
 
@@ -324,6 +324,8 @@ M1-S01 instantiated the first two boundaries as private unreleased npm workspace
 M1-S02 adds pure Claim behavior precedence and Response Policy selection to Core. It accepts already validated, already relevant Claims, preserves their full state-matched provenance, and chooses the most conservative required communication posture without client types or free-form instructions. Demand Profile relevance and DCP projection remain separate downstream boundaries. See [ADR-0013](adr/0013-claim-precedence-response-policy.md).
 
 M1-S05 instantiates the next two boundaries as `packages/community-provider` and `apps/mcp-local`. The fixture-backed provider depends only on Core and Protocol, exposes the accepted transport-neutral request/response contract, and injects time and identifiers. The application owns MCP lifecycle and newline framing, maps only the two model-facing read operations, bounds each input/output line, and has no network module or listener. It intentionally implements the repository's referenced MCP `2025-11-25` profile rather than claiming later-revision or universal-client compatibility. See [ADR-0016](adr/0016-local-provider-mcp-stdio.md).
+
+M1-S06 instantiates `adapters/codex` as the first reference client without changing lower-layer contracts. A repository-local command hook requests fixture task context on `UserPromptSubmit`; `SessionStart` restores only an unexpired minimized structured cache on resume or after compaction. Consumer-side validation and a closed renderer admit only Claim capability/state/depth and the six Response Policy fields. Any input, Provider, cache-read/clear, validation, expiry, or adapter failure returns non-blocking continuation with no context. The separate MCP surface remains available to other consumers, and portability remains unproven until a materially different second client passes equivalent behavior. See [ADR-0017](adr/0017-codex-lifecycle-hook-adapter.md).
 
 ## 11. Failure semantics
 

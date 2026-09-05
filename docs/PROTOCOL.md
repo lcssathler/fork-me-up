@@ -354,6 +354,12 @@ The M1 reference server maps MCP tools `get_task_context` and `get_profile_metad
 
 This initial compatibility profile uses newline-delimited JSON-RPC over `stdio` and MCP revision `2025-11-25`. It implements initialization, ping, tool listing, and tool calls; advertises no resources, prompts, sampling, tasks, network transport, or changing tool list. Request IDs are safe integers or bounded opaque identifier strings so correlation cannot become a content-reflection channel. The two tools are read-only, idempotent, and closed-world. Later MCP revisions or additional lifecycle features require explicit compatibility work and tests rather than an implicit claim.
 
+### 9.7 Codex fixture adapter profile
+
+The first reference adapter consumes the same Provider `0.1.0` operation in-process and owns Codex-specific lifecycle output outside Protocol and Core. On recognized synthetic tasks it validates the complete Provider response again, requires exact request/operation correlation, and maps only Claim capability/state/observed-depth plus the six closed Response Policy fields. Its fixed renderer does not include task summaries, limitations, adjacency rationale, corrections, extensions, errors, paths, Evidence, or profile records.
+
+Repository-local Codex command hooks deliver task guidance on `UserPromptSubmit`. `SessionStart` can restore the last unexpired allowlisted projection after resume or compaction from a bounded ephemeral cache; startup and clear remove prior state. Every optional failure emits no context and explicitly permits normal host continuation. This client profile changes no public schema and does not establish compatibility with another client. See [ADR-0017](adr/0017-codex-lifecycle-hook-adapter.md).
+
 ## 10. Future remote authorization
 
 The commercial remote MCP is expected to use OAuth 2.1-compatible authorization over HTTPS.

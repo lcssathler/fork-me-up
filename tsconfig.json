@@ -7,6 +7,7 @@
     "types": ["node"]
   },
   "include": [
+    "adapters/**/*.ts",
     "apps/**/*.ts",
     "eslint.config.mjs",
     "packages/**/*.ts",
