@@ -1,0 +1,21 @@
+export { isPortableProfileExport } from "./portable-profile-export.ts";
+export type {
+  AuthorAssessmentState,
+  Claim,
+  ClaimBasis,
+  ClaimBasisKind,
+  ClaimScope,
+  ClaimState,
+  Confidence,
+  Correction,
+  Declaration,
+  Evidence,
+  EvidenceInvalidationRule,
+  EvidenceSourceClass,
+  EvidenceStrength,
+  EvidenceVisibility,
+  ObservedDepth,
+  PortableProfileExport,
+  ProfilePayload,
+  ProfilePreferences,
+} from "./types.ts";

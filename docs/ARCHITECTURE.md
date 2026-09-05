@@ -315,6 +315,8 @@ adapters/reference-clients
 
 Future proprietary services should live in a separately access-controlled repository or workspace while consuming released public protocol packages. Public packages must not import proprietary modules.
 
+M1-S01 instantiates the first two boundaries as private unreleased npm workspaces. `packages/protocol` owns exact runtime contract validation and imports no Core or client code. `packages/core` depends on Protocol and currently exposes only deterministic, detached, deeply immutable loading of validated synthetic profile fixtures. It does not yet contain claim precedence, response policy, Demand Profile intersection, DCP compilation, persistence, provider, transport, or adapter behavior. See [ADR-0012](adr/0012-fixture-profile-package-foundation.md).
+
 ## 11. Failure semantics
 
 - Optional evidence provider unavailable: return a typed partial/stale result and continue without weakening disclosure.

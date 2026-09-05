@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is complete, and the ordered M1 behavioral-foundation queue is ready. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. There is no runnable product yet, but the repository has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and client-neutral Profile Provider/conformance `0.1.0` draft schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft. Runtime behavior and released compatibility claims remain future milestones. See the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md) for the evidence and limitations.
+M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol and Core workspaces now validate and immutably load versioned synthetic fixture profiles for demonstrated, adjacent, and insufficient-evidence states. There is still no runnable application, response policy, DCP compiler, provider, transport, adapter, release, or compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
 
 ## Development foundation
 
@@ -38,7 +38,7 @@ Install exactly the committed dependency graph without running dependency lifecy
 npm ci --ignore-scripts
 ```
 
-The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`; product packages are intentionally not scaffolded by this slice. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. M1-S01 introduces private unreleased `@fork-me-up/protocol` and `@fork-me-up/core` packages. Protocol validates the canonical profile-export contract, while Core depends only on Protocol and exposes the immutable fixture-profile loading boundary. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
 
 Run the complete deterministic baseline:
 
