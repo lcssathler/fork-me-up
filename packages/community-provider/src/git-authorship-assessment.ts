@@ -84,6 +84,7 @@ export type AssessGitAuthorshipResult =
 
 const identifierPattern = /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/u;
 const digestPattern = /^[0-9a-f]{64}$/u;
+const issuedAssessmentSnapshots = new WeakSet<object>();
 
 class AssessmentFault extends Error {
   readonly category: GitAuthorshipAssessmentErrorCategory;
@@ -100,7 +101,7 @@ export function assessGitAuthorship(
 ): AssessGitAuthorshipResult {
   if (!isIssuedDeveloperIdentityConfig(configuration)) return failure("not-configured");
   try {
-    const snapshot = validateSnapshot(snapshotInput);
+    const snapshot = validateGitMetadataSnapshot(snapshotInput);
     const roles = new Map(
       configuration.identities.map((identity) => [identity.identityDigest, identity.role]),
     );
@@ -110,20 +111,23 @@ export function assessGitAuthorship(
         assessRepository(repository, configuration.subjectRef, roles, annotations),
       )
       .sort((left, right) => compareText(left.repositoryId, right.repositoryId));
-    return deepFreeze({
-      ok: true,
-      value: {
-        kind: "git-authorship-assessment-snapshot",
-        assessmentVersion: gitAuthorshipAssessmentVersion,
-        sourceSnapshotVersion: gitMetadataSnapshotVersion,
-        subjectRef: configuration.subjectRef,
-        repositories,
-      },
+    const value = deepFreeze({
+      kind: "git-authorship-assessment-snapshot" as const,
+      assessmentVersion: gitAuthorshipAssessmentVersion,
+      sourceSnapshotVersion: gitMetadataSnapshotVersion,
+      subjectRef: configuration.subjectRef,
+      repositories,
     });
+    issuedAssessmentSnapshots.add(value);
+    return deepFreeze({ ok: true as const, value });
   } catch (error) {
     if (error instanceof AssessmentFault) return failure(error.category);
     return failure("invalid-input");
   }
+}
+
+export function isIssuedGitAuthorshipAssessment(value: GitAuthorshipAssessmentSnapshot): boolean {
+  return typeof value === "object" && value !== null && issuedAssessmentSnapshots.has(value);
 }
 
 function assessRepository(
@@ -286,7 +290,7 @@ function resolveAnnotations(
   return result;
 }
 
-function validateSnapshot(value: unknown): GitMetadataSnapshot {
+export function validateGitMetadataSnapshot(value: unknown): GitMetadataSnapshot {
   if (!isRecord(value) || !hasExactKeys(value, ["kind", "snapshotVersion", "repositories"])) {
     throw new AssessmentFault("invalid-input");
   }
