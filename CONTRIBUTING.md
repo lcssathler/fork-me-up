@@ -1,6 +1,6 @@
 # Contributing to Fork Me Up
 
-Fork Me Up is in public M0 preparation. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under the [roadmap](docs/ROADMAP.md), security policy, and review requirements below. Public visibility is not a product release or permission to bypass the current queue.
+Fork Me Up has completed its public M0 foundation and is beginning the ordered M1 behavioral work. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under the [roadmap](docs/ROADMAP.md), security policy, and review requirements below. Public visibility and milestone completion are not product releases or permission to bypass the current queue.
 
 ## Before starting
 

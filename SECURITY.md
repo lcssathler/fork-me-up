@@ -1,10 +1,10 @@
 # Security policy
 
-This policy covers vulnerability reporting for Fork Me Up repository content and its development tooling. Product security and privacy requirements remain in [docs/SECURITY_PRIVACY.md](docs/SECURITY_PRIVACY.md); delivery and release gates remain in the [engineering process](docs/ENGINEERING.md) and [roadmap](docs/ROADMAP.md).
+This policy covers vulnerability reporting for Fork Me Up repository content and its development tooling. Product security and privacy requirements remain in [docs/SECURITY_PRIVACY.md](docs/SECURITY_PRIVACY.md); delivery and release gates remain in the [engineering process](docs/ENGINEERING.md) and [roadmap](docs/ROADMAP.md). GitHub private vulnerability reporting is enabled for this repository.
 
 ## Supported versions
 
-The project is in public M0 preparation and has no released runtime or supported release line. The root package version `0.0.0` and unreleased DCP, Evidence, Claim, Portable Profile Export, Demand Profile, Profile Provider/conformance, and internal Community Profile Store schemas `0.1.0` do not represent supported product releases. Reports about the current development revision are welcome through the process below. There is no security-support duration or response-time SLA at this stage.
+The project has completed M0 but has no released runtime or supported release line. The root package version `0.0.0` and unreleased DCP, Evidence, Claim, Portable Profile Export, Demand Profile, Profile Provider/conformance, and internal Community Profile Store schemas `0.1.0` do not represent supported product releases. Reports about the current development revision are welcome through the process below. There is no security-support duration or response-time SLA at this stage.
 
 Before a product release, maintainers must update this policy with the supported versions and upgrade path actually provided. A future Cloud/Pro service needs its own operational and incident-response policy before handling real private data.
 
@@ -12,11 +12,11 @@ Before a product release, maintainers must update this policy with the supported
 
 Do not put vulnerability details, exploit instructions, credentials, private source, profiles, or sensitive logs in issues, pull requests, commits, CI output, or public discussions. This repository and its history are public and are not a security-reporting channel.
 
-1. If the repository offers **Report a vulnerability**, use that private reporting flow. See [GitHub's reporting instructions](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/report-privately). This option requires repository configuration and availability; this policy does not claim it is enabled.
+1. Use the repository's **Report a vulnerability** private reporting flow. See [GitHub's reporting instructions](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/report-privately).
 2. If that option is unavailable, ask the repository owner for a private security contact using an existing direct communication channel. If you have no direct channel but can open a repository issue, post only a request for a private security contact, with no affected component, reproduction, logs, or vulnerability details.
-3. Wait until you and the owner agree on a private channel before sending sensitive details. If neither route is accessible, retain the details privately until contact is available. No security email address or reporting service is currently designated by this policy.
+3. Wait until you and the owner agree on a private channel before sending sensitive details. If neither route is accessible, retain the details privately until contact is available. No separate security email address is currently designated by this policy.
 
-The owner must verify a usable private route and keep these instructions accurate before accepting external contributions. Enabling a reporting service or changing repository settings is a separately authorized external action.
+The owner must keep the private reporting route enabled and these instructions accurate while accepting external contributions. Changing repository security settings remains a separately authorized external action.
 
 Once a private channel is established, provide a minimized report with:
 

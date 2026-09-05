@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. The M0 exit audit is the next roadmap gate. There is no runnable product yet, but the repository has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and client-neutral Profile Provider/conformance `0.1.0` draft schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft. Runtime behavior and released compatibility claims remain future milestones.
+M0 is complete, and the ordered M1 behavioral-foundation queue is ready. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. There is no runnable product yet, but the repository has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and client-neutral Profile Provider/conformance `0.1.0` draft schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft. Runtime behavior and released compatibility claims remain future milestones. See the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md) for the evidence and limitations.
 
 ## Development foundation
 
@@ -60,6 +60,7 @@ This baseline does not yet claim the complete pull-request fast gate. Draft cont
 - [Security and privacy](docs/SECURITY_PRIVACY.md)
 - [Engineering process](docs/ENGINEERING.md)
 - [Roadmap](docs/ROADMAP.md)
+- [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md)
 - [Competitive landscape](docs/COMPETITIVE_ANALYSIS.md)
 - [Decision records](docs/adr/)
 - [Contributing guide](CONTRIBUTING.md)

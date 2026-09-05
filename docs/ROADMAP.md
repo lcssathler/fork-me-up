@@ -20,8 +20,8 @@ Cloud work must not outrun protocol, evidence quality, local trust, or willingne
 
 | Milestone | Outcome | Status |
 |---|---|---|
-| M0 | Normative and reproducible foundation | In progress |
-| M1 | Client-neutral behavioral vertical slice | Not started |
+| M0 | Normative and reproducible foundation | Complete |
+| M1 | Client-neutral behavioral vertical slice | Ready |
 | M2 | Trustworthy local evidence and profile | Not started |
 | M3 | Portable Community release | Not started |
 | M4 | Pro alpha with managed selected repositories | Not started |
@@ -290,9 +290,9 @@ The project owner explicitly decides before:
 - adding any new personal-data source;
 - publishing packages, releases, deployments, or marketplace entries.
 
-## 12. Current M0 execution queue
+## 12. M0 execution record
 
-This ordered queue is the routing source for a request such as "complete M0". It sequences delivery but does not redefine product behavior. An unassigned task takes only the earliest incomplete slice that is eligible under the state rules below; it does not execute the entire milestone or skip an earlier decision or blocker.
+This ordered table records how M0 was delivered. It no longer routes new work; Section 13 is the current execution queue. A historical slice state became authoritative only after its evidence was reviewed and integrated into `main`.
 
 States have precise meanings:
 
@@ -317,8 +317,8 @@ A slice branch may propose `Complete` for itself and update the next dependent s
 | 9 | `M0-S11` — Demand Profile contract | `Complete` | A versioned Demand Profile schema represents project/task demand and has valid and invalid synthetic fixtures. | `FMU-FR-003`, `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`. |
 | 10 | `M0-S12` — Provider and conformance contracts | `Complete` | Client-neutral Provider contracts, compatibility rules, and public provider/consumer conformance fixtures and tests are draft-complete. | `FMU-FR-010`, `FMU-FR-023`, `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-011`. |
 | 11 | `M0-S02` — GitHub Free public cutover and basic branch protection | `Complete` | After the pre-publication gate and explicit authorization, the repository becomes public and an active branch ruleset targets exactly `refs/heads/main`, has no bypass actors, requires a pull request before merge, restricts deletion, and blocks non-fast-forward updates. Visibility, target, bypass list, and every required rule are read back before work continues. | M0 Git deliverable; Section 11; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. The remote controls and reviewed state transition are integrated at `de79bac`. |
-| 12 | `M0-S06` — Required CI checks on `main` | `Complete` | With explicit external authorization, the real CI checks established by M0-S05 and extended by later contract slices are required for changes to `main`, and the remote configuration is read back. Other than the already full-diff-reviewed M0-S02 state-transition pull request, whose real checks must pass voluntarily, no change merges after the public cutover before M0-S06. | M0 Git/checks deliverables; `FMU-NFR-011`, `FMU-NFR-017`; ADR-0006; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. The remote control is active; this state becomes authoritative after the reviewed state-transition change integrates. |
-| 13 | `M0-S13` — M0 exit audit | `Ready` | An integrated audit demonstrates every M0 exit criterion or names a remaining blocker; only then may M0 become complete and an ordered M1 queue be added and become routable. | Full M0 exit gate and applicable requirements, evaluations, ADRs, and security checks. This state becomes authoritative only after M0-S06 integrates. |
+| 12 | `M0-S06` — Required CI checks on `main` | `Complete` | With explicit external authorization, the real CI checks established by M0-S05 and extended by later contract slices are required for changes to `main`, and the remote configuration is read back. Other than the already full-diff-reviewed M0-S02 state-transition pull request, whose real checks must pass voluntarily, no change merges after the public cutover before M0-S06. | M0 Git/checks deliverables; `FMU-NFR-011`, `FMU-NFR-017`; ADR-0006; external-effect rules in `AGENTS.md` and `ENGINEERING.md`. The reviewed remote control integrated at `0c570ed`. |
+| 13 | `M0-S13` — M0 exit audit | `Complete` | An integrated audit demonstrates every M0 exit criterion or names a remaining blocker; only then may M0 become complete and an ordered M1 queue be added and become routable. | Full M0 exit gate and applicable requirements, evaluations, ADRs, and security checks. The audit is recorded in [`docs/audits/M0_EXIT_AUDIT.md`](audits/M0_EXIT_AUDIT.md). |
 
 ### M0-S03 license and trademark decision
 
@@ -373,7 +373,7 @@ On September 5, 2026, after M0-S02 integrated at `de79bac`, the owner explicitly
 
 Repository ruleset `22336912` retains active enforcement for exactly `refs/heads/main`, zero bypass actors, pull requests with squash-only merge, zero required approvals under the accepted single-maintainer policy, deletion protection, and non-fast-forward protection. M0-S06 adds one `required_status_checks` rule: `Windows baseline` must originate from integration `15368`, and strict enforcement requires the pull-request branch to be tested with the latest `main`. Authenticated ruleset and effective-rule readback verified the exact context, source, strict policy, target, bypass list, and complete rule set. The state-transition pull request must itself demonstrate that the rule blocks merge while the check is pending and permits merge only after success.
 
-This is a repository-governance control and changes no workflow, dependency, product behavior, schema, release, package, deployment, or data boundary. No `FMU-E-*` evaluation applies. The proposed M0-S06 `Complete` and M0-S13 `Ready` transitions become authoritative only after the reviewed state-transition revision passes the now-required check and integrates into `main`.
+This is a repository-governance control and changes no workflow, dependency, product behavior, schema, release, package, deployment, or data boundary. No `FMU-E-*` evaluation applies. M0-S06 `Complete` and M0-S13 `Ready` became authoritative when the reviewed state-transition revision passed the required check and integrated at `0c570ed`.
 
 ### M0-S07 repository governance policies
 
@@ -433,4 +433,26 @@ The proposed S11 `Complete` and S12 `Ready` transitions become authoritative onl
 
 Traceability is `FMU-FR-010`, `FMU-FR-023`, `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-011`, the M0 public-contract/conformance gate, and ADR-0011. No behavioral `FMU-E-*` evaluation applies. These development fixtures do not prove runtime provider/consumer, MCP, transport, authorization, redaction, cross-client equivalence, or released compatibility and add no source access, persistence, production dependency, release, publication, or remote effect.
 
-S12 `Complete` became authoritative when the reviewed revision integrated at `0a34daf`, making M0-S02 eligible only with explicit external authorization. The resulting cutover evidence and proposed next transition are recorded in the M0-S02 section above. M0-S13 remains blocked until the remaining M0 slices complete.
+S12 `Complete` became authoritative when the reviewed revision integrated at `0a34daf`, making M0-S02 eligible only with explicit external authorization. The resulting cutover evidence and proposed next transition are recorded in the M0-S02 section above. At that point, M0-S13 remained blocked until the remaining M0 slices completed.
+
+### M0-S13 exit audit
+
+The [M0 exit audit](audits/M0_EXIT_AUDIT.md) evaluates every M0 exit criterion and cross-milestone quality gate against the integrated `main` revision `0c570ed`. Full normative and accepted-ADR review found no contradiction; all seven public draft contract families have positive and negative synthetic fixtures; threats T-01 through T-13 have named controls and planned negative tests; and the exact Windows clean-checkout path passed installation, all 63 unit tests, every schema corpus, and a zero-vulnerability npm audit. Local-link, sensitive-content, fixture, workflow, license, and attribution reviews also passed within the limitations recorded by the audit.
+
+Fresh authenticated GitHub readback verified public visibility, the protected `main` revision, the exact no-bypass ruleset and strict required `Windows baseline` check, and successful current-main CI. The audit found private vulnerability reporting disabled even though the governance policy requires a usable private route before external contributions are accepted. Under the owner's explicit remote authorization, M0-S13 enabled the GitHub facility and verified it as active before concluding the gate.
+
+No `FMU-E-*` evaluation applies because this slice audits foundations and governance without introducing product behavior. The repository still makes no runtime, release, cross-platform, or client-compatibility claim. The proposed M0 `Complete`, M1 `Ready`, M0-S13 `Complete`, and current M1 queue transitions become authoritative only after this audit revision passes required pull-request CI and integrates into `main`.
+
+## 13. Current M1 execution queue
+
+This is the routing source for a request such as "continue the roadmap" after M0-S13 integrates. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 still apply. An unassigned task takes at most the earliest eligible incomplete slice.
+
+| Order | Slice | State | Observable outcome | Prerequisites and traceability |
+|---:|---|---|---|---|
+| 1 | `M1-S01` — Fixture profile and package foundation | `Ready` | Minimal Protocol and Core workspace packages load and validate versioned synthetic fixture Developer Profiles through a client-neutral, deterministic boundary while enforcing the accepted dependency direction. No response policy, DCP compiler, transport, or adapter is introduced. | M0 exit; M1 fixture-profile deliverable; `FMU-FR-004`, `FMU-FR-008`, `FMU-FR-009`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-011`; ADR-0002, ADR-0005, ADR-0008, and ADR-0009. |
+| 2 | `M1-S02` — Claim precedence and response policy | `Blocked by M1-S01` | Pure Core logic preserves claim states and provenance, applies deterministic precedence, and selects the required client-neutral response policy for demonstrated, adjacent, and insufficient-evidence fixtures. | M1 claim-precedence/response-policy deliverables; `FMU-FR-005` through `FMU-FR-007`; `FMU-NFR-006`; `FMU-E-001` through `FMU-E-004`. |
+| 3 | `M1-S03` — Demand/profile intersection | `Blocked by M1-S02` | Pure task relevance intersects a validated Demand Profile with fixture profile state and omits irrelevant expertise without compiling or transporting a final packet. | M1 Demand Profile input; `FMU-FR-003`, `FMU-FR-007`, `FMU-FR-008`; `FMU-E-006`; ADR-0010. |
+| 4 | `M1-S04` — Deterministic bounded DCP compiler | `Blocked by M1-S03` | Core emits schema-valid DCPs with injected time/identifiers, deterministic disclosure reduction, strict byte/token budgets, canary redaction, and repository-instruction isolation. | M1 compiler and security deliverables; `FMU-FR-007`, `FMU-FR-009`, `FMU-FR-026`; `FMU-NFR-002`, `FMU-NFR-005`, `FMU-NFR-007`, `FMU-NFR-011`; `FMU-E-012`, `FMU-E-013`; ADR-0007. |
+| 5 | `M1-S05` — Local Provider and MCP `stdio` | `Blocked by M1-S04` | A local fixture-backed Profile Provider exposes `get_task_context` and `get_profile_metadata` through MCP `stdio`, with typed invalid, incompatible, unavailable, and budget-limited states, no network listener, and integration coverage. | M1 provider/MCP deliverables; `FMU-FR-010`, `FMU-FR-011`, `FMU-FR-016`, `FMU-FR-023`; `FMU-NFR-004`, `FMU-NFR-011`; ADR-0011. |
+| 6 | `M1-S06` — Reference adapter and graceful degradation | `Blocked by M1-S05` | One reference adapter maps only allowlisted response-policy fields, exercises task/session delivery, preserves ordinary host work when unavailable, and adds compaction restoration only if the selected client capability supports it. | M1 adapter and degraded-operation deliverables; `FMU-FR-012`, `FMU-FR-025`; `FMU-NFR-001`, `FMU-NFR-008`; `FMU-E-014`; ADR-0002. |
+| 7 | `M1-S07` — M1 exit audit | `Blocked by M1-S06` | An integrated audit runs the required behavioral, integration, schema, offline, redaction, determinism, budget, and adapter-failure evidence and either closes M1 or names a blocker. | Full M1 exit gate and required evaluations; cross-milestone quality gates. |

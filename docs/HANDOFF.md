@@ -22,7 +22,7 @@ Before taking action, read these files in full:
 
 Apply the subject-specific authority and conflict rules in `AGENTS.md`. Accepted ADRs refine architecture within the preceding invariants. Do not implement the complete product or an entire milestone at once.
 
-Current state: the documentation and Git baseline is committed on `main`, and M0 is in progress. Confirm the actual branch, base revision, working tree, branches, and worktrees before acting. Section 12 of `docs/ROADMAP.md` is the routing source for the current execution queue.
+Current state: M0 is complete on `main`, and M1 is ready to begin. Confirm the actual branch, base revision, working tree, branches, worktrees, and remote pull-request evidence before acting. Section 13 of `docs/ROADMAP.md` is the routing source for the current execution queue; the M0 evidence is in `docs/audits/M0_EXIT_AUDIT.md`.
 
 For the next task:
 
