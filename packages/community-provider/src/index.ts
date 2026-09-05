@@ -35,3 +35,21 @@ export {
   type RepositoryFilesystemMetadata,
   type SourceMetadataFile,
 } from "./filesystem-metadata-collector.ts";
+export {
+  nodeBoundedGitCommandPort,
+  type BoundedGitCommandFailureReason,
+  type BoundedGitCommandPort,
+  type BoundedGitCommandRequest,
+  type BoundedGitCommandResult,
+  type GitObjectFormat,
+} from "./bounded-git-command.ts";
+export {
+  collectGitMetadata,
+  gitMetadataHardLimits,
+  gitMetadataSnapshotVersion,
+  type CollectGitMetadataResult,
+  type GitCommitMetadata,
+  type GitMetadataErrorCategory,
+  type GitMetadataSnapshot,
+  type RepositoryGitMetadata,
+} from "./git-metadata-collector.ts";
