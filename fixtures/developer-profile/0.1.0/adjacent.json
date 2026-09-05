@@ -2,7 +2,7 @@
   "schemaVersion": "0.1.0",
   "kind": "portable-profile-export",
   "exportId": "export_fixture_adjacent",
-  "profileVersion": "profile_fixture_adjacent",
+  "profileVersion": "profile_fixture_angular_react_adjacent",
   "subjectRef": "subject_fixture_owner",
   "generatedAt": "2026-09-05T12:00:00Z",
   "profile": {
@@ -10,12 +10,12 @@
     "evidence": [
       {
         "schemaVersion": "0.1.0",
-        "evidenceId": "evidence_fixture_java_adjacent",
+        "evidenceId": "evidence_fixture_angular",
         "kind": "observation",
-        "capabilitySignal": "language.java",
+        "capabilitySignal": "framework.angular",
         "source": {
           "class": "selected-local-repository",
-          "sourceRelativeRef": "src/Adjacent.java",
+          "sourceRelativeRef": "src/app.component.ts",
           "repositoryRef": "repository_fixture_adjacent",
           "revisionRef": "revision_fixture_adjacent",
           "visibility": "local-only"
@@ -36,15 +36,15 @@
         },
         "invalidation": {
           "rule": "source-changed",
-          "fingerprint": "fingerprint_fixture_adjacent"
+          "fingerprint": "fingerprint_fixture_angular"
         }
       }
     ],
     "claims": [
       {
         "schemaVersion": "0.1.0",
-        "claimId": "claim_fixture_kotlin_adjacent",
-        "capability": "language.kotlin",
+        "claimId": "claim_fixture_react_adjacent",
+        "capability": "framework.react",
         "state": "adjacent",
         "observedDepth": null,
         "confidence": "medium",
@@ -52,14 +52,38 @@
         "projectRef": null,
         "basis": {
           "kind": "adjacency",
-          "evidenceRefs": ["evidence_fixture_java_adjacent"],
-          "adjacentFrom": ["language.java"],
-          "rationale": "The synthetic source capability shares JVM concepts",
+          "evidenceRefs": ["evidence_fixture_angular"],
+          "adjacentFrom": ["framework.angular"],
+          "rationale": "Component concepts may transfer, but React proficiency is not established",
           "declarationRef": null,
           "correctionRef": null,
           "correctionSummary": null
         },
-        "limitations": ["Adjacent experience is not observed Kotlin proficiency"],
+        "limitations": ["Angular evidence is not observed React proficiency"],
+        "freshness": {
+          "observedThrough": "2026-09-01T00:00:00Z",
+          "stale": false
+        }
+      },
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_fixture_angular_demonstrated",
+        "capability": "framework.angular",
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "high",
+        "scope": "global",
+        "projectRef": null,
+        "basis": {
+          "kind": "evidence",
+          "evidenceRefs": ["evidence_fixture_angular"],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": null,
+          "correctionRef": null,
+          "correctionSummary": null
+        },
+        "limitations": [],
         "freshness": {
           "observedThrough": "2026-09-01T00:00:00Z",
           "stale": false

@@ -103,6 +103,17 @@ export interface ProfilePreferences {
   readonly questionBudget: 0 | 1;
 }
 
+export type ResponsePolicyMode = "concise" | "analogy" | "teach-while-doing";
+
+export interface ResponsePolicy {
+  readonly mode: ResponsePolicyMode;
+  readonly explainPurposeBeforeCommands: boolean;
+  readonly includeExpectedResult: boolean;
+  readonly includeRiskAndRollback: boolean;
+  readonly analogyCapabilities: readonly string[];
+  readonly questionBudget: 0 | 1;
+}
+
 export interface ProfilePayload {
   readonly projectRefs: readonly string[];
   readonly evidence: readonly Evidence[];

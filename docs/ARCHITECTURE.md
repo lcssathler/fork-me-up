@@ -315,7 +315,9 @@ adapters/reference-clients
 
 Future proprietary services should live in a separately access-controlled repository or workspace while consuming released public protocol packages. Public packages must not import proprietary modules.
 
-M1-S01 instantiates the first two boundaries as private unreleased npm workspaces. `packages/protocol` owns exact runtime contract validation and imports no Core or client code. `packages/core` depends on Protocol and currently exposes only deterministic, detached, deeply immutable loading of validated synthetic profile fixtures. It does not yet contain claim precedence, response policy, Demand Profile intersection, DCP compilation, persistence, provider, transport, or adapter behavior. See [ADR-0012](adr/0012-fixture-profile-package-foundation.md).
+M1-S01 instantiated the first two boundaries as private unreleased npm workspaces. `packages/protocol` owns exact runtime contract validation and imports no Core or client code. `packages/core` depends on Protocol and began with deterministic, detached, deeply immutable loading of validated synthetic profile fixtures. That slice did not contain claim precedence, response policy, Demand Profile intersection, DCP compilation, persistence, provider, transport, or adapter behavior. See [ADR-0012](adr/0012-fixture-profile-package-foundation.md).
+
+M1-S02 adds pure Claim behavior precedence and Response Policy selection to Core. It accepts already validated, already relevant Claims, preserves their full state-matched provenance, and chooses the most conservative required communication posture without client types or free-form instructions. Demand Profile relevance and DCP projection remain separate downstream boundaries. See [ADR-0013](adr/0013-claim-precedence-response-policy.md).
 
 ## 11. Failure semantics
 

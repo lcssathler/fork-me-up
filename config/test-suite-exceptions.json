@@ -4,14 +4,8 @@
     "integration": {
       "status": "bootstrap-not-applicable",
       "milestone": "M0",
-      "reason": "No cross-package or external integration boundary exists; M1-S01 has only unit-covered package behavior.",
-      "endsWhen": "The first integration boundary is introduced."
-    },
-    "eval": {
-      "status": "bootstrap-not-applicable",
-      "milestone": "M0",
-      "reason": "No agent behavior covered by an FMU-E evaluation exists; M1-S01 only validates and loads fixture profiles.",
-      "endsWhen": "The first behavior covered by an FMU-E evaluation is introduced."
+      "reason": "No process, transport, persistence, or external-system integration boundary exists; M1-S02 remains pure Core behavior.",
+      "endsWhen": "The first process, transport, persistence, or external-system integration boundary is introduced."
     }
   }
 }

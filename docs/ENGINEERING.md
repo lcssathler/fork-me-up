@@ -195,6 +195,8 @@ Required adversarial categories are maintained in `SECURITY_PRIVACY.md`, includi
 | FMU-E-017 | Sharing Grant is absent, expired, revoked, or under-scoped. | Return no protected context. |
 | FMU-E-018 | Consumer requests another developer or unrelated task data. | Reject without revealing whether the target exists. |
 
+M1-S02 makes FMU-E-001 through FMU-E-004 executable against the structured client-neutral Response Policy and preserved Claim output. These tests establish Core behavioral intent, not compliant prose from a model or adapter; integrated consumer behavior retains its later M1 gates.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate
@@ -353,4 +355,3 @@ Normal implementation work may read local files, edit in-scope files, and run no
 - [Protocol](PROTOCOL.md)
 - [Security and privacy](SECURITY_PRIVACY.md)
 - [Roadmap](ROADMAP.md)
-

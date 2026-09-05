@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol and Core workspaces now validate and immutably load versioned synthetic fixture profiles for demonstrated, adjacent, and insufficient-evidence states. There is still no runnable application, response policy, DCP compiler, provider, transport, adapter, release, or compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
+M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol and Core workspaces validate and immutably load versioned synthetic fixture profiles, preserve Claims under deterministic conservative behavior precedence, and select a client-neutral Response Policy for all five Claim states. There is still no runnable application, Demand Profile intersection, DCP compiler, provider, transport, adapter, release, or compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
 
 ## Development foundation
 
@@ -46,7 +46,7 @@ Run the complete deterministic baseline:
 npm run check
 ```
 
-The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. Integration and evaluation suites report a committed `bootstrap-not-applicable` exception only while their corresponding product boundary or behavior does not exist; each exception becomes an error as soon as matching tests are added.
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. The evaluation suite now executes FMU-E-001 through FMU-E-004. Integration retains a committed `bootstrap-not-applicable` exception only while no process, transport, persistence, or external-system boundary exists; the exception becomes an error as soon as matching tests are added.
 
 The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
 
