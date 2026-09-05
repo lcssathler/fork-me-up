@@ -1,3 +1,4 @@
+export { isDemandProfile } from "./demand-profile.ts";
 export { isPortableProfileExport } from "./portable-profile-export.ts";
 export type {
   AuthorAssessmentState,
@@ -8,6 +9,12 @@ export type {
   ClaimState,
   Confidence,
   Correction,
+  DemandCapability,
+  DemandCapabilityBasis,
+  DemandCapabilityRelevance,
+  DemandMetadataStatus,
+  DemandProfile,
+  DemandPurpose,
   Declaration,
   Evidence,
   EvidenceInvalidationRule,

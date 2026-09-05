@@ -114,6 +114,34 @@ export interface ResponsePolicy {
   readonly questionBudget: 0 | 1;
 }
 
+export type DemandPurpose = "coding-assistance" | "technical-learning" | "professional-preparation";
+export type DemandMetadataStatus = "available" | "partial" | "unavailable";
+export type DemandCapabilityRelevance = "required" | "supporting";
+export type DemandCapabilityBasis = "task-input" | "project-metadata" | "task-and-project";
+
+export interface DemandCapability {
+  readonly capability: string;
+  readonly relevance: DemandCapabilityRelevance;
+  readonly basis: DemandCapabilityBasis;
+}
+
+export interface DemandProfile {
+  readonly schemaVersion: "0.1.0";
+  readonly kind: "demand-profile";
+  readonly demandId: string;
+  readonly project: {
+    readonly projectRef: string;
+    readonly metadataStatus: DemandMetadataStatus;
+    readonly metadataRevisionRef: string | null;
+  };
+  readonly task: {
+    readonly summary: string;
+    readonly purpose: DemandPurpose;
+  };
+  readonly capabilities: readonly DemandCapability[];
+  readonly generatedAt: string;
+}
+
 export interface ProfilePayload {
   readonly projectRefs: readonly string[];
   readonly evidence: readonly Evidence[];

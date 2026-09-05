@@ -225,9 +225,11 @@ The Demand Profile represents capabilities relevant to a current project and tas
 
 The draft public envelope carries only opaque demand/project/revision references, bounded task context, typed project-metadata availability, and unique required or supporting capability identifiers with a typed task/project basis. It deliberately excludes Developer Profile content, Evidence, Claims, response policy, grants, credentials, paths, and raw metadata. An empty capability set is valid when demand cannot be established without inventing it. Schema validation does not perform derivation or authorize project access.
 
+At runtime, Protocol validates this canonical envelope before Core intersects it with an already loaded Developer Profile. Core uses exact capability identifiers, admits global Claims and current-project-scoped Claims only, preserves unmatched demand explicitly, and returns no Evidence records or complete profile. The result is an immutable compiler input, not a DCP; task prose cannot change selection or policy.
+
 ### 5.6 DCP compilation
 
-The compiler intersects the Demand Profile with the Developer Profile and applies:
+M1-S03 performs the pure relevance intersection before the compiler. The compiler then applies:
 
 - declared purpose and audience;
 - consumer grant and scopes, when remote;
