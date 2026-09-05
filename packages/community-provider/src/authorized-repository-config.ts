@@ -99,6 +99,7 @@ type ParsedConfigResult =
 
 const identifierPattern = /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/u;
 const relativePathPattern = /^(?:\.|[^\\/:]+(?:\/[^\\/:]+)*)$/u;
+const issuedConfigurations = new WeakSet<object>();
 
 export const nodeCanonicalDirectoryPort: CanonicalDirectoryPort = Object.freeze({
   async canonicalizeDirectory(candidatePath: string): Promise<string> {
@@ -174,16 +175,21 @@ export async function resolveAuthorizedRepositoryConfig(
     compareText(left.rootId, right.rootId),
   );
   repositories.sort((left, right) => compareText(left.repositoryId, right.repositoryId));
-  return Object.freeze({
-    ok: true,
-    value: deepFreeze({
-      configVersion: localRepositoryConfigVersion,
-      platform,
-      authorizedRoots,
-      repositories,
-      limits: { ...parsed.value.limits },
-    }),
+  const value = deepFreeze({
+    configVersion: localRepositoryConfigVersion,
+    platform,
+    authorizedRoots,
+    repositories,
+    limits: { ...parsed.value.limits },
   });
+  issuedConfigurations.add(value);
+  return Object.freeze({ ok: true, value });
+}
+
+export function isIssuedAuthorizedRepositoryConfig(
+  value: unknown,
+): value is ResolvedAuthorizedRepositoryConfig {
+  return typeof value === "object" && value !== null && issuedConfigurations.has(value);
 }
 
 function parseConfig(source: string): ParsedConfigResult {

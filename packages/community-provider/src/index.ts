@@ -17,3 +17,21 @@ export {
   type ResolvedSelectedRepository,
   type ResolveAuthorizedRepositoryConfigResult,
 } from "./authorized-repository-config.ts";
+export {
+  collectFilesystemMetadata,
+  filesystemMetadataSnapshotVersion,
+  nodeFilesystemMetadataPort,
+  type BoundedFileRead,
+  type CollectFilesystemMetadataResult,
+  type DocumentMetadataFile,
+  type FilesystemMetadataErrorCategory,
+  type FilesystemMetadataFile,
+  type FilesystemMetadataPort,
+  type FilesystemMetadataSnapshot,
+  type InspectedFilesystemPath,
+  type InspectedPathKind,
+  type ManifestMetadataFile,
+  type PackageJsonMetadata,
+  type RepositoryFilesystemMetadata,
+  type SourceMetadataFile,
+} from "./filesystem-metadata-collector.ts";
