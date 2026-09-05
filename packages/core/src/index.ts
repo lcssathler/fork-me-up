@@ -2,6 +2,12 @@ import { isPortableProfileExport, type ProfilePayload } from "@fork-me-up/protoc
 import { deepFreeze, immutableCopy, type DeepReadonly } from "./immutable.ts";
 
 export { resolveClaimResponsePolicy, type ClaimPolicyResolution } from "./claim-response-policy.ts";
+export {
+  intersectDemandProfileWithDeveloperProfile,
+  type DemandProfileIntersectionResult,
+  type DeveloperProfileView,
+  type TaskProfileIntersection,
+} from "./demand-profile-intersection.ts";
 
 export type LoadedDeveloperProfile = DeepReadonly<{
   profileVersion: string;

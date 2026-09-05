@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol and Core workspaces validate and immutably load versioned synthetic fixture profiles, preserve Claims under deterministic conservative behavior precedence, and select a client-neutral Response Policy for all five Claim states. There is still no runnable application, Demand Profile intersection, DCP compiler, provider, transport, adapter, release, or compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
+M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol and Core workspaces validate and immutably load versioned synthetic fixture profiles, preserve Claims under deterministic conservative behavior precedence, and intersect validated Demand Profiles with only exact global or current-project Claims. There is still no runnable application, Demand Profile producer, DCP compiler, provider, transport, adapter, release, or compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
 
 ## Development foundation
 
@@ -38,7 +38,7 @@ Install exactly the committed dependency graph without running dependency lifecy
 npm ci --ignore-scripts
 ```
 
-The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. M1-S01 introduces private unreleased `@fork-me-up/protocol` and `@fork-me-up/core` packages. Protocol validates the canonical profile-export contract, while Core depends only on Protocol and exposes the immutable fixture-profile loading boundary. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. M1-S01 introduces private unreleased `@fork-me-up/protocol` and `@fork-me-up/core` packages. Protocol validates the canonical profile-export and Demand Profile contracts, while Core depends only on Protocol and exposes immutable profile loading, Claim policy, and task-relevance boundaries. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
 
 Run the complete deterministic baseline:
 
@@ -46,7 +46,7 @@ Run the complete deterministic baseline:
 npm run check
 ```
 
-The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. The evaluation suite now executes FMU-E-001 through FMU-E-004. Integration retains a committed `bootstrap-not-applicable` exception only while no process, transport, persistence, or external-system boundary exists; the exception becomes an error as soon as matching tests are added.
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, integration tests, and behavioral evaluations. The unit suite must never be empty. The evaluation suite executes FMU-E-001 through FMU-E-004 and FMU-E-006. Integration retains a committed `bootstrap-not-applicable` exception only while no process, transport, persistence, or external-system boundary exists; the exception becomes an error as soon as matching tests are added.
 
 The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
 
