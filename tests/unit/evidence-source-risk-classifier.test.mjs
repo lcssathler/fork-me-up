@@ -145,6 +145,9 @@ test("classifies path indicators and exact duplicates while preserving a conserv
   const clean = requireRecord(records, "src/clean.ts");
   assert.deepEqual(clean.riskFlags, []);
   assert.deepEqual(clean.sourceLimitations, ["origin-unverified"]);
+  assert.equal(clean.sourceLanguage, "typescript");
+  assert.equal(clean.authorshipDepthCeiling, "practical-use");
+  assert.equal(clean.authorshipConfidenceCeiling, "medium");
   assert.equal(clean.supportLevel, "normal");
   assert.equal(clean.strengthCeiling, "moderate");
   for (const record of records.values()) {

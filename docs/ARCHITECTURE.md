@@ -196,7 +196,7 @@ An evidence record identifies what was observed without claiming proficiency. It
 
 M2-S04 supplies a pure pre-Evidence authorship assessment from the M2-S03 Git snapshot plus an explicit private identity configuration. Raw configured names/emails are normalized directly to digests and discarded. Attribution (`attributed`, `shared`, `coauthored`, `bot`, `pair-work`, or `unknown`) stays independent from history shape (`ordinary`, `merge`, or explicitly annotated `squash`), then maps conservatively into the existing Evidence author states. Shared identities remain unknown at the individual level, and all isolated commits carry depth/confidence ceilings plus an explicit prohibition on standalone demonstrated depth. This richer private snapshot is not itself Evidence or a Claim. See [ADR-0021](adr/0021-explicit-conservative-git-authorship-assessment.md).
 
-M2-S05 correlates those authentic assessments with the complete bounded filesystem and Git snapshots. A pure classifier combines explicit owner annotations, fixed source-relative path indicators, exact SHA-256 duplicate counts, and bounded changed-path attribution. Fork, template, generated, vendored, tutorial, duplicated, and uncertain flags remain distinct and visible; any flag reduces support and caps strength at weak. Absence of a flag means only `origin-unverified`, never original. The resulting immutable object remains private pre-Evidence metadata and gives later derivation a ceiling rather than a capability conclusion. See [ADR-0022](adr/0022-conservative-evidence-source-risk-classification.md).
+M2-S05 correlates those authentic assessments with the complete bounded filesystem and Git snapshots. A pure classifier combines explicit owner annotations, fixed source-relative path indicators, exact SHA-256 duplicate counts, and bounded changed-path attribution. Fork, template, generated, vendored, tutorial, duplicated, and uncertain flags remain distinct and visible; any flag reduces support and caps strength at weak. Absence of a flag means only `origin-unverified`, never original. The resulting immutable object remains private pre-Evidence metadata, carries only the already normalized source language needed by the next boundary, and gives later derivation a ceiling rather than a capability conclusion. See [ADR-0022](adr/0022-conservative-evidence-source-risk-classification.md).
 
 ### 5.3 Claim derivation
 
@@ -208,6 +208,8 @@ Claims are produced from evidence rules and developer input. The engine:
 - prevents uncertain authorship alone from producing high-confidence depth;
 - applies correction precedence without erasing history;
 - never converts a confidence category into a person-ranking score.
+
+M2-S07 implements the first pure Community producer. It admits only authentic source-risk snapshots and an exact request with injected source/derivation/staleness times plus complete repository-to-project bindings. Supported source languages become project-scoped `language.*` Evidence; no other collected or free-text field has capability authority. Stable IDs and semantic fingerprints make source changes observable across refreshes. Claims aggregate only exact same-project capability observations, require attributable/coauthored support for `demonstrated`, preserve upstream strength plus authorship depth/confidence ceilings, stop at medium/practical-use, and otherwise remain `insufficient-evidence`. The entire reference graph is revalidated through the accepted Profile payload contract. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
 
 ### 5.4 Developer Profile
 
@@ -345,7 +347,9 @@ Identity resolution accepts bounded closed private configuration, hashes each ex
 
 Source-risk classification is also pure and all-or-nothing. It validates exact snapshot correspondence and explicit annotation targets before combining fixed path indicators, exact digest duplication, and bounded attribution. The output retains separate source/authorship limitations, never claims originality, always forbids standalone demonstrated depth, and down-ranks every flagged source before Evidence or Claim derivation.
 
-The next Community boundary persists only validated internal Store envelopes. It does not write repositories or expose filesystem paths through Protocol/Core/Provider/MCP objects. Generation-addressed exclusive activation avoids in-place mutation and persistent locks; readback, concurrency, rollback retention, recovery status, and synthetic migration remain explicit implementation behavior below future owner workflows.
+The Community Store boundary persists only validated internal Store envelopes. It does not write repositories or expose filesystem paths through Protocol/Core/Provider/MCP objects. Generation-addressed exclusive activation avoids in-place mutation and persistent locks; readback, concurrency, rollback retention, recovery status, and synthetic migration remain explicit implementation behavior below future owner workflows.
+
+Evidence/Claim derivation remains a separate pure boundary from that Store. It consumes only the sanitized authentic source-risk snapshot and explicit metadata, reads no filesystem or clock, and emits a Store-compatible project/evidence/claim graph plus internal fingerprints and invalidation events. Later orchestration decides when to collect, derive, and persist; later owner controls decide declarations, corrections, disputes, and rejection.
 
 ## 11. Failure semantics
 
