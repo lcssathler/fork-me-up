@@ -58,6 +58,8 @@ The public [Portable Profile Export `0.1.0` schema](../schemas/portable-profile-
 
 The export requires fixed exclusions for credentials, raw source, Source Grants, Sharing Grants, and provider-internal state. Closed authoring validation rejects those fields, but an exclusions object is not proof of redaction or owner intent. A future exporter must construct the projection from authorized private state, validate it, write it safely, and only then report success. The Store, Portable Profile Export, and DCP authoring schemas reject one another. [ADR-0009](adr/0009-profile-store-export-boundary.md) records this boundary.
 
+M1-S01 adds the first runtime use of this draft through the private unreleased Protocol and Core workspaces. Synthetic Developer Profile fixtures are valid export envelopes used only as input carriers: Protocol validates the canonical shape and reference integrity, then Core copies and deeply freezes the profile payload and `profileVersion` while discarding export metadata. This does not create another profile contract, accept a Store envelope, implement export, or grant policy or disclosure authority. [ADR-0012](adr/0012-fixture-profile-package-foundation.md) records the package boundary.
+
 ### 2.5 Demand Profile
 
 The capabilities relevant to a project and task. It constrains which profile facts can help the consuming tool.

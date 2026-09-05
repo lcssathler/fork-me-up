@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "portable-profile-export",
+  "exportId": "export_fixture_demonstrated",
+  "profileVersion": "profile_fixture_demonstrated",
+  "subjectRef": "subject_fixture_owner",
+  "generatedAt": "2026-09-05T12:00:00Z",
+  "profile": {
+    "projectRefs": [],
+    "evidence": [
+      {
+        "schemaVersion": "0.1.0",
+        "evidenceId": "evidence_fixture_java",
+        "kind": "observation",
+        "capabilitySignal": "language.java",
+        "source": {
+          "class": "selected-local-repository",
+          "sourceRelativeRef": "src/Synthetic.java",
+          "repositoryRef": "repository_fixture_demonstrated",
+          "revisionRef": "revision_fixture_demonstrated",
+          "visibility": "local-only"
+        },
+        "authorAssessment": {
+          "state": "attributed",
+          "subjectRef": "subject_fixture_owner"
+        },
+        "freshness": {
+          "observedAt": "2026-09-01T00:00:00Z",
+          "collectedAt": "2026-09-02T00:00:00Z"
+        },
+        "strength": "strong",
+        "limitations": [],
+        "extractor": {
+          "name": "fixture.collector",
+          "version": "0.1.0"
+        },
+        "invalidation": {
+          "rule": "source-changed",
+          "fingerprint": "fingerprint_fixture_demonstrated"
+        }
+      }
+    ],
+    "claims": [
+      {
+        "schemaVersion": "0.1.0",
+        "claimId": "claim_fixture_java_demonstrated",
+        "capability": "language.java",
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "high",
+        "scope": "global",
+        "projectRef": null,
+        "basis": {
+          "kind": "evidence",
+          "evidenceRefs": ["evidence_fixture_java"],
+          "adjacentFrom": [],
+          "rationale": null,
+          "declarationRef": null,
+          "correctionRef": null,
+          "correctionSummary": null
+        },
+        "limitations": [],
+        "freshness": {
+          "observedThrough": "2026-09-01T00:00:00Z",
+          "stale": false
+        }
+      }
+    ],
+    "declarations": [],
+    "corrections": [],
+    "preferences": {
+      "explanationMode": "balanced",
+      "explainPurposeBeforeCommands": true,
+      "includeExpectedResult": true,
+      "includeRiskAndRollback": true,
+      "questionBudget": 1
+    }
+  },
+  "exclusions": {
+    "credentials": true,
+    "rawSource": true,
+    "sourceGrants": true,
+    "sharingGrants": true,
+    "internalState": true
+  }
+}

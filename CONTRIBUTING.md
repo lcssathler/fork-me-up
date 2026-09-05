@@ -32,14 +32,14 @@ The aggregate command executes these checks in order and stops at the first fail
 | `npm run format:check` | Prettier checks configuration and source formats; Markdown is excluded. |
 | `npm run lint` | ESLint with zero warnings allowed. |
 | `npm run typecheck` | Strict TypeScript and JavaScript tooling checks, without emission. |
-| `npm test` | Non-empty Node.js unit suite. |
+| `npm test` | Non-empty Node.js unit suite, including Protocol/Core fixture-profile boundaries. |
 | `npm run schema:check` | Exact domain, internal Store, Profile Provider, and provider/consumer conformance draft schemas and positive/negative synthetic fixtures, with bounded reads and contract-specific semantic checks. |
 | `npm run test:integration` | Integration suite, currently an explicit `bootstrap-not-applicable` exception. |
 | `npm run eval` | Behavioral suite, currently an explicit `bootstrap-not-applicable` exception. |
 
 Integration and evaluation exceptions end when their named boundaries exist; adding a matching test makes the corresponding exception fail until removed. See the [committed suite exceptions](config/test-suite-exceptions.json) for the exact ending conditions and [ADR-0006](docs/adr/0006-baseline-checks-and-ci.md) for the policy. Do not report these exceptions as product tests passing.
 
-The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. All M0 draft domain, Store, Provider, and provider/consumer conformance validation is included. Automated documentation links, secret scanning, dependency review, vulnerability analysis, license checks, and the broader platform matrix remain later gates. Review Markdown, links, and disclosure manually for documentation changes; record additional checks actually run. There are no product build, package, or install/uninstall commands yet.
+The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. All M0 draft contract validation and the M1-S01 Protocol/Core fixture-profile unit coverage are included. Automated documentation links, secret scanning, dependency review, vulnerability analysis, license checks, and the broader platform matrix remain later gates. Review Markdown, links, and disclosure manually for documentation changes; record additional checks actually run. There is no product build, release artifact, or install/uninstall command yet.
 
 ## Preparing a change
 
