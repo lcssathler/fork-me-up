@@ -24,8 +24,13 @@ This file records notable repository and public-contract changes. There are no p
 - Separate unreleased Community Profile Store and public Portable Profile Export `0.1.0` authoring schemas with cross-envelope rejection, explicit export exclusions, synthetic fixtures, and reference-integrity checks (`M0-S10`; `FMU-FR-004`, `FMU-FR-008`, `FMU-FR-009`, preparation for `FMU-FR-015`, `FMU-NFR-009`, `FMU-NFR-011`; ADR-0009). No released data requires migration; persistence, executable migrations, export/deletion commands, and runtime redaction remain later gates.
 - Unreleased Demand Profile `0.1.0` authoring schema with synthetic fixtures, typed task/project capability basis, project-metadata availability states, unique-capability validation, and cross-envelope rejection (`M0-S11`; `FMU-FR-003`, `FMU-FR-009`, `FMU-NFR-009`, `FMU-NFR-011`; ADR-0010). No released data requires migration; project inspection, demand derivation, profile intersection, and DCP compilation remain M1 work.
 - Unreleased client-neutral Profile Provider capabilities/request/response and provider/consumer conformance transcript `0.1.0` contracts with synthetic fixtures, typed operation subsets and errors, correlation/version/limit checks, exact DCP validation, and bounded namespaced extensions (`M0-S12`; `FMU-FR-010`, `FMU-FR-023`, `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-011`; ADR-0011). No released implementation requires migration; runtime providers, transports, authorization, adapters, and behavioral equivalence remain later gates.
+- A reproducible M0 exit audit and ordered M1 execution queue, closing the normative, contract, threat-model, clean-checkout, licensing, repository-protection, and first-slice readiness gates without introducing product behavior (`M0-S13`).
 
 ### Changed
 
 - Completed the authorized GitHub Free public cutover and activated basic protection for `main`: pull requests are required, deletion and non-fast-forward updates are blocked, no actor can bypass the ruleset, and zero approvals are required under the explicitly accepted single-maintainer policy (`M0-S02`). Required CI status checks remain the separately authorized M0-S06 gate; this visibility transition is not a product or package release.
 - Required the real GitHub Actions `Windows baseline` check from its verified integration before pull requests can merge into an up-to-date `main`, while retaining the existing no-bypass pull-request, deletion, and non-fast-forward rules (`M0-S06`; `FMU-NFR-011`, `FMU-NFR-017`; ADR-0006). No workflow, dependency, product, schema, package, or release changed.
+
+### Security
+
+- Enabled and verified GitHub private vulnerability reporting so the public contribution policy has an active confidential reporting route (`M0-S13`).
