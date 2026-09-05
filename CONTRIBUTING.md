@@ -1,6 +1,6 @@
 # Contributing to Fork Me Up
 
-Fork Me Up is in public M0 preparation. The repository is visible and `main` has basic server-side protection, but external contributions remain temporarily paused until M0-S06 makes the real CI check mandatory. The [roadmap](docs/ROADMAP.md) governs that closeout. Public visibility is not a product release or permission to bypass the current queue.
+Fork Me Up is in public M0 preparation. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under the [roadmap](docs/ROADMAP.md), security policy, and review requirements below. Public visibility is not a product release or permission to bypass the current queue.
 
 ## Before starting
 
@@ -57,7 +57,7 @@ A pull request should explain the problem and resulting behavior, traceability, 
 
 Run the documented checks on the revision submitted for review and inspect the complete diff. Relevant CI must pass before merge. The [engineering process](docs/ENGINEERING.md#34-pull-request-evidence) requires focused human review for authentication, persistence, redaction, filesystem boundaries, public schemas, lifecycle hooks, release automation, and private-source access.
 
-Use pull requests to integrate into `main`; its active ruleset requires a pull request and blocks deletion and non-fast-forward updates without bypass actors. Until M0-S06 integrates the real required CI check, only the reviewed M0-S02 state-transition pull request may merge. Direct pushes, force pushes, deletion, and shared-history rewrites remain prohibited. Agents must stop before push, external pull-request creation, merge, publication, release, deployment, or remote configuration unless the current task explicitly authorizes that effect.
+Use pull requests to integrate into `main`; its active ruleset requires the GitHub Actions `Windows baseline` check from the expected integration and blocks deletion and non-fast-forward updates without bypass actors. Pull-request branches must be tested with the latest `main`. Direct pushes, force pushes, deletion, and shared-history rewrites remain prohibited. Agents must stop before push, external pull-request creation, merge, publication, release, deployment, or remote configuration unless the current task explicitly authorizes that effect.
 
 ## Licensing and attribution
 

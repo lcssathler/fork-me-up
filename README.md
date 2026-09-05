@@ -21,7 +21,7 @@ The first reference adapter may target Codex because it provides skills, MCP, an
 
 ## Current status
 
-M0 is in progress. The repository is public and `main` has basic pull-request, deletion, and non-fast-forward protection; mandatory CI enforcement remains the next governance gate. There is no runnable product yet, but the repository has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and client-neutral Profile Provider/conformance `0.1.0` draft schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft. Runtime behavior and released compatibility claims remain future milestones.
+M0 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. The M0 exit audit is the next roadmap gate. There is no runnable product yet, but the repository has a pinned development toolchain and executable baseline checks. The DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and client-neutral Profile Provider/conformance `0.1.0` draft schemas and synthetic fixtures are available, alongside the explicitly internal Community Profile Store draft. Runtime behavior and released compatibility claims remain future milestones.
 
 ## Development foundation
 
