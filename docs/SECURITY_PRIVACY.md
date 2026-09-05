@@ -162,6 +162,8 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 
 **Controls:** validate schema and budgets at the consumer boundary; treat every free-text field as unprivileged data; map only allowlisted enums, booleans, and identifiers into instructions; disallow prompt-bearing extension strings; use pairwise or packet-bound remote identifiers; and include malicious DCP fixtures in conformance tests.
 
+M1-S06 applies this boundary in the Codex adapter. It validates the Provider response again and reconstructs developer context from fixed templates using only Claim capability/state/observed-depth and the six closed Response Policy fields. Task text and every other free-text field are omitted. The post-compaction cache holds only that structured allowlist and expiry under a hash of the bounded session identifier; malformed, symlinked, oversized, or expired entries yield no context. Hook, Provider, cache-read/clear, and validation failures return successful host continuation without relaxing disclosure or permissions. See [ADR-0017](adr/0017-codex-lifecycle-hook-adapter.md).
+
 ### T-13 — Occupational misuse
 
 **Threat:** profile claims are used to rank candidates, infer employability, monitor workers, fabricate experience, or provide covert assistance where prohibited.

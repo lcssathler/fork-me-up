@@ -1,0 +1,34 @@
+{
+  "description": "Optional Fork Me Up task context for Codex.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/adapters/codex/src/main.ts\" --fixture=unavailable",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$repo = git rev-parse --show-toplevel; & node (Join-Path $repo 'adapters/codex/src/main.ts') --fixture=unavailable\"",
+            "timeout": 5,
+            "statusMessage": "Loading Fork Me Up context",
+            "additionalContextLimit": 2048
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/adapters/codex/src/main.ts\" --fixture=unavailable",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$repo = git rev-parse --show-toplevel; & node (Join-Path $repo 'adapters/codex/src/main.ts') --fixture=unavailable\"",
+            "timeout": 5,
+            "statusMessage": "Loading Fork Me Up task context",
+            "additionalContextLimit": 2048
+          }
+        ]
+      }
+    ]
+  }
+}

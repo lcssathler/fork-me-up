@@ -17,11 +17,11 @@ Fork Me Up is designed as:
 - client-neutral integrations through MCP, files, and SDKs;
 - an optional paid service for deeper multi-repository compilation, continuous refresh, private-repository connectivity, and controlled remote delivery.
 
-The first reference adapter may target Codex because it provides skills, MCP, and lifecycle hooks. The core protocol and evidence model must not depend on Codex, a particular LLM, or any integration partner.
+The first reference adapter targets Codex because it provides MCP and lifecycle hooks. The core protocol and evidence model do not depend on Codex, a particular LLM, or any integration partner.
 
 ## Current status
 
-M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, and Community Provider workspaces validate synthetic fixture profiles, apply conservative Claim policy, intersect validated Demand Profiles, compile schema-valid redacted DCPs, and expose a bounded local MCP `stdio` application. There is still no source-backed Demand Profile producer, persistence, owner CLI, reference adapter, release, or general client-compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
+M0 is complete, and M1 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, Community Provider, MCP, and Codex adapter workspaces validate synthetic fixture profiles, compile schema-valid redacted DCPs, and deliver allowlisted task guidance through non-blocking Codex lifecycle hooks. There is still no source-backed Demand Profile producer, canonical profile persistence, owner CLI, release, second consumer, or general client-compatibility claim. The draft schemas and explicitly internal Community Profile Store remain available as described by the [M0 exit audit](docs/audits/M0_EXIT_AUDIT.md).
 
 ## Development foundation
 
@@ -38,7 +38,7 @@ Install exactly the committed dependency graph without running dependency lifecy
 npm ci --ignore-scripts
 ```
 
-The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. The private unreleased `@fork-me-up/protocol`, `@fork-me-up/core`, `@fork-me-up/community-provider`, and `@fork-me-up/mcp-local` workspaces implement the current fixture-backed vertical slice. Protocol validates canonical exchange contracts, Core owns pure domain behavior, the Community Provider maps typed requests into bounded compilation, and the application maps two read-only tools onto MCP `stdio`. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. The private unreleased `@fork-me-up/protocol`, `@fork-me-up/core`, `@fork-me-up/community-provider`, `@fork-me-up/mcp-local`, and `@fork-me-up/codex-adapter` workspaces implement the current fixture-backed vertical slice. Protocol validates canonical exchange contracts, Core owns pure domain behavior, the Community Provider maps typed requests into bounded compilation, the MCP application maps two read-only tools onto `stdio`, and the Codex adapter maps only allowlisted fields into client-owned hook output. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
 
 Run the local synthetic MCP server with the default demonstrated fixture:
 
@@ -48,13 +48,15 @@ npm run mcp
 
 Development-only fixture selections are `demonstrated`, `adjacent`, `insufficient-evidence`, and `unavailable`; for example, `npm run mcp -- --fixture=adjacent`. The process speaks newline-delimited JSON-RPC on `stdin`/`stdout`, advertises only `get_task_context` and `get_profile_metadata`, and intentionally supports MCP revision `2025-11-25` only. It opens no listener and makes no network request. These fixtures prove the transport boundary, not production profile persistence or compatibility with every MCP client.
 
+The checked-in Codex project hook exercises the real task/session lifecycle but selects the unavailable fixture by default, so merely trusting the repository cannot attribute synthetic expertise to a developer. Tests explicitly select synthetic Java, React/Angular, and GitHub Actions/CI profiles to prove delivery and unexpired restoration after resume or compaction. Codex will not run the non-managed hook until the project and exact hook definition are reviewed and trusted through `/hooks`. See the [adapter compatibility and security profile](adapters/codex/README.md); this reference does not prove portability to a second client.
+
 Run the complete deterministic baseline:
 
 ```text
 npm run check
 ```
 
-The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, MCP subprocess integration tests, and behavioral evaluations. The unit and integration suites must never be empty. The evaluation suite executes FMU-E-001 through FMU-E-004, FMU-E-006, FMU-E-012, and FMU-E-013. The former integration `bootstrap-not-applicable` exception ended when the MCP process boundary was introduced.
+The aggregate command fails fast across formatting, lint, strict type checking, unit tests, all draft schema and provider/conformance fixtures, MCP and Codex-hook subprocess integration tests, and behavioral evaluations. The unit and integration suites must never be empty. The evaluation suite executes FMU-E-001 through FMU-E-004, FMU-E-006, and FMU-E-012 through FMU-E-014, plus the M1-S06 three-mode adapter evaluation. The former integration `bootstrap-not-applicable` exception ended when the MCP process boundary was introduced.
 
 The same aggregate command runs in a least-privilege Windows CI job for pull requests and pushes to `main`. The workflow uses immutable action revisions, read-only repository contents, disabled checkout credential persistence, the pinned Node.js version, and `npm ci --ignore-scripts`.
 
