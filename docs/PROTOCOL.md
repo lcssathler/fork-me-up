@@ -28,6 +28,8 @@ The independent [Evidence `0.1.0` authoring schema](../schemas/evidence/0.1.0.sc
 
 Attributed and coauthored observations require an opaque subject reference; bot, unknown, and `not-applicable` assessments prohibit one. Local, public, and private source classes require the matching visibility. Collection cannot predate observation. A source-relative reference is metadata inside the private evidence boundary: its syntax rejects absolute, drive, backslash, and traversal paths, but validation does not authorize or read that location. A private visibility/class value represents metadata only and does not add private-repository access.
 
+M2-S04 adds an implementation-internal Community assessment before Evidence production without changing this public enum or schema. Explicit private Git names/emails are immediately replaced with the same digests emitted by M2-S03. Direct target matches map to `attributed`, recognized target collaboration and explicitly configured pair work map to `coauthored`, configured bots map to `bot`, while shared accounts and unmatched identities map to `unknown`; only the first two mappings carry the opaque configured subject reference. Merge and explicit squash history remain independent limitations. Every isolated commit prohibits standalone `demonstrated-depth`, so later Evidence/Claim rules must still aggregate attributable qualitative signals conservatively. [ADR-0021](adr/0021-explicit-conservative-git-authorship-assessment.md) records this private producer decision.
+
 ### 2.2 Claim
 
 A capability statement supported by evidence, inferred by adjacency, declared by the developer, marked as insufficiently evidenced, or disputed by the developer.
