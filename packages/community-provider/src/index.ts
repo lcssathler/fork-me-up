@@ -93,6 +93,7 @@ export {
 export {
   classifyEvidenceSourceRisk,
   evidenceSourceRiskSnapshotVersion,
+  isIssuedEvidenceSourceRiskSnapshot,
   type ClassifyEvidenceSourceRiskResult,
   type EvidenceSourceLimitation,
   type EvidenceSourceRiskErrorCategory,
@@ -134,3 +135,16 @@ export {
   type LocalProfileStoreFilePort,
   type WriteLocalProfileStoreResult,
 } from "./local-profile-store.ts";
+export {
+  deriveEvidenceClaims,
+  evidenceClaimDerivationHardLimits,
+  evidenceClaimDerivationVersion,
+  isIssuedEvidenceClaimDerivation,
+  type ClaimInvalidationReason,
+  type DeriveEvidenceClaimsResult,
+  type EvidenceClaimDerivationErrorCategory,
+  type EvidenceClaimDerivationRequest,
+  type EvidenceClaimDerivationSnapshot,
+  type EvidenceClaimRepositoryProject,
+  type EvidenceInvalidationReason,
+} from "./evidence-claim-derivation.ts";

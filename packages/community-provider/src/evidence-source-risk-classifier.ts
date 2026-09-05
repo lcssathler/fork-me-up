@@ -1,5 +1,7 @@
 import { Buffer } from "node:buffer";
 
+import type { Confidence, ObservedDepth } from "@fork-me-up/protocol";
+
 import { localRepositoryConfigHardLimits } from "./authorized-repository-config.ts";
 import {
   type EvidenceSourceRiskFlag,
@@ -44,9 +46,12 @@ export interface EvidenceSourceRiskRecord {
   readonly sourceRelativeRef: string;
   readonly contentDigest: { readonly algorithm: "sha256"; readonly value: string };
   readonly sourceCategory: "document" | "manifest" | "source";
+  readonly sourceLanguage: string | null;
   readonly associatedCommitObjectIds: readonly string[];
   readonly attributionStates: readonly GitAttributionState[];
   readonly authorshipLimitations: readonly GitAuthorshipLimitation[];
+  readonly authorshipDepthCeiling: ObservedDepth | null;
+  readonly authorshipConfidenceCeiling: Confidence;
   readonly riskFlags: readonly EvidenceSourceRiskFlag[];
   readonly sourceLimitations: readonly EvidenceSourceLimitation[];
   readonly duplicateCount: number;
@@ -92,6 +97,7 @@ export type ClassifyEvidenceSourceRiskResult =
 
 const identifierPattern = /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/u;
 const digestPattern = /^[0-9a-f]{64}$/u;
+const issuedRiskSnapshots = new WeakSet<object>();
 const generatedDirectories = new Set(["build", "dist", "gen", "generated"]);
 const vendoredDirectories = new Set([
   "external",
@@ -178,10 +184,15 @@ export function classifyEvidenceSourceRisk(
           .sort((left, right) => compareText(left.sourceRelativeRef, right.sourceRelativeRef)),
       })),
     });
+    issuedRiskSnapshots.add(value);
     return deepFreeze({ ok: true as const, value });
   } catch (error) {
     return failure(error instanceof SourceRiskFault ? error.category : "invalid-input");
   }
+}
+
+export function isIssuedEvidenceSourceRiskSnapshot(value: EvidenceSourceRiskSnapshot): boolean {
+  return typeof value === "object" && value !== null && issuedRiskSnapshots.has(value);
 }
 
 function classifyFile(
@@ -236,13 +247,30 @@ function classifyFile(
   if (riskFlags.size === 0) sourceLimitations.add("origin-unverified");
 
   const risky = riskFlags.size > 0;
+  const targetAssessments = associated.filter(
+    (assessment) =>
+      assessment.evidenceAuthorAssessment.state === "attributed" ||
+      assessment.evidenceAuthorAssessment.state === "coauthored",
+  );
+  const collaborativeAttribution = associated.some(
+    (assessment) =>
+      assessment.attributionState === "coauthored" || assessment.attributionState === "pair-work",
+  );
   return deepFreeze({
     sourceRelativeRef: file.relativePath,
     contentDigest: { algorithm: "sha256" as const, value: file.digest.value },
     sourceCategory: file.category,
+    sourceLanguage: file.category === "source" ? file.language : null,
     associatedCommitObjectIds: associated.map((assessment) => assessment.commitObjectId),
     attributionStates: uniqueSorted(associated.map((assessment) => assessment.attributionState)),
     authorshipLimitations: uniqueSorted(associated.flatMap((assessment) => assessment.limitations)),
+    authorshipDepthCeiling:
+      collaborativeAttribution && targetAssessments.length > 0
+        ? "exposure"
+        : aggregateDepthCeiling(targetAssessments),
+    authorshipConfidenceCeiling: collaborativeAttribution
+      ? "low"
+      : aggregateConfidenceCeiling(targetAssessments),
     riskFlags: uniqueSorted([...riskFlags]),
     sourceLimitations: uniqueSorted([...sourceLimitations]),
     duplicateCount,
@@ -250,6 +278,25 @@ function classifyFile(
     strengthCeiling: risky ? ("weak" as const) : ("moderate" as const),
     standaloneDemonstratedDepthAllowed: false as const,
   });
+}
+
+function aggregateDepthCeiling(
+  assessments: readonly GitCommitAuthorshipAssessment[],
+): ObservedDepth | null {
+  if (assessments.some((assessment) => assessment.depthCeiling === "practical-use")) {
+    return "practical-use";
+  }
+  return assessments.some((assessment) => assessment.depthCeiling === "exposure")
+    ? "exposure"
+    : null;
+}
+
+function aggregateConfidenceCeiling(
+  assessments: readonly GitCommitAuthorshipAssessment[],
+): Confidence {
+  return assessments.some((assessment) => assessment.confidenceCeiling === "medium")
+    ? "medium"
+    : "low";
 }
 
 function pathIndicators(relativePath: string): readonly EvidenceSourceRiskFlag[] {

@@ -32,6 +32,8 @@ M2-S04 adds an implementation-internal Community assessment before Evidence prod
 
 M2-S05 adds a second implementation-internal pre-Evidence snapshot without changing the public Evidence contract. It correlates bounded filesystem records, Git changed paths, and authentic authorship assessments, then records explicit fork/template/tutorial/uncertain annotations, fixed generated/vendor/template/tutorial path indicators, exact-digest duplication, and missing or non-target attribution as separate limitations. Every flagged record is reduced with a weak strength ceiling; an unflagged record remains `origin-unverified` with at most moderate strength. No record can independently establish `demonstrated-depth`, and the classifier never labels a source original. Later Evidence production must preserve these ceilings and limitations. See [ADR-0022](adr/0022-conservative-evidence-source-risk-classification.md).
 
+M2-S07 performs that production without changing the Evidence schema. Only the collector's normalized source language becomes a `language.*` capability signal; documents, dependency/script names, prose, and annotations cannot create a capability. Stable Evidence identifiers survive content refresh, while semantic fingerprints cover source digest, authorship/risk state, fixed limitations, and extractor version. Observation/derivation/staleness times and repository-to-project binding are explicit inputs. Refresh comparison reports changed or unavailable prior Evidence without treating an unrelated repository-head change as a source change. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
+
 ### 2.2 Claim
 
 A capability statement supported by evidence, inferred by adjacency, declared by the developer, marked as insufficiently evidenced, or disputed by the developer.
@@ -47,6 +49,8 @@ The independent [Claim `0.1.0` authoring schema](../schemas/claim/0.1.0.schema.j
 | `disputed` | `dispute` | Opaque correction reference/summary, non-empty original evidence references, and observed-through time; original observed depth may remain visible. |
 
 Project-scoped claims require an opaque project reference; global claims prohibit one. References are structurally opaque and are not resolved by authoring validation. The schema does not implement derivation or correction precedence and does not turn descriptive text into policy.
+
+The Community M2-S07 producer groups exact language Evidence only within its mapped project. At least one attributable or coauthored observation is required for `demonstrated`; otherwise it emits `insufficient-evidence`. One or weak attributable signal reaches only exposure; two distinct moderate attributable source observations may reach practical use only when both upstream authorship ceilings permit it. Confidence also respects the upstream ceiling. Generated Claims are never global, adjacent, high confidence, or `demonstrated-depth`. Stable internal Claim fingerprints and refresh invalidation remain provider implementation metadata rather than new public Claim fields. Declarations, disputes, and correction precedence remain owner-controlled later work. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
 
 ### 2.3 Developer Profile Store
 
