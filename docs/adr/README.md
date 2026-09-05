@@ -16,6 +16,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0010](0010-demand-profile-draft-contract.md) | Accepted | Define a task-scoped Demand Profile contract without developer assessment, raw project data, or policy authority. |
 | [ADR-0011](0011-provider-conformance-draft-contracts.md) | Accepted | Define client-neutral Profile Provider exchanges and public provider/consumer conformance transcripts. |
 | [ADR-0012](0012-fixture-profile-package-foundation.md) | Accepted | Load synthetic fixture profiles through minimal client-neutral Protocol and Core packages. |
+| [ADR-0013](0013-claim-precedence-response-policy.md) | Accepted | Preserve Claims under conservative behavior precedence and select a client-neutral Response Policy. |
 
 ## Record format
 

@@ -18,4 +18,6 @@ export type {
   PortableProfileExport,
   ProfilePayload,
   ProfilePreferences,
+  ResponsePolicy,
+  ResponsePolicyMode,
 } from "./types.ts";

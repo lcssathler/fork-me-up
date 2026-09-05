@@ -1,4 +1,7 @@
 import { isPortableProfileExport, type ProfilePayload } from "@fork-me-up/protocol";
+import { deepFreeze, immutableCopy, type DeepReadonly } from "./immutable.ts";
+
+export { resolveClaimResponsePolicy, type ClaimPolicyResolution } from "./claim-response-policy.ts";
 
 export type LoadedDeveloperProfile = DeepReadonly<{
   profileVersion: string;
@@ -24,23 +27,7 @@ export function loadDeveloperProfileFromPortableExport(value: unknown): Develope
     ok: true,
     value: {
       profileVersion: value.profileVersion,
-      profile: structuredClone(value.profile),
+      profile: immutableCopy(value.profile),
     },
   });
-}
-
-type DeepReadonly<Value> = Value extends (...arguments_: never[]) => unknown
-  ? Value
-  : Value extends readonly (infer Item)[]
-    ? readonly DeepReadonly<Item>[]
-    : Value extends object
-      ? { readonly [Key in keyof Value]: DeepReadonly<Value[Key]> }
-      : Value;
-
-function deepFreeze<Value>(value: Value): DeepReadonly<Value> {
-  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
-    for (const child of Object.values(value)) deepFreeze(child);
-    Object.freeze(value);
-  }
-  return value as DeepReadonly<Value>;
 }

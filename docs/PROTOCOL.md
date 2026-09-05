@@ -251,6 +251,12 @@ A compact packet uses opaque or sanitized evidence references. A reference must 
 
 The independent Claim record retains the fuller state-matched basis described in Section 2.2. A DCP deliberately projects only the bounded summary required for the task; it never embeds an independent Claim or Evidence record. [ADR-0008](adr/0008-evidence-claim-draft-contracts.md) records this boundary and the unreleased authoring decisions.
 
+### 5.6 Behavior precedence and Response Policy
+
+M1-S02 applies a conservative priority only after Claims are validated and selected as task-relevant: disputed, insufficient-evidence, self-declared, adjacent, then demonstrated. This priority selects the minimum guidance for a combined task; it does not collapse, reclassify, or delete any Claim. Stable state, capability, and claim-identifier ordering makes the result independent of input order and locale.
+
+Disputed, insufficient, self-declared, or empty inputs select `teach-while-doing`; adjacent selects `analogy`; demonstrated selects `concise`. A guided developer preference can request more explanation but no preference can suppress uncertainty safeguards. Analogy capabilities come only from structured `adjacentFrom` fields; free text has no policy authority. The result uses the existing DCP Response Policy fields but is not yet a DCP, and task relevance remains M1-S03 work. [ADR-0013](adr/0013-claim-precedence-response-policy.md) records the exact behavior.
+
 ## 6. DCP disclosure and purpose
 
 Initial DCP disclosure classes:
