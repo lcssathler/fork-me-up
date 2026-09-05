@@ -4,7 +4,7 @@
     "integration": {
       "status": "bootstrap-not-applicable",
       "milestone": "M0",
-      "reason": "No process, transport, persistence, or external-system integration boundary exists; M1-S03 remains pure Core behavior.",
+      "reason": "No process, transport, persistence, or external-system integration boundary exists; M1-S04 remains pure Core behavior.",
       "endsWhen": "The first process, transport, persistence, or external-system integration boundary is introduced."
     }
   }

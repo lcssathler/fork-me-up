@@ -169,7 +169,7 @@ A conforming DCP:
 }
 ```
 
-The example is the [insufficient-evidence fixture](../fixtures/dcp/0.1.0/valid/insufficient-evidence.json) for the [DCP 0.1.0 schema](../schemas/dcp/0.1.0.schema.json). It is an unreleased draft, not proof of runtime support or consumer conformance. [ADR-0007](adr/0007-dcp-draft-schema-validation.md) records the decision.
+The example is the [insufficient-evidence fixture](../fixtures/dcp/0.1.0/valid/insufficient-evidence.json) for the [DCP 0.1.0 schema](../schemas/dcp/0.1.0.schema.json). It remains an unreleased draft and is not proof of provider or consumer conformance. [ADR-0007](adr/0007-dcp-draft-schema-validation.md) records the schema, and [ADR-0015](adr/0015-deterministic-bounded-dcp-compiler.md) records its M1-S04 runtime compilation.
 
 ### 4.1 Exact draft authoring rules
 
@@ -197,6 +197,10 @@ The draft gives existing concepts explicit representations:
 | Evidence count | Integer from 0 through 1,000,000; this metadata is not verification of the underlying evidence. |
 
 `npm run schema:check` checks the committed corpus and supplements JSON Schema with expiry ordering and the compact-byte check. Fixture files may contain whitespace and are separately capped at 65,536 raw bytes before JSON parsing. A failed check returns a fixed diagnostic and no input content. The command does not accept file arguments, fetch references, compile context, truncate a packet, or read a developer's repositories/profile.
+
+M1-S04 makes Protocol the runtime validator for this same exact contract and adds a pure Core compiler. Packet identifiers and timestamps are injected. The compiler accepts a previously resolved authorization decision, applies only compatible local `task-context` or external `consumer-session` shapes, projects compact task-relevant Claim summaries, derives structured uncertainties, redacts sensitive free text, and validates the final packet before returning it. It reads no clock, randomness, source, profile store, network, or client state.
+
+The compiler request adds an input-only `maxTokens` from 1 through 8,192. Core uses one conservative portable accounting unit per UTF-8 byte rather than assuming a model tokenizer; emitted bytes must satisfy both this bound and `budget.maxBytes`. Progressive reduction removes limitations, non-demonstrated evidence references, non-material uncertainties, and lower-retention Claim summaries in a fixed order. It never truncates JSON or free text to force validity. A projection that still cannot fit returns no packet.
 
 The same command checks the independent Evidence and Claim corpora through the shared bounded fixture reader. Evidence validation additionally enforces collection-at-or-after-observation ordering. All schemas are self-contained and use only local fragment references. These development checks do not resolve opaque references, inspect a source, derive a Claim, apply correction precedence, or authorize disclosure.
 

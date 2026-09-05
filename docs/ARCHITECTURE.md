@@ -242,6 +242,8 @@ M1-S03 performs the pure relevance intersection before the compiler. The compile
 
 The result contains summarized claims and opaque evidence references. Protocol v1 never embeds raw evidence or source/document excerpts in a DCP. Any future owner-only source viewer is a separate first-party contract.
 
+The M1-S04 reference compiler is pure: IDs and timestamps are injected, authorization is a resolved typed decision, and no clock, random source, filesystem, or network is read. It validates the final DCP through Protocol, replaces sensitive free text, scans the serialized result, and enforces exact UTF-8 byte plus conservative token-accounting bounds. Progressive reduction follows one stable order and returns no packet when the minimum valid projection cannot fit.
+
 ## 6. Provider interface
 
 An `EvidenceCollector` or `SourceAdapter` reads an authorized source and emits normalized evidence; it does not own profile or delivery semantics. A `ProfileProvider` may be the local Community implementation, an independent implementation, or Fork Me Up Cloud. It can operate from collectors or an imported profile and need not collect sources itself. At minimum it must be able to:

@@ -8,6 +8,12 @@ export {
   type DeveloperProfileView,
   type TaskProfileIntersection,
 } from "./demand-profile-intersection.ts";
+export {
+  compileDeveloperContextPacket,
+  type DcpCompilationRequest,
+  type DcpCompilationResult,
+  type DcpReduction,
+} from "./dcp-compiler.ts";
 
 export type LoadedDeveloperProfile = DeepReadonly<{
   profileVersion: string;

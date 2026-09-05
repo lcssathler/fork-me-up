@@ -142,6 +142,63 @@ export interface DemandProfile {
   readonly generatedAt: string;
 }
 
+export type DcpAudienceClass = "local-assistant" | "external-consumer";
+export type DcpDisclosureClass = "task-context" | "consumer-session";
+
+export interface DcpClaimSummary {
+  readonly claimId: string;
+  readonly capability: string;
+  readonly state: ClaimState;
+  readonly observedDepth: ObservedDepth | null;
+  readonly confidence: Confidence;
+  readonly scope: ClaimScope;
+  readonly adjacentFrom: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly limitations: readonly string[];
+  readonly freshness: {
+    readonly observedThrough: string | null;
+    readonly stale: boolean;
+  };
+  readonly adjacentRationale?: string;
+  readonly correctionRef?: string;
+  readonly correctionSummary?: string;
+}
+
+export interface DeveloperContextPacket {
+  readonly schemaVersion: "0.1.0";
+  readonly packetId: string;
+  readonly profileVersion: string;
+  readonly purpose: DemandPurpose;
+  readonly audience: {
+    readonly class: DcpAudienceClass;
+    readonly consumerId: string | null;
+  };
+  readonly task: {
+    readonly summary: string;
+    readonly requiredCapabilities: readonly string[];
+  };
+  readonly budget: {
+    readonly maxBytes: number;
+  };
+  readonly claims: readonly DcpClaimSummary[];
+  readonly uncertainties: readonly {
+    readonly capability: string;
+    readonly reason: string;
+    readonly material: boolean;
+  }[];
+  readonly responsePolicy: ResponsePolicy;
+  readonly provenanceSummary: {
+    readonly evidenceCount: number;
+    readonly sourceClasses: readonly string[];
+  };
+  readonly disclosure: {
+    readonly class: DcpDisclosureClass;
+    readonly redactionsApplied: readonly string[];
+  };
+  readonly generatedAt: string;
+  readonly expiresAt: string;
+}
+
 export interface ProfilePayload {
   readonly projectRefs: readonly string[];
   readonly evidence: readonly Evidence[];
