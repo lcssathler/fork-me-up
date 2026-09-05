@@ -303,6 +303,8 @@ The public [Profile Provider `0.1.0` schema](../schemas/profile-provider/0.1.0.s
 
 Requests and responses carry matching opaque request IDs and exact operation names. Success data is discriminated by operation; errors carry no data. The Provider interface accepts no source root, source credential, collection instruction, owner-administrative operation, or arbitrary developer identifier. `EvidenceCollector` and `SourceAdapter` remain separate producer-side ports rather than Provider operations. [ADR-0011](adr/0011-provider-conformance-draft-contracts.md) records the boundary.
 
+M2-S01 keeps owner-selected local roots and repository paths in a versioned implementation-internal Community configuration resolved before any collector runs. Its absolute canonical paths are neither Protocol data nor Profile Provider input/output. This adds no public schema, source operation, or consumer authority; [ADR-0018](adr/0018-authorized-local-repository-configuration.md) records the private boundary.
+
 ## 9. Initial MCP contract
 
 The initial surface is deliberately small and read-oriented.

@@ -102,6 +102,8 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 
 **Controls:** real-path canonicalization, selected-root enforcement, explicit symlink policy, no implicit submodule expansion, ignore rules, and resource budgets. Tests cover traversal, junctions/symlinks, device paths, unusual Unicode, deep trees, and platform-specific separators.
 
+M2-S01 implements the authorization/configuration half of this control before collection exists. Its closed internal JSON boundary accepts only absolute selected roots and root-relative repository selections, resolves physical directories through metadata-only `realpath`/`stat`, applies Windows-aware identity and containment, rejects device namespaces, duplicate aliases, missing roots, and canonical link escape, and returns no partial authority or path-bearing error. The resolved absolute paths are private owner-side state. Because filesystem entries can be replaced after resolution, M2-S02 must repeat canonical containment at every read rather than treating this snapshot as permanent authorization. See [ADR-0018](adr/0018-authorized-local-repository-configuration.md).
+
 ### T-03 — Command or code execution
 
 **Threat:** repository names, paths, manifests, or metadata become shell syntax or cause package scripts to run.

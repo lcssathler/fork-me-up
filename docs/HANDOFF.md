@@ -22,7 +22,7 @@ Before taking action, read these files in full:
 
 Apply the subject-specific authority and conflict rules in `AGENTS.md`. Accepted ADRs refine architecture within the preceding invariants. Do not implement the complete product or an entire milestone at once.
 
-Current state: M0 and M1 are complete on `main`, M2 is ready, and M2-S01 is the next eligible slice. Confirm the actual branch, base revision, working tree, branches, worktrees, and remote pull-request evidence before acting. Section 14 of `docs/ROADMAP.md` is the routing source for the current execution queue; the milestone evidence is in `docs/audits/M0_EXIT_AUDIT.md` and `docs/audits/M1_EXIT_AUDIT.md`.
+Current state: M0 and M1 are complete on `main`, M2 is in progress, and M2-S02 is the next eligible slice after M2-S01 integrates. Confirm the actual branch, base revision, working tree, branches, worktrees, and remote pull-request evidence before acting. Section 14 of `docs/ROADMAP.md` is the routing source for the current execution queue; the milestone evidence is in `docs/audits/M0_EXIT_AUDIT.md` and `docs/audits/M1_EXIT_AUDIT.md`.
 
 For the next task:
 

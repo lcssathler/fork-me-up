@@ -21,7 +21,7 @@ The first reference adapter targets Codex because it provides MCP and lifecycle 
 
 ## Current status
 
-M0 and M1 are complete, and M2 is ready to begin. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, Community Provider, MCP, and Codex adapter workspaces validate synthetic fixture profiles, compile schema-valid redacted DCPs, and deliver allowlisted task guidance through non-blocking Codex lifecycle hooks. The [M1 exit audit](docs/audits/M1_EXIT_AUDIT.md) verifies the fixture-backed technical MVP and records its limits. There is still no source-backed Demand Profile producer, canonical profile persistence, owner CLI, release, second consumer, or general client-compatibility claim.
+M0 and M1 are complete, and M2 is in progress. The repository is public, and `main` requires pull requests and the GitHub Actions `Windows baseline` check while blocking deletion and non-fast-forward updates. Minimal private Protocol, Core, Community Provider, MCP, and Codex adapter workspaces validate synthetic fixture profiles, compile schema-valid redacted DCPs, and deliver allowlisted task guidance through non-blocking Codex lifecycle hooks. The [M1 exit audit](docs/audits/M1_EXIT_AUDIT.md) verifies the fixture-backed technical MVP and records its limits. M2 now has a private, bounded configuration boundary for canonical owner-selected local roots and repositories, but there is still no repository content collector, source-backed Demand Profile producer, canonical profile persistence, owner CLI, release, second consumer, or general client-compatibility claim.
 
 ## Development foundation
 
@@ -39,6 +39,8 @@ npm ci --ignore-scripts
 ```
 
 The root manifest declares native npm workspaces under `packages/*`, `apps/*`, and `adapters/*`. The private unreleased `@fork-me-up/protocol`, `@fork-me-up/core`, `@fork-me-up/community-provider`, `@fork-me-up/mcp-local`, and `@fork-me-up/codex-adapter` workspaces implement the current fixture-backed vertical slice. Protocol validates canonical exchange contracts, Core owns pure domain behavior, the Community Provider maps typed requests into bounded compilation, the MCP application maps two read-only tools onto `stdio`, and the Codex adapter maps only allowlisted fields into client-owned hook output. The permitted dependency direction is applications and reference adapters → Community provider → Core → Protocol. Public packages must never import proprietary Cloud/Pro modules.
+
+The Community Provider also owns the M2 implementation-internal local source-configuration boundary. It parses at most 32 KiB of closed JSON, resolves selected directories using metadata-only canonicalization, rejects physical escape or duplicates, and retains absolute paths only in the private owner-side result. It does not enumerate or read repository content; collection begins in M2-S02 and must repeat canonical containment at each read.
 
 Run the local synthetic MCP server with the default demonstrated fixture:
 

@@ -179,6 +179,8 @@ Collectors receive an explicit source and root or repository set. Before reading
 
 Repository content is data, never instruction. Collectors do not execute code, install dependencies, evaluate scripts, or follow embedded URLs.
 
+M2-S01 establishes the pre-collection Community boundary. A bounded implementation-internal `0.1.0` JSON configuration names absolute owner-selected roots by opaque ID and selects repositories beneath each root by opaque ID plus a safe forward-slash relative path. The Community Provider resolves directories through a narrow metadata-only port using `realpath` and `stat`, rejects duplicate physical identities and canonical escape, and returns an immutable private authority object with fixed collection ceilings. Absolute canonical paths remain inside that owner-side boundary and never enter Protocol, Core, a Provider request/error, DCP, or normal log. Resolution is a snapshot: every M2-S02 read must recanonicalize at the point of use and recheck containment. [ADR-0018](adr/0018-authorized-local-repository-configuration.md) records the decision.
+
 ### 5.2 Evidence normalization
 
 An evidence record identifies what was observed without claiming proficiency. It includes:
