@@ -251,6 +251,8 @@ An `EvidenceCollector` or `SourceAdapter` reads an authorized source and emits n
 - expose typed unsupported, stale, invalid, and unauthorized states;
 - preserve protocol semantics independent of transport.
 
+The draft public [Profile Provider contract](../schemas/profile-provider/0.1.0.schema.json) makes this boundary executable as a capability descriptor plus discriminated request/response fragments. Providers advertise honest operation subsets and fixed limits; consumers correlate every response to its request and accept no silent operation fallback. The contract has no client or transport types and exposes neither collector configuration nor profile existence during capability discovery.
+
 Administrative operations such as connecting sources, editing a profile, exporting, deleting, or granting consumers are owner operations. They do not need to be freely callable by a model and should begin in a first-party CLI or UI.
 
 ## 7. Client adapters

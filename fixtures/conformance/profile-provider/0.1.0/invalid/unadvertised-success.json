@@ -1,0 +1,50 @@
+{
+  "conformanceVersion": "0.1.0",
+  "kind": "profile-provider-conformance",
+  "provider": {
+    "schemaVersion": "0.1.0",
+    "kind": "profile-provider-capabilities",
+    "providerId": "provider_synthetic_unadvertised",
+    "protocolVersions": ["0.1.0"],
+    "operations": ["get-provider-capabilities"],
+    "sourceClasses": [],
+    "disclosureClasses": [],
+    "deployment": "local",
+    "limits": {
+      "maxTaskBytes": 1024,
+      "maxOutputBytes": 8192,
+      "maxOutputTokens": 1024,
+      "maxRequestedCapabilities": 8
+    },
+    "freshnessSupport": {
+      "partialResults": false,
+      "staleResults": false
+    }
+  },
+  "exchanges": [
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_unadvertised",
+        "operation": "get-profile-metadata",
+        "input": {}
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_unadvertised",
+        "operation": "get-profile-metadata",
+        "outcome": "success",
+        "data": {
+          "profileVersion": "profile_synthetic_unadvertised",
+          "freshnessStatus": "fresh",
+          "observedThrough": null,
+          "claimCount": 0,
+          "evidenceCount": 0
+        },
+        "error": null
+      }
+    }
+  ]
+}

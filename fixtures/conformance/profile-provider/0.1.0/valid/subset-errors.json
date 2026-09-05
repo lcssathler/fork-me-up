@@ -1,0 +1,77 @@
+{
+  "conformanceVersion": "0.1.0",
+  "kind": "profile-provider-conformance",
+  "provider": {
+    "schemaVersion": "0.1.0",
+    "kind": "profile-provider-capabilities",
+    "providerId": "provider_synthetic_subset",
+    "protocolVersions": ["0.1.0"],
+    "operations": ["get-provider-capabilities", "get-task-context"],
+    "sourceClasses": [],
+    "disclosureClasses": ["task-context"],
+    "deployment": "local",
+    "limits": {
+      "maxTaskBytes": 1024,
+      "maxOutputBytes": 8192,
+      "maxOutputTokens": 1024,
+      "maxRequestedCapabilities": 8
+    },
+    "freshnessSupport": {
+      "partialResults": false,
+      "staleResults": false
+    }
+  },
+  "exchanges": [
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_unavailable",
+        "operation": "get-task-context",
+        "input": {
+          "task": "Perform a synthetic task",
+          "purpose": "coding-assistance",
+          "maxTokens": 512,
+          "requestedCapabilities": []
+        }
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_unavailable",
+        "operation": "get-task-context",
+        "outcome": "error",
+        "data": null,
+        "error": {
+          "category": "profile-unavailable",
+          "retryable": false,
+          "supportedVersions": []
+        }
+      }
+    },
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_unsupported",
+        "operation": "get-capability-evidence",
+        "input": {
+          "capability": "language.typescript"
+        }
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_unsupported",
+        "operation": "get-capability-evidence",
+        "outcome": "error",
+        "data": null,
+        "error": {
+          "category": "unsupported-operation",
+          "retryable": false,
+          "supportedVersions": []
+        }
+      }
+    }
+  ]
+}

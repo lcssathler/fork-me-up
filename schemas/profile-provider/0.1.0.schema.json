@@ -1,0 +1,626 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fork-me-up:profile-provider:0.1.0",
+  "title": "Profile Provider capabilities 0.1.0 (unreleased authoring draft)",
+  "description": "Client- and transport-neutral Profile Provider capabilities. This public descriptor reveals no profile existence or protected content.",
+  "$ref": "#/$defs/providerCapabilities",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*(?![\\s\\S])"
+    },
+    "capability": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "semanticVersion": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 32,
+      "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?![\\s\\S])"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "minLength": 20,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z(?![\\s\\S])"
+    },
+    "operation": {
+      "enum": [
+        "get-provider-capabilities",
+        "get-profile-metadata",
+        "get-task-context",
+        "get-capability-evidence"
+      ]
+    },
+    "extensionValue": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-z0-9][a-z0-9._-]*(?![\\s\\S])"
+        },
+        {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z0-9][a-z0-9._-]*(?![\\s\\S])"
+          },
+          "uniqueItems": true
+        }
+      ]
+    },
+    "extensions": {
+      "type": "object",
+      "maxProperties": 16,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+(?![\\s\\S])"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/extensionValue"
+      }
+    },
+    "providerCapabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "providerId",
+        "protocolVersions",
+        "operations",
+        "sourceClasses",
+        "disclosureClasses",
+        "deployment",
+        "limits",
+        "freshnessSupport"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "profile-provider-capabilities"
+        },
+        "providerId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "protocolVersions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/semanticVersion"
+          },
+          "uniqueItems": true
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/operation"
+          },
+          "uniqueItems": true,
+          "contains": {
+            "const": "get-provider-capabilities"
+          }
+        },
+        "sourceClasses": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "enum": [
+              "selected-local-repository",
+              "selected-public-repository",
+              "selected-private-repository"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "disclosureClasses": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "enum": ["task-context", "consumer-session"]
+          },
+          "uniqueItems": true
+        },
+        "deployment": {
+          "enum": ["local", "remote-managed"]
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "maxTaskBytes",
+            "maxOutputBytes",
+            "maxOutputTokens",
+            "maxRequestedCapabilities"
+          ],
+          "properties": {
+            "maxTaskBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65536
+            },
+            "maxOutputBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32768
+            },
+            "maxOutputTokens": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32768
+            },
+            "maxRequestedCapabilities": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            }
+          }
+        },
+        "freshnessSupport": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["partialResults", "staleResults"],
+          "properties": {
+            "partialResults": {
+              "type": "boolean"
+            },
+            "staleResults": {
+              "type": "boolean"
+            }
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    },
+    "emptyInput": {
+      "type": "object",
+      "maxProperties": 0
+    },
+    "taskContextInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task", "purpose", "maxTokens", "requestedCapabilities"],
+      "properties": {
+        "task": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "purpose": {
+          "enum": ["coding-assistance", "technical-learning", "professional-preparation"]
+        },
+        "maxTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32768
+        },
+        "requestedCapabilities": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/capability"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "capabilityEvidenceInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/capability"
+        },
+        "claimRef": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "capability": true
+          },
+          "required": ["capability"]
+        },
+        {
+          "properties": {
+            "claimRef": true
+          },
+          "required": ["claimRef"]
+        }
+      ]
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "requestId", "operation", "input"],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "profile-provider-request"
+        },
+        "requestId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "operation": {
+          "$ref": "#/$defs/operation"
+        },
+        "input": {},
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "enum": ["get-provider-capabilities", "get-profile-metadata"]
+              }
+            },
+            "required": ["operation"]
+          },
+          "then": {
+            "properties": {
+              "input": {
+                "$ref": "#/$defs/emptyInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "get-task-context"
+              }
+            },
+            "required": ["operation"]
+          },
+          "then": {
+            "properties": {
+              "input": {
+                "$ref": "#/$defs/taskContextInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "get-capability-evidence"
+              }
+            },
+            "required": ["operation"]
+          },
+          "then": {
+            "properties": {
+              "input": {
+                "$ref": "#/$defs/capabilityEvidenceInput"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "profileMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profileVersion",
+        "freshnessStatus",
+        "observedThrough",
+        "claimCount",
+        "evidenceCount"
+      ],
+      "properties": {
+        "profileVersion": {
+          "$ref": "#/$defs/identifier"
+        },
+        "freshnessStatus": {
+          "enum": ["fresh", "stale", "partial"]
+        },
+        "observedThrough": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "claimCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "evidenceCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      }
+    },
+    "evidenceMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidenceRef", "sourceClass", "strength", "observedAt", "limitations"],
+      "properties": {
+        "evidenceRef": {
+          "$ref": "#/$defs/identifier"
+        },
+        "sourceClass": {
+          "enum": [
+            "selected-local-repository",
+            "selected-public-repository",
+            "selected-private-repository"
+          ]
+        },
+        "strength": {
+          "enum": ["weak", "moderate", "strong"]
+        },
+        "observedAt": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "limitations": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        }
+      }
+    },
+    "capabilityEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability", "claimRef", "evidence", "limitations"],
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/capability"
+        },
+        "claimRef": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/evidenceMetadata"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        }
+      }
+    },
+    "providerError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "retryable", "supportedVersions"],
+      "properties": {
+        "category": {
+          "enum": [
+            "unsupported-version",
+            "unsupported-operation",
+            "invalid-input",
+            "profile-unavailable",
+            "partial-profile",
+            "stale-profile",
+            "budget-too-small",
+            "unauthorized",
+            "insufficient-scope",
+            "source-unavailable",
+            "persistence-failed",
+            "redaction-failed",
+            "internal-error"
+          ]
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "supportedVersions": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/semanticVersion"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "requestId", "operation", "outcome", "data", "error"],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "profile-provider-response"
+        },
+        "requestId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "operation": {
+          "$ref": "#/$defs/operation"
+        },
+        "outcome": {
+          "enum": ["success", "error"]
+        },
+        "data": {},
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/providerError"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "error"
+              }
+            },
+            "required": ["outcome"]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "null"
+              },
+              "error": {
+                "$ref": "#/$defs/providerError"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "success"
+              },
+              "operation": {
+                "const": "get-provider-capabilities"
+              }
+            },
+            "required": ["outcome", "operation"]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/providerCapabilities"
+              },
+              "error": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "success"
+              },
+              "operation": {
+                "const": "get-profile-metadata"
+              }
+            },
+            "required": ["outcome", "operation"]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/profileMetadata"
+              },
+              "error": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "success"
+              },
+              "operation": {
+                "const": "get-task-context"
+              }
+            },
+            "required": ["outcome", "operation"]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "urn:fork-me-up:dcp:0.1.0"
+              },
+              "error": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "success"
+              },
+              "operation": {
+                "const": "get-capability-evidence"
+              }
+            },
+            "required": ["outcome", "operation"]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/capabilityEvidence"
+              },
+              "error": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "profile-provider-capabilities",
+  "providerId": "provider_synthetic_no_disclosure",
+  "protocolVersions": ["0.1.0"],
+  "operations": ["get-provider-capabilities", "get-task-context"],
+  "sourceClasses": [],
+  "disclosureClasses": [],
+  "deployment": "local",
+  "limits": {
+    "maxTaskBytes": 1024,
+    "maxOutputBytes": 8192,
+    "maxOutputTokens": 1024,
+    "maxRequestedCapabilities": 8
+  },
+  "freshnessSupport": {
+    "partialResults": false,
+    "staleResults": false
+  }
+}

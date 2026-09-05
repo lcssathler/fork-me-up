@@ -1,0 +1,196 @@
+{
+  "conformanceVersion": "0.1.0",
+  "kind": "profile-provider-conformance",
+  "provider": {
+    "schemaVersion": "0.1.0",
+    "kind": "profile-provider-capabilities",
+    "providerId": "provider_synthetic_conformance",
+    "protocolVersions": ["0.1.0"],
+    "operations": [
+      "get-provider-capabilities",
+      "get-profile-metadata",
+      "get-task-context",
+      "get-capability-evidence"
+    ],
+    "sourceClasses": ["selected-local-repository"],
+    "disclosureClasses": ["task-context"],
+    "deployment": "local",
+    "limits": {
+      "maxTaskBytes": 4096,
+      "maxOutputBytes": 32768,
+      "maxOutputTokens": 4096,
+      "maxRequestedCapabilities": 32
+    },
+    "freshnessSupport": {
+      "partialResults": true,
+      "staleResults": true
+    },
+    "extensions": {
+      "org.fork-me-up.fixture": "complete"
+    }
+  },
+  "exchanges": [
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_capabilities",
+        "operation": "get-provider-capabilities",
+        "input": {}
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_capabilities",
+        "operation": "get-provider-capabilities",
+        "outcome": "success",
+        "data": {
+          "schemaVersion": "0.1.0",
+          "kind": "profile-provider-capabilities",
+          "providerId": "provider_synthetic_conformance",
+          "protocolVersions": ["0.1.0"],
+          "operations": [
+            "get-provider-capabilities",
+            "get-profile-metadata",
+            "get-task-context",
+            "get-capability-evidence"
+          ],
+          "sourceClasses": ["selected-local-repository"],
+          "disclosureClasses": ["task-context"],
+          "deployment": "local",
+          "limits": {
+            "maxTaskBytes": 4096,
+            "maxOutputBytes": 32768,
+            "maxOutputTokens": 4096,
+            "maxRequestedCapabilities": 32
+          },
+          "freshnessSupport": {
+            "partialResults": true,
+            "staleResults": true
+          },
+          "extensions": {
+            "org.fork-me-up.fixture": "complete"
+          }
+        },
+        "error": null
+      }
+    },
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_metadata",
+        "operation": "get-profile-metadata",
+        "input": {}
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_metadata",
+        "operation": "get-profile-metadata",
+        "outcome": "success",
+        "data": {
+          "profileVersion": "profile_synthetic_conformance",
+          "freshnessStatus": "partial",
+          "observedThrough": "2026-09-05T12:00:00Z",
+          "claimCount": 2,
+          "evidenceCount": 1
+        },
+        "error": null
+      }
+    },
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_context",
+        "operation": "get-task-context",
+        "input": {
+          "task": "Review a synthetic fixture",
+          "purpose": "coding-assistance",
+          "maxTokens": 1200,
+          "requestedCapabilities": []
+        },
+        "extensions": {
+          "org.fork-me-up.priority": "normal"
+        }
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_context",
+        "operation": "get-task-context",
+        "outcome": "success",
+        "data": {
+          "schemaVersion": "0.1.0",
+          "packetId": "dcp_synthetic_conformance",
+          "profileVersion": "profile_synthetic_conformance",
+          "purpose": "coding-assistance",
+          "audience": {
+            "class": "local-assistant",
+            "consumerId": null
+          },
+          "task": {
+            "summary": "Review a synthetic fixture",
+            "requiredCapabilities": []
+          },
+          "budget": {
+            "maxBytes": 32768
+          },
+          "claims": [],
+          "uncertainties": [],
+          "responsePolicy": {
+            "mode": "teach-while-doing",
+            "explainPurposeBeforeCommands": true,
+            "includeExpectedResult": true,
+            "includeRiskAndRollback": true,
+            "analogyCapabilities": [],
+            "questionBudget": 1
+          },
+          "provenanceSummary": {
+            "evidenceCount": 0,
+            "sourceClasses": []
+          },
+          "disclosure": {
+            "class": "task-context",
+            "redactionsApplied": ["absolute-paths", "private-source-names"]
+          },
+          "generatedAt": "2026-09-04T00:00:00Z",
+          "expiresAt": "2026-09-05T00:00:00Z"
+        },
+        "error": null,
+        "extensions": {
+          "org.fork-me-up.cache": true
+        }
+      }
+    },
+    {
+      "request": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-request",
+        "requestId": "request_synthetic_evidence",
+        "operation": "get-capability-evidence",
+        "input": {
+          "capability": "language.typescript"
+        }
+      },
+      "response": {
+        "schemaVersion": "0.1.0",
+        "kind": "profile-provider-response",
+        "requestId": "request_synthetic_evidence",
+        "operation": "get-capability-evidence",
+        "outcome": "success",
+        "data": {
+          "capability": "language.typescript",
+          "claimRef": null,
+          "evidence": [],
+          "limitations": ["Synthetic fixture contains no evidence"]
+        },
+        "error": null
+      }
+    }
+  ],
+  "extensions": {
+    "org.fork-me-up.fixture": ["provider", "consumer"]
+  }
+}
