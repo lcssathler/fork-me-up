@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceId": "evidence_synthetic_claim",
+  "kind": "claim",
+  "capabilitySignal": "language.typescript",
+  "state": "demonstrated"
+}

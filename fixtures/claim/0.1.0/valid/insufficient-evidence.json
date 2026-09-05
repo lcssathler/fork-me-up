@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_insufficient",
+  "capability": "delivery.ci.github-actions",
+  "state": "insufficient-evidence",
+  "observedDepth": null,
+  "confidence": "low",
+  "scope": "project",
+  "projectRef": "project_synthetic_a",
+  "basis": {
+    "kind": "insufficient-evidence",
+    "evidenceRefs": [],
+    "adjacentFrom": [],
+    "rationale": null,
+    "declarationRef": null,
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": ["Selected synthetic evidence cannot support a stronger claim"],
+  "freshness": {
+    "observedThrough": null,
+    "stale": false
+  }
+}

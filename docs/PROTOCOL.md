@@ -2,9 +2,9 @@
 
 > Status: pre-implementation protocol draft  
 > Draft version: 0.1  
-> Last updated: September 4, 2026
+> Last updated: September 5, 2026
 
-This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema and synthetic fixtures; the remaining independent contracts are still pending their M0 slices. Once a schema version is released, compatibility follows the rules in this document.
+This document defines the public interoperability boundary. M0-S08 provides an unreleased DCP `0.1.0` authoring schema and M0-S09 provides independent unreleased Evidence and Claim `0.1.0` authoring schemas. Portable Profile Export, Demand Profile, and Provider/conformance contracts remain pending their M0 slices. Once a schema version is released, compatibility follows the rules in this document.
 
 ## 1. Purpose
 
@@ -18,9 +18,31 @@ The primary exchange object is the **Developer Context Packet (DCP)**.
 
 An observation about an approved source. Evidence describes what was found; it does not itself assert that the developer knows a capability.
 
+The independent [Evidence `0.1.0` authoring schema](../schemas/evidence/0.1.0.schema.json) fixes `kind` to `observation` and records:
+
+- an opaque evidence identifier and capability signal;
+- a source class, safe source-relative reference, opaque repository/revision references, and visibility;
+- attributable, coauthored, bot, unknown, or non-author-specific authorship assessment;
+- observed and collection timestamps, categorical strength, and bounded limitations;
+- extractor name/version and an invalidation rule with an opaque fingerprint.
+
+Attributed and coauthored observations require an opaque subject reference; bot, unknown, and `not-applicable` assessments prohibit one. Local, public, and private source classes require the matching visibility. Collection cannot predate observation. A source-relative reference is metadata inside the private evidence boundary: its syntax rejects absolute, drive, backslash, and traversal paths, but validation does not authorize or read that location. A private visibility/class value represents metadata only and does not add private-repository access.
+
 ### 2.2 Claim
 
 A capability statement supported by evidence, inferred by adjacency, declared by the developer, marked as insufficiently evidenced, or disputed by the developer.
+
+The independent [Claim `0.1.0` authoring schema](../schemas/claim/0.1.0.schema.json) pairs each state with an explicit provenance basis:
+
+| Claim state | Required `basis.kind` | Authoring constraint |
+|---|---|---|
+| `demonstrated` | `evidence` | Non-empty evidence references, non-null observed depth, and observed-through time. |
+| `adjacent` | `adjacency` | Non-empty evidence references and source capabilities plus a bounded transfer rationale; target observed depth remains null. |
+| `self-declared` | `declaration` | Opaque declaration reference; no evidence-derived depth or observation timestamp. |
+| `insufficient-evidence` | `insufficient-evidence` | Null observed depth and low confidence; never a negative-knowledge assertion. |
+| `disputed` | `dispute` | Opaque correction reference/summary, non-empty original evidence references, and observed-through time; original observed depth may remain visible. |
+
+Project-scoped claims require an opaque project reference; global claims prohibit one. References are structurally opaque and are not resolved by authoring validation. The schema does not implement derivation or correction precedence and does not turn descriptive text into policy.
 
 ### 2.3 Developer Profile Store
 
@@ -164,6 +186,8 @@ The draft gives existing concepts explicit representations:
 
 `npm run schema:check` checks the committed corpus and supplements JSON Schema with expiry ordering and the compact-byte check. Fixture files may contain whitespace and are separately capped at 65,536 raw bytes before JSON parsing. A failed check returns a fixed diagnostic and no input content. The command does not accept file arguments, fetch references, compile context, truncate a packet, or read a developer's repositories/profile.
 
+The same command checks the independent Evidence and Claim corpora through the shared bounded fixture reader. Evidence validation additionally enforces collection-at-or-after-observation ordering. All schemas are self-contained and use only local fragment references. These development checks do not resolve opaque references, inspect a source, derive a Claim, apply correction precedence, or authorize disclosure.
+
 These checks cannot establish source attribution, task relevance, actual redaction, grant validity, correction precedence, or unlinkability. Bounded free text remains unprivileged data and may be structurally valid even when it contains instruction-like or sensitive text. Future runtime boundaries must enforce the security and disclosure invariants before any packet is shared. This slice does not satisfy MCP integration or behavioral evaluation gates.
 
 ## 5. Claim semantics
@@ -208,6 +232,8 @@ Confidence applies to support for the claim, not the person's seniority. Provide
 ### 5.5 Provenance
 
 A compact packet uses opaque or sanitized evidence references. A reference must be resolvable only through an authorized provider operation. It must not reveal an absolute path, private repository name, user email, access token, or raw source fragment.
+
+The independent Claim record retains the fuller state-matched basis described in Section 2.2. A DCP deliberately projects only the bounded summary required for the task; it never embeds an independent Claim or Evidence record. [ADR-0008](adr/0008-evidence-claim-draft-contracts.md) records this boundary and the unreleased authoring decisions.
 
 ## 6. DCP disclosure and purpose
 
@@ -379,5 +405,3 @@ The protocol may later define registries for capability taxonomies, provider met
 - [MCP authorization](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)
 - [OpenAI — MCP server](https://developers.openai.com/plugins/concepts/mcp-server)
 - [OpenAI — Plugin authentication](https://developers.openai.com/plugins/build/auth)
-
-

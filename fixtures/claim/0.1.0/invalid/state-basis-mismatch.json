@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_mismatch",
+  "capability": "language.typescript",
+  "state": "demonstrated",
+  "observedDepth": "practical-use",
+  "confidence": "medium",
+  "scope": "global",
+  "projectRef": null,
+  "basis": {
+    "kind": "declaration",
+    "evidenceRefs": [],
+    "adjacentFrom": [],
+    "rationale": null,
+    "declarationRef": "declaration_synthetic_owner",
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": [],
+  "freshness": {
+    "observedThrough": "2026-09-03T12:00:00Z",
+    "stale": false
+  }
+}

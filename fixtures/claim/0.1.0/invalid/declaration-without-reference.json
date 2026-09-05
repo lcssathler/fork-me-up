@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0",
+  "claimId": "claim_synthetic_declared_invalid",
+  "capability": "database.postgresql",
+  "state": "self-declared",
+  "observedDepth": null,
+  "confidence": "medium",
+  "scope": "global",
+  "projectRef": null,
+  "basis": {
+    "kind": "declaration",
+    "evidenceRefs": [],
+    "adjacentFrom": [],
+    "rationale": null,
+    "declarationRef": null,
+    "correctionRef": null,
+    "correctionSummary": null
+  },
+  "limitations": [],
+  "freshness": {
+    "observedThrough": null,
+    "stale": false
+  }
+}

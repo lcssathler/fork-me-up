@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceId": "evidence_synthetic_attributed",
+  "kind": "observation",
+  "capabilitySignal": "language.typescript",
+  "source": {
+    "class": "selected-public-repository",
+    "sourceRelativeRef": "src/synthetic-module.ts",
+    "repositoryRef": "repository_synthetic_public",
+    "revisionRef": "revision_synthetic_public",
+    "visibility": "public"
+  },
+  "authorAssessment": {
+    "state": "attributed",
+    "subjectRef": "subject_synthetic_owner"
+  },
+  "freshness": {
+    "observedAt": "2026-09-03T12:00:00Z",
+    "collectedAt": "2026-09-03T12:00:00Z"
+  },
+  "strength": "strong",
+  "limitations": [],
+  "extractor": {
+    "name": "fixture.collector",
+    "version": "0.1.0-draft"
+  },
+  "invalidation": {
+    "rule": "extractor-changed",
+    "fingerprint": "fingerprint_synthetic_public"
+  }
+}
