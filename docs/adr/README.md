@@ -26,6 +26,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0020](0020-quarantined-bounded-git-metadata-collector.md) | Accepted | Extract bounded Git metadata through an isolated command quarantine that cannot load repository-controlled execution paths. |
 | [ADR-0021](0021-explicit-conservative-git-authorship-assessment.md) | Accepted | Resolve private Git identities to digests and assess authorship through explicit conservative attribution and history facets. |
 | [ADR-0022](0022-conservative-evidence-source-risk-classification.md) | Accepted | Classify source risk from explicit annotations, fixed path indicators, exact digests, and bounded attribution without asserting originality. |
+| [ADR-0023](0023-generation-addressed-atomic-local-profile-store.md) | Accepted | Persist immutable generation-addressed Store files through exclusive atomic activation, deterministic recovery, and explicit migration. |
 
 ## Record format
 

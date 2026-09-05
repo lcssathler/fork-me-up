@@ -100,3 +100,37 @@ export {
   type EvidenceSourceRiskSnapshot,
   type RepositoryEvidenceSourceRisk,
 } from "./evidence-source-risk-classifier.ts";
+export {
+  communityProfileStoreMaximumBytes,
+  communityProfileStoreSchemaVersion,
+  legacyCommunityProfileStoreSchemaVersion,
+  migrateCommunityProfileStore,
+  parseCommunityProfileStore,
+  serializeCommunityProfileStore,
+  type CommunityProfileStore,
+  type CommunityProfileStoreFormatErrorCategory,
+  type LegacyCommunityProfileStore,
+  type MigrateCommunityProfileStoreResult,
+  type ParseCommunityProfileStoreResult,
+  type ParsedCommunityProfileStore,
+} from "./community-profile-store-format.ts";
+export {
+  localProfileStoreConfigMaximumBytes,
+  localProfileStoreConfigVersion,
+  resolveLocalProfileStoreConfig,
+  type LocalProfileStoreConfigErrorCategory,
+  type ResolvedLocalProfileStoreConfig,
+  type ResolveLocalProfileStoreConfigResult,
+} from "./local-profile-store-config.ts";
+export {
+  loadLocalProfileStore,
+  localProfileStoreHardLimits,
+  nodeLocalProfileStorePort,
+  writeLocalProfileStore,
+  type LoadedLocalProfileStore,
+  type LoadLocalProfileStoreResult,
+  type LocalProfileStoreDirectoryInspection,
+  type LocalProfileStoreErrorCategory,
+  type LocalProfileStoreFilePort,
+  type WriteLocalProfileStoreResult,
+} from "./local-profile-store.ts";
