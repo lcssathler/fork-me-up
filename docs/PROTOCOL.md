@@ -348,6 +348,12 @@ Returns bounded evidence metadata and limitations for one claim or capability. I
 
 Profile correction, source connection, grant management, export, deletion, and refresh may begin as first-party CLI commands rather than freely model-callable tools. If later exposed through MCP, each operation requires a separate threat review, explicit side-effect metadata, authorization, confirmation, and tests.
 
+### 9.6 Local fixture transport profile
+
+The M1 reference server maps MCP tools `get_task_context` and `get_profile_metadata` to the transport-neutral `get-task-context` and `get-profile-metadata` Provider operations. Tool arguments are exactly the corresponding Provider `input`; the server supplies the fixed draft schema version, operation, and an opaque correlation identifier. Each tool result includes the exact Provider response as `structuredContent` and as serialized JSON text for clients without structured-content support. Provider failures set MCP `isError` while retaining the closed, content-free Provider error object.
+
+This initial compatibility profile uses newline-delimited JSON-RPC over `stdio` and MCP revision `2025-11-25`. It implements initialization, ping, tool listing, and tool calls; advertises no resources, prompts, sampling, tasks, network transport, or changing tool list. Request IDs are safe integers or bounded opaque identifier strings so correlation cannot become a content-reflection channel. The two tools are read-only, idempotent, and closed-world. Later MCP revisions or additional lifecycle features require explicit compatibility work and tests rather than an implicit claim.
+
 ## 10. Future remote authorization
 
 The commercial remote MCP is expected to use OAuth 2.1-compatible authorization over HTTPS.

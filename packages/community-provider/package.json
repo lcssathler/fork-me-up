@@ -1,0 +1,19 @@
+{
+  "name": "@fork-me-up/community-provider",
+  "version": "0.0.0",
+  "description": "Local client-neutral Fork Me Up Profile Provider.",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.20.0 <25",
+    "npm": "11.19.0"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@fork-me-up/core": "0.0.0",
+    "@fork-me-up/protocol": "0.0.0"
+  }
+}

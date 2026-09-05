@@ -1,0 +1,18 @@
+{
+  "name": "@fork-me-up/mcp-local",
+  "version": "0.0.0",
+  "description": "Local Fork Me Up MCP stdio server.",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.20.0 <25",
+    "npm": "11.19.0"
+  },
+  "bin": {
+    "fork-me-up-mcp": "./src/main.ts"
+  },
+  "dependencies": {
+    "@fork-me-up/community-provider": "0.0.0"
+  }
+}
