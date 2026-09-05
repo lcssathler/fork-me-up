@@ -21,6 +21,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0015](0015-deterministic-bounded-dcp-compiler.md) | Accepted | Compile immutable task intersections into redacted, deterministic, strictly bounded DCPs. |
 | [ADR-0016](0016-local-provider-mcp-stdio.md) | Accepted | Implement a fixture-backed client-neutral Provider behind a bounded MCP `stdio` mapping. |
 | [ADR-0017](0017-codex-lifecycle-hook-adapter.md) | Accepted | Deliver allowlisted Provider guidance through non-blocking Codex lifecycle hooks. |
+| [ADR-0018](0018-authorized-local-repository-configuration.md) | Accepted | Resolve bounded owner-selected local roots and repositories into a private canonical authorization boundary. |
 
 ## Record format
 
