@@ -123,6 +123,8 @@ A clean checkout must reproduce the documented checks. Any platform limitation i
 
 ## 5. Code quality
 
+The M2 evidence-quality gate is reproducible with `npm run measure:m2 -- --output <new-report-path.json>` from a full-history checkout and the pinned toolchain. The evaluator verifies the integrated freeze, retains every case on failures and never overwrites reports. `npm run check` includes the real frozen-sample integration and independent scorer regressions. Minimized failed integration reports are preserved under ignored `build/m2-quality-failures/` and uploaded by CI on failure. See [protocol](evaluations/M2_QUALITY_PROTOCOL.md), [results](evaluations/M2_QUALITY_RESULTS.md) and [machine handoff](handoffs/M2_NEXT_MACHINE.md). Raw committed measurement reports are excluded from formatting so their reproducibility hashes remain verifiable.
+
 - Use strict TypeScript settings and explicit types at public, persistence, process, and MCP boundaries.
 - Validate all external data at runtime.
 - Keep side effects behind narrow ports.

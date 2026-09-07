@@ -33,6 +33,7 @@ test("the manifest and aggregate expose the declared baseline and draft schema c
     test: "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",
     eval: "node scripts/run-test-suite.mjs eval",
+    "measure:m2": "node scripts/measure-m2-quality.mjs",
     check: "node scripts/run-checks.mjs",
     "schema:check": "node scripts/check-schemas.mjs",
   });
@@ -64,11 +65,16 @@ test("CI uses immutable actions and least privilege", () => {
   assert.deepEqual(actionReferences, [
     "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
     "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+    "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
   ]);
   assert.ok(actionReferences.every((reference) => /@[0-9a-f]{40}$/u.test(reference)));
   assert.match(workflowText, /^permissions:\r?\n {2}contents: read$/mu);
   assert.doesNotMatch(workflowText, /pull_request_target/u);
   assert.match(workflowText, /persist-credentials: false/u);
+  assert.match(workflowText, /fetch-depth: 0/u);
+  assert.match(workflowText, /if: failure\(\)/u);
+  assert.match(workflowText, /path: build\/m2-quality-failures\//u);
+  assert.match(workflowText, /retention-days: 14/u);
   assert.match(workflowText, /node-version-file: \.nvmrc/u);
   assert.match(workflowText, /^ {4}runs-on: windows-latest$/mu);
   assert.match(workflowText, /^ {4}timeout-minutes: 15$/mu);
