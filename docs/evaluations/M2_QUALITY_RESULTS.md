@@ -23,4 +23,29 @@ Accepted/corrected/rejected counts are synthetic oracle dispositions. They are n
 
 ## Measurement record
 
-Results are recorded after executing the committed evaluator. No pass result is asserted by the evaluator implementation itself.
+The first three standalone runs passed the frozen protocol. The initial run used clean revision `03b21e0469458e811c95c0598a6108dc2f4a8016`; the hardened evaluator ran twice from clean revision `ced1bdfd9002afe10c839705a02a2d49a24b299b`. Those repeated reports were byte-identical, SHA-256 `dbd543ee82173e0c8b80703dc4ea6db75ea0a24aa4a3caccbf5a12ddb49c9c0f`. Exact raw reports are preserved without formatter rewrites:
+
+- [Initial measurement](results/m2-quality-initial.json).
+- [Verified repeated measurement](results/m2-quality-verified.json); one artifact represents the two identical standalone outputs before the subprocess-context fix below.
+- [Failed nested-control measurement](results/m2-quality-nested-control-failure.json), retained from the full integration suite.
+
+| Frozen measure                                                   | Observed outcome                                                      |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Accepted / corrected / rejected primary cases                    | 48 / 0 / 0                                                            |
+| False demonstrated                                               | 0/48 cases; 0/36 demonstrated outputs; 0/12 oracle-insufficient cases |
+| Complete matching attribution                                    | 48/48 cases and 52/52 primary Evidence records                        |
+| Missing / extra Evidence                                         | 0 / 0                                                                 |
+| Unknown attribution                                              | 10/52 records, all expected; 0 unexpected                             |
+| Ceiling violations                                               | 0                                                                     |
+| Assistance/committer invariances                                 | 10/10                                                                 |
+| Owner correction/rejection with refresh and preserved provenance | 2/2                                                                   |
+| Frozen security regression controls                              | 23/23 tests; no formal or diagnostic skips                            |
+| Per language                                                     | TypeScript 24/24; Python 24/24                                        |
+
+No measured source-rule failure occurred and no frozen input, oracle, threshold, control recipe or production algorithm changed. Independent review improved evaluator failure retention and exception handling after the initial run; the final report includes new evaluator hashes. The first full aggregate also identified two stale policy-test inventories for the newly added command and pinned artifact action. Updating those exact inventories and checking the artifact path/retention fixed the delivery tests without weakening measurement criteria. These were evaluator/delivery corrections, not omitted quality cases.
+
+The next full aggregate exposed an inherited Node `NODE_TEST_CONTEXT` marker: Node skipped the nested frozen-control runner. The evaluator correctly failed, retaining unavailable control counts (`-1`) and a diagnostic-skip flag even though all 48 primary cases passed. Commit `798ef42` isolates the control subprocess environment and adds a regression. The subsequent complete aggregate passed: 250 unit tests, all schema corpora, 59 integration tests (including the full measurement) and 19 behavioral evaluations. The failed report remains part of the record; neither the frozen controls nor their pass criteria changed.
+
+Reproduction used Windows x64, Node.js 24.20.0, npm 11.19.0 and Git 2.55.0.windows.5, with an offline lockfile-enforced clean install. Point-in-time dependency audit reported zero vulnerabilities. CI evidence and integration status are recorded in the roadmap and the [machine handoff](../handoffs/M2_NEXT_MACHINE.md).
+
+The passing rates describe only these constructed cases. No real developer study, independent comprehension labels or population confidence interval is claimed. M2-S16 remains responsible for the complete milestone exit audit.

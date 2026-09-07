@@ -3,3 +3,6 @@ coverage/
 dist/
 node_modules/
 package-lock.json
+
+# Preserve exact bytes of reproducible machine-generated measurement reports.
+docs/evaluations/results/

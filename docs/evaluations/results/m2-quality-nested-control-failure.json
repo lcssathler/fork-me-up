@@ -1,0 +1,1666 @@
+{
+  "experimentVersion": "m2-quality-0.2.0",
+  "kind": "synthetic-evidence-conformance-report",
+  "freezeCommit": "3bf29ea6c8ba5671ed673c128acb8d2f8b855db0",
+  "implementationRevision": "ae4b8642ba37bbf275f02717d5cafc869085f968",
+  "worktreeDirty": false,
+  "sampleSha256": "19a515ae9556bc8a16119ee827fd353809551e4362ad556b904209dc346d3f83",
+  "freezeSha256": "2b394513561f239b8e2a7a32f66fec8a0b67c66ad598dea28766fee4320c5556",
+  "evaluatorHashes": {
+    "measure-m2-quality": "5df3fd98a902b26af539f57f460883549b6b9611939b0af288ca939f513e7ed0",
+    "m2-quality-runner": "8b31a7c40e769d99ac0f831581aeff835041bdf655f516fb5999f7426e36c74c",
+    "m2-quality-scoring": "15d3688ac31501d63126bfee0537b561a41f12333a8eaddd284a6614de39b6b9"
+  },
+  "toolchain": {
+    "node": "24.20.0",
+    "npm": "11.19.0",
+    "git": "git version 2.55.0.windows.5",
+    "platform": "win32",
+    "architecture": "x64"
+  },
+  "limits": "Constructed conformance cases; no population accuracy or human acceptance estimate.",
+  "passed": false,
+  "summary": {
+    "caseCount": 48,
+    "accepted": 48,
+    "corrected": 0,
+    "rejected": 0,
+    "falseDemonstrated": {
+      "allCases": {
+        "numerator": 0,
+        "denominator": 48,
+        "rate": 0
+      },
+      "demonstratedOutputs": {
+        "numerator": 0,
+        "denominator": 36,
+        "rate": 0
+      },
+      "oracleInsufficient": {
+        "numerator": 0,
+        "denominator": 12,
+        "rate": 0
+      }
+    },
+    "correctionNeeded": {
+      "numerator": 0,
+      "denominator": 48,
+      "rate": 0
+    },
+    "rejection": {
+      "numerator": 0,
+      "denominator": 48,
+      "rate": 0
+    },
+    "attribution": {
+      "cases": {
+        "numerator": 48,
+        "denominator": 48,
+        "rate": 1
+      },
+      "records": {
+        "numerator": 52,
+        "denominator": 52,
+        "rate": 1
+      },
+      "missing": 0,
+      "extra": 0
+    },
+    "unknown": {
+      "numerator": 10,
+      "denominator": 52,
+      "rate": 0.19230769230769232
+    },
+    "unexpectedUnknown": 0,
+    "ceilingViolations": 0,
+    "byLanguage": [
+      {
+        "capability": "language.typescript",
+        "cases": 24,
+        "accepted": 24
+      },
+      {
+        "capability": "language.python",
+        "cases": 24,
+        "accepted": 24
+      }
+    ]
+  },
+  "cases": [
+    {
+      "caseId": "python-ai-assisted-repeated",
+      "scenario": "ai-assisted-repeated",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 2,
+      "actualEvidenceCount": 2,
+      "matchedEvidenceCount": 2,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed",
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-ai-assisted-single",
+      "scenario": "ai-assisted-single",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-ai-claimed-unknown",
+      "scenario": "ai-claimed-unknown",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-bot",
+      "scenario": "bot",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "bot"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-bot-with-human",
+      "scenario": "bot-with-human",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-coauthor",
+      "scenario": "coauthor",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-committer-only",
+      "scenario": "committer-only",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-direct-repeated",
+      "scenario": "direct-repeated",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 2,
+      "actualEvidenceCount": 2,
+      "matchedEvidenceCount": 2,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed",
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-direct-single",
+      "scenario": "direct-single",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-duplicated",
+      "scenario": "duplicated",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-fork",
+      "scenario": "fork",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-generated",
+      "scenario": "generated",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-human-bot-committer",
+      "scenario": "human-bot-committer",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-human-claimed-single",
+      "scenario": "human-claimed-single",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-human-with-bot",
+      "scenario": "human-with-bot",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-pair-work",
+      "scenario": "pair-work",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-shared",
+      "scenario": "shared",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-squash",
+      "scenario": "squash",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-template",
+      "scenario": "template",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-tutorial",
+      "scenario": "tutorial",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-uncertain",
+      "scenario": "uncertain",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-uncommitted",
+      "scenario": "uncommitted",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-unknown",
+      "scenario": "unknown",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "python-vendored",
+      "scenario": "vendored",
+      "capability": "language.python",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-ai-assisted-repeated",
+      "scenario": "ai-assisted-repeated",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 2,
+      "actualEvidenceCount": 2,
+      "matchedEvidenceCount": 2,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed",
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-ai-assisted-single",
+      "scenario": "ai-assisted-single",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-ai-claimed-unknown",
+      "scenario": "ai-claimed-unknown",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-bot",
+      "scenario": "bot",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "bot"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-bot-with-human",
+      "scenario": "bot-with-human",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-coauthor",
+      "scenario": "coauthor",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-committer-only",
+      "scenario": "committer-only",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-direct-repeated",
+      "scenario": "direct-repeated",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 2,
+      "actualEvidenceCount": 2,
+      "matchedEvidenceCount": 2,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "practical-use",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed",
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-direct-single",
+      "scenario": "direct-single",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-duplicated",
+      "scenario": "duplicated",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-fork",
+      "scenario": "fork",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-generated",
+      "scenario": "generated",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-human-bot-committer",
+      "scenario": "human-bot-committer",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-human-claimed-single",
+      "scenario": "human-claimed-single",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "medium",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-human-with-bot",
+      "scenario": "human-with-bot",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-pair-work",
+      "scenario": "pair-work",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "coauthored"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-shared",
+      "scenario": "shared",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-squash",
+      "scenario": "squash",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-template",
+      "scenario": "template",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-tutorial",
+      "scenario": "tutorial",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-uncertain",
+      "scenario": "uncertain",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-uncommitted",
+      "scenario": "uncommitted",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-unknown",
+      "scenario": "unknown",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 1,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "insufficient-evidence",
+        "observedDepth": null,
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "unknown"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    },
+    {
+      "caseId": "typescript-vendored",
+      "scenario": "vendored",
+      "capability": "language.typescript",
+      "outcome": "accepted",
+      "falseDemonstrated": false,
+      "attributionCorrect": true,
+      "expectedEvidenceCount": 1,
+      "actualEvidenceCount": 1,
+      "matchedEvidenceCount": 1,
+      "unknownEvidenceCount": 0,
+      "unexpectedUnknownCount": 0,
+      "missingEvidenceCount": 0,
+      "extraEvidenceCount": 0,
+      "ceilingViolations": 0,
+      "actual": {
+        "state": "demonstrated",
+        "observedDepth": "exposure",
+        "confidence": "low",
+        "scope": "project",
+        "authorship": [
+          "attributed"
+        ]
+      },
+      "failureCodes": [],
+      "publicChecks": {
+        "passed": true,
+        "failureCodes": []
+      },
+      "executionFailures": []
+    }
+  ],
+  "invariances": [
+    {
+      "baseline": "typescript-direct-single",
+      "variant": "typescript-ai-assisted-single",
+      "passed": true
+    },
+    {
+      "baseline": "typescript-direct-repeated",
+      "variant": "typescript-ai-assisted-repeated",
+      "passed": true
+    },
+    {
+      "baseline": "typescript-direct-single",
+      "variant": "typescript-human-claimed-single",
+      "passed": true
+    },
+    {
+      "baseline": "typescript-unknown",
+      "variant": "typescript-ai-claimed-unknown",
+      "passed": true
+    },
+    {
+      "baseline": "typescript-direct-single",
+      "variant": "typescript-human-bot-committer",
+      "passed": true
+    },
+    {
+      "baseline": "python-direct-single",
+      "variant": "python-ai-assisted-single",
+      "passed": true
+    },
+    {
+      "baseline": "python-direct-repeated",
+      "variant": "python-ai-assisted-repeated",
+      "passed": true
+    },
+    {
+      "baseline": "python-direct-single",
+      "variant": "python-human-claimed-single",
+      "passed": true
+    },
+    {
+      "baseline": "python-unknown",
+      "variant": "python-ai-claimed-unknown",
+      "passed": true
+    },
+    {
+      "baseline": "python-direct-single",
+      "variant": "python-human-bot-committer",
+      "passed": true
+    }
+  ],
+  "ownerExercises": [
+    {
+      "caseId": "python-direct-single",
+      "required": true,
+      "passed": true,
+      "failureCodes": []
+    },
+    {
+      "caseId": "typescript-direct-single",
+      "required": true,
+      "passed": true,
+      "failureCodes": []
+    }
+  ],
+  "controls": {
+    "revision": "0c882e73d282c35bd70b7faec57612be1069463d",
+    "files": [
+      "tests/integration/filesystem-metadata-collector.test.mjs",
+      "tests/integration/git-metadata-collector.test.mjs",
+      "tests/integration/owner-profile-diagnostics.test.mjs",
+      "tests/unit/owner-profile-diagnostics.test.mjs",
+      "tests/integration/local-community-workflow.test.mjs"
+    ],
+    "tests": -1,
+    "passedTests": -1,
+    "failedTests": -1,
+    "skippedTests": -1,
+    "cancelledTests": -1,
+    "diagnosticSkip": true,
+    "passed": false
+  }
+}
