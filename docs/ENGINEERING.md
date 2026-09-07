@@ -197,6 +197,8 @@ Required adversarial categories are maintained in `SECURITY_PRIVACY.md`, includi
 
 M1-S02 makes FMU-E-001 through FMU-E-004 executable against the structured client-neutral Response Policy and preserved Claim output. M1-S03 makes FMU-E-006 executable against pure Demand/Profile intersection and proves unrelated expertise is absent from its intermediate task projection. M1-S04 makes FMU-E-012 and FMU-E-013 executable against the pure compiler, proving policy isolation/canary redaction and deterministic strict-budget reduction. M1-S06 exercises those three policy modes through the Codex fixed renderer and makes FMU-E-014 executable against unavailable Provider and adapter state, proving the hook neither blocks the host nor exposes context on failure. Model-authored prose and equivalent behavior in a materially different second consumer remain later gates.
 
+M2-S08 makes `FMU-E-009` and `FMU-E-010` executable at the private Demand producer boundary. Explicit candidate interpretations with different effective capabilities/relevance or operation risk yield one clarification; a valid choice resolves the pending object without another question. Equivalent interpretations, absent ambiguity and missing evidence proceed without a questionnaire. These tests exercise structured behavior, not model-authored questions or an owner/client UI.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate
