@@ -359,6 +359,8 @@ The first incremental Community refresh (`M2-S09`, `FMU-FR-017`/`FMU-FR-020`) us
 
 M2-S10 provides manual inspection and correction through a bounded local owner CLI (`FMU-FR-013`/`FMU-FR-014`). Corrections, disputes and rejections preserve original automated provenance while overriding interpretation; declarations never become observed depth. History survives source refresh/removal and restart, and only verified persistence reports success. Historical automated Claims remain privately inspectable but are excluded from current task knowledge. Notes remain private and inert. See [owner workflow](OWNER_WORKFLOW.md).
 
+M2-S11 implements owner import, redacted export and verified managed local deletion (`FMU-FR-015`/`FMU-FR-026`, `FMU-NFR-020`). Open-format exports retain typed profile and correction behavior while omitting private prose, source locations and internal authority. Imports require an absent Store and matching subject. Explicit deletion covers recognized Store files, subject-scoped in-process caches and all local Codex adapter cache entries with separate explicit scope; content-free barriers prevent recreation. Independent exported copies/backups, source repositories and already returned objects remain owner-managed. Bounded failures never claim successful deletion. See the [inventory and recovery procedure](OWNER_WORKFLOW.md#delete-managed-local-data).
+
 ## 16. Product stages
 
 ### Technical MVP

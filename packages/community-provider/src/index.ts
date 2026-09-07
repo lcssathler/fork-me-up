@@ -192,3 +192,15 @@ export {
   type OwnerWorkflowOptions,
   type OwnerWorkflowResult,
 } from "./owner-profile-workflow.ts";
+export {
+  runOwnerPortabilityOperation,
+  ownerPortabilityMaximumInputBytes,
+  type OwnerPortabilityOptions,
+  type OwnerPortabilityResult,
+} from "./owner-profile-portability.ts";
+export {
+  deleteLocalProfileStore,
+  localProfileDeletionBarrier,
+  type DeleteLocalProfileStoreResult,
+} from "./local-profile-store.ts";
+export { disposeIncrementalRefreshSessions } from "./incremental-refresh.ts";
