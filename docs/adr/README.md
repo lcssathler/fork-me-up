@@ -33,6 +33,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0027](0027-local-owner-correction-workflow.md) | Accepted | Preserve owner correction history through verified local writes, conservative refresh and effective task projection. |
 | [ADR-0028](0028-owner-portability-and-verified-deletion.md) | Accepted | Add redacted owner portability and verified Store/cache deletion with persistent barriers and bounded recovery. |
 | [ADR-0029](0029-owner-evidence-and-safe-diagnostics.md) | Accepted | Provide bounded owner evidence metadata and read-only component diagnostics without private content or repair. |
+| [ADR-0030](0030-local-community-workflow-composition.md) | Accepted | Connect explicit owner collection and persistence to bounded Store-backed MCP context while preserving source/consumer authority separation. |
 
 ## Record format
 

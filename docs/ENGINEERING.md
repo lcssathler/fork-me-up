@@ -205,6 +205,8 @@ M2-S11 exercises `FMU-E-015` through redacted export, absent-only import and sub
 
 M2-S12 extends `FMU-E-015` to owner evidence and doctor outputs, including sensitive private limitations, opaque identifiers, injected cache errors and DCP task content. Tests validate nested Provider metadata, historical/self-targeted correction behavior, byte/count bounds, real missing-dependency diagnostics, unchanged files/directories, cache expiry and junction rejection. Diagnostic success is checked independently from component health; no repair is performed.
 
+M2-S13 verifies the local-utility exit gate through an actual CLI/MCP subprocess workflow over two temporary Git repositories: collection, unchanged cache reuse, persisted rejection, changed-source refresh, restart, corrected context, doctor, export and verified deletion. Unit tests independently exercise the Store-backed Provider and runtime failure boundaries, including no consumer source/write authority, malformed owner commands, partial refresh and Store/source overlap. Existing behavioral evaluations remain applicable; no new evaluation ID is invented for this composition gate.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate
