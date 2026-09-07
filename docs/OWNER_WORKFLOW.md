@@ -63,6 +63,42 @@ Independent assertions use `declare`:
 
 For local application composition, `saveOwnerDerivation` accepts only an authentic Community derivation, explicit Store authority and a closed `{version, expectedGeneration, at}` JSON request. It initializes or refreshes automated state while retaining declarations, corrections and archived provenance. Disputed scopes suppress replacement inference; changed, absent or newly observed sources conservatively mark effective disputes stale without revoking them. Recompute a derivation at or after the latest Store validation before saving; old snapshots cannot roll state back. Core task intersection excludes historical originals linked by effective disputes.
 
+## Evidence lookup and doctor
+
+M2-S12 adds two read-only requests through this same CLI. To look up one exact capability, use:
+
+```json
+{
+  "version": "0.1.0",
+  "operation": "get-capability-evidence",
+  "capability": "language.typescript",
+  "limit": 8
+}
+```
+
+The result reports at most eight matching Claims with at most eight Evidence summaries each. `totalClaims`, `totalEvidence` and `truncated` distinguish limited output from missing evidence. An unknown capability produces an empty result, never a claim of ignorance. Assessment state, depth, confidence, scope, freshness and historical status remain visible; each nested evidence object validates the existing Provider evidence contract. References are hashes for correlation inside the diagnostic view, not correction handles: use `inspect` for mutation identifiers. Known limitation codes are allowlisted, while private prose becomes `private-limitations-omitted`. No source locations, notes, author identities or native errors are returned. Consumer/MCP evidence disclosure remains disabled.
+
+The `doctor` request diagnoses local state without repair or mutation:
+
+```json
+{
+  "version": "0.1.0",
+  "operation": "doctor",
+  "at": "2026-09-07T12:00:02Z",
+  "packet": null,
+  "maxContextBytes": 32768,
+  "maxContextTokens": 8192
+}
+```
+
+Keep the existing `store` wrapper, or set `store` to `null` to diagnose installation and cache without selecting a profile. The CLI probes actual module loading and the pinned Node.js 24.20.0 runtime. Missing dependencies return `installation-unavailable` without an import stack. `diagnosed` means the inspection succeeded, not that every component is healthy. Inspect the separate component states:
+
+- Store: absent, active, recovered, deleted, invalid, unsupported version, migration required, unauthorized, unavailable or bounded-limit failure. A present valid Store includes schema validation and bounded counts. `mutationGate: blocked` exposes an occupied or abandoned write gate; diagnostics never break it. An available gate does not override a deleted Store barrier.
+- Adapter: module/probe availability and fixed cache state/counts. Read-only cache inspection reports ready, absent, deleted, busy, invalid, unavailable or limit exceeded. Expiry equal to `at` is stale. It reads at most 256 entries, 8 KiB per recognized cache file and 2 MiB total, checks file/root changes and never creates directories, locks or barriers. Unknown entries count toward the scan bound but are not read.
+- Context: replace `packet: null` with a parsed DCP to validate its schema and measure canonical JSON bytes and the same conservative one-token-per-UTF-8-byte bound used by Core. Results distinguish invalid, future, expired, over-budget and within-budget packets. Limits are explicit upper bounds, not a tokenizer prediction. The packet and task text are never returned. Omitted packets report `not-provided`.
+
+Diagnostic requests are limited to 64 KiB and results to 32 KiB. Installation checks do not verify npm availability, package integrity, client trust, active hook registration, network connectivity or another process's memory. Programmatic composition without installation/cache probes reports those checks as `not-checked`. The source cache is process-local and has no persistent inventory. Diagnostics read selected metadata only and never collect source evidence, migrate, delete or repair data. See [ADR-0029](adr/0029-owner-evidence-and-safe-diagnostics.md).
+
 ## Export and import
 
 M2-S11 adds portability through the same command and `store` wrapper. To export an inspected generation, replace `request` with:

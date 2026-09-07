@@ -364,6 +364,8 @@ Returns bounded evidence metadata and limitations for one claim or capability. I
 
 ### 9.5 Administrative operations
 
+M2-S12 provides owner-only `get-capability-evidence` through the private local CLI. The exact capability selector returns bounded typed assessment/history with nested metadata validated against the existing `capabilityEvidence` shape. Hashed references and allowlisted limitation codes exclude private text. Explicit truncation is part of the private wrapper, not a public schema extension. Consumer Provider/MCP capabilities remain unchanged and do not advertise this owner disclosure. The private `doctor` operation reports only component states/counts and optional DCP size/expiry/budget status. See [ADR-0029](adr/0029-owner-evidence-and-safe-diagnostics.md).
+
 Profile correction, source connection, grant management, export, deletion, and refresh may begin as first-party CLI commands rather than freely model-callable tools. If later exposed through MCP, each operation requires a separate threat review, explicit side-effect metadata, authorization, confirmation, and tests.
 
 ### 9.6 Local fixture transport profile

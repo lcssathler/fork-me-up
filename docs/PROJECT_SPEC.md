@@ -363,6 +363,8 @@ M2-S11 implements owner import, redacted export and verified managed local delet
 
 ## 16. Product stages
 
+M2-S12 adds owner-only bounded capability evidence and read-only local diagnostics (`FMU-FR-010`/`FMU-FR-022`/`FMU-FR-023`/`FMU-FR-026`). Evidence metadata preserves assessment/history while omitting private content; doctor reports installation/module, Store schema/gate, adapter cache and optional DCP size/expiry/budget state. Missing or unchecked components remain explicit. Existing public contracts and consumer disclosures are unchanged. See [owner diagnostics](OWNER_WORKFLOW.md#evidence-lookup-and-doctor).
+
 ### Technical MVP
 
 A fixture-backed, client-neutral DCP compiler and local MCP server prove that direct, adjacent, and insufficient evidence produce observably different behavior. One client adapter demonstrates lifecycle integration, but adapter behavior is not part of Core.

@@ -13,6 +13,8 @@ export {
 export {
   createFileCodexSessionState,
   clearFileCodexSessionState,
+  inspectFileCodexSessionState,
   type FileCodexSessionStateOptions,
   type ClearFileCodexSessionStateResult,
+  type InspectFileCodexSessionStateResult,
 } from "./file-session-state.ts";
