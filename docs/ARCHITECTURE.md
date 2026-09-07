@@ -237,6 +237,8 @@ The draft public envelope carries only opaque demand/project/revision references
 
 At runtime, Protocol validates this canonical envelope before Core intersects it with an already loaded Developer Profile. Core uses exact capability identifiers, admits global Claims and current-project-scoped Claims only, preserves unmatched demand explicitly, and returns no Evidence records or complete profile. The result is an immutable compiler input, not a DCP; task prose cannot change selection or policy.
 
+M2-S08 supplies this Demand boundary through a pure Community producer. It consumes an authentic M2-S02 filesystem snapshot or explicit unavailable state, one current repository/project binding, optional exact collected-file selection, and bounded structured task capabilities. Only source-language metadata contributes supporting demand; explicit task requirements take priority, and unrelated repositories cannot contribute. Coverage and a deterministic opaque metadata revision remain visible. A bounded set of explicit interpretations triggers one fixed clarification only when effective capability relevance or operation risk differs; equivalent interpretations retain common task input without asking. The authentic pending object resolves an offered choice into a validated Demand Profile with no further question. Task prose is minimized to a fixed summary, and no path, source text, profile or operation authority enters the output. See [ADR-0025](adr/0025-source-backed-demand-profile-producer.md).
+
 ### 5.6 DCP compilation
 
 M1-S03 performs the pure relevance intersection before the compiler. The compiler then applies:

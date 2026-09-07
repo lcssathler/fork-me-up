@@ -353,6 +353,8 @@ For commands and operational actions, the policy may require:
 
 Irreversible or security-sensitive actions receive explanation and confirmation regardless of inferred experience.
 
+The first source-backed Community Demand producer (`M2-S08`) accepts explicit structured task capabilities and optional candidate interpretations rather than interpreting natural-language prose. Selected current-project source languages provide supporting demand; an explicit collected-file selection can narrow that scope. An empty demand or equivalent interpretations do not start an onboarding questionnaire. Only interpretations with different effective capabilities/relevance or operation risk require a single clarification, and an offered answer resolves that pending decision without another question. This does not establish developer knowledge or authorize an operation. Potentially sensitive task prose is replaced with a fixed minimized summary in the produced Demand Profile. `FMU-E-009` and `FMU-E-010` verify this bounded implementation of `FMU-FR-003` and `FMU-FR-021`; natural-language interpretation and owner/client workflows remain later work.
+
 ## 16. Product stages
 
 ### Technical MVP
@@ -450,5 +452,4 @@ The following require a validated need, a dedicated ADR, and an updated threat m
 - [OpenAI — Plugin authentication](https://developers.openai.com/plugins/build/auth)
 - [OpenAI — Security and privacy](https://developers.openai.com/plugins/guides/security-privacy)
 - [GitHub — Deciding when to build a GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app)
-
 

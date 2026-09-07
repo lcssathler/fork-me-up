@@ -19,6 +19,7 @@ export {
 } from "./authorized-repository-config.ts";
 export {
   collectFilesystemMetadata,
+  isIssuedFilesystemMetadataSnapshot,
   filesystemMetadataSnapshotVersion,
   nodeFilesystemMetadataPort,
   type BoundedFileRead,
@@ -148,3 +149,15 @@ export {
   type EvidenceClaimRepositoryProject,
   type EvidenceInvalidationReason,
 } from "./evidence-claim-derivation.ts";
+export {
+  demandProfileProducerHardLimits,
+  demandProfileProducerVersion,
+  produceDemandProfile,
+  resolveDemandProfileClarification,
+  type DemandClarification,
+  type DemandProfileProducerErrorCategory,
+  type DemandProfileProducerRequest,
+  type DemandTaskCapability,
+  type DemandTaskInterpretation,
+  type ProduceDemandProfileResult,
+} from "./demand-profile-producer.ts";

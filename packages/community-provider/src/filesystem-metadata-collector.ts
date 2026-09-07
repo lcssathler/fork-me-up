@@ -133,6 +133,13 @@ const maximumPackageNames = 256;
 const maximumPackageNameBytes = 214;
 const maximumScriptNames = 128;
 const decoder = new TextDecoder("utf-8", { fatal: true });
+const issuedSnapshots = new WeakSet<object>();
+
+export function isIssuedFilesystemMetadataSnapshot(
+  value: unknown,
+): value is FilesystemMetadataSnapshot {
+  return typeof value === "object" && value !== null && issuedSnapshots.has(value);
+}
 
 const sourceLanguages = new Map<string, string>([
   [".c", "c"],
@@ -360,14 +367,13 @@ export async function collectFilesystemMetadata(
     }
 
     repositories.sort((left, right) => compareText(left.repositoryId, right.repositoryId));
-    return deepFreeze({
-      ok: true,
-      value: {
-        kind: "filesystem-metadata-snapshot",
-        snapshotVersion: filesystemMetadataSnapshotVersion,
-        repositories,
-      },
+    const value: FilesystemMetadataSnapshot = deepFreeze({
+      kind: "filesystem-metadata-snapshot",
+      snapshotVersion: filesystemMetadataSnapshotVersion,
+      repositories,
     });
+    issuedSnapshots.add(value);
+    return deepFreeze({ ok: true, value });
   } catch (error) {
     if (error instanceof CollectorFault) return failure(error.category, error.retryable);
     return failure("path-unavailable", true);

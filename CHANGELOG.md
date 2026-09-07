@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- Source-backed Community Demand Profile production from explicit task capabilities and selected repository/file language metadata, with exact validation, metadata availability/revisions, minimized prose, and a bounded clarification continuation (`M2-S08`; `FMU-FR-003`, `FMU-FR-021`; `FMU-E-009`, `FMU-E-010`; ADR-0025). Public schemas and dependencies remain unchanged; orchestration and owner/client workflows remain later slices.
+
 - Product, protocol, architecture, engineering, security/privacy, and milestone baselines with accepted client-neutral and Community/Cloud boundaries (`M0-S01`; ADR-0001 through ADR-0003).
 - Apache-2.0 licensing, attribution notices, and a separate trademark policy (`M0-S03`; ADR-0004).
 - Pinned Node.js/npm workspace foundation and lockfile-enforced installation, verified initially on Windows (`M0-S04`; ADR-0005).
