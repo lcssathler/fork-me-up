@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import {
@@ -35,7 +35,8 @@ export const mockGit = {
 
 /** @param {import("node:test").TestContext} context @param {boolean} [fakeGit] */
 export async function refreshFixture(context, fakeGit = true) {
-  const root = await mkdtemp(path.join(tmpdir(), "fork-me-up-m2-s09-"));
+  // Windows runners may expose TEMP through a short-name alias; fault injection uses canonical paths.
+  const root = await realpath(await mkdtemp(path.join(tmpdir(), "fork-me-up-m2-s09-")));
   context.after(async () => rm(root, { recursive: true, force: true }));
   const a = path.join(root, "a");
   const b = path.join(root, "b");
