@@ -6,7 +6,7 @@ The owner requested completion of the current M2-S15 stage and then a stop to co
 
 The preceding M2-S14 integrated as PR34, main commit `3bf29ea6c8ba5671ed673c128acb8d2f8b855db0`. It researched and documented the core evidence method, explicitly delegated by the owner after discussion of AI-assisted programming. Full local checks and PR/postmerge CI passed. The branch was deleted before S15 began.
 
-S15's final clean evaluator measurement at `747ad89e5a2491332b6a413813108af99590918f` passed every frozen gate. Its [final raw report](../evaluations/results/m2-quality-final.json) is committed alongside earlier passing and failed reports. The S15 PR title is `test: measure frozen evidence quality [M2-S15]`; locate its merge and exact CI evidence using the Git/GitHub commands below. The proposed roadmap transitions become authoritative upon successful protected integration. After that integration, stop on clean updated `main` with the S15 branch removed; S16 remains unstarted and requires a new owner request.
+S15's final clean evaluator measurement at `747ad89e5a2491332b6a413813108af99590918f` passed every frozen gate. Its [final raw report](../evaluations/results/m2-quality-final.json) is committed alongside earlier passing and failed reports. [PR35](https://github.com/lcssathler/fork-me-up/pull/35), `test: measure frozen evidence quality [M2-S15]`, records the integration and required CI checks. The proposed roadmap transitions become authoritative upon successful protected integration. After that integration, stop on clean updated `main` with the S15 branch removed; S16 remains unstarted and requires a new owner request.
 
 ## Decisions that must survive the move
 
@@ -34,7 +34,7 @@ npm run measure:m2 -- --output <new-report-path.json>
 
 Use a full clone, not a shallow history: the evaluator verifies the integrated S14 freeze commit is an ancestor and compares its committed freeze bytes. The output path must not already exist. Normal checks include the full 48-case integration and its frozen security controls. Never point this evaluator at real sources; it creates and safely removes its own temporary repositories/Stores. Failed integration reports remain in ignored `build/m2-quality-failures/` and CI uploads only those minimized JSON artifacts on failure. No external model/account/service is needed to run the product or tests; a first dependency install may need the npm registry.
 
-With authenticated GitHub CLI, inspect current PR/CI state using `gh pr list --state open` and `gh run list --branch main --limit 3`. Repository files and current Git/CI evidence outrank this handoff if another change has since integrated. Preserve unrelated working-tree changes and active task claims.
+With authenticated GitHub CLI, inspect S15 integration using `gh pr view 35 --json state,mergedAt,mergeCommit,statusCheckRollup`, then inspect current work with `gh pr list --state open` and `gh run list --branch main --limit 3`. Repository files and current Git/CI evidence outrank this handoff if another change has since integrated. Preserve unrelated working-tree changes and active task claims.
 
 ## Next eligible work, only after a new request
 
