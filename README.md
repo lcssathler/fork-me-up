@@ -10,6 +10,8 @@ Fork Me Up does **not** claim to know everything a developer knows. It distingui
 
 ## Product shape
 
+The [core evidence method](docs/EVIDENCE_METHOD.md) explains what Git and source observations can support, how AI-assisted contributions are treated, and what remains uncertain. Generated-artifact indicators do not detect AI or measure human knowledge. The [frozen M2 quality experiment](docs/evaluations/M2_QUALITY_PROTOCOL.md) tests those rules without claiming real-world skill accuracy.
+
 Fork Me Up is designed as:
 
 - an open protocol for portable developer context;

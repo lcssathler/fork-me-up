@@ -1,0 +1,2181 @@
+{
+  "experimentVersion": "m2-quality-0.2.0",
+  "status": "frozen-before-measurement",
+  "taxonomy": ["language.typescript", "language.python"],
+  "caseCount": 48,
+  "fixed": {
+    "subjectRef": "subject_quality",
+    "repositoryId": "repo_primary",
+    "projectRef": "project_primary",
+    "peerRepositoryId": "repo_peer",
+    "peerProjectRef": "project_peer",
+    "commitAt": "2026-09-07T11:00:00Z",
+    "observedAt": "2026-09-07T12:00:00Z",
+    "staleBefore": "2026-09-07T11:00:00Z",
+    "gitSettings": {
+      "initialBranch": "main",
+      "autocrlf": false,
+      "signCommits": false,
+      "hooks": "empty",
+      "externalConfig": false,
+      "objectFormat": "sha1",
+      "commitCleanup": "verbatim"
+    },
+    "collectionLimits": {
+      "maxRepositories": 2,
+      "maxFilesPerRepository": 100,
+      "maxBytesPerFile": 65536,
+      "maxTotalBytesPerRepository": 1048576,
+      "maxDepth": 16,
+      "maxDurationMs": 30000,
+      "maxConcurrency": 1
+    },
+    "initialCommitMessage": "Synthetic initial repository.\n",
+    "controlRevision": "0c882e73d282c35bd70b7faec57612be1069463d"
+  },
+  "cases": [
+    {
+      "caseId": "python-ai-assisted-repeated",
+      "capability": "language.python",
+      "scenario": "ai-assisted-repeated",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "# AI-assisted source.\nFMU_SOURCE_CANARY = 1\n"
+        },
+        {
+          "path": "extra.py",
+          "content": "# AI-assisted source.\nFMU_SECOND_SOURCE_CANARY = 2\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "practical-use",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 2
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-ai-assisted-single",
+      "capability": "language.python",
+      "scenario": "ai-assisted-single",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "# AI-assisted source.\nFMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-ai-claimed-unknown",
+      "capability": "language.python",
+      "scenario": "ai-claimed-unknown",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "# AI-assisted source.\nFMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-bot",
+      "capability": "language.python",
+      "scenario": "bot",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "bot",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-bot-with-human",
+      "capability": "language.python",
+      "scenario": "bot-with-human",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n\nCo-authored-by: Synthetic Developer <developer@example.invalid>\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-coauthor",
+      "capability": "language.python",
+      "scenario": "coauthor",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n\nCo-authored-by: Synthetic Developer <developer@example.invalid>\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-committer-only",
+      "capability": "language.python",
+      "scenario": "committer-only",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-direct-repeated",
+      "capability": "language.python",
+      "scenario": "direct-repeated",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        },
+        {
+          "path": "extra.py",
+          "content": "FMU_SECOND_SOURCE_CANARY = 2\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "practical-use",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 2
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-direct-single",
+      "capability": "language.python",
+      "scenario": "direct-single",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-duplicated",
+      "capability": "language.python",
+      "scenario": "duplicated",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": true,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-fork",
+      "capability": "language.python",
+      "scenario": "fork",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": ["fork"],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-generated",
+      "capability": "language.python",
+      "scenario": "generated",
+      "files": [
+        {
+          "path": "generated/main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-human-bot-committer",
+      "capability": "language.python",
+      "scenario": "human-bot-committer",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-human-claimed-single",
+      "capability": "language.python",
+      "scenario": "human-claimed-single",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "# Handwritten source.\nFMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-human-with-bot",
+      "capability": "language.python",
+      "scenario": "human-with-bot",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n\nCo-authored-by: Synthetic Bot <bot@example.invalid>\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-pair-work",
+      "capability": "language.python",
+      "scenario": "pair-work",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": ["pair-work"],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-shared",
+      "capability": "language.python",
+      "scenario": "shared",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Shared",
+        "email": "shared@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "shared",
+          "name": "Synthetic Shared",
+          "email": "shared@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Shared",
+        "email": "shared@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-squash",
+      "capability": "language.python",
+      "scenario": "squash",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": ["squash"],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-template",
+      "capability": "language.python",
+      "scenario": "template",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": ["template"],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-tutorial",
+      "capability": "language.python",
+      "scenario": "tutorial",
+      "files": [
+        {
+          "path": "tutorial/main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-uncertain",
+      "capability": "language.python",
+      "scenario": "uncertain",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": ["uncertain"],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-uncommitted",
+      "capability": "language.python",
+      "scenario": "uncommitted",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": false,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-unknown",
+      "capability": "language.python",
+      "scenario": "unknown",
+      "files": [
+        {
+          "path": "main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "python-vendored",
+      "capability": "language.python",
+      "scenario": "vendored",
+      "files": [
+        {
+          "path": "vendor/main.py",
+          "content": "FMU_SOURCE_CANARY = 1\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-ai-assisted-repeated",
+      "capability": "language.typescript",
+      "scenario": "ai-assisted-repeated",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "// AI-assisted source.\nexport const FMU_SOURCE_CANARY = 1;\n"
+        },
+        {
+          "path": "extra.ts",
+          "content": "// AI-assisted source.\nexport const FMU_SECOND_SOURCE_CANARY = 2;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "practical-use",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 2
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-ai-assisted-single",
+      "capability": "language.typescript",
+      "scenario": "ai-assisted-single",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "// AI-assisted source.\nexport const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-ai-claimed-unknown",
+      "capability": "language.typescript",
+      "scenario": "ai-claimed-unknown",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "// AI-assisted source.\nexport const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-bot",
+      "capability": "language.typescript",
+      "scenario": "bot",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "bot",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-bot-with-human",
+      "capability": "language.typescript",
+      "scenario": "bot-with-human",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n\nCo-authored-by: Synthetic Developer <developer@example.invalid>\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-coauthor",
+      "capability": "language.typescript",
+      "scenario": "coauthor",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n\nCo-authored-by: Synthetic Developer <developer@example.invalid>\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-committer-only",
+      "capability": "language.typescript",
+      "scenario": "committer-only",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-direct-repeated",
+      "capability": "language.typescript",
+      "scenario": "direct-repeated",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        },
+        {
+          "path": "extra.ts",
+          "content": "export const FMU_SECOND_SOURCE_CANARY = 2;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "practical-use",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 2
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-direct-single",
+      "capability": "language.typescript",
+      "scenario": "direct-single",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-duplicated",
+      "capability": "language.typescript",
+      "scenario": "duplicated",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": true,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-fork",
+      "capability": "language.typescript",
+      "scenario": "fork",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": ["fork"],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-generated",
+      "capability": "language.typescript",
+      "scenario": "generated",
+      "files": [
+        {
+          "path": "generated/main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-human-bot-committer",
+      "capability": "language.typescript",
+      "scenario": "human-bot-committer",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Bot",
+        "email": "bot@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-human-claimed-single",
+      "capability": "language.typescript",
+      "scenario": "human-claimed-single",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "// Handwritten source.\nexport const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "medium",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-human-with-bot",
+      "capability": "language.typescript",
+      "scenario": "human-with-bot",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "bot",
+          "name": "Synthetic Bot",
+          "email": "bot@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n\nCo-authored-by: Synthetic Bot <bot@example.invalid>\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-pair-work",
+      "capability": "language.typescript",
+      "scenario": "pair-work",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": ["pair-work"],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "coauthored",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-shared",
+      "capability": "language.typescript",
+      "scenario": "shared",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Shared",
+        "email": "shared@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        },
+        {
+          "role": "shared",
+          "name": "Synthetic Shared",
+          "email": "shared@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Shared",
+        "email": "shared@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-squash",
+      "capability": "language.typescript",
+      "scenario": "squash",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": ["squash"],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-template",
+      "capability": "language.typescript",
+      "scenario": "template",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": ["template"],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-tutorial",
+      "capability": "language.typescript",
+      "scenario": "tutorial",
+      "files": [
+        {
+          "path": "tutorial/main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-uncertain",
+      "capability": "language.typescript",
+      "scenario": "uncertain",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": ["uncertain"],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-uncommitted",
+      "capability": "language.typescript",
+      "scenario": "uncommitted",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": false,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-unknown",
+      "capability": "language.typescript",
+      "scenario": "unknown",
+      "files": [
+        {
+          "path": "main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "insufficient-evidence",
+        "maximumDepth": null,
+        "maximumConfidence": "low",
+        "authorship": "unknown",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Other",
+        "email": "other@example.invalid"
+      }
+    },
+    {
+      "caseId": "typescript-vendored",
+      "capability": "language.typescript",
+      "scenario": "vendored",
+      "files": [
+        {
+          "path": "vendor/main.ts",
+          "content": "export const FMU_SOURCE_CANARY = 1;\n"
+        }
+      ],
+      "initialReadme": {
+        "path": "README.md",
+        "content": "Synthetic quality repository.\n"
+      },
+      "author": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      },
+      "identities": [
+        {
+          "role": "developer",
+          "name": "Synthetic Developer",
+          "email": "developer@example.invalid"
+        }
+      ],
+      "commitMessage": "Synthetic quality case.\n",
+      "annotations": [],
+      "repositoryRiskFlags": [],
+      "sourceCommitted": true,
+      "duplicatePeer": false,
+      "expected": {
+        "state": "demonstrated",
+        "maximumDepth": "exposure",
+        "maximumConfidence": "low",
+        "authorship": "attributed",
+        "evidenceCount": 1
+      },
+      "committer": {
+        "name": "Synthetic Developer",
+        "email": "developer@example.invalid"
+      }
+    }
+  ],
+  "expectedEvidenceCount": 52,
+  "invariances": [
+    {
+      "baseline": "typescript-direct-single",
+      "variant": "typescript-ai-assisted-single"
+    },
+    {
+      "baseline": "typescript-direct-repeated",
+      "variant": "typescript-ai-assisted-repeated"
+    },
+    {
+      "baseline": "typescript-direct-single",
+      "variant": "typescript-human-claimed-single"
+    },
+    {
+      "baseline": "typescript-unknown",
+      "variant": "typescript-ai-claimed-unknown"
+    },
+    {
+      "baseline": "typescript-direct-single",
+      "variant": "typescript-human-bot-committer"
+    },
+    {
+      "baseline": "python-direct-single",
+      "variant": "python-ai-assisted-single"
+    },
+    {
+      "baseline": "python-direct-repeated",
+      "variant": "python-ai-assisted-repeated"
+    },
+    {
+      "baseline": "python-direct-single",
+      "variant": "python-human-claimed-single"
+    },
+    {
+      "baseline": "python-unknown",
+      "variant": "python-ai-claimed-unknown"
+    },
+    {
+      "baseline": "python-direct-single",
+      "variant": "python-human-bot-committer"
+    }
+  ],
+  "thresholds": {
+    "falseDemonstrated": 0,
+    "correctionNeeded": 0,
+    "rejected": 0,
+    "attributionErrors": 0,
+    "ceilingViolations": 0,
+    "invarianceFailures": 0,
+    "securityFailures": 0,
+    "ownerExerciseFailures": 0
+  },
+  "ownerExercises": ["typescript-direct-single", "python-direct-single"],
+  "controls": [
+    "tests/integration/filesystem-metadata-collector.test.mjs",
+    "tests/integration/git-metadata-collector.test.mjs",
+    "tests/integration/owner-profile-diagnostics.test.mjs",
+    "tests/unit/owner-profile-diagnostics.test.mjs",
+    "tests/integration/local-community-workflow.test.mjs"
+  ]
+}

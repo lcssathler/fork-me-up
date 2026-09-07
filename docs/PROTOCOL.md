@@ -260,6 +260,8 @@ Allowed initial values:
 
 Confidence applies to support for the claim, not the person's seniority. Providers must document their rules and may be more conservative than the reference implementation. Numeric probability fields are reserved until a calibration methodology exists.
 
+The [reference evidence method](EVIDENCE_METHOD.md) distinguishes identity association, artifact provenance indicators and claim support. `demonstrated` with `exposure` is a limited selected observation, not proof of comprehension or unaided authorship. `generated` limitations do not assert AI detection; AI assistance alone cannot determine knowledge. These interpretations preserve the existing wire schema and categorical confidence semantics.
+
 ### 5.4 Scope
 
 - `global`: evidence can reasonably inform tasks beyond one project.
