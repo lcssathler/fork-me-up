@@ -28,6 +28,7 @@ The first three standalone runs passed the frozen protocol. The initial run used
 - [Initial measurement](results/m2-quality-initial.json).
 - [Verified repeated measurement](results/m2-quality-verified.json); one artifact represents the two identical standalone outputs before the subprocess-context fix below.
 - [Failed nested-control measurement](results/m2-quality-nested-control-failure.json), retained from the full integration suite.
+- [Final clean measurement](results/m2-quality-final.json), from revision `747ad89e5a2491332b6a413813108af99590918f` after subprocess isolation. It passed every gate with the outcomes below; SHA-256 `493be6ca4440520a9f954f19201469b5fa30053e8de564bd94b58a82847f1c20`. Behavioral results match the earlier passing reports; revision and evaluator provenance appropriately differ.
 
 | Frozen measure                                                   | Observed outcome                                                      |
 | ---------------------------------------------------------------- | --------------------------------------------------------------------- |

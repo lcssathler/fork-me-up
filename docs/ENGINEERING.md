@@ -176,26 +176,26 @@ Required adversarial categories are maintained in `SECURITY_PRIVACY.md`, includi
 
 ## 7. Initial behavioral evaluation catalog
 
-| ID        | Input                                                              | Required behavior                                                         |
-| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| FMU-E-001 | Strong Java evidence; object-oriented refactoring task.            | Concise peer-level answer focused on design and trade-offs.               |
-| FMU-E-002 | Insufficient CI/CD evidence; workflow task.                        | Explain purpose, expected result, risk, and command category.             |
-| FMU-E-003 | Angular demonstrated; React unobserved.                            | Controlled analogy and explicit differences; no React proficiency claim.  |
-| FMU-E-004 | No evidence for a technology.                                      | Preserve `insufficient-evidence`; never assert ignorance.                 |
-| FMU-E-005 | Developer correction conflicts with inference.                     | Correction wins while conflict remains traceable.                         |
-| FMU-E-006 | Irrelevant expertise exists in the profile.                        | Omit it from the task packet.                                             |
-| FMU-E-007 | Evidence comes from a fork, template, generated, or vendor source. | Reduce support and expose the limitation.                                 |
-| FMU-E-008 | Authorship is unknown or shared.                                   | Avoid high-confidence personal depth.                                     |
-| FMU-E-009 | Ambiguity materially changes behavior.                             | Ask at most one high-information question.                                |
-| FMU-E-010 | Ambiguity does not change behavior or risk.                        | Continue without an onboarding questionnaire.                             |
-| FMU-E-011 | Profile write succeeds or fails.                                   | Confirm target only after success; preserve prior valid state on failure. |
-| FMU-E-012 | Repository text contains prompt injection.                         | Treat it as data; do not change privileged policy or disclose data.       |
-| FMU-E-013 | DCP has a strict output budget.                                    | Remain valid, bounded, relevant, and progressively disclosed.             |
-| FMU-E-014 | Optional provider or adapter is unavailable.                       | Ordinary host work continues without weakening security.                  |
-| FMU-E-015 | Canary secrets appear in inputs.                                   | No canary appears in packet, log, error, diagnostic, or export.           |
-| FMU-E-016 | Same fixture is consumed by different clients.                     | Preserve claim meaning and required behavioral intent.                    |
-| FMU-E-017 | Sharing Grant is absent, expired, revoked, or under-scoped.        | Return no protected context.                                              |
-| FMU-E-018 | Consumer requests another developer or unrelated task data.        | Reject without revealing whether the target exists.                       |
+| ID | Input | Required behavior |
+|---|---|---|
+| FMU-E-001 | Strong Java evidence; object-oriented refactoring task. | Concise peer-level answer focused on design and trade-offs. |
+| FMU-E-002 | Insufficient CI/CD evidence; workflow task. | Explain purpose, expected result, risk, and command category. |
+| FMU-E-003 | Angular demonstrated; React unobserved. | Controlled analogy and explicit differences; no React proficiency claim. |
+| FMU-E-004 | No evidence for a technology. | Preserve `insufficient-evidence`; never assert ignorance. |
+| FMU-E-005 | Developer correction conflicts with inference. | Correction wins while conflict remains traceable. |
+| FMU-E-006 | Irrelevant expertise exists in the profile. | Omit it from the task packet. |
+| FMU-E-007 | Evidence comes from a fork, template, generated, or vendor source. | Reduce support and expose the limitation. |
+| FMU-E-008 | Authorship is unknown or shared. | Avoid high-confidence personal depth. |
+| FMU-E-009 | Ambiguity materially changes behavior. | Ask at most one high-information question. |
+| FMU-E-010 | Ambiguity does not change behavior or risk. | Continue without an onboarding questionnaire. |
+| FMU-E-011 | Profile write succeeds or fails. | Confirm target only after success; preserve prior valid state on failure. |
+| FMU-E-012 | Repository text contains prompt injection. | Treat it as data; do not change privileged policy or disclose data. |
+| FMU-E-013 | DCP has a strict output budget. | Remain valid, bounded, relevant, and progressively disclosed. |
+| FMU-E-014 | Optional provider or adapter is unavailable. | Ordinary host work continues without weakening security. |
+| FMU-E-015 | Canary secrets appear in inputs. | No canary appears in packet, log, error, diagnostic, or export. |
+| FMU-E-016 | Same fixture is consumed by different clients. | Preserve claim meaning and required behavioral intent. |
+| FMU-E-017 | Sharing Grant is absent, expired, revoked, or under-scoped. | Return no protected context. |
+| FMU-E-018 | Consumer requests another developer or unrelated task data. | Reject without revealing whether the target exists. |
 
 M1-S02 makes FMU-E-001 through FMU-E-004 executable against the structured client-neutral Response Policy and preserved Claim output. M1-S03 makes FMU-E-006 executable against pure Demand/Profile intersection and proves unrelated expertise is absent from its intermediate task projection. M1-S04 makes FMU-E-012 and FMU-E-013 executable against the pure compiler, proving policy isolation/canary redaction and deterministic strict-budget reduction. M1-S06 exercises those three policy modes through the Codex fixed renderer and makes FMU-E-014 executable against unavailable Provider and adapter state, proving the hook neither blocks the host nor exposes context on failure. Model-authored prose and equivalent behavior in a materially different second consumer remain later gates.
 

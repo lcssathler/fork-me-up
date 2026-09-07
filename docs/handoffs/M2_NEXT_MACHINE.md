@@ -6,6 +6,8 @@ The owner requested completion of the current M2-S15 stage and then a stop to co
 
 The preceding M2-S14 integrated as PR34, main commit `3bf29ea6c8ba5671ed673c128acb8d2f8b855db0`. It researched and documented the core evidence method, explicitly delegated by the owner after discussion of AI-assisted programming. Full local checks and PR/postmerge CI passed. The branch was deleted before S15 began.
 
+S15's final clean evaluator measurement at `747ad89e5a2491332b6a413813108af99590918f` passed every frozen gate. Its [final raw report](../evaluations/results/m2-quality-final.json) is committed alongside earlier passing and failed reports. The S15 PR title is `test: measure frozen evidence quality [M2-S15]`; locate its merge and exact CI evidence using the Git/GitHub commands below. The proposed roadmap transitions become authoritative upon successful protected integration. After that integration, stop on clean updated `main` with the S15 branch removed; S16 remains unstarted and requires a new owner request.
+
 ## Decisions that must survive the move
 
 - [Core method and primary sources](../EVIDENCE_METHOD.md): Git association, artifact indicators and human understanding are separate. No KNN, trained classifier or AI-code detector was added. AI assistance is neither a competence penalty nor evidence of competence. Generated-style paths are limited indicators; unflagged origin remains unverified. The two-file practical-use rule is a documented project-evidence heuristic, not a validated expertise scale.
