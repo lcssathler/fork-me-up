@@ -45,8 +45,23 @@ export function intersectDemandProfileWithDeveloperProfile(
     [...demand.capabilities].sort((left, right) => compareText(left.capability, right.capability)),
   );
   const demandedCapabilities = new Set(capabilities.map((item) => item.capability));
+  const historicalTargets = new Set(
+    developerProfile.profile.claims
+      .filter((claim) => claim.state === "disputed")
+      .flatMap((claim) => {
+        const correction = developerProfile.profile.corrections.find(
+          (item) => item.correctionId === claim.basis.correctionRef,
+        );
+        return correction?.targetClaimRef !== null &&
+          correction?.targetClaimRef !== undefined &&
+          correction.targetClaimRef !== claim.claimId
+          ? [correction.targetClaimRef]
+          : [];
+      }),
+  );
   const relevantClaims = developerProfile.profile.claims.filter(
     (claim) =>
+      !historicalTargets.has(claim.claimId) &&
       demandedCapabilities.has(claim.capability) &&
       (claim.scope === "global" || claim.projectRef === demand.project.projectRef),
   );

@@ -184,3 +184,11 @@ export {
   type RepositoryFingerprintPort,
   type RepositoryFingerprintResult,
 } from "./repository-fingerprint.ts";
+export {
+  runOwnerProfileOperation,
+  saveOwnerDerivation,
+  ownerWorkflowMaximumInputBytes,
+  ownerWorkflowMaximumOutputBytes,
+  type OwnerWorkflowOptions,
+  type OwnerWorkflowResult,
+} from "./owner-profile-workflow.ts";

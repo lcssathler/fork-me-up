@@ -54,6 +54,8 @@ Project-scoped claims require an opaque project reference; global claims prohibi
 
 The Community M2-S07 producer groups exact language Evidence only within its mapped project. At least one attributable or coauthored observation is required for `demonstrated`; otherwise it emits `insufficient-evidence`. One or weak attributable signal reaches only exposure; two distinct moderate attributable source observations may reach practical use only when both upstream authorship ceilings permit it. Confidence also respects the upstream ceiling. Generated Claims are never global, adjacent, high confidence, or `demonstrated-depth`. Stable internal Claim fingerprints and refresh invalidation remain provider implementation metadata rather than new public Claim fields. Declarations, disputes, and correction precedence remain owner-controlled later work. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
 
+M2-S10 implements owner precedence using existing shapes. Adjustments/rejections preserve original Claim/Evidence snapshots privately and make the effective assessment disputed. Core omits historical correction targets linked by an effective dispute before task projection; self-targeted disputes remain compatible. Explicit declarations remain unobserved. Owner requests, inspection views and mutation acknowledgments are implementation-internal, not Provider/MCP or export contracts. See [ADR-0027](adr/0027-local-owner-correction-workflow.md).
+
 ### 2.3 Developer Profile Store
 
 The provider's canonical private state containing claims, corrections, preferences, and evidence references. Its internal schema is not an interchange contract and may differ between providers.

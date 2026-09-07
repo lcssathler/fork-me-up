@@ -264,6 +264,12 @@ The refresh enforces aggregate metadata-observation, collection-count, elapsed-t
 
 Authorship, cross-repository duplication/source risk and Evidence/Claim derivation run over the complete fresh source set. The oldest collection timestamp becomes the aggregate observation time. Any incomplete set withholds both aggregate derivation and source payloads, preventing a missing duplicate peer from increasing apparent support. Stale cached sources remain private, invalid sources are evicted, and later successful refresh compares against the previous complete derivation. Complete output retains authentic filesystem snapshots usable by M2-S08. Restart or configuration change begins a cold session; persistent cache, Store writes and correction-preserving owner workflows remain separate. See [ADR-0026](adr/0026-bounded-incremental-local-refresh.md).
 
+### 5.8 Owner inspection and correction
+
+M2-S10 adds a bounded first-party JSON CLI and Community owner service over authentic Store configuration. Inspection exposes minimized structured Claim, evidence and correction metadata. Correct/dispute/reject append private records, archive exact original Claims and Evidence under deterministic opaque identifiers, and produce an effective disputed assessment. Independent declarations remain unobserved and low confidence. Repeated corrections preserve prior records and use commit order; only verified M2-S06 commitment produces a saved acknowledgment.
+
+The derivation composer preserves owner records and archival provenance across refresh/removal. Corrected capability/scope pairs suppress new automated assessments. Core excludes correction targets linked by effective disputes before task intersection. Changed or newly observed sources conservatively mark the effective dispute stale while its history stays immutable. Old derivations and backward owner timestamps fail closed. Existing schema/byte ceilings bound history; no owner record is silently pruned. See [ADR-0027](adr/0027-local-owner-correction-workflow.md) and [owner usage](OWNER_WORKFLOW.md).
+
 ## 6. Provider interface
 
 An `EvidenceCollector` or `SourceAdapter` reads an authorized source and emits normalized evidence; it does not own profile or delivery semantics. A `ProfileProvider` may be the local Community implementation, an independent implementation, or Fork Me Up Cloud. It can operate from collectors or an imported profile and need not collect sources itself. At minimum it must be able to:
