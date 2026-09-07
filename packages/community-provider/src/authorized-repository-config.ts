@@ -192,6 +192,37 @@ export function isIssuedAuthorizedRepositoryConfig(
   return typeof value === "object" && value !== null && issuedConfigurations.has(value);
 }
 
+/** Reduce an existing live authority; callers must still reauthorize paths at point of use. */
+export function selectAuthorizedRepository(
+  authorization: ResolvedAuthorizedRepositoryConfig,
+  repositoryId: string,
+  maximumDurationMs: number,
+): ResolvedAuthorizedRepositoryConfig | null {
+  if (
+    !isIssuedAuthorizedRepositoryConfig(authorization) ||
+    !Number.isSafeInteger(maximumDurationMs) ||
+    maximumDurationMs < 1 ||
+    maximumDurationMs > authorization.limits.maxDurationMs
+  )
+    return null;
+  const repository = authorization.repositories.find((item) => item.repositoryId === repositoryId);
+  const root = authorization.authorizedRoots.find((item) => item.rootId === repository?.rootId);
+  if (repository === undefined || root === undefined) return null;
+  const value = deepFreeze({
+    ...authorization,
+    authorizedRoots: [root],
+    repositories: [repository],
+    limits: {
+      ...authorization.limits,
+      maxRepositories: 1,
+      maxConcurrency: 1,
+      maxDurationMs: maximumDurationMs,
+    },
+  });
+  issuedConfigurations.add(value);
+  return value;
+}
+
 function parseConfig(source: string): ParsedConfigResult {
   if (
     typeof source !== "string" ||

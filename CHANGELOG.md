@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- Bounded incremental multi-repository refresh with a process-local authentic source cache, metadata fingerprints, preserved collection age, explicit origin/fresh/stale/partial/invalid outcomes, and complete-set duplicate-risk reassessment (`M2-S09`; `FMU-FR-017`, `FMU-FR-020`; ADR-0026). Unchanged hits perform no source-content read or Git subprocess. Persistent cache, Store writes, owner workflows and public contracts are unchanged.
+
 - Source-backed Community Demand Profile production from explicit task capabilities and selected repository/file language metadata, with exact validation, metadata availability/revisions, minimized prose, and a bounded clarification continuation (`M2-S08`; `FMU-FR-003`, `FMU-FR-021`; `FMU-E-009`, `FMU-E-010`; ADR-0025). Public schemas and dependencies remain unchanged; orchestration and owner/client workflows remain later slices.
 
 - Product, protocol, architecture, engineering, security/privacy, and milestone baselines with accepted client-neutral and Community/Cloud boundaries (`M0-S01`; ADR-0001 through ADR-0003).
