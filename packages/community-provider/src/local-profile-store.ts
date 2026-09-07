@@ -68,7 +68,14 @@ export type LocalProfileStoreErrorCategory =
   | "not-authorized"
   | "not-configured"
   | "path-unavailable"
+  | "profile-deleted"
+  | "deletion-incomplete"
   | "persistence-failed";
+// A deletion barrier is content-free and intentionally survives removal of profile data.
+export const localProfileDeletionBarrier = ".community-profile-store.deleted";
+const mutationGateName = ".community-profile-store.mutation.lock";
+const exportNamePattern = /^portable-profile-export\.[A-Za-z0-9_-]{1,128}\.json$/u;
+const exportTemporaryPattern = /^\.portable-profile-export\.[A-Za-z0-9_-]{1,128}\.tmp$/u;
 
 export interface LoadedLocalProfileStore {
   readonly status: "active" | "recovered" | "migrated";
@@ -154,11 +161,34 @@ export async function loadLocalProfileStore(
 ): Promise<LoadLocalProfileStoreResult> {
   if (!isIssuedLocalProfileStoreConfig(configuration)) return failure("not-configured", false);
   if (!isLoadOptions(options)) return failure("invalid-input", false);
+  if (
+    options.migrationValidatedAt !== undefined &&
+    isIssuedLocalProfileStoreConfig(configuration) &&
+    isLoadOptions(options)
+  ) {
+    return guardedMutation(configuration, options.port ?? nodeLocalProfileStorePort, () =>
+      loadStoreUnlocked(configuration, options),
+    );
+  }
+  return loadStoreUnlocked(configuration, options);
+}
+
+async function loadStoreUnlocked(
+  configuration: ResolvedLocalProfileStoreConfig,
+  options: {
+    readonly port?: LocalProfileStoreFilePort;
+    readonly migrationValidatedAt?: string;
+    readonly nonce?: string;
+  },
+): Promise<LoadLocalProfileStoreResult> {
+  if (!isIssuedLocalProfileStoreConfig(configuration)) return failure("not-configured", false);
+  if (!isLoadOptions(options)) return failure("invalid-input", false);
   const port = options.port ?? nodeLocalProfileStorePort;
   if (!isPort(port)) return failure("invalid-input", false);
   try {
     await reauthorize(configuration, port);
     const scan = await scanStore(configuration, port);
+    await reauthorize(configuration, port);
     const selected = newestCandidate(scan.valid);
     if (selected === undefined) {
       if (scan.invalidEntries.length > 0) {
@@ -225,6 +255,22 @@ export async function loadLocalProfileStore(
 }
 
 export async function writeLocalProfileStore(
+  configuration: ResolvedLocalProfileStoreConfig,
+  source: string,
+  options: {
+    readonly expectedGeneration: number | null;
+    readonly port?: LocalProfileStoreFilePort;
+    readonly nonce?: string;
+  },
+): Promise<WriteLocalProfileStoreResult> {
+  if (!isIssuedLocalProfileStoreConfig(configuration)) return failure("not-configured", false);
+  if (!isWriteOptions(options)) return failure("invalid-input", false);
+  return guardedMutation(configuration, options.port ?? nodeLocalProfileStorePort, () =>
+    writeStoreUnlocked(configuration, source, options),
+  );
+}
+
+async function writeStoreUnlocked(
   configuration: ResolvedLocalProfileStoreConfig,
   source: string,
   options: {
@@ -472,6 +518,7 @@ async function cleanupAfterCommit(
 async function reauthorize(
   configuration: ResolvedLocalProfileStoreConfig,
   port: LocalProfileStoreFilePort,
+  allowDeleted = false,
 ): Promise<void> {
   let inspected: LocalProfileStoreDirectoryInspection;
   try {
@@ -486,6 +533,150 @@ async function reauthorize(
   ) {
     throw new StoreFault("not-authorized", false);
   }
+  if (
+    !allowDeleted &&
+    (await port.readEntry(
+      configuration.directoryPath,
+      localProfileDeletionBarrier,
+      64,
+      configuration.platform,
+    )) !== null
+  )
+    throw new StoreFault("profile-deleted", false);
+}
+
+async function guardedMutation<Value>(
+  configuration: ResolvedLocalProfileStoreConfig,
+  port: LocalProfileStoreFilePort,
+  operation: () => Promise<Value>,
+  allowDeleted = false,
+): Promise<Value | ReturnType<typeof failure>> {
+  let acquired = false;
+  try {
+    if (!isPort(port)) return failure("invalid-input", false);
+    await reauthorize(configuration, port, allowDeleted);
+    acquired =
+      (await port.writeEntryExclusive(
+        configuration.directoryPath,
+        mutationGateName,
+        Buffer.from("mutation\n"),
+      )) === "created";
+    if (!acquired) return failure("conflict", true);
+    await reauthorize(configuration, port, allowDeleted);
+    const result = await operation();
+    const released = await port
+      .removeEntry(configuration.directoryPath, mutationGateName)
+      .catch(() => false);
+    acquired = false;
+    if (!released && isRecord(result) && result["ok"] === true) {
+      if ("maintenanceRequired" in result)
+        return deepFreeze({ ...result, maintenanceRequired: true }) as Value;
+      return failure("deletion-incomplete", true);
+    }
+    return result;
+  } catch (error) {
+    return failureFor(error);
+  } finally {
+    if (acquired)
+      await port.removeEntry(configuration.directoryPath, mutationGateName).catch(() => false);
+  }
+}
+
+export type DeleteLocalProfileStoreResult =
+  | { readonly ok: true; readonly status: "deleted"; readonly removedEntries: number }
+  | {
+      readonly ok: false;
+      readonly error: {
+        readonly category: LocalProfileStoreErrorCategory;
+        readonly retryable: boolean;
+      };
+    };
+
+/** Explicit owner deletion; never recursively delete the configured directory. */
+export async function deleteLocalProfileStore(
+  configuration: ResolvedLocalProfileStoreConfig,
+  options: { readonly port?: LocalProfileStoreFilePort } = {},
+): Promise<DeleteLocalProfileStoreResult> {
+  if (!isIssuedLocalProfileStoreConfig(configuration)) return failure("not-configured", false);
+  if (!isRecord(options) || !hasOnlyKeys(options, ["port"])) return failure("invalid-input", false);
+  const port = options.port ?? nodeLocalProfileStorePort;
+  return guardedMutation(
+    configuration,
+    port,
+    async () => {
+      const entries = await port.listEntries(
+        configuration.directoryPath,
+        localProfileStoreHardLimits.maximumDirectoryEntries,
+      );
+      if (!isUniqueStringArray(entries, localProfileStoreHardLimits.maximumDirectoryEntries))
+        return failure("limit-exceeded", false);
+      const recognized = entries.filter(
+        (name) => committedNamePattern.test(name) || temporaryNamePattern.test(name),
+      );
+      // Refuse a valid Store belonging to a different configured owner; corrupt reserved files remain deletable.
+      for (const name of recognized) {
+        const bytes = await port.readEntry(
+          configuration.directoryPath,
+          name,
+          communityProfileStoreMaximumBytes,
+          configuration.platform,
+        );
+        if (bytes !== null) {
+          let parsed;
+          try {
+            parsed = parseCommunityProfileStore(decoder.decode(bytes));
+          } catch {
+            continue;
+          }
+          if (
+            parsed.ok &&
+            (parsed.value.storeId !== configuration.storeId ||
+              parsed.value.subjectRef !== configuration.subjectRef)
+          )
+            return failure("not-authorized", false);
+        }
+      }
+      await port.writeEntryExclusive(
+        configuration.directoryPath,
+        localProfileDeletionBarrier,
+        Buffer.from("deleted\n"),
+      );
+      if (
+        (await port.readEntry(
+          configuration.directoryPath,
+          localProfileDeletionBarrier,
+          64,
+          configuration.platform,
+        )) === null
+      )
+        return failure("deletion-incomplete", true);
+      let removedEntries = 0;
+      try {
+        await port.syncDirectory(configuration.directoryPath, configuration.platform);
+        for (const name of recognized) {
+          await reauthorize(configuration, port, true);
+          if (await port.removeEntry(configuration.directoryPath, name)) removedEntries += 1;
+        }
+        await port.syncDirectory(configuration.directoryPath, configuration.platform);
+        await reauthorize(configuration, port, true);
+        const remaining = await port.listEntries(
+          configuration.directoryPath,
+          localProfileStoreHardLimits.maximumDirectoryEntries,
+        );
+        if (
+          !isUniqueStringArray(remaining, localProfileStoreHardLimits.maximumDirectoryEntries) ||
+          remaining.some(
+            (name) => committedNamePattern.test(name) || temporaryNamePattern.test(name),
+          )
+        )
+          return failure("deletion-incomplete", true);
+        return deepFreeze({ ok: true as const, status: "deleted" as const, removedEntries });
+      } catch {
+        return failure("deletion-incomplete", true);
+      }
+    },
+    true,
+  );
 }
 
 function newestCandidate(candidates: readonly StoreCandidate[]): StoreCandidate | undefined {
@@ -714,7 +905,12 @@ const nodeLocalProfileStorePortImplementation: LocalProfileStoreFilePort = {
   },
   async writeEntryExclusive(directoryPath, entryName, bytes) {
     if (
-      !temporaryNamePattern.test(entryName) ||
+      !(
+        temporaryNamePattern.test(entryName) ||
+        exportTemporaryPattern.test(entryName) ||
+        entryName === mutationGateName ||
+        entryName === localProfileDeletionBarrier
+      ) ||
       bytes.byteLength > communityProfileStoreMaximumBytes
     ) {
       throw new StoreFault("invalid-input", false);
@@ -741,7 +937,10 @@ const nodeLocalProfileStorePortImplementation: LocalProfileStoreFilePort = {
     }
   },
   async linkEntryExclusive(directoryPath, sourceName, targetName) {
-    if (!temporaryNamePattern.test(sourceName) || !committedNamePattern.test(targetName)) {
+    if (!(
+      (temporaryNamePattern.test(sourceName) && committedNamePattern.test(targetName)) ||
+      (exportTemporaryPattern.test(sourceName) && exportNamePattern.test(targetName))
+    )) {
       throw new StoreFault("invalid-input", false);
     }
     try {
@@ -753,7 +952,12 @@ const nodeLocalProfileStorePortImplementation: LocalProfileStoreFilePort = {
     }
   },
   async removeEntry(directoryPath, entryName) {
-    if (!committedNamePattern.test(entryName) && !temporaryNamePattern.test(entryName)) {
+    if (
+      !committedNamePattern.test(entryName) &&
+      !temporaryNamePattern.test(entryName) &&
+      !exportTemporaryPattern.test(entryName) &&
+      entryName !== mutationGateName
+    ) {
       throw new StoreFault("not-authorized", false);
     }
     const candidate = path.join(directoryPath, entryName);

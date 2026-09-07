@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M2-S11 adds explicit local owner import, redacted Portable Profile Export creation and verified managed Store/cache deletion. Imports preserve typed correction behavior in an absent Store; exports omit private prose and source locations. Durable barriers prevent recreation, bounded failures remain visible, and owner recovery is documented. Public schemas and dependencies are unchanged. See [owner workflow](docs/OWNER_WORKFLOW.md) and [ADR-0028](docs/adr/0028-owner-portability-and-verified-deletion.md).
+
 - Bounded first-party owner inspection, declaration, correction, dispute and rejection CLI with verified persistence, immutable provenance and correction-preserving refresh (M2-S10).
 
 - Bounded incremental multi-repository refresh with a process-local authentic source cache, metadata fingerprints, preserved collection age, explicit origin/fresh/stale/partial/invalid outcomes, and complete-set duplicate-risk reassessment (`M2-S09`; `FMU-FR-017`, `FMU-FR-020`; ADR-0026). Unchanged hits perform no source-content read or Git subprocess. Persistent cache, Store writes, owner workflows and public contracts are unchanged.

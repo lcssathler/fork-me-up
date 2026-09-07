@@ -2,11 +2,13 @@ import { Buffer } from "node:buffer";
 import { TextDecoder } from "node:util";
 import { setTimeout, clearTimeout } from "node:timers";
 import {
-  ownerWorkflowMaximumInputBytes,
+  ownerPortabilityMaximumInputBytes,
   ownerWorkflowMaximumOutputBytes,
   resolveLocalProfileStoreConfig,
   runOwnerProfileOperation,
+  runOwnerPortabilityOperation,
 } from "@fork-me-up/community-provider";
+import { clearFileCodexSessionState } from "@fork-me-up/codex-adapter";
 
 const invalid = { ok: false, error: { category: "invalid-input", retryable: false } };
 try {
@@ -24,7 +26,11 @@ try {
     throw new Error("invalid");
   const configuration = await resolveLocalProfileStoreConfig(JSON.stringify(value.store));
   const result = configuration.ok
-    ? await runOwnerProfileOperation(configuration.value, JSON.stringify(value.request))
+    ? ["import", "export", "delete"].includes(value.request?.operation)
+      ? await runOwnerPortabilityOperation(configuration.value, JSON.stringify(value.request), {
+          clearAdapterCache: () => clearFileCodexSessionState({ scope: "all-adapter-cache" }),
+        })
+      : await runOwnerProfileOperation(configuration.value, JSON.stringify(value.request))
     : configuration;
   const output = JSON.stringify(result);
   if (Buffer.byteLength(output, "utf8") > ownerWorkflowMaximumOutputBytes)
@@ -49,7 +55,7 @@ function readInput() {
     process.stdin.on("data", (chunk) => {
       const bytes = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
       length += bytes.length;
-      if (length > ownerWorkflowMaximumInputBytes) {
+      if (length > ownerPortabilityMaximumInputBytes) {
         clearTimeout(timer);
         process.stdin.destroy();
         reject(new Error("invalid"));

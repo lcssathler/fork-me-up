@@ -37,6 +37,7 @@ export const incrementalRefreshHardLimits = Object.freeze({
   maximumProbeEntries: 100_000,
   maximumDurationMs: 120_000,
   maximumCollections: 32,
+  maximumSessions: 128,
 });
 
 export interface IncrementalRefreshConfiguration {
@@ -134,8 +135,33 @@ interface SessionState {
   previousBytes: number;
   lastClock: number | null;
   busy: boolean;
+  disposed: boolean;
 }
 const sessions = new WeakMap<IncrementalRefreshSession, SessionState>();
+const sessionReferences = new Set<WeakRef<SessionState>>();
+const finalizedSessions = new FinalizationRegistry<WeakRef<SessionState>>((reference) =>
+  sessionReferences.delete(reference),
+);
+
+/** Invalidate current-process source state for an explicit owner deletion. */
+export function disposeIncrementalRefreshSessions(subjectRef: string): number {
+  let disposed = 0;
+  for (const reference of sessionReferences) {
+    const state = reference.deref();
+    if (state === undefined) {
+      sessionReferences.delete(reference);
+      continue;
+    }
+    if (state.identity.subjectRef !== subjectRef || state.disposed) continue;
+    state.disposed = true;
+    state.cache.clear();
+    state.previous = null;
+    state.previousBytes = 0;
+    if (!state.busy) sessionReferences.delete(reference);
+    disposed += 1;
+  }
+  return disposed;
+}
 const identifier = /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}(?![\s\S])/u;
 
 export function createIncrementalRefreshSession(
@@ -146,6 +172,13 @@ export function createIncrementalRefreshSession(
   ports: IncrementalRefreshPorts = {},
 ): CreateIncrementalRefreshResult {
   try {
+    for (const reference of sessionReferences) {
+      const state = reference.deref();
+      if (state === undefined || (state.disposed && !state.busy))
+        sessionReferences.delete(reference);
+    }
+    if (sessionReferences.size >= incrementalRefreshHardLimits.maximumSessions)
+      return failure("invalid-input");
     if (
       !isIssuedAuthorizedRepositoryConfig(authorization) ||
       !isIssuedDeveloperIdentityConfig(identity) ||
@@ -176,7 +209,14 @@ export function createIncrementalRefreshSession(
       previousBytes: 0,
       lastClock: null,
       busy: false,
+      disposed: false,
     });
+    const state = sessions.get(session);
+    if (state !== undefined) {
+      const reference = new WeakRef(state);
+      sessionReferences.add(reference);
+      finalizedSessions.register(state, reference);
+    }
     return Object.freeze({ ok: true, value: session });
   } catch {
     return failure("invalid-input");
@@ -188,7 +228,7 @@ export async function refreshLocalRepositories(
   requestJson: string,
 ): Promise<RefreshLocalRepositoriesResult> {
   const state = sessions.get(session);
-  if (state === undefined) return failure("not-configured");
+  if (state === undefined || state.disposed) return failure("not-configured");
   if (state.busy) return failure("busy");
   let request: IncrementalRefreshRequest;
   try {
@@ -203,6 +243,7 @@ export async function refreshLocalRepositories(
     const readNow = state.ports.now ?? (() => performance.now());
     let clockInvalid = false;
     const now = () => {
+      if (state.disposed) throw new Error("session-disposed");
       if (clockInvalid) throw new Error("invalid-clock");
       let current: number;
       try {
@@ -494,6 +535,11 @@ export async function refreshLocalRepositories(
   } catch {
     // No cached payload is returned when the injected clock or an internal operation fails.
     state.cache.clear();
+    if (state.disposed) {
+      state.previous = null;
+      state.previousBytes = 0;
+      return failure("not-configured");
+    }
     return failure("invalid-clock");
   } finally {
     state.busy = false;

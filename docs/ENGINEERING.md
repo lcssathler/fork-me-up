@@ -201,6 +201,8 @@ M2-S08 makes `FMU-E-009` and `FMU-E-010` executable at the private Demand produc
 
 M2-S10 exercises `FMU-E-005` through persisted/reloaded correction and Core DCP compilation: owner input controls behavior, archival knowledge is not projected as current, and original provenance stays privately inspectable. Its `FMU-E-011` evaluation verifies owner acknowledgment after persistence and prior-state retention after failed staging. Real subprocess tests cover the no-LLM CLI.
 
+M2-S11 exercises `FMU-E-015` through redacted export, absent-only import and subsequent Core intersection: canaries stay out of artifacts/results and historical knowledge remains excluded after correction round trips. Unit fault injection covers persistence/readback/cleanup failures, deletion barriers and session disposal. Real filesystem/subprocess tests isolate Store and adapter roots, verify cache deletion and non-resurrection, reject junctions and preserve source/unrelated files. Full aggregate checks and focused human review remain integration gates.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate

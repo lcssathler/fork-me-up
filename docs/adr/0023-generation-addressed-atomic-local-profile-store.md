@@ -26,6 +26,8 @@ Allowed effects are local code/document edits, temporary synthetic store directo
 
 ## Consequences and alternatives
 
+M2-S11 refinement: [ADR-0028](0028-owner-portability-and-verified-deletion.md) adds a mutation gate around writes, explicit migration and deletion to prevent late activation after deletion. The original no-persistent-lock decision above describes M2-S06; it is superseded for this coordination boundary. Generation-addressed compare-and-set and verified immutable activation remain. Abandoned gates fail closed and require owner recovery after writers stop; leases are never broken automatically.
+
 Committed files are append-then-prune rather than in-place replacements, so the prior valid value survives staging, activation, readback, and cleanup failures. Recovery is deterministic and does not need a mutable pointer file. Storage remains bounded during normal operation; an abnormal directory with too many recognized candidates fails closed for explicit maintenance instead of scanning without limit.
 
 In-place truncate/write, rename-overwrite of the only copy, an automatically broken lease lock, trusting file extensions without content validation, activating a temporary after restart, silently skipping unsupported versions, or reporting success before readback is rejected. SQLite, an external lock package, encryption, OS keychains, backup services, and owner workflows are deferred because they expand this local single-owner slice.

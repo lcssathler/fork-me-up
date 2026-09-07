@@ -10,4 +10,9 @@ export {
   type CodexProfileProvider,
   type CodexSessionState,
 } from "./codex-hook-adapter.ts";
-export { createFileCodexSessionState } from "./file-session-state.ts";
+export {
+  createFileCodexSessionState,
+  clearFileCodexSessionState,
+  type FileCodexSessionStateOptions,
+  type ClearFileCodexSessionStateResult,
+} from "./file-session-state.ts";

@@ -31,6 +31,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0025](0025-source-backed-demand-profile-producer.md) | Accepted | Produce bounded current-project Demand Profiles with source authenticity and one material clarification. |
 | [ADR-0026](0026-bounded-incremental-local-refresh.md) | Accepted | Refresh multiple local repositories through a bounded private source cache while preserving observation age and complete-set risk ceilings. |
 | [ADR-0027](0027-local-owner-correction-workflow.md) | Accepted | Preserve owner correction history through verified local writes, conservative refresh and effective task projection. |
+| [ADR-0028](0028-owner-portability-and-verified-deletion.md) | Accepted | Add redacted owner portability and verified Store/cache deletion with persistent barriers and bounded recovery. |
 
 ## Record format
 
