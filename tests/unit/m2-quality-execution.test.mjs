@@ -1,8 +1,24 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { executeQualityCase } from "../../scripts/measure-m2-quality.mjs";
+import {
+  executeQualityCase,
+  qualityControlEnvironment,
+} from "../../scripts/measure-m2-quality.mjs";
 import { scoreQualityCase } from "../../scripts/m2-quality-scoring.mjs";
+
+test("frozen controls receive no inherited Node test recursion marker", () => {
+  const original = {
+    NODE_TEST_CONTEXT: "child-v8",
+    PATH: "synthetic-path",
+    SystemRoot: "synthetic-system",
+  };
+  const isolated = qualityControlEnvironment(original);
+  assert.equal(Object.hasOwn(isolated, "NODE_TEST_CONTEXT"), false);
+  assert.equal(isolated["PATH"], original.PATH);
+  assert.equal(isolated["SystemRoot"], original.SystemRoot);
+  assert.equal(original.NODE_TEST_CONTEXT, "child-v8");
+});
 
 test("escaped case exceptions preserve every frozen denominator and redact native errors", async () => {
   const manifest = JSON.parse(

@@ -11,6 +11,14 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const freezeCommit = "3bf29ea6c8ba5671ed673c128acb8d2f8b855db0";
 const freezePath = "docs/evaluations/m2-quality-freeze.json";
 const samplePath = "docs/evaluations/m2-quality-sample.json";
+/** Start the frozen tests as a separate runner, without the parent node:test recursion marker.
+ * @param {NodeJS.ProcessEnv} [environment]
+ */
+export function qualityControlEnvironment(environment = process.env) {
+  const isolated = { ...environment };
+  delete isolated["NODE_TEST_CONTEXT"];
+  return isolated;
+}
 /**
  * Preserve a case even if a future runner defect escapes its stage handlers.
  * @param {Parameters<typeof runQualityCase>[0]} definition
@@ -138,6 +146,7 @@ export async function runQualityMeasurement() {
     ["--test", "--test-reporter=tap", ...manifest.controls],
     {
       cwd: root,
+      env: qualityControlEnvironment(),
       encoding: "utf8",
       timeout: 180000,
       maxBuffer: 4194304,
