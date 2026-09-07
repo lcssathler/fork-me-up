@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M2-S14: document the researched core evidence method and its AI-assisted development limits; freeze 48 synthetic quality cases, ten invariance pairs and zero-error conformance gates under the owner's delegated decision (ADR-0031), before measurement.
+
 - M2-S13 connects explicit local source configuration, incremental refresh, correction-preserving Store persistence and owner operations with real Store-backed MCP context delivery. The bounded launcher preserves fixture compatibility and consumer/source authority separation. Synthetic end-to-end tests exercise refresh, restart, diagnostics, export and deletion without a network or model service. See [local workflow](docs/LOCAL_COMMUNITY.md) and [ADR-0030](docs/adr/0030-local-community-workflow-composition.md).
 
 - M2-S12 adds bounded owner capability-evidence lookup and read-only doctor diagnostics for installation, Store schemas/gates, adapter cache and optional DCP size/expiry/budgets. Outputs contain only allowlisted metadata, opaque references, fixed states and counts; private text and native loader errors are omitted. See [owner diagnostics](docs/OWNER_WORKFLOW.md#evidence-lookup-and-doctor) and [ADR-0029](docs/adr/0029-owner-evidence-and-safe-diagnostics.md).

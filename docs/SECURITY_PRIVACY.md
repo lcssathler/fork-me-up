@@ -304,6 +304,8 @@ Corrections archive original Claims/Evidence under distinct opaque IDs. Refresh 
 
 ## 11. Gates
 
+Evidence interpretation is also a trust boundary: Git identities, prose claiming human/AI authorship and generated-style paths cannot establish comprehension or original authorship. The [evidence method](EVIDENCE_METHOD.md) documents this limit. M2 quality reports contain only synthetic case identifiers and bounded results; the [frozen protocol](evaluations/M2_QUALITY_PROTOCOL.md) preserves negative attribution, redaction, authority and owner-control checks without exposing source data.
+
 ### Before Community implementation is considered safe
 
 - Initial threat model reviewed.

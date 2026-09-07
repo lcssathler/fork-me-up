@@ -213,6 +213,8 @@ M2-S07 implements the first pure Community producer. It admits only authentic so
 
 ### 5.4 Developer Profile
 
+The [evidence method](EVIDENCE_METHOD.md) and [ADR-0031](adr/0031-evidence-method-and-frozen-quality-protocol.md) document why identity association, artifact-origin indicators and human understanding remain separate. The current Community pipeline uses no AI detector or learned expertise classifier. M2 quality evaluation freezes its expected behavior before measurement and reports conformance without converting synthetic rates into population accuracy.
+
 The Developer Profile is the canonical private state. It may contain more claims and evidence references than any single consumer needs. It is:
 
 - versioned;

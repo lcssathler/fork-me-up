@@ -1,0 +1,20 @@
+{
+  "experimentVersion": "m2-quality-0.2.0",
+  "hashing": "sha256-raw-utf8-file-bytes",
+  "controlRevision": "0c882e73d282c35bd70b7faec57612be1069463d",
+  "files": {
+    "docs/evaluations/m2-quality-sample.json": "19a515ae9556bc8a16119ee827fd353809551e4362ad556b904209dc346d3f83",
+    "docs/evaluations/M2_QUALITY_PROTOCOL.md": "2910e87c48f5019f609bb2b0c6987df63105bf28dfbe3ce7c66ce9119a4022dd",
+    "docs/EVIDENCE_METHOD.md": "cc8a7b3c98c247e7cbdf4cae1e71364086daf85958f8758c5c453df3249b23ba",
+    "docs/adr/0031-evidence-method-and-frozen-quality-protocol.md": "203319428016a9ba326a0d226d664ed8b2157ea3d2c51aad1569bf54fcc08cc8",
+    "tests/integration/filesystem-metadata-collector.test.mjs": "3eea6df285edc44b8c2bd18bd559ac7bbee85fbce1b59c13aee74254f9343be8",
+    "tests/integration/git-metadata-collector.test.mjs": "13bf3f15602d38d433f9f6bc540ad65c5b371f5337f6ac24c9614021b3a632cf",
+    "tests/integration/owner-profile-diagnostics.test.mjs": "19df7efcf620e00ac9cbdc0133a99f0257dec628eff457f476f5ac1d32c13174",
+    "tests/unit/owner-profile-diagnostics.test.mjs": "07abad20443fa8de39758acf1ce556bc926b23edad3a8dbf4d49fc2348d5c7d6",
+    "tests/integration/local-community-workflow.test.mjs": "dc1505b301047f2b8b0b779764c9ab7feedd06c078b553bd31ad9bf6faf96dc1",
+    "tests/helpers/owner-profile-fixture.mjs": "48b4902eca71c7598f228036934bc2a7f2b65a9fb01eff86645e766eed2d1430",
+    "tests/helpers/local-community-fixture.mjs": "b12a0a6c998fbaff4e7fa6169de44f7516e163b0b42bc98d8183bb8263c64a85",
+    "tests/helpers/incremental-refresh-fixture.mjs": "09c074d2f0bf327464421e2c55201c918ebd421048440e797563dbdec3d42a7b",
+    "fixtures/dcp/0.1.0/valid/insufficient-evidence.json": "c53fb3d6f62f51d02bc4bff2d5dd57d295f0a918a915cd4247885bf1f0bec1fe"
+  }
+}

@@ -237,7 +237,7 @@ Source Grants and Sharing Grants are independent. Authorizing repository ingesti
 
 ### 11.1 Claim states
 
-- `demonstrated`: direct attributable evidence supports practical use or depth.
+- `demonstrated`: selected attributable evidence supports the stated exposure, practical use or depth within its recorded scope; it does not certify understanding or unaided ability.
 - `adjacent`: evidence supports a transfer hypothesis from a related capability, not equivalence.
 - `self-declared`: explicitly stated by the developer and not independently evidenced.
 - `insufficient-evidence`: available evidence cannot support a stronger claim.
@@ -256,6 +256,12 @@ Observed depth and confidence are separate. Confidence describes support for the
 Stronger evidence includes explicit corrections, attributable changes, decisions, tests, failure handling, security or performance work, meaningful refactoring, and repeated use. Confidence is reduced for uncertain identity, team code, forks, templates, tutorials, generated or vendored files, unused dependencies, bots, pair work without attribution, old evidence, and isolated keywords.
 
 No single unverified source may independently produce `demonstrated-depth` with high confidence.
+
+### 11.4 AI-assisted development and interpretation limits
+
+AI assistance alone neither establishes nor negates a developer's understanding. Git attribution is a configured metadata association, not proof of who typed, reviewed or understood each line. Generated-source indicators describe possible artifact/provenance limitations; they must not be presented as detection of AI use. Path indicators may be wrong about actual origin, and unflagged content remains origin-unverified. Explicit bot coauthors/committers do not erase recognized human participation; ordinary collaboration limits remain visible.
+
+The current Community two-observation practical-use rule is a project-evidence heuristic, not a validated scale of expertise. All its automated claims remain project-scoped and at most medium confidence/practical-use. The [evidence method](EVIDENCE_METHOD.md) records primary-source research, rejected alternatives and interpretation limits. The [M2 quality protocol](evaluations/M2_QUALITY_PROTOCOL.md) measures frozen synthetic conformance, including assisted-workflow invariance; its rates must not be advertised as human knowledge accuracy or human acceptance rates. [ADR-0031](adr/0031-evidence-method-and-frozen-quality-protocol.md) records the owner-delegated decision.
 
 ## 12. Primary use cases
 

@@ -37,4 +37,6 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 
 ## Record format
 
+[ADR-0031](0031-evidence-method-and-frozen-quality-protocol.md) is accepted: distinguish evidence interpretation from AI/knowledge detection and freeze the owner-delegated M2 quality protocol before measurement.
+
 Each ADR should contain status, date, context, decision, consequences, rejected alternatives when relevant, and validation evidence. ADRs record durable decisions, not implementation progress.
