@@ -357,6 +357,8 @@ The first source-backed Community Demand producer (`M2-S08`) accepts explicit st
 
 The first incremental Community refresh (`M2-S09`, `FMU-FR-017`/`FMU-FR-020`) uses a bounded private process-local cache. Unchanged metadata within an explicit maximum observation age avoids content rescanning and Git processes; it still performs bounded path and metadata verification. Original source age, cache origin, fingerprint changes and partial/invalid outcomes remain inspectable. `fresh` refresh status means the source cache passed current validation, independently of each Claim's stale flag. An incomplete source set cannot produce a new aggregate assessment that drops the limitations of missing repositories. Restart or changed configuration begins a cold cache; persisted correction/declaration workflows remain later work.
 
+M2-S10 provides manual inspection and correction through a bounded local owner CLI (`FMU-FR-013`/`FMU-FR-014`). Corrections, disputes and rejections preserve original automated provenance while overriding interpretation; declarations never become observed depth. History survives source refresh/removal and restart, and only verified persistence reports success. Historical automated Claims remain privately inspectable but are excluded from current task knowledge. Notes remain private and inert. See [owner workflow](OWNER_WORKFLOW.md).
+
 ## 16. Product stages
 
 ### Technical MVP
