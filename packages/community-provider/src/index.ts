@@ -204,3 +204,9 @@ export {
   type DeleteLocalProfileStoreResult,
 } from "./local-profile-store.ts";
 export { disposeIncrementalRefreshSessions } from "./incremental-refresh.ts";
+export {
+  runOwnerDiagnostics,
+  ownerDiagnosticsLimits,
+  type OwnerDiagnosticsOptions,
+  type OwnerDiagnosticsResult,
+} from "./owner-profile-diagnostics.ts";

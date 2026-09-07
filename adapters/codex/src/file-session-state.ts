@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { constants, type BigIntStats } from "node:fs";
 import {
   chmod,
   lstat,
@@ -13,7 +14,12 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, normalize } from "node:path";
-import type { CodexCachedGuidance, CodexSessionState } from "./codex-hook-adapter.ts";
+import { TextDecoder } from "node:util";
+import {
+  renderCodexGuidance,
+  type CodexCachedGuidance,
+  type CodexSessionState,
+} from "./codex-hook-adapter.ts";
 
 const maximumCacheBytes = 8_192;
 const defaultStateRoot = join(tmpdir(), "fork-me-up-codex-adapter-v1");
@@ -36,6 +42,20 @@ export type ClearFileCodexSessionStateResult =
         readonly retryable: boolean;
       };
     };
+export interface InspectFileCodexSessionStateResult {
+  readonly status:
+    "ready" | "absent" | "deleted" | "busy" | "invalid" | "unavailable" | "limit-exceeded";
+  readonly entries: number;
+  readonly fresh: number;
+  readonly stale: number;
+}
+class CacheInspectionFault extends Error {
+  readonly status: InspectFileCodexSessionStateResult["status"];
+  constructor(status: InspectFileCodexSessionStateResult["status"]) {
+    super(status);
+    this.status = status;
+  }
+}
 class CacheFault extends Error {
   readonly category: "deletion-incomplete" | "conflict" | "not-authorized";
   constructor(category: "deletion-incomplete" | "conflict" | "not-authorized") {
@@ -157,6 +177,144 @@ export async function clearFileCodexSessionState(
       error: Object.freeze({ category, retryable: category !== "not-authorized" }),
     });
   }
+}
+
+/** Read-only owner diagnostics: no root creation, permission changes, gates or cleanup. */
+export async function inspectFileCodexSessionState(
+  request: { readonly at: string },
+  options: FileCodexSessionStateOptions = {},
+): Promise<InspectFileCodexSessionStateResult> {
+  try {
+    if (
+      !isRecord(request) ||
+      Object.keys(request).length !== 1 ||
+      !inspectionTimestamp(request["at"])
+    )
+      return inspectionResult("invalid");
+    const root = await operationalRoot(configuredRoot(options), options.root === undefined);
+    let before;
+    try {
+      before = await inspectionRoot(root);
+    } catch (error) {
+      if (isMissing(error)) return inspectionResult("absent");
+      throw error;
+    }
+    const barrier = await inspectionControl(root);
+    const directory = await opendir(root);
+    const names: string[] = [];
+    let count = 0;
+    for await (const entry of directory) {
+      if (++count > maximumDirectoryEntries) throw new CacheInspectionFault("limit-exceeded");
+      if (recognizedName.test(entry.name)) names.push(entry.name);
+    }
+    if (names.some((name) => !name.endsWith(".json")) || (barrier && names.length > 0))
+      throw new CacheInspectionFault("invalid");
+    let bytes = 0;
+    let fresh = 0;
+    let stale = 0;
+    for (const name of names.sort()) {
+      const read = await readInspectionEntry(root, name, 2_097_152 - bytes);
+      bytes += read.bytes;
+      if (read.value.expiresAt > request.at) fresh += 1;
+      else stale += 1;
+    }
+    const afterBarrier = await inspectionControl(root);
+    const after = await inspectionRoot(root);
+    if (!sameInspectionStamp(before, after) || barrier !== afterBarrier)
+      throw new CacheInspectionFault("busy");
+    return inspectionResult(barrier ? "deleted" : "ready", names.length, fresh, stale);
+  } catch (error) {
+    return inspectionResult(
+      error instanceof CacheInspectionFault
+        ? error.status
+        : error instanceof CacheFault
+          ? "invalid"
+          : "unavailable",
+    );
+  }
+}
+
+async function inspectionRoot(root: string): Promise<BigIntStats> {
+  const before = await lstat(root, { bigint: true });
+  await verifyRoot(root);
+  const after = await lstat(root, { bigint: true });
+  if (!sameInspectionStamp(before, after)) throw new CacheInspectionFault("busy");
+  return after;
+}
+async function inspectionControl(root: string): Promise<boolean> {
+  if (await inspectFile(root, join(root, lockName))) throw new CacheInspectionFault("busy");
+  return isDeleted(root);
+}
+async function readInspectionEntry(
+  root: string,
+  name: string,
+  remainingBytes: number,
+): Promise<{ readonly value: CodexCachedGuidance; readonly bytes: number }> {
+  const path = join(root, name);
+  await inspectFile(root, path);
+  const before = await lstat(path, { bigint: true });
+  if (!before.isFile() || before.isSymbolicLink()) throw new CacheInspectionFault("invalid");
+  if (before.size > BigInt(maximumCacheBytes)) throw new CacheInspectionFault("limit-exceeded");
+  const handle = await open(path, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
+  try {
+    const opened = await handle.stat({ bigint: true });
+    if (!opened.isFile() || !sameInspectionStamp(before, opened))
+      throw new CacheInspectionFault("busy");
+    const buffer = Buffer.alloc(Math.min(maximumCacheBytes + 1, remainingBytes + 1));
+    let bytes = 0;
+    while (bytes < buffer.length) {
+      const read = await handle.read(buffer, bytes, buffer.length - bytes, bytes);
+      if (read.bytesRead === 0) break;
+      bytes += read.bytesRead;
+    }
+    if (bytes > maximumCacheBytes || bytes > remainingBytes)
+      throw new CacheInspectionFault("limit-exceeded");
+    const finished = await handle.stat({ bigint: true });
+    const after = await lstat(path, { bigint: true });
+    if (
+      !sameInspectionStamp(opened, finished) ||
+      !sameInspectionStamp(opened, after) ||
+      BigInt(bytes) !== finished.size
+    )
+      throw new CacheInspectionFault("busy");
+    await verifyRoot(root);
+    let value: CodexCachedGuidance;
+    try {
+      value = JSON.parse(
+        new TextDecoder("utf-8", { fatal: true }).decode(buffer.subarray(0, bytes)),
+      ) as CodexCachedGuidance;
+    } catch {
+      throw new CacheInspectionFault("invalid");
+    }
+    if (renderCodexGuidance(value) === null) throw new CacheInspectionFault("invalid");
+    return { value, bytes };
+  } finally {
+    await handle.close();
+  }
+}
+function sameInspectionStamp(left: BigIntStats, right: BigIntStats): boolean {
+  return (
+    left.dev === right.dev &&
+    left.ino === right.ino &&
+    left.mode === right.mode &&
+    left.size === right.size &&
+    left.mtimeNs === right.mtimeNs &&
+    left.ctimeNs === right.ctimeNs
+  );
+}
+function inspectionTimestamp(value: unknown): value is string {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z(?![\s\S])/u.test(value))
+    return false;
+  const time = Date.parse(value);
+  return Number.isFinite(time) && new Date(time).toISOString() === value.replace("Z", ".000Z");
+}
+function inspectionResult(
+  status: InspectFileCodexSessionStateResult["status"],
+  entries = 0,
+  fresh = 0,
+  stale = 0,
+): InspectFileCodexSessionStateResult {
+  return Object.freeze({ status, entries, fresh, stale });
 }
 
 function configuredRoot(options: FileCodexSessionStateOptions): string {

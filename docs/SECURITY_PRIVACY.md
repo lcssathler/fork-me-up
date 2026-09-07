@@ -258,6 +258,8 @@ Before Cloud beta, the project must publish and test:
 
 ## 10. Security test matrix
 
+M2-S12's owner evidence view hashes identifiers, preserves typed history/current distinctions, validates nested public metadata and emits only exact known limitation codes or fixed omission markers. Doctor emits fixed component states and bounded counts rather than profile, packet, cache or native-error content. Store mutation markers are inspected with canonical directory checks; they are never acquired or removed. Adapter cache diagnostics use bounded no-follow regular-file reads, fatal UTF-8 and exact guidance validation, compare file/root stamps and check gates/barriers before and after scanning. Malformed, redirected, changing or oversized state cannot be reported ready. Missing installation dependencies produce a fixed CLI failure without loader diagnostics. Schema validation is not an authorization or secret-scanning claim; optional DCP input is measured but never returned. No source collection, migration or repair occurs. Synthetic canary/non-mutation tests and `FMU-E-015` verify these boundaries; [owner diagnostics](OWNER_WORKFLOW.md#evidence-lookup-and-doctor) documents limits and unchecked installation/client state.
+
 Required cases include:
 
 - valid and escaped roots;

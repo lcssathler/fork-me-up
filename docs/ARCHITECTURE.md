@@ -278,6 +278,8 @@ Store mutation gates now coordinate writes and migration against a persistent de
 
 ## 6. Provider interface
 
+M2-S12 implements bounded owner capability-evidence lookup and `doctor` through the first-party CLI. Evidence summaries reuse the public Provider evidence shape and validate it before returning a private owner view with typed assessment/history and explicit truncation. Diagnostic references are hashes and limitation text is an exact allowlist. This does not enable evidence disclosure through consumer MCP. Doctor independently reports actual module/runtime checks, Store validation and mutation-gate state, adapter-owned read-only cache inventory, and optional DCP size/expiry/budget validation. The Community service receives a trusted adapter probe without importing a client. It exposes only fixed states/counts, performs no repair, and explicitly identifies checks it cannot perform. See [ADR-0029](adr/0029-owner-evidence-and-safe-diagnostics.md).
+
 An `EvidenceCollector` or `SourceAdapter` reads an authorized source and emits normalized evidence; it does not own profile or delivery semantics. A `ProfileProvider` may be the local Community implementation, an independent implementation, or Fork Me Up Cloud. It can operate from collectors or an imported profile and need not collect sources itself. At minimum it must be able to:
 
 - report supported protocol versions and capabilities;

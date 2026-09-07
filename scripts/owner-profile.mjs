@@ -1,16 +1,11 @@
 import { Buffer } from "node:buffer";
 import { TextDecoder } from "node:util";
 import { setTimeout, clearTimeout } from "node:timers";
-import {
-  ownerPortabilityMaximumInputBytes,
-  ownerWorkflowMaximumOutputBytes,
-  resolveLocalProfileStoreConfig,
-  runOwnerProfileOperation,
-  runOwnerPortabilityOperation,
-} from "@fork-me-up/community-provider";
-import { clearFileCodexSessionState } from "@fork-me-up/codex-adapter";
+const ownerPortabilityMaximumInputBytes = 4_194_304;
+const ownerWorkflowMaximumOutputBytes = 262_144;
 
 const invalid = { ok: false, error: { category: "invalid-input", retryable: false } };
+let loadingInstallation = false;
 try {
   if (process.argv.length !== 2) throw new Error("invalid");
   const bytes = await readInput();
@@ -24,13 +19,37 @@ try {
     !Object.hasOwn(value, "request")
   )
     throw new Error("invalid");
-  const configuration = await resolveLocalProfileStoreConfig(JSON.stringify(value.store));
+  loadingInstallation = true;
+  const {
+    resolveLocalProfileStoreConfig,
+    runOwnerProfileOperation,
+    runOwnerPortabilityOperation,
+    runOwnerDiagnostics,
+  } = await import("@fork-me-up/community-provider");
+  const { clearFileCodexSessionState, inspectFileCodexSessionState } =
+    await import("@fork-me-up/codex-adapter");
+  loadingInstallation = false;
+  const diagnostics = ["doctor", "get-capability-evidence"].includes(value.request?.operation);
+  const configuration =
+    value.store === null && value.request?.operation === "doctor"
+      ? { ok: true, value: null }
+      : await resolveLocalProfileStoreConfig(JSON.stringify(value.store));
   const result = configuration.ok
-    ? ["import", "export", "delete"].includes(value.request?.operation)
-      ? await runOwnerPortabilityOperation(configuration.value, JSON.stringify(value.request), {
-          clearAdapterCache: () => clearFileCodexSessionState({ scope: "all-adapter-cache" }),
+    ? diagnostics
+      ? await runOwnerDiagnostics(configuration.value, JSON.stringify(value.request), {
+          installation: {
+            modules: "available",
+            runtime: process.versions.node === "24.20.0" ? "supported" : "unsupported",
+          },
+          inspectAdapterCache: (at) => inspectFileCodexSessionState({ at }),
         })
-      : await runOwnerProfileOperation(configuration.value, JSON.stringify(value.request))
+      : configuration.value === null
+        ? invalid
+        : ["import", "export", "delete"].includes(value.request?.operation)
+          ? await runOwnerPortabilityOperation(configuration.value, JSON.stringify(value.request), {
+              clearAdapterCache: () => clearFileCodexSessionState({ scope: "all-adapter-cache" }),
+            })
+          : await runOwnerProfileOperation(configuration.value, JSON.stringify(value.request))
     : configuration;
   const output = JSON.stringify(result);
   if (Buffer.byteLength(output, "utf8") > ownerWorkflowMaximumOutputBytes)
@@ -38,7 +57,10 @@ try {
   process.stdout.write(`${output}\n`);
   process.exitCode = result.ok ? 0 : 1;
 } catch {
-  process.stdout.write(`${JSON.stringify(invalid)}\n`);
+  const result = loadingInstallation
+    ? { ok: false, error: { category: "installation-unavailable", retryable: false } }
+    : invalid;
+  process.stdout.write(`${JSON.stringify(result)}\n`);
   process.exitCode = 1;
 }
 

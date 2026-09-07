@@ -203,6 +203,8 @@ M2-S10 exercises `FMU-E-005` through persisted/reloaded correction and Core DCP 
 
 M2-S11 exercises `FMU-E-015` through redacted export, absent-only import and subsequent Core intersection: canaries stay out of artifacts/results and historical knowledge remains excluded after correction round trips. Unit fault injection covers persistence/readback/cleanup failures, deletion barriers and session disposal. Real filesystem/subprocess tests isolate Store and adapter roots, verify cache deletion and non-resurrection, reject junctions and preserve source/unrelated files. Full aggregate checks and focused human review remain integration gates.
 
+M2-S12 extends `FMU-E-015` to owner evidence and doctor outputs, including sensitive private limitations, opaque identifiers, injected cache errors and DCP task content. Tests validate nested Provider metadata, historical/self-targeted correction behavior, byte/count bounds, real missing-dependency diagnostics, unchanged files/directories, cache expiry and junction rejection. Diagnostic success is checked independently from component health; no repair is performed.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate
