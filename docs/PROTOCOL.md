@@ -34,6 +34,8 @@ M2-S05 adds a second implementation-internal pre-Evidence snapshot without chang
 
 M2-S07 performs that production without changing the Evidence schema. Only the collector's normalized source language becomes a `language.*` capability signal; documents, dependency/script names, prose, and annotations cannot create a capability. Stable Evidence identifiers survive content refresh, while semantic fingerprints cover source digest, authorship/risk state, fixed limitations, and extractor version. Observation/derivation/staleness times and repository-to-project binding are explicit inputs. Refresh comparison reports changed or unavailable prior Evidence without treating an unrelated repository-head change as a source change. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
 
+M2-S09 adds private incremental orchestration without changing any Evidence, Claim or Demand envelope. Its process-local cache retains authentic collected snapshots under explicit age/work/memory limits. Cache hits preserve original source observation time, while new derivations use the oldest source observation in the complete selected set. Partial or invalid refreshes expose bounded operational state but no aggregate source payload or derivation; missing peers cannot remove cross-repository risk ceilings. Cache fingerprints, origin, check attempts, session handles and refresh reasons remain implementation-internal, not Provider operations or sharing authority. See [ADR-0026](adr/0026-bounded-incremental-local-refresh.md).
+
 ### 2.2 Claim
 
 A capability statement supported by evidence, inferred by adjacency, declared by the developer, marked as insufficiently evidenced, or disputed by the developer.

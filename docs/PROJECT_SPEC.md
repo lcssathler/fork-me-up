@@ -355,6 +355,8 @@ Irreversible or security-sensitive actions receive explanation and confirmation 
 
 The first source-backed Community Demand producer (`M2-S08`) accepts explicit structured task capabilities and optional candidate interpretations rather than interpreting natural-language prose. Selected current-project source languages provide supporting demand; an explicit collected-file selection can narrow that scope. An empty demand or equivalent interpretations do not start an onboarding questionnaire. Only interpretations with different effective capabilities/relevance or operation risk require a single clarification, and an offered answer resolves that pending decision without another question. This does not establish developer knowledge or authorize an operation. Potentially sensitive task prose is replaced with a fixed minimized summary in the produced Demand Profile. `FMU-E-009` and `FMU-E-010` verify this bounded implementation of `FMU-FR-003` and `FMU-FR-021`; natural-language interpretation and owner/client workflows remain later work.
 
+The first incremental Community refresh (`M2-S09`, `FMU-FR-017`/`FMU-FR-020`) uses a bounded private process-local cache. Unchanged metadata within an explicit maximum observation age avoids content rescanning and Git processes; it still performs bounded path and metadata verification. Original source age, cache origin, fingerprint changes and partial/invalid outcomes remain inspectable. `fresh` refresh status means the source cache passed current validation, independently of each Claim's stale flag. An incomplete source set cannot produce a new aggregate assessment that drops the limitations of missing repositories. Restart or changed configuration begins a cold cache; persisted correction/declaration workflows remain later work.
+
 ## 16. Product stages
 
 ### Technical MVP
@@ -452,4 +454,3 @@ The following require a validated need, a dedicated ADR, and an updated threat m
 - [OpenAI — Plugin authentication](https://developers.openai.com/plugins/build/auth)
 - [OpenAI — Security and privacy](https://developers.openai.com/plugins/guides/security-privacy)
 - [GitHub — Deciding when to build a GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app)
-

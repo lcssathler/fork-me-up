@@ -161,3 +161,26 @@ export {
   type DemandTaskInterpretation,
   type ProduceDemandProfileResult,
 } from "./demand-profile-producer.ts";
+export {
+  createIncrementalRefreshSession,
+  refreshLocalRepositories,
+  incrementalRefreshVersion,
+  incrementalRefreshHardLimits,
+  type CreateIncrementalRefreshResult,
+  type IncrementalRefreshConfiguration,
+  type IncrementalRefreshPorts,
+  type IncrementalRefreshRequest,
+  type IncrementalRefreshSession,
+  type IncrementalRefreshSnapshot,
+  type RefreshLocalRepositoriesResult,
+  type RefreshReason,
+  type RepositoryRefreshState,
+} from "./incremental-refresh.ts";
+export {
+  fingerprintRepository,
+  nodeRepositoryFingerprintPort,
+  type RepositoryFingerprintEntry,
+  type RepositoryFingerprintFailure,
+  type RepositoryFingerprintPort,
+  type RepositoryFingerprintResult,
+} from "./repository-fingerprint.ts";

@@ -29,6 +29,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0023](0023-generation-addressed-atomic-local-profile-store.md) | Accepted | Persist immutable generation-addressed Store files through exclusive atomic activation, deterministic recovery, and explicit migration. |
 | [ADR-0024](0024-deterministic-evidence-claim-derivation.md) | Accepted | Derive bounded project-scoped Evidence and Claims with conservative ceilings, stable fingerprints, and explicit invalidation. |
 | [ADR-0025](0025-source-backed-demand-profile-producer.md) | Accepted | Produce bounded current-project Demand Profiles with source authenticity and one material clarification. |
+| [ADR-0026](0026-bounded-incremental-local-refresh.md) | Accepted | Refresh multiple local repositories through a bounded private source cache while preserving observation age and complete-set risk ceilings. |
 
 ## Record format
 
