@@ -38,3 +38,12 @@ jobs:
 
       - name: Run deterministic baseline checks
         run: npm run check
+
+      - name: Preserve minimized quality failure reports
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: m2-quality-failures
+          path: build/m2-quality-failures/
+          if-no-files-found: ignore
+          retention-days: 14

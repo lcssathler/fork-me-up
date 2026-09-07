@@ -11,6 +11,25 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const freezeCommit = "3bf29ea6c8ba5671ed673c128acb8d2f8b855db0";
 const freezePath = "docs/evaluations/m2-quality-freeze.json";
 const samplePath = "docs/evaluations/m2-quality-sample.json";
+/**
+ * Preserve a case even if a future runner defect escapes its stage handlers.
+ * @param {Parameters<typeof runQualityCase>[0]} definition
+ * @param {Parameters<typeof runQualityCase>[1]} manifest
+ * @param {typeof runQualityCase} [execute]
+ */
+export async function executeQualityCase(definition, manifest, execute = runQualityCase) {
+  try {
+    return await execute(definition, manifest);
+  } catch {
+    const required = manifest.ownerExercises.includes(definition.caseId);
+    return {
+      snapshot: null,
+      publicChecks: { passed: false, failureCodes: ["runner-exception"] },
+      ownerExercise: { required, passed: !required, failureCodes: required ? ["not-reached"] : [] },
+      failureCodes: ["runner-exception"],
+    };
+  }
+}
 /** @param {string[]} args */
 function git(args) {
   return execFileSync(
@@ -91,7 +110,7 @@ export async function runQualityMeasurement() {
   const cases = [];
   const ownerExercises = [];
   for (const definition of manifest.cases) {
-    const execution = await runQualityCase(definition, manifest);
+    const execution = await executeQualityCase(definition, manifest);
     const scored = scoreQualityCase(definition, manifest.fixed, execution.snapshot);
     cases.push({
       ...scored,
