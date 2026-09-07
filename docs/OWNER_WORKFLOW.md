@@ -1,5 +1,7 @@
 # Local owner inspection, corrections and portability
 
+For selected-source collection and Store-backed MCP delivery, use the [complete local Community workflow](LOCAL_COMMUNITY.md). Its owner mode accepts the same request objects directly, with Store configuration supplied once at launch.
+
 M2-S10 provides a first-party local CLI without an LLM or network service. Run it from the repository using the pinned Node.js version:
 
 ```text

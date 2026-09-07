@@ -1,0 +1,24 @@
+# ADR-0030: Complete local Community workflow composition
+
+- Status: Accepted
+- Date: 2026-09-07
+
+## Context and task contract
+
+M2-S12 is integrated through PR #32 at `77a8af3` after the complete 225-unit/56-integration/19-evaluation aggregate and required Windows CI. Main is synchronized and its topic branch removed. The owner explicitly authorizes sequential completion of every M2 slice, English commits, branch publication, tested integration and progress summaries between slices. M2-S13 is claimed on `feat/m2-s13-local-community-workflow`.
+
+Traceability: M2-S13; FMU-FR-016/023; FMU-NFR-004/011/016; M2 local-utility exit gate; ADR-0016/0018 through 0029. The observable outcome is a documented first-party local workflow from explicit selected synthetic repositories through persisted/corrected profile, real Store-backed context delivery to an MCP consumer, diagnostics, export and verified deletion. Scope is composition over existing boundaries, a Store-backed Provider, a bounded local configuration/command launcher, asynchronous Provider support in the existing MCP transport, synthetic end-to-end checks and synchronized documentation. Existing public schemas, dependencies and fixture behavior remain stable. No account, network/model runtime, arbitrary source execution, private-source access, release, remote connector or quality measurement is introduced.
+
+## Decision
+
+An explicitly selected local configuration file binds existing repository authorization, developer identity, source-risk configuration, refresh budgets, Store identity and current project/repository. Reuse each authentic resolver and reject mismatched identities/mappings. Read configuration with bounded regular-file/canonical checks; never discover directories or execute content. A process-local runtime retains an incremental session and last complete authentic metadata only. Owner refresh explicitly collects and commits through correction-preserving Store persistence; incomplete refresh cannot replace valid history or publish partial aggregate context.
+
+The owner mode accepts bounded sequential JSON commands for refresh, task context and existing inspection/correction/diagnostic/portability operations. A separate MCP mode serves the existing read-only public operations through a Store-backed Provider. Consumer requests carry no source roots or owner commands and never trigger collection or persistence. Load and revalidate the Store for each protected request, respecting deletion barriers and fixed unavailable errors. Derive task demand from explicit capabilities and authentic current-project metadata when available; withhold unavailable metadata rather than inventing it. Core remains responsible for correction precedence, task intersection, redaction and disclosure budgets.
+
+Use asynchronous Provider invocation in the existing MCP transport while retaining compatibility with the synchronous fixture provider. Synthetic end-to-end verification acts as the compatible consumer; checked-in Codex fixture hooks and trust settings are not silently changed. Owner export/deletion remain explicitly requested operations with the M2-S11 scope and barriers, and doctor remains read-only. Document first-run setup, refresh, restart, corrected context delivery, export/deletion and every degraded state.
+
+## Validation and stopping conditions
+
+The composition rejects Store/source overlap in either direction before creating a refresh session. Malformed owner commands do not invalidate usable runtime context. An accepted but incomplete refresh blocks that runtime's protected Provider surface until verified persistence succeeds; the prior Store remains recoverable. The launcher caps configuration at 128 KiB, owner lines at 4 MiB, sessions at 256 sequential commands and results at 256 KiB. Existing operation limits remain tighter where applicable. Consumer requests reload Store state without collection; when metadata is unavailable after restart they use explicit requested capabilities. See [local usage](../LOCAL_COMMUNITY.md).
+
+Run pinned clean installation, all schemas/unit/integration/evaluation checks, dependency audit and required PR CI. End-to-end tests create temporary real Git repositories and isolated Store/adapter roots, use the actual CLI and MCP subprocesses, prove unchanged-input cache reuse, repeated correction precedence after refresh/restart, content-budget/redaction, source preservation and verified export/deletion. Negative tests cover malformed/oversized/redirected config, forged authority, mismatched identity/project, interrupted/incomplete refresh, deleted/unavailable Store and consumer rejection of owner operations. Independent review covers composition and trust boundaries. Stop on source execution, leaked authority, false saved acknowledgment, partial-source inflation, correction loss, unsafe consumer disclosure or an unresolved high-severity defect.

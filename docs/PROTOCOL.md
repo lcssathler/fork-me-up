@@ -323,6 +323,8 @@ M2-S01 keeps owner-selected local roots and repository paths in a versioned impl
 
 ## 9. Initial MCP contract
 
+M2-S13 serves the existing public read operations from an explicit local Store through an asynchronous Provider. MCP awaits either synchronous fixture or asynchronous Store responses; public envelopes and tool names remain unchanged. Owner configuration fixes the current project/repository and never enters consumer requests. Protected calls reload Store state and respect corrections, age limits and deletion barriers. Task demand uses explicit capability requests plus authentic project metadata only when present; consumer calls cannot refresh sources or mutate the Store. See [ADR-0030](adr/0030-local-community-workflow-composition.md).
+
 The initial surface is deliberately small and read-oriented.
 
 The transport-neutral request and response envelopes are `urn:fork-me-up:profile-provider:0.1.0#/$defs/request` and `#/$defs/response`. MCP, SDK, CLI, or file adapters map these envelopes without changing their meaning; this schema does not define transport framing, authentication, lifecycle, or side-effect metadata.

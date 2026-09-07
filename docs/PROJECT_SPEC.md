@@ -363,6 +363,8 @@ M2-S11 implements owner import, redacted export and verified managed local delet
 
 ## 16. Product stages
 
+M2-S13 connects the local Community workflow without an account, network/model runtime or proprietary service (`FMU-FR-016`/`FMU-FR-023`, `FMU-NFR-004`/`FMU-NFR-011`/`FMU-NFR-016`). A documented owner launcher collects, persists, corrects, diagnoses, exports and deletes; a separate Store-backed MCP mode serves bounded current-project context. Source authority never crosses into consumer requests. Synthetic end-to-end verification exercises actual subprocesses and real temporary Git repositories; this does not constitute a packaged release or a new live-client hook integration. See [local usage](LOCAL_COMMUNITY.md).
+
 M2-S12 adds owner-only bounded capability evidence and read-only local diagnostics (`FMU-FR-010`/`FMU-FR-022`/`FMU-FR-023`/`FMU-FR-026`). Evidence metadata preserves assessment/history while omitting private content; doctor reports installation/module, Store schema/gate, adapter cache and optional DCP size/expiry/budget state. Missing or unchecked components remain explicit. Existing public contracts and consumer disclosures are unchanged. See [owner diagnostics](OWNER_WORKFLOW.md#evidence-lookup-and-doctor).
 
 ### Technical MVP

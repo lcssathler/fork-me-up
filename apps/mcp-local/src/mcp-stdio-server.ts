@@ -1,6 +1,8 @@
 import { once } from "node:events";
 import { Buffer } from "node:buffer";
 import type { LocalFixtureProfileProvider } from "@fork-me-up/community-provider";
+type ProfileProviderResponse = ReturnType<LocalFixtureProfileProvider["invoke"]>;
+type ProfileProviderCapabilities = LocalFixtureProfileProvider["capabilities"];
 
 const mcpProtocolVersion = "2025-11-25";
 const maximumInputLineBytes = 65_536;
@@ -14,7 +16,10 @@ type JsonRpcId = string | number | null;
 type InputStream = NodeJS.ReadableStream & AsyncIterable<Uint8Array | string>;
 
 export async function serveMcpStdio(
-  provider: LocalFixtureProfileProvider,
+  provider: {
+    readonly capabilities: ProfileProviderCapabilities;
+    invoke(request: unknown): ProfileProviderResponse | Promise<ProfileProviderResponse>;
+  },
   input: InputStream,
   output: NodeJS.WritableStream,
 ): Promise<void> {
@@ -105,13 +110,27 @@ export async function serveMcpStdio(
       return;
     }
     requestSequence += 1;
-    const providerResponse = provider.invoke({
-      schemaVersion: "0.1.0",
-      kind: "profile-provider-request",
-      requestId: `request_mcp_${String(requestSequence)}`,
-      operation,
-      input: message.params.arguments ?? {},
-    });
+    let providerResponse;
+    try {
+      providerResponse = await provider.invoke({
+        schemaVersion: "0.1.0",
+        kind: "profile-provider-request",
+        requestId: `request_mcp_${String(requestSequence)}`,
+        operation,
+        input: message.params.arguments ?? {},
+      });
+      if (
+        providerResponse.schemaVersion !== "0.1.0" ||
+        providerResponse.kind !== "profile-provider-response" ||
+        !["success", "error"].includes(providerResponse.outcome) ||
+        providerResponse.operation !== operation ||
+        providerResponse.requestId !== `request_mcp_${String(requestSequence)}`
+      )
+        throw new Error("Invalid provider response.");
+    } catch {
+      await writeMessage(jsonRpcError(message.id, -32603, "Internal error."));
+      return;
+    }
     const serializedResponse = JSON.stringify(providerResponse);
     await writeMessage(
       jsonRpcResult(message.id, {
@@ -176,7 +195,7 @@ const toolDefinitions = Object.freeze([
   {
     name: "get_task_context",
     description:
-      "Compile a bounded task-scoped Developer Context Packet from the local fixture profile.",
+      "Compile a bounded task-scoped Developer Context Packet from the configured local profile.",
     inputSchema: taskContextInputSchema,
     annotations: {
       readOnlyHint: true,

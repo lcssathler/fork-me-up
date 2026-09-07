@@ -210,3 +210,10 @@ export {
   type OwnerDiagnosticsOptions,
   type OwnerDiagnosticsResult,
 } from "./owner-profile-diagnostics.ts";
+export {
+  createLocalCommunityRuntime,
+  localCommunityLimits,
+  type LocalCommunityRuntimeOptions,
+  type LocalCommunityRuntime,
+} from "./local-community-runtime.ts";
+export { createLocalStoredProfileProvider } from "./local-stored-profile-provider.ts";
