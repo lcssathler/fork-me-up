@@ -36,6 +36,7 @@
     "test": "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",
     "eval": "node scripts/run-test-suite.mjs eval",
+    "measure:m2": "node scripts/measure-m2-quality.mjs",
     "check": "node scripts/run-checks.mjs",
     "schema:check": "node scripts/check-schemas.mjs"
   },

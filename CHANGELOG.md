@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M2-S15: add a reproducible command for the frozen synthetic evidence-quality experiment, independent adversarial scorer tests, real owner/consumer checks and immutable result output (ADR-0032).
+
 - M2-S14: document the researched core evidence method and its AI-assisted development limits; freeze 48 synthetic quality cases, ten invariance pairs and zero-error conformance gates under the owner's delegated decision (ADR-0031), before measurement.
 
 - M2-S13 connects explicit local source configuration, incremental refresh, correction-preserving Store persistence and owner operations with real Store-backed MCP context delivery. The bounded launcher preserves fixture compatibility and consumer/source authority separation. Synthetic end-to-end tests exercise refresh, restart, diagnostics, export and deletion without a network or model service. See [local workflow](docs/LOCAL_COMMUNITY.md) and [ADR-0030](docs/adr/0030-local-community-workflow-composition.md).
