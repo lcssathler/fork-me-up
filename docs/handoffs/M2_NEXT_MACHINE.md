@@ -1,12 +1,14 @@
-# M2 handoff for the next machine
+# Historical M2-S15 machine handoff
+
+> Status: fulfilled by the [M2-S16 exit audit](../audits/M2_EXIT_AUDIT.md) on September 8, 2026. This file preserves the S15 transfer evidence and no longer routes current work.
 
 ## Stop point and owner direction
 
-The owner requested completion of the current M2-S15 stage and then a stop to continue on another machine. **Do not start M2-S16 automatically.** M2 as a whole is not complete. This handoff belongs to the M2-S15 integration; only after its PR checks and main integration are verified does S16 become eligible.
+The owner requested completion of M2-S15 and then a stop to continue on another machine. At that stop point M2 as a whole was not complete, and M2-S16 could not start automatically. This handoff belonged to the M2-S15 integration; S16 became eligible only after its PR checks and `main` integration were verified and a new owner request arrived.
 
 The preceding M2-S14 integrated as PR34, main commit `3bf29ea6c8ba5671ed673c128acb8d2f8b855db0`. It researched and documented the core evidence method, explicitly delegated by the owner after discussion of AI-assisted programming. Full local checks and PR/postmerge CI passed. The branch was deleted before S15 began.
 
-S15's final clean evaluator measurement at `747ad89e5a2491332b6a413813108af99590918f` passed every frozen gate. Its [final raw report](../evaluations/results/m2-quality-final.json) is committed alongside earlier passing and failed reports. [PR35](https://github.com/lcssathler/fork-me-up/pull/35), `test: measure frozen evidence quality [M2-S15]`, records the integration and required CI checks. The proposed roadmap transitions become authoritative upon successful protected integration. After that integration, stop on clean updated `main` with the S15 branch removed; S16 remains unstarted and requires a new owner request.
+S15's final clean evaluator measurement at `747ad89e5a2491332b6a413813108af99590918f` passed every frozen gate. Its [final raw report](../evaluations/results/m2-quality-final.json) is committed alongside earlier passing and failed reports. [PR35](https://github.com/lcssathler/fork-me-up/pull/35), `test: measure frozen evidence quality [M2-S15]`, records the integration and required CI checks. The protected squash integration is `b95e3cb89b8a6543e3de8d966fe147abd0eaa395`; the later owner request resumed the exact S16 audit scope below.
 
 ## Decisions that must survive the move
 
@@ -36,10 +38,10 @@ Use a full clone, not a shallow history: the evaluator verifies the integrated S
 
 With authenticated GitHub CLI, inspect S15 integration using `gh pr view 35 --json state,mergedAt,mergeCommit,statusCheckRollup`, then inspect current work with `gh pr list --state open` and `gh run list --branch main --limit 3`. Repository files and current Git/CI evidence outrank this handoff if another change has since integrated. Preserve unrelated working-tree changes and active task claims.
 
-## Next eligible work, only after a new request
+## Former next-work contract, now completed
 
-Read `AGENTS.md`, the six normative documents, the ordered [roadmap](../ROADMAP.md) and relevant accepted ADRs. Confirm S15 is integrated, its CI passed, and no task already claims S16. Create one short S16 branch from updated main and record its task contract.
+The resuming task read `AGENTS.md`, the six normative documents, the ordered [roadmap](../ROADMAP.md), and all accepted ADRs; confirmed S15 integration, CI, and ownership; then created one short S16 branch from updated `main` and recorded its task contract.
 
-M2-S16 must audit **every** M2 deliverable, required evaluation (`FMU-E-005`, `FMU-E-007` through `FMU-E-011`, `FMU-E-015`), named security case, exit criterion and cross-milestone quality gate against integrated code and current results. It needs a fresh checkout/install/check, source/consumer/owner boundary evidence, persistence/recovery/cache/deletion checks, documentation/compatibility review, dependency/security review and remote protected-main evidence. The quality report alone does not close M2. Add tests or fixes only for demonstrated gaps, using synthetic data. Complete M2 only after that audit's required checks, reviewed authorized integration and successful postmerge CI. Do not start M3 or publish a release as part of this handoff.
+M2-S16 was required to audit **every** M2 deliverable, required evaluation (`FMU-E-005`, `FMU-E-007` through `FMU-E-011`, `FMU-E-015`), named security case, exit criterion, and cross-milestone quality gate against integrated code and current results. The [resulting audit](../audits/M2_EXIT_AUDIT.md) records the fresh checkout/install/check, source/consumer/owner boundary evidence, persistence/recovery/cache/deletion checks, documentation/compatibility review, dependency/security review, and remote protected-main evidence. It found only stale navigation/status documentation, which S16 corrects without starting M3 or publishing a release.
 
 Known limits: ephemeral source cache; same-OS-user trust boundary; content-free Store/adapter deletion barriers intentionally remain; no automatic stale-lock breaking; platform-specific directory-sync limits; exported copies/backups are not erased by local deletion. Consumers do not trigger collection. The existing Codex fixture hooks remain limited; actual Community delivery is through the tested Store-backed MCP launcher, not a claimed new live-client integration.

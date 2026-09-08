@@ -2,7 +2,7 @@
 
 > Status: active development; unreleased
 > Version: 0.1  
-> Last updated: September 5, 2026
+> Last updated: September 8, 2026
 
 This roadmap orders work by uncertainty and risk, not by feature count or calendar promises. A milestone begins only when its entry conditions are satisfied and ends only when its exit gate has executable evidence.
 
@@ -22,8 +22,8 @@ Cloud work must not outrun protocol, evidence quality, local trust, or willingne
 |---|---|---|
 | M0 | Normative and reproducible foundation | Complete |
 | M1 | Client-neutral behavioral vertical slice | Complete |
-| M2 | Trustworthy local evidence and profile | In progress |
-| M3 | Portable Community release | Not started |
+| M2 | Trustworthy local evidence and profile | Complete |
+| M3 | Portable Community release | Ready |
 | M4 | Pro alpha with managed selected repositories | Not started |
 | M5 | Commercial MLP with governed remote MCP | Not started |
 | M6 | Demand-led ecosystem and enterprise expansion | Deferred |
@@ -292,7 +292,7 @@ The project owner explicitly decides before:
 
 ## 12. M0 execution record
 
-This ordered table records how M0 was delivered. It no longer routes new work; Section 14 is the current execution queue. A historical slice state became authoritative only after its evidence was reviewed and integrated into `main`.
+This ordered table records how M0 was delivered. It no longer routes new work; Section 15 is the current execution queue. A historical slice state became authoritative only after its evidence was reviewed and integrated into `main`.
 
 States have precise meanings:
 
@@ -445,7 +445,7 @@ No `FMU-E-*` evaluation applies because this slice audits foundations and govern
 
 ## 13. M1 execution record
 
-This ordered table records how M1 was delivered. It no longer routes new work; Section 14 is the current execution queue. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 still apply.
+This ordered table records how M1 was delivered. It no longer routes new work; Section 15 is the current execution queue. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 still apply.
 
 | Order | Slice | State | Observable outcome | Prerequisites and traceability |
 |---:|---|---|---|---|
@@ -553,9 +553,9 @@ The behavioral proof is intentionally bounded to the client-neutral structured p
 
 No M1 exit blocker remains. The proposed M1 `Complete`, M1-S07 `Complete`, M2 `Ready`, and M2-S01 `Ready` transitions become authoritative only after this audit revision passes required pull-request CI and integrates into protected `main`.
 
-## 14. Current M2 execution queue
+## 14. M2 execution record
 
-This is the routing source for a request such as "continue the roadmap" after M1-S07 integrates. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 apply. An unassigned task takes at most the earliest eligible incomplete slice. Each collector slice uses only synthetic repositories and must remain offline, bounded, non-executing, and inside an explicitly authorized root.
+This ordered table records how M2 was delivered. It no longer routes new work; Section 15 is the current execution queue. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 still apply. Every collector slice used only synthetic repositories and remained offline, bounded, non-executing, and inside an explicitly authorized root.
 
 | Order | Slice | State | Observable outcome | Prerequisites and traceability |
 |---:|---|---|---|---|
@@ -574,7 +574,7 @@ This is the routing source for a request such as "continue the roadmap" after M1
 | 13 | `M2-S13` — End-to-end local Community workflow | `Complete` | A clean local workflow selects authorized local repositories, collects evidence, persists/corrects a profile, compiles task context, serves the compatible consumer, diagnoses state, exports, and deletes without an account, network, dedicated LLM API, or proprietary service; verification uses only synthetic repositories. | M2-S12; `FMU-FR-016`, `FMU-FR-023`; `FMU-NFR-004`, `FMU-NFR-011`, `FMU-NFR-016`; M2 local-utility exit gate. |
 | 14 | `M2-S14` — Evidence-quality experiment brief | `Complete` | The owner-delegated research decision freezes 48 cases, two languages, ten invariance pairs and zero-error conformance thresholds in a hashed protocol before measurement, with AI-assisted-development interpretation limits. | M2-S13 and the M2 measurement exit gate; ADR-0031 and the frozen quality protocol. |
 | 15 | `M2-S15` — Limited-taxonomy quality measurement | `Complete` | The frozen sample runs reproducibly and reports false-`demonstrated`, attribution, unknown, correction, and rejection outcomes against the accepted thresholds without tuning the brief after results. | M2-S14; M2 measurement exit gate; Project Specification profile-quality metrics. |
-| 16 | `M2-S16` — M2 exit audit | `Ready` | An integrated audit runs every required behavioral, persistence, recovery, cache, owner-control, security, clean-install, and local-utility gate and either closes M2 or names a blocker. | M2-S01 through M2-S15; full M2 exit gate, required evaluations, and cross-milestone quality gates. |
+| 16 | `M2-S16` — M2 exit audit | `Complete` | An integrated audit runs every required behavioral, persistence, recovery, cache, owner-control, security, clean-install, and local-utility gate and either closes M2 or names a blocker. | M2-S01 through M2-S15; full M2 exit gate, required evaluations, and cross-milestone quality gates. The audit is recorded in [`docs/audits/M2_EXIT_AUDIT.md`](audits/M2_EXIT_AUDIT.md). |
 
 ### M2-S01 authorized-root configuration boundary
 
@@ -728,4 +728,32 @@ The final clean measurement at `747ad89e5a2491332b6a413813108af99590918f` passed
 
 The pinned Windows offline clean install and full aggregate passed: 250 unit tests, all schema corpora, 59 integration tests and 19 behavioral evaluations. The point-in-time dependency audit reported zero vulnerabilities. Independent review found no remaining blocker. CI checks out the freeze history and preserves minimized failed integration reports; missing/skipped controls still fail closed.
 
-The S15 `Complete` and S16 `Ready` transitions become authoritative only after required PR CI and authorized integration into protected `main`. The owner explicitly requested a stop after S15 to continue on another machine. **Do not start S16 in this execution.** The [machine handoff](handoffs/M2_NEXT_MACHINE.md) records decisions, reproducible setup, results, retained limitations and the exact next audit scope. M2 remains in progress until S16 verifies every milestone exit gate.
+The S15 `Complete` and S16 `Ready` transitions became authoritative after required PR CI and authorized integration into protected `main`. At the S15 stop point, the owner required continuation on another machine, so S16 could not start in that execution. The [historical machine handoff](handoffs/M2_NEXT_MACHINE.md) preserves the decisions, reproducible setup, results, retained limitations, and exact audit scope that the later S16 task followed.
+
+### M2-S16 M2 exit audit
+
+The [M2 exit audit](audits/M2_EXIT_AUDIT.md) independently reviews integrated revision `b95e3cb89b8a6543e3de8d966fe147abd0eaa395`, including the complete M2 deliverables, required evaluations, named security cases, exit criteria and cross-milestone gates. Focused review of the S15 squash commit found no production-runtime, public-schema or dependency change and no scoring/control defect. Current runtime, checks and workflow paths are identical to the measured implementation revision; the evaluator retains failed denominators and runs all frozen controls without inherited test-runner skip state.
+
+A full clean Windows clone with Node.js 24.20.0 and npm 11.19.0 installed the locked graph without lifecycle scripts and passed formatting, lint, strict type checking, 250 unit tests, every schema corpus, 59 integrations and 19 behavioral evaluations with no failure or skip. A fresh frozen measurement passed 48/48 cases, 52/52 attribution records, ten expected unknown records, 10/10 invariances, 2/2 owner exercises and 23/23 controls. Dependency, license, tracked-file/symlink, credential-pattern, Markdown-link, local-authority and authenticated protected-main reviews found no unresolved critical/high issue or compatibility overclaim.
+
+The only demonstrated gap was stale navigation and governance prose that still routed work to early M2/M1 state and described an ended integration exception. M2-S16 corrects those claims, adds no runtime behavior, contract, dependency, migration, release, platform support or source connector, and records all retained local limitations in the audit. No new `FMU-E-*` applies because this slice audits existing behavior rather than changing it.
+
+The proposed M2 `Complete`, M3 `Ready`, M2-S16 `Complete`, and M3-S01 `Ready` transitions become authoritative only after this audit revision passes required pull-request CI and integrates into protected `main`.
+
+## 15. Current M3 execution queue
+
+This is the routing source for a request such as "continue the roadmap" after M2-S16 integrates. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 apply. An unassigned task takes at most the earliest eligible incomplete slice. M3 begins with local unpublished artifact boundaries; no queue state itself authorizes a package/release publication, network source, external consumer with personal data, private-repository access, or another external effect.
+
+| Order | Slice | State | Observable outcome | Prerequisites and traceability |
+|---:|---|---|---|---|
+| 1 | `M3-S01` — Community packaging and release boundary | `Ready` | An accepted ADR fixes exact public package/artifact boundaries, entry points, build outputs, publication safeguards and content allowlists; a deterministic local dry-run produces inspectable unpublished artifacts from the existing client-neutral workspaces without internal path/data leakage. | M2 exit; M3 public SDK/package and package-dry-run deliverables; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`, `FMU-NFR-018`; ADR-0005; `VERSIONING.md`; Engineering release gate. |
+| 2 | `M3-S02` — Public Protocol SDK and conformance distribution | `Blocked by M3-S01` | Locally installable artifacts expose the public Protocol SDK, schemas, fixtures and provider/consumer conformance suite with explicit exports/types and fail-closed supported/unsupported-version tests. | M3-S01; `FMU-FR-009`, `FMU-FR-010`, `FMU-FR-023`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`; M3 public SDK/protocol/conformance deliverable. |
+| 3 | `M3-S03` — Independent generic conformance consumer | `Blocked by M3-S02` | A materially different, client-neutral conformance consumer installs only public artifacts and preserves the same Claim meaning and required response-policy intent as the existing reference adapter without a Core fork. | M3-S02; hypothesis H-04; `FMU-FR-024`; `FMU-E-016`; M3 two-consumer exit gate. |
+| 4 | `M3-S04` — Import/export and compatibility matrix | `Blocked by M3-S03` | Released-artifact candidates exercise supported and unsupported Provider/DCP/Export/Store boundaries, owner export/import round trips, explicit update/migration/rejection behavior, and recovery without conflating private Store and public interchange formats. | M3-S03; `FMU-FR-009`, `FMU-FR-015`, `FMU-FR-023`; `FMU-NFR-009`, `FMU-NFR-020`; M3 tested import/export and compatibility deliverable. |
+| 5 | `M3-S05` — Cross-platform install, update, and uninstall | `Blocked by M3-S04` | Clean Windows, macOS and Linux jobs install exact local artifacts, complete the synthetic Community value loop, update across supported candidate versions, and uninstall/delete managed state while preserving sources and explicit owner-retained exports. | M3-S04; `FMU-FR-015`, `FMU-FR-016`, `FMU-FR-022`; `FMU-NFR-010`, `FMU-NFR-017`, `FMU-NFR-020`; M3 platform/install exit gates. |
+| 6 | `M3-S06` — Optional public-history decision and boundary | `Blocked by M3-S05` | After the local release path is proven, the owner either excludes selected public-history access with a recorded usefulness decision or authorizes exact existing authentication/network boundaries for an opt-in bounded implementation and accepted security ADR. The release remains useful without this source. | M3-S05; M3 bounded optional public-history deliverable; Section 11 source decision; `FMU-FR-002`, `FMU-FR-016`, `FMU-FR-026`; `FMU-NFR-004`, `FMU-NFR-012`; Architecture Section 4.2. Transition to `Owner decision required` after M3-S05. |
+| 7 | `M3-S07` — Public Community benchmark | `Blocked by M3-S06` | A reproducible public benchmark reports repeated calibration, token/disclosure cost, false-Claim outcomes, attribution limits and behavior-policy adherence across both consumers without turning synthetic conformance into human-accuracy or ranking claims. | Resolved M3-S06 decision; hypotheses H-02 through H-04 and H-06; `FMU-E-001` through `FMU-E-016` where Community-relevant; M3 benchmark deliverable. |
+| 8 | `M3-S08` — Release documentation and compatibility table | `Blocked by M3-S07` | Public quickstart, contribution/security/versioning/changelog/migration/removal guidance and one tested compatibility table let a new user complete the local loop while stating exact transport, auth, lifecycle, platform and consumer limits. | M3-S07; `FMU-FR-013` through `FMU-FR-016`, `FMU-FR-022` through `FMU-FR-025`; `FMU-NFR-009`, `FMU-NFR-010`, `FMU-NFR-016`, `FMU-NFR-020`; M3 documentation and local-utility exit gates. |
+| 9 | `M3-S09` — Reproducible release-candidate supply chain | `Blocked by M3-S08` | Protected CI builds a clean local release candidate, reruns every Community-relevant check, installs/uninstalls exact artifacts, rejects unexpected contents, and produces reviewed license/SBOM reports, checksums and provenance/signing evidence where supported plus rollback/withdrawal instructions. | M3-S08; `FMU-NFR-017`, `FMU-NFR-018`; T-11; Engineering release gate; M3 protected-CI and artifact deliverables. |
+| 10 | `M3-S10` — Public Community release | `Blocked by M3-S09` | With explicit owner authorization, the exact protected release candidate is published through the selected channels and its immutable source, artifacts, checksums, SBOM, provenance, documentation and compatibility record are read back and matched. | M3-S09; M3 objective and release-built-from-protected-revision gate; Section 11 publication decision. Transition to `External authorization required` after M3-S09. |
+| 11 | `M3-S11` — M3 exit audit | `Blocked by M3-S10` | An integrated audit verifies every M3 deliverable, required evaluation, platform/install/update/export/delete/uninstall test, artifact/release record and cross-milestone gate, then either closes M3 or names a blocker. | M3-S01 through M3-S10; full M3 exit gate, `FMU-E-016`, all Community-relevant prior evaluations, and cross-milestone quality gates. |

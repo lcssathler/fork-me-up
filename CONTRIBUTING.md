@@ -1,6 +1,6 @@
 # Contributing to Fork Me Up
 
-Fork Me Up has completed its public M0 foundation and is beginning the ordered M1 behavioral work. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under the [roadmap](docs/ROADMAP.md), security policy, and review requirements below. Public visibility and milestone completion are not product releases or permission to bypass the current queue.
+Fork Me Up has completed M0 through M2 and is preparing the ordered M3 Community-release work. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under the [roadmap](docs/ROADMAP.md), security policy, and review requirements below. Public visibility and milestone completion are not product releases or permission to bypass the current queue.
 
 ## Before starting
 
@@ -32,14 +32,14 @@ The aggregate command executes these checks in order and stops at the first fail
 | `npm run format:check` | Prettier checks configuration and source formats; Markdown is excluded. |
 | `npm run lint` | ESLint with zero warnings allowed. |
 | `npm run typecheck` | Strict TypeScript and JavaScript tooling checks, without emission. |
-| `npm test` | Non-empty Node.js unit suite, including Protocol/Core profile, policy, Demand-intersection, and bounded DCP compiler boundaries. |
+| `npm test` | Non-empty Node.js unit suite covering Protocol/Core behavior and the bounded Community source, Store, owner, Provider, and adapter boundaries. |
 | `npm run schema:check` | Exact domain, internal Store, Profile Provider, and provider/consumer conformance draft schemas and positive/negative synthetic fixtures, with bounded reads and contract-specific semantic checks. |
-| `npm run test:integration` | Integration suite, currently an explicit `bootstrap-not-applicable` exception. |
-| `npm run eval` | FMU-E-001 through FMU-E-004 policy, FMU-E-006 relevance, and FMU-E-012/FMU-E-013 compiler evaluations; provider/adapter/model behavior remains a later gate. |
+| `npm run test:integration` | Non-empty real-process/filesystem suite for local source collection, persistence/recovery, owner operations, Provider/MCP/Codex delivery, security boundaries, and the frozen M2 measurement. |
+| `npm run eval` | Community-relevant FMU-E-001 through FMU-E-015 where applicable; FMU-E-016 remains gated on a materially different second consumer. |
 
-The integration exception ends when its named boundary exists; adding a matching test makes the exception fail until removed. See the [committed suite exceptions](config/test-suite-exceptions.json) for the exact ending condition and [ADR-0006](docs/adr/0006-baseline-checks-and-ci.md) for the policy. Do not report this exception as product tests passing. The evaluation suite is now non-empty and has no exception.
+Unit, integration, and evaluation suites are non-empty and have no bootstrap exception. The fail-closed suite policy remains in [ADR-0006](docs/adr/0006-baseline-checks-and-ci.md); an empty suite is an error unless a future bootstrap boundary has a complete, current, explicitly scoped exception.
 
-The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. All M0 draft contract validation, M1 Protocol/Core unit coverage, and FMU-E-001 through FMU-E-004, FMU-E-006, FMU-E-012, and FMU-E-013 are included. Automated documentation links, secret scanning, dependency review, vulnerability analysis, license checks, and the broader platform matrix remain later gates. Review Markdown, links, and disclosure manually for documentation changes; record additional checks actually run. There is no product build, release artifact, or install/uninstall command yet.
+The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. It includes the full current unit/schema/integration/evaluation baseline and the frozen M2 controls. GitGuardian runs on pull requests; dependency/vulnerability and license review plus local Markdown validation are still recorded explicitly when applicable. Automated cross-platform install/uninstall, package inspection, SBOM, license report, checksums, and provenance/signing remain M3 release gates. There is no product release artifact yet.
 
 ## Preparing a change
 
