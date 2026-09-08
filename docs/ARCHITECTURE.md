@@ -385,6 +385,8 @@ M3-S02 turns only the Protocol candidate into a locally installable private tarb
 
 M3-S03 instantiates `consumers/generic` as a materially different second consumer. Its stateless bounded JSON process depends only on the Protocol artifact, validates DCP shape, expiry and audience at the consumer boundary, and emits only Claim capability/state/depth, the six Response Policy fields, expiry and an explicit no-authority marker. It has no Core, Provider, source, profile, lifecycle, cache, network or write capability; every invalid or unavailable input produces one content-free no-context result. The same all-state fixture is compared with the Codex structured mapper through `FMU-E-016`. See [ADR-0036](adr/0036-independent-generic-conformance-consumer.md).
 
+M3-S04 turns all three library candidates into exact private local tarballs and installs them as one graph in a temporary lockfile-derived offline consumer. Artifact-only checks exercise public Provider/DCP/Export behavior and the Community Provider's private Store lifecycle: absent-only import, verified export, expected-generation update/conflict, explicit synthetic migration and recovery of a prior valid generation. Store, Export and DCP envelopes remain mutually unacceptable at the wrong boundary. This proves neither application packaging nor macOS/Linux behavior; those remain M3-S05. See [ADR-0037](adr/0037-community-artifact-compatibility-matrix.md).
+
 ## 11. Failure semantics
 
 - Optional evidence provider unavailable: return a typed partial/stale result and continue without weakening disclosure.
