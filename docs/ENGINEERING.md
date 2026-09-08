@@ -55,9 +55,25 @@ Implement the smallest end-to-end behavior. Use dependency injection at side-eff
 
 Verification includes the relevant unit, schema, contract, integration, behavioral, security, migration, platform, and clean-install checks. Compilation alone is not proof of completion.
 
+Select the smallest sufficient local verification set in the task contract:
+
+| Change | Local verification | When to broaden |
+|---|---|---|
+| Prose, navigation or historical relocation only | `npm run docs:check`, `git diff --check`, review changed claims and compare moved content with its source. | Changed examples, commands, product/security claims or a milestone gate require their relevant executable checks. |
+| Runtime, schemas, adapters or verification tooling | Focused tests while editing, then one successful final `npm run check`. | Affected contracts, security boundaries, migrations and platforms retain all their required coverage. |
+| Toolchain, dependencies, packaging, release or milestone exit | One pinned clean checkout/install and full required gate. | Additional environments or measurements only as required by the specific gate. |
+
+Required PR CI remains mandatory for every change, including documentation. The local documentation path does not weaken CI, review, release or milestone gates. If final CI is not yet available, report local verification as complete and integration as pending.
+
+Run preflight once: branch/base/status/ownership, applicable toolchain versions and dependency installation. Install with `npm ci --ignore-scripts` before testing when dependencies are missing or the lockfile/environment changed. Reuse a verified matching toolchain. Batch independent reads and bound output; retain exit codes and concise summaries so output truncation does not force a rerun. Record the tested revision or diff and relevant environment once. Repeat a passing check only when an affected input changes, a failure/new concern warrants it, or the gate explicitly requires repetition. Prose-only changes after a full check require document checks, not a new runtime suite. An initial failed check remains reportable; do not conceal it with the successful rerun.
+
+Use isolated, task-owned temporary roots. Keep required failure evidence, record retained artifacts, and remove only known disposable task artifacts when they are no longer needed. Do not rescan unrelated repositories or historical secrets for an ordinary documentation edit.
+
 ### 2.5 Documentation
 
 Update all affected normative sources in the same branch. Do not rely on a handoff message to carry a durable decision.
+
+Keep one authoritative location for each rule and one detailed record for each verification result. Prefer a link to repeating either. The editorial policy in Section 11 governs future additions as well as reorganizations.
 
 ### 2.6 Release
 
@@ -320,7 +336,12 @@ The lead reviews changed files, resolves conflicts intentionally, reruns integra
 - Public schema changes include fixtures, generated types, compatibility notes, migration behavior, and changelog.
 - ADRs record decisions; they are not used as progress logs.
 - `ROADMAP.md` records milestone state and gates; it does not redefine product behavior.
-- The handoff document contains only navigation and current status, not unique decisions.
+- The generic handoff contains navigation, not unique decisions or a duplicate current queue.
+- The roadmap is the sole authority for milestone states and the current ordered queue. README, handoffs and the documentation map link there instead of maintaining another status list. An optional task handoff records its observed revision and pending work, not a competing queue.
+- Keep completed slice narratives in `docs/history/`; retain decisions, thresholds, authorizations and verification evidence with their original task context. Archives are not current authority for external actions. Preserve links when moving material. Frozen experiment inputs/reports retain exact bytes and paths.
+- Keep README focused on purpose, setup and navigation. Put detailed implementation descriptions in the applicable subject document. Prefer short paragraphs, one rule per bullet and narrow comparison tables; do not turn a long paragraph into an equally long table cell.
+- Record task contracts and verification once in the task/PR or durable decision. Changelogs describe the outcome briefly. Routine slices need a short record/link; reserve comprehensive gate tables for milestone/security/release audits. Put long audit evidence behind a concise verdict page.
+- `npm run docs:check` enforces local Markdown targets/fragments and byte budgets for entry documents: README 7 KiB, handoff 3 KiB, documentation map 6 KiB, roadmap 40 KiB and AGENTS 12 KiB. When approaching a budget, move background to a linked subject/history file while preserving content and authority. Raising a budget requires an explicit process rationale; splitting content into mandatory recursive reading does not satisfy the reading policy.
 - English is the normative documentation language. Translations, if added, are labeled non-normative and link to the canonical source.
 
 ## 12. Definition of Done

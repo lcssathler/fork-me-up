@@ -27,6 +27,7 @@ test("the manifest and aggregate expose the declared baseline and draft schema c
   assert.deepEqual(packageJson.scripts, {
     format: 'prettier --write "**/*.{json,jsonc,yaml,yml,js,cjs,mjs,ts,cts,mts}"',
     "format:check": 'prettier --check "**/*.{json,jsonc,yaml,yml,js,cjs,mjs,ts,cts,mts}"',
+    "docs:check": "node scripts/check-docs.mjs",
     lint: "eslint . --max-warnings=0",
     mcp: "node apps/mcp-local/src/main.ts",
     typecheck: "tsc --project tsconfig.json --pretty false",
@@ -39,6 +40,7 @@ test("the manifest and aggregate expose the declared baseline and draft schema c
   });
   assert.deepEqual(baselineChecks, [
     "format:check",
+    "docs:check",
     "lint",
     "typecheck",
     "test",
