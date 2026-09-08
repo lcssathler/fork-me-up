@@ -223,7 +223,7 @@ function removeDirectoryIfPresent(directory) {
 }
 
 /** @param {string} repositoryRoot @param {string} packageRoot */
-function copyPublicAssets(repositoryRoot, packageRoot) {
+export function copyPublicAssets(repositoryRoot, packageRoot) {
   let totalBytes = 0;
   for (const asset of publicProtocolAssetFiles) {
     assertRelativePath(asset);
@@ -240,7 +240,7 @@ function copyPublicAssets(repositoryRoot, packageRoot) {
 }
 
 /** @param {string} repositoryRoot @param {string} packageRoot */
-function validateCandidateContents(repositoryRoot, packageRoot) {
+export function validateProtocolCandidateContents(repositoryRoot, packageRoot) {
   const decoder = new TextDecoder("utf-8", { fatal: true });
   const privateRoots = [repositoryRoot, repositoryRoot.replaceAll("\\", "/")];
   const userProfile = process.env["USERPROFILE"];
@@ -280,7 +280,7 @@ export function runProtocolPackageCandidate() {
     );
     const manifest = createProtocolCandidateManifest();
     writeJson(path.join(packageRoot, "package.json"), manifest);
-    validateCandidateContents(repositoryRoot, packageRoot);
+    validateProtocolCandidateContents(repositoryRoot, packageRoot);
 
     const npmCli = process.env["npm_execpath"];
     if (npmCli === undefined) throw new Error("package-manager");

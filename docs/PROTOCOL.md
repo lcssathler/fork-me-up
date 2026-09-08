@@ -457,6 +457,8 @@ Availability errors may permit the host to continue without context. Authorizati
 
 M3-S01 establishes the private dry-run boundary. M3-S02 extends its Protocol candidate with a local installable `0.0.0` tarball: exact package subpaths expose the typed root SDK, typed Provider conformance validator, all seven public `0.1.0` schemas and their public JSON fixture corpora. Exact draft `0.1.0` inputs are supported by this candidate and unsupported versions fail closed; the artifact remains private and unpublished, so this is not a released compatibility promise. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md) and [ADR-0035](adr/0035-protocol-sdk-conformance-distribution.md).
 
+M3-S04 installs that Protocol artifact together with exact private Core and Community Provider candidates. The artifact-only matrix verifies supported and rejected Provider/DCP/Export versions and keeps the Community Store version/migration lifecycle internal. Export and Store may reuse Profile payload records, but neither becomes acceptable as the other or as a DCP. See [ADR-0037](adr/0037-community-artifact-compatibility-matrix.md).
+
 ## 13. Conformance
 
 A provider or consumer is conforming only if automated tests verify:
@@ -479,6 +481,8 @@ M0-S12 adds the public [Profile Provider conformance corpus](../fixtures/conform
 M3-S02 distributes that transcript validation through the typed `@fork-me-up/protocol/conformance/profile-provider` entry point and exports every public schema and JSON fixture through exact package subpaths. The local install smoke test proves supported and unsupported draft-version behavior from the tarball alone. It does not establish transport, authorization, runtime Provider or cross-client behavioral conformance; M3-S03 retains the independent-consumer gate.
 
 M3-S03 makes the independent-consumer gate executable. The generic consumer installs the Protocol tarball through an isolated lockfile-enforced offline flow, then the `FMU-E-016` evaluation compares its complete allowlisted Claim, Response Policy and expiry projection with the Codex structured mapper for the same all-state DCP fixture. This proves equivalent structured meaning across those two tested consumers only; it does not prove equivalent model-authored prose, transport, authorization, another client or a released compatibility range.
+
+M3-S04 adds seven installed-artifact compatibility cases: supported and unsupported Provider operations/versions, DCP version rejection, owner Export/Import round trip, Store update conflict, explicit legacy migration, corrupt-newest recovery and cross-envelope rejection. Reports contain fixed case labels rather than profile content or paths. This is a private local candidate matrix, not the public compatibility table or a cross-platform release claim.
 
 ## 14. Open extension points
 

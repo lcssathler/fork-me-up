@@ -435,13 +435,17 @@ function buildPackage(repositoryRoot, outputRoot, definition) {
 /**
  * @param {{
  *   retainPackages?: boolean,
- *   outputDirectory?: "package-dry-run" | "protocol-package-staging"
+ *   outputDirectory?: "package-dry-run" | "protocol-package-staging" | "community-package-staging"
  * }} [options]
  */
 export function runCommunityPackageDryRun(options = {}) {
   const repositoryRoot = realpathSync(fileURLToPath(new URL("../", import.meta.url)));
   const outputDirectory = options.outputDirectory ?? "package-dry-run";
-  if (!["package-dry-run", "protocol-package-staging"].includes(outputDirectory)) {
+  if (
+    !["package-dry-run", "protocol-package-staging", "community-package-staging"].includes(
+      outputDirectory,
+    )
+  ) {
     throw new Error("output-boundary");
   }
   const outputRoot = path.join(repositoryRoot, "build", outputDirectory);

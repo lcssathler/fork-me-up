@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M3-S04: add private locally installable Protocol/Core/Community Provider tarballs and a lockfile-derived offline artifact consumer whose seven-case matrix verifies supported/rejected Provider/DCP/Export/Store behavior, owner export/import round trips, verified update conflicts, explicit synthetic migration, prior-generation recovery and Store/interchange separation (ADR-0037; `FMU-FR-009`, `FMU-FR-015`, `FMU-FR-023`; `FMU-NFR-009`, `FMU-NFR-020`). Cross-platform application installation, public compatibility claims and publication remain later gates.
+
 - M3-S03: add a stateless bounded generic DCP consumer that depends only on the private local Protocol artifact, validates expiry and audience, emits only allowlisted Claim/Response Policy meaning with no authority, and proves `FMU-E-016` equivalence against the Codex structured mapper through serialized artifact-install and adversarial tests (ADR-0036; H-04; `FMU-FR-024`). Model prose, general client compatibility, release versions and publication remain later gates.
 
 - M3-S02: add a private locally installable Protocol tarball with explicit typed SDK/conformance entry points, exact public schema and fixture exports, shared executable Provider transcript validation, independent repository-inventory coverage, and offline JavaScript/TypeScript supported/unsupported-version installation tests (ADR-0035; `FMU-FR-009`, `FMU-FR-010`, `FMU-FR-023`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`). Package publication, release versions, schema semantics and second-consumer conformance remain later gates.

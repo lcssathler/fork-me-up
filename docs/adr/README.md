@@ -37,6 +37,8 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 
 ## Record format
 
+[ADR-0037](0037-community-artifact-compatibility-matrix.md) is accepted: install exact private Protocol/Core/Community Provider tarballs through a lockfile-derived offline consumer and verify import/export, version rejection, update conflict, migration, recovery and Store/interchange separation.
+
 [ADR-0036](0036-independent-generic-conformance-consumer.md) is accepted: consume the public Protocol artifact through a stateless bounded CLI that preserves DCP Claim and Response Policy meaning without Core or client-specific dependencies.
 
 [ADR-0035](0035-protocol-sdk-conformance-distribution.md) is accepted: distribute a private local Protocol tarball with exact typed SDK, public schema/fixture exports and executable fail-closed Provider conformance validation.

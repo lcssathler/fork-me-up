@@ -172,6 +172,8 @@ M3-S01 adds a pre-release package boundary: only three named client-neutral work
 
 M3-S02 creates one local private Protocol tarball from that staging boundary. Exact exports and content checks admit only compiled SDK/declarations, seven public schemas and their synthetic public JSON fixtures; dedicated internal Store and development-carrier fixture trees remain excluded. The temporary consumer installs offline with lifecycle scripts disabled, and supported/unsupported-version checks run only through package exports. The tarball and npm hashes are local inspection artifacts, not a release checksum, provenance claim or publication authority. See [ADR-0035](adr/0035-protocol-sdk-conformance-distribution.md).
 
+M3-S04 creates exact private local tarballs for the existing three libraries and installs them together through a temporary lockfile derived from the official dependency closure. Lifecycle scripts stay disabled; no registry package or internal workspace is resolved outside that lock/artifact set. The installed matrix proves unsupported versions/operations fail closed, export/import preserves typed correction links without Store bookkeeping, stale updates conflict, migration is explicit, corrupt-newest recovery retains prior valid state, and Store/Export/DCP envelopes remain distinct. Reports omit profile content, canaries and paths. See [ADR-0037](adr/0037-community-artifact-compatibility-matrix.md).
+
 ### T-12 — Malicious provider, import, or DCP
 
 **Threat:** an independent provider or imported profile places instruction-like text in limitations, task summaries, extension fields, or identifiers that an adapter promotes into privileged instructions.

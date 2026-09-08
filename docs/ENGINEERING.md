@@ -227,6 +227,8 @@ M2-S13 verifies the local-utility exit gate through an actual CLI/MCP subprocess
 
 M3-S03 makes `FMU-E-016` executable against two materially different consumers. The Codex lifecycle adapter and a stateless generic JSON process receive the same all-state DCP fixture and preserve identical allowlisted Claim capability/state/depth, Response Policy and expiry meaning. The generic path is separately installed with only the Protocol artifact and rejects invalid, expired, oversized or audience-mismatched packets without emitting free text. The evaluation proves structured behavior for these two consumers, not equivalent model prose or untested compatibility.
 
+M3-S04 builds exact private tarballs for Protocol, Core and Community Provider, generates a temporary consumer lock from the official production dependency closure, and installs with lifecycle scripts disabled and offline cache use. Its seven artifact-only cases cover public version/operation rejection, owner portability, expected-generation conflict, explicit synthetic migration, prior-state recovery and Store/interchange separation. Clean verification begins with a fresh root `npm ci` and empty cache so the consumer's offline install relies only on the official lock-populated tree; the aggregate must not race another artifact build.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate

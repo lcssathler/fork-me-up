@@ -1,0 +1,12 @@
+{
+  "name": "@fork-me-up/community-compatibility-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@fork-me-up/community-provider": "0.0.0",
+    "@fork-me-up/core": "0.0.0",
+    "@fork-me-up/protocol": "0.0.0"
+  }
+}
