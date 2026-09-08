@@ -3,6 +3,7 @@ export const baselineChecks = Object.freeze([
   "docs:check",
   "lint",
   "typecheck",
+  "package:dry-run",
   "test",
   "schema:check",
   "test:integration",

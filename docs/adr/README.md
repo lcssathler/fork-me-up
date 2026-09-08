@@ -37,6 +37,8 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 
 ## Record format
 
+[ADR-0034](0034-community-package-dry-run-boundary.md) is accepted: package only the three client-neutral libraries into private bounded dry-run candidates with exact entry points, contents and publication safeguards.
+
 [ADR-0033](0033-targeted-documentation-and-verification.md) is accepted: route reading and verification by affected scope, preserve detailed history on demand and enforce compact entry documents with offline link checks.
 
 [ADR-0032](0032-reproducible-local-quality-measurement.md) is accepted: measure the frozen M2 sample through real local boundaries and independent scoring, retaining minimized failures and provenance.

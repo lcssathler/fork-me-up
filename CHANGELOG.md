@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M3-S01: add private unpublished Protocol, Core and Community Provider build candidates plus deterministic npm dry-run reports with exact entry points, content allowlists, bounded inspection and publication safeguards (ADR-0034; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`, `FMU-NFR-018`). No package version, registry publication, dependency or public-contract semantics change.
+
 - Targeted reading and verification routes, compact entry documents, preserved M0–M2 execution history and detailed M2 audit, and offline `docs:check` for links/heading fragments and entry-document budgets. Required PR CI and product/security gates remain intact; no product behavior or dependency changes (ADR-0033; `FMU-NFR-017`).
 
 - M2-S16: add the reproducible M2 exit audit, close every local-evidence, owner-control, persistence/recovery/cache/deletion, security, clean-install, quality-measurement, and local-utility gate, correct stale project-status documentation, and establish the ordered M3 Community-release queue. Runtime, public contracts, dependencies, compatibility claims, and release state are unchanged.
