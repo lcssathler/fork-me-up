@@ -383,6 +383,8 @@ M3-S01 defines private unpublished package candidates for exactly Protocol, Core
 
 M3-S02 turns only the Protocol candidate into a locally installable private tarball. Explicit root and conformance entry points carry declarations; exact asset subpaths expose the seven public draft schemas and public JSON fixture corpora while excluding the internal Store schema/corpus and development fixture carriers. Repository conformance checks delegate to the distributed validator. Core, Community Provider, applications, adapters, transport behavior and publication remain outside this artifact. See [ADR-0035](adr/0035-protocol-sdk-conformance-distribution.md).
 
+M3-S03 instantiates `consumers/generic` as a materially different second consumer. Its stateless bounded JSON process depends only on the Protocol artifact, validates DCP shape, expiry and audience at the consumer boundary, and emits only Claim capability/state/depth, the six Response Policy fields, expiry and an explicit no-authority marker. It has no Core, Provider, source, profile, lifecycle, cache, network or write capability; every invalid or unavailable input produces one content-free no-context result. The same all-state fixture is compared with the Codex structured mapper through `FMU-E-016`. See [ADR-0036](adr/0036-independent-generic-conformance-consumer.md).
+
 ## 11. Failure semantics
 
 - Optional evidence provider unavailable: return a typed partial/stale result and continue without weakening disclosure.

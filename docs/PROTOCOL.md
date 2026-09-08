@@ -384,6 +384,12 @@ The first reference adapter consumes the same Provider `0.1.0` operation in-proc
 
 Repository-local Codex command hooks deliver task guidance on `UserPromptSubmit`. `SessionStart` can restore the last unexpired allowlisted projection after resume or compaction from a bounded ephemeral cache; startup and clear remove prior state. Every optional failure emits no context and explicitly permits normal host continuation. This client profile changes no public schema and does not establish compatibility with another client. See [ADR-0017](adr/0017-codex-lifecycle-hook-adapter.md).
 
+### 9.8 Generic conformance consumer profile
+
+M3-S03 adds a second, materially different consumer as a stateless JSON command-line harness. It installs only the private local Protocol candidate and validates the DCP again through its public SDK; it imports no Core, Community Provider or Codex code. The process accepts at most 65,536 input bytes, rejects expired packets, requires an exact configured audience identifier for `external-consumer`, and produces at most 8,192 UTF-8 bytes.
+
+Successful output contains only Claim capability/state/observed-depth, DCP expiry, the six closed Response Policy fields and an explicit `authority: "none"`. Task summaries, limitations, rationale, corrections, provenance, Evidence and identifiers remain unprivileged data and are omitted. Malformed, incompatible, expired, oversized or audience-mismatched input returns one fixed content-free no-context result. This profile changes no public schema, proves no authorization mechanism and makes no general-client compatibility claim. See [ADR-0036](adr/0036-independent-generic-conformance-consumer.md).
+
 ## 10. Future remote authorization
 
 The commercial remote MCP is expected to use OAuth 2.1-compatible authorization over HTTPS.
@@ -471,6 +477,8 @@ A provider or consumer is conforming only if automated tests verify:
 M0-S12 adds the public [Profile Provider conformance corpus](../fixtures/conformance/profile-provider/0.1.0/README.md) and its [transcript schema](../schemas/conformance/profile-provider/0.1.0.schema.json). The fixtures cover all four operations, explicit subsets, typed failures, request/response correlation, advertised versions and operations, provider limits, exact DCP success, safe namespaced extensions, and content-free errors. They establish draft contract expectations only; executable provider/consumer SDKs, transports, authorization, redaction, and cross-client behavioral equivalence retain their later gates.
 
 M3-S02 distributes that transcript validation through the typed `@fork-me-up/protocol/conformance/profile-provider` entry point and exports every public schema and JSON fixture through exact package subpaths. The local install smoke test proves supported and unsupported draft-version behavior from the tarball alone. It does not establish transport, authorization, runtime Provider or cross-client behavioral conformance; M3-S03 retains the independent-consumer gate.
+
+M3-S03 makes the independent-consumer gate executable. The generic consumer installs the Protocol tarball through an isolated lockfile-enforced offline flow, then the `FMU-E-016` evaluation compares its complete allowlisted Claim, Response Policy and expiry projection with the Codex structured mapper for the same all-state DCP fixture. This proves equivalent structured meaning across those two tested consumers only; it does not prove equivalent model-authored prose, transport, authorization, another client or a released compatibility range.
 
 ## 14. Open extension points
 
