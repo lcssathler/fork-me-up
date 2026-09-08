@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M2-S16: add the reproducible M2 exit audit, close every local-evidence, owner-control, persistence/recovery/cache/deletion, security, clean-install, quality-measurement, and local-utility gate, correct stale project-status documentation, and establish the ordered M3 Community-release queue. Runtime, public contracts, dependencies, compatibility claims, and release state are unchanged.
+
 - M2-S15: add a reproducible command for the frozen synthetic evidence-quality experiment, independent adversarial scorer tests, real owner/consumer checks and immutable result output (ADR-0032).
 
 - M2-S14: document the researched core evidence method and its AI-assisted development limits; freeze 48 synthetic quality cases, ten invariance pairs and zero-error conformance gates under the owner's delegated decision (ADR-0031), before measurement.
