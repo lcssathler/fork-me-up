@@ -379,6 +379,8 @@ The Community Store boundary persists only validated internal Store envelopes. I
 
 Evidence/Claim derivation remains a separate pure boundary from that Store. It consumes only the sanitized authentic source-risk snapshot and explicit metadata, reads no filesystem or clock, and emits a Store-compatible project/evidence/claim graph plus internal fingerprints and invalidation events. Later orchestration decides when to collect, derive, and persist; later owner controls decide declarations, corrections, disputes, and rejection.
 
+M3-S01 defines private unpublished package candidates for exactly Protocol, Core and Community Provider. A bounded staging build emits JavaScript, declarations and only Protocol's required runtime schemas, then removes source/configuration and inspects the exact npm file allowlist. Root tooling, fixture-dependent applications and client adapters remain outside the package boundary. Public SDK/schema/conformance exports, application installation and publication retain later M3 gates. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md).
+
 ## 11. Failure semantics
 
 - Optional evidence provider unavailable: return a typed partial/stale result and continue without weakening disclosure.

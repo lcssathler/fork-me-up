@@ -168,6 +168,8 @@ M2-S07 adds the semantic half of refresh safety. Evidence IDs remain stable acro
 
 **Controls:** minimal dependencies, lockfile-enforced installs, dependency and license review, immutable CI action pins, minimum workflow permissions, secret scanning, SBOMs, artifact inspection, checksums, and provenance/signing when supported.
 
+M3-S01 adds a pre-release package boundary: only three named client-neutral workspaces and exact source/schema paths enter bounded staging; compilation emits no source maps; generated private manifests contain no lifecycle/publication scripts; and `npm pack --dry-run --ignore-scripts` must match an exact package-relative file allowlist. Transient staging is removed and reports reject repository paths. This creates no tarball, registry request, release checksum, provenance or publication authority. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md).
+
 ### T-12 — Malicious provider, import, or DCP
 
 **Threat:** an independent provider or imported profile places instruction-like text in limitations, task summaries, extension fields, or identifiers that an adapter promotes into privileged instructions.

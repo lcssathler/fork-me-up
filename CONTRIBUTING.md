@@ -35,6 +35,7 @@ The aggregate command executes these checks in order and stops at the first fail
 | `npm run docs:check` | Offline local Markdown target/heading validation and entry-document size budgets. |
 | `npm run lint` | ESLint with zero warnings allowed. |
 | `npm run typecheck` | Strict TypeScript and JavaScript tooling checks, without emission. |
+| `npm run package:dry-run` | Builds private Protocol, Core and Community Provider candidates, then checks exact package-relative contents without creating or publishing tarballs. |
 | `npm test` | Non-empty Node.js unit suite covering Protocol/Core behavior and the bounded Community source, Store, owner, Provider, and adapter boundaries. |
 | `npm run schema:check` | Exact domain, internal Store, Profile Provider, and provider/consumer conformance draft schemas and positive/negative synthetic fixtures, with bounded reads and contract-specific semantic checks. |
 | `npm run test:integration` | Non-empty real-process/filesystem suite for local source collection, persistence/recovery, owner operations, Provider/MCP/Codex delivery, security boundaries, and the frozen M2 measurement. |
@@ -42,7 +43,7 @@ The aggregate command executes these checks in order and stops at the first fail
 
 Unit, integration, and evaluation suites are non-empty and have no bootstrap exception. The fail-closed suite policy remains in [ADR-0006](docs/adr/0006-baseline-checks-and-ci.md); an empty suite is an error unless a future bootstrap boundary has a complete, current, explicitly scoped exception.
 
-The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. It includes the full current unit/schema/integration/evaluation baseline and the frozen M2 controls. GitGuardian runs on pull requests; dependency/vulnerability and license review plus local Markdown validation are still recorded explicitly when applicable. Automated cross-platform install/uninstall, package inspection, SBOM, license report, checksums, and provenance/signing remain M3 release gates. There is no product release artifact yet.
+The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. It includes the full current unit/schema/integration/evaluation baseline, the frozen M2 controls and private package dry-run inspection. GitGuardian runs on pull requests; dependency/vulnerability and license review plus local Markdown validation are still recorded explicitly when applicable. Automated cross-platform install/uninstall, released-artifact inspection, SBOM, license report, checksums, and provenance/signing remain later M3 release gates. There is no product release artifact yet.
 
 ## Preparing a change
 

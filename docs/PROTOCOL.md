@@ -449,6 +449,8 @@ Availability errors may permit the host to continue without context. Authorizati
 - Developer Profile Store versions and migrations are provider-internal. They never become acceptable where a Portable Profile Export or DCP is required, even when their payload records share public Evidence and Claim schemas.
 - Demand Profile versions remain public and independent from DCP versions. A Demand Profile is compiler input, not a packet, and must never be accepted as a developer assessment or delivered as a DCP.
 
+M3-S01 compiles the existing Protocol runtime root and its six validator-required schemas into a private `0.0.0` dry-run candidate. It adds no schema export, supported-version claim or released conformance surface; public SDK/schema/fixture/conformance distribution remains M3-S02. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md).
+
 ## 13. Conformance
 
 A provider or consumer is conforming only if automated tests verify:
