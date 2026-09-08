@@ -39,8 +39,8 @@ The aggregate command executes these checks in order and stops at the first fail
 | `npm run package:protocol` | Builds the private local Protocol tarball, checks exact SDK/schema/fixture/conformance exports and records package-relative inspection metadata without publishing. |
 | `npm test` | Non-empty Node.js unit suite covering Protocol/Core behavior and the bounded Community source, Store, owner, Provider, and adapter boundaries. |
 | `npm run schema:check` | Exact domain, internal Store, Profile Provider, and provider/consumer conformance draft schemas and positive/negative synthetic fixtures, with bounded reads and contract-specific semantic checks. |
-| `npm run test:integration` | Non-empty real-process/filesystem suite for local source collection, persistence/recovery, owner operations, Provider/MCP/Codex delivery, security boundaries, and the frozen M2 measurement. |
-| `npm run eval` | Community-relevant FMU-E-001 through FMU-E-015 where applicable; FMU-E-016 remains gated on a materially different second consumer. |
+| `npm run test:integration` | Non-empty real-process/filesystem suite for local source collection, persistence/recovery, owner operations, Provider/MCP/Codex delivery, isolated Protocol-artifact consumer installation, security boundaries, and the frozen M2 measurement. |
+| `npm run eval` | Community-relevant FMU-E-001 through FMU-E-016 where applicable, including same-fixture Claim/Response Policy equivalence across Codex and the generic consumer. |
 
 Unit, integration, and evaluation suites are non-empty and have no bootstrap exception. The fail-closed suite policy remains in [ADR-0006](docs/adr/0006-baseline-checks-and-ci.md); an empty suite is an error unless a future bootstrap boundary has a complete, current, explicitly scoped exception.
 

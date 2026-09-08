@@ -225,6 +225,8 @@ M2-S12 extends `FMU-E-015` to owner evidence and doctor outputs, including sensi
 
 M2-S13 verifies the local-utility exit gate through an actual CLI/MCP subprocess workflow over two temporary Git repositories: collection, unchanged cache reuse, persisted rejection, changed-source refresh, restart, corrected context, doctor, export and verified deletion. Unit tests independently exercise the Store-backed Provider and runtime failure boundaries, including no consumer source/write authority, malformed owner commands, partial refresh and Store/source overlap. Existing behavioral evaluations remain applicable; no new evaluation ID is invented for this composition gate.
 
+M3-S03 makes `FMU-E-016` executable against two materially different consumers. The Codex lifecycle adapter and a stateless generic JSON process receive the same all-state DCP fixture and preserve identical allowlisted Claim capability/state/depth, Response Policy and expiry meaning. The generic path is separately installed with only the Protocol artifact and rejects invalid, expired, oversized or audience-mismatched packets without emitting free text. The evaluation proves structured behavior for these two consumers, not equivalent model prose or untested compatibility.
+
 ## 8. CI strategy
 
 ### 8.1 Pull-request fast gate

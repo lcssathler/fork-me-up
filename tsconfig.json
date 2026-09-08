@@ -9,6 +9,7 @@
   "include": [
     "adapters/**/*.ts",
     "apps/**/*.ts",
+    "consumers/**/*.mjs",
     "eslint.config.mjs",
     "packages/**/*.ts",
     "scripts/**/*.mjs",
