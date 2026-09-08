@@ -1,10 +1,10 @@
 # Contributing to Fork Me Up
 
-Fork Me Up has completed M0 through M2 and is preparing the ordered M3 Community-release work. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under the [roadmap](docs/ROADMAP.md), security policy, and review requirements below. Public visibility and milestone completion are not product releases or permission to bypass the current queue.
+See the [roadmap](docs/ROADMAP.md) for milestone status and eligible work. The repository is visible, `main` is protected, and the real Windows baseline check is mandatory. Contributions may be proposed through pull requests under that queue, security policy, and review requirements below. Public visibility and milestone completion are not product releases or permission to bypass the current queue.
 
 ## Before starting
 
-Read the [project specification](docs/PROJECT_SPEC.md), [protocol](docs/PROTOCOL.md), [architecture](docs/ARCHITECTURE.md), [security and privacy invariants](docs/SECURITY_PRIVACY.md), [engineering process](docs/ENGINEERING.md), [roadmap](docs/ROADMAP.md), and relevant accepted [ADRs](docs/adr/README.md). [AGENTS.md](AGENTS.md) defines authority, task contracts, and ownership rules for coding agents. English is the canonical documentation language.
+Start with the [documentation map](docs/README.md) and follow the subject-specific reading routes in [AGENTS.md](AGENTS.md). Read affected normative sections and accepted decisions before changing them; full milestone/security/release audits still require their complete gate coverage. English is the canonical documentation language.
 
 For an ordinary bug report, provide the affected revision, expected and actual behavior, and a minimal synthetic reproduction. Request scope alignment before substantial changes. Use [SECURITY.md](SECURITY.md) for suspected vulnerabilities; do not disclose them in an ordinary issue or pull request.
 
@@ -25,11 +25,14 @@ npm run check
 
 Stop and correct the environment if versions differ. Keep the committed lockfile and dependency lifecycle scripts disabled. Do not bypass engine checks or change dependencies just to make setup pass.
 
+That is the reproducible full baseline. For subsequent changes, select local checks using the [verification matrix](docs/ENGINEERING.md#24-verification). Prose-only edits use `npm run docs:check` and `git diff --check`; required PR CI still runs the full aggregate. Reuse successful checks on unchanged inputs instead of repeating the aggregate after each prose edit.
+
 The aggregate command executes these checks in order and stops at the first failure:
 
 | Command | Current coverage |
 |---|---|
 | `npm run format:check` | Prettier checks configuration and source formats; Markdown is excluded. |
+| `npm run docs:check` | Offline local Markdown target/heading validation and entry-document size budgets. |
 | `npm run lint` | ESLint with zero warnings allowed. |
 | `npm run typecheck` | Strict TypeScript and JavaScript tooling checks, without emission. |
 | `npm test` | Non-empty Node.js unit suite covering Protocol/Core behavior and the bounded Community source, Store, owner, Provider, and adapter boundaries. |
