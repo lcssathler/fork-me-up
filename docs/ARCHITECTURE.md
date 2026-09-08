@@ -381,6 +381,8 @@ Evidence/Claim derivation remains a separate pure boundary from that Store. It c
 
 M3-S01 defines private unpublished package candidates for exactly Protocol, Core and Community Provider. A bounded staging build emits JavaScript, declarations and only Protocol's required runtime schemas, then removes source/configuration and inspects the exact npm file allowlist. Root tooling, fixture-dependent applications and client adapters remain outside the package boundary. Public SDK/schema/conformance exports, application installation and publication retain later M3 gates. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md).
 
+M3-S02 turns only the Protocol candidate into a locally installable private tarball. Explicit root and conformance entry points carry declarations; exact asset subpaths expose the seven public draft schemas and public JSON fixture corpora while excluding the internal Store schema/corpus and development fixture carriers. Repository conformance checks delegate to the distributed validator. Core, Community Provider, applications, adapters, transport behavior and publication remain outside this artifact. See [ADR-0035](adr/0035-protocol-sdk-conformance-distribution.md).
+
 ## 11. Failure semantics
 
 - Optional evidence provider unavailable: return a typed partial/stale result and continue without weakening disclosure.

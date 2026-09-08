@@ -1,6 +1,7 @@
 export { isDemandProfile } from "./demand-profile.ts";
 export { isDeveloperContextPacket, utf8ByteLength } from "./developer-context-packet.ts";
 export { isPortableProfileExport } from "./portable-profile-export.ts";
+export { isProfileProviderConformanceTranscript } from "./provider-conformance.ts";
 export {
   isProfileProviderCapabilities,
   isProfileProviderRequest,
@@ -40,6 +41,8 @@ export type {
   ProfileFreshnessStatus,
   ProfileMetadata,
   ProfileProviderCapabilities,
+  ProfileProviderConformanceTranscript,
+  ProfileProviderExchange,
   ProfileProviderError,
   ProfileProviderErrorCategory,
   ProfileProviderOperation,

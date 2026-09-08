@@ -36,6 +36,7 @@ The aggregate command executes these checks in order and stops at the first fail
 | `npm run lint` | ESLint with zero warnings allowed. |
 | `npm run typecheck` | Strict TypeScript and JavaScript tooling checks, without emission. |
 | `npm run package:dry-run` | Builds private Protocol, Core and Community Provider candidates, then checks exact package-relative contents without creating or publishing tarballs. |
+| `npm run package:protocol` | Builds the private local Protocol tarball, checks exact SDK/schema/fixture/conformance exports and records package-relative inspection metadata without publishing. |
 | `npm test` | Non-empty Node.js unit suite covering Protocol/Core behavior and the bounded Community source, Store, owner, Provider, and adapter boundaries. |
 | `npm run schema:check` | Exact domain, internal Store, Profile Provider, and provider/consumer conformance draft schemas and positive/negative synthetic fixtures, with bounded reads and contract-specific semantic checks. |
 | `npm run test:integration` | Non-empty real-process/filesystem suite for local source collection, persistence/recovery, owner operations, Provider/MCP/Codex delivery, security boundaries, and the frozen M2 measurement. |

@@ -34,6 +34,7 @@
     "lint": "eslint . --max-warnings=0",
     "mcp": "node apps/mcp-local/src/main.ts",
     "package:dry-run": "node scripts/community-package-dry-run.mjs",
+    "package:protocol": "node scripts/protocol-package-candidate.mjs",
     "typecheck": "tsc --project tsconfig.json --pretty false",
     "test": "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",
