@@ -14,7 +14,7 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
-- M3-S02: add a private locally installable Protocol tarball with explicit typed SDK/conformance entry points, exact public schema and fixture exports, shared executable Provider transcript validation, and offline supported/unsupported-version installation tests (ADR-0035; `FMU-FR-009`, `FMU-FR-010`, `FMU-FR-023`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`). Package publication, release versions, schema semantics and second-consumer conformance remain later gates.
+- M3-S02: add a private locally installable Protocol tarball with explicit typed SDK/conformance entry points, exact public schema and fixture exports, shared executable Provider transcript validation, independent repository-inventory coverage, and offline JavaScript/TypeScript supported/unsupported-version installation tests (ADR-0035; `FMU-FR-009`, `FMU-FR-010`, `FMU-FR-023`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`). Package publication, release versions, schema semantics and second-consumer conformance remain later gates.
 
 - M3-S01: add private unpublished Protocol, Core and Community Provider build candidates plus deterministic npm dry-run reports with exact entry points, content allowlists, bounded inspection and publication safeguards (ADR-0034; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`, `FMU-NFR-018`). No package version, registry publication, dependency or public-contract semantics change.
 

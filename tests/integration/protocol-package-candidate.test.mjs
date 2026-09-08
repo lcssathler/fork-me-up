@@ -110,6 +110,73 @@ console.log("protocol-artifact-ok");
     assert.equal(verified.status, 0, verified.stderr);
     assert.match(verified.stdout, /protocol-artifact-ok/u);
 
+    writeFileSync(
+      path.join(consumerRoot, "tsconfig.json"),
+      JSON.stringify(
+        {
+          compilerOptions: {
+            module: "NodeNext",
+            moduleResolution: "NodeNext",
+            noEmit: true,
+            resolveJsonModule: true,
+            skipLibCheck: false,
+            strict: true,
+            target: "ES2024",
+          },
+          include: ["verify.ts"],
+        },
+        null,
+        2,
+      ) + "\n",
+      "utf8",
+    );
+    writeFileSync(
+      path.join(consumerRoot, "verify.ts"),
+      `
+import {
+  isDeveloperContextPacket,
+  type DeveloperContextPacket,
+  type ProfileProviderConformanceTranscript
+} from "@fork-me-up/protocol";
+import {
+  isProfileProviderConformanceTranscript
+} from "@fork-me-up/protocol/conformance/profile-provider";
+import dcpSchema from "@fork-me-up/protocol/schemas/dcp/0.1.0" with { type: "json" };
+import validDcp from "@fork-me-up/protocol/fixtures/dcp/0.1.0/valid/minimal.json" with { type: "json" };
+import conformance from "@fork-me-up/protocol/fixtures/conformance/profile-provider/0.1.0/valid/complete.json" with { type: "json" };
+
+const packetCandidate: unknown = validDcp;
+if (isDeveloperContextPacket(packetCandidate)) {
+  const packet: DeveloperContextPacket = packetCandidate;
+  void packet.schemaVersion;
+}
+
+const transcriptCandidate: unknown = conformance;
+if (isProfileProviderConformanceTranscript(transcriptCandidate)) {
+  const transcript: ProfileProviderConformanceTranscript = transcriptCandidate;
+  void transcript.conformanceVersion;
+}
+
+const schemaId: string = dcpSchema.$id;
+void schemaId;
+`,
+      "utf8",
+    );
+    const compiler = path.join(repositoryRoot, "node_modules", "typescript", "bin", "tsc");
+    const typechecked = spawnSync(
+      process.execPath,
+      [compiler, "--project", "tsconfig.json", "--pretty", "false"],
+      {
+        cwd: consumerRoot,
+        encoding: "utf8",
+        shell: false,
+        timeout: 30_000,
+        maxBuffer: 1024 * 1024,
+      },
+    );
+    assert.equal(typechecked.error, undefined);
+    assert.equal(typechecked.status, 0, typechecked.stderr || typechecked.stdout);
+
     const installedManifest = JSON.parse(
       readFileSync(
         path.join(consumerRoot, "node_modules", "@fork-me-up", "protocol", "package.json"),
