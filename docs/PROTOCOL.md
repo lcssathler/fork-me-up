@@ -449,7 +449,7 @@ Availability errors may permit the host to continue without context. Authorizati
 - Developer Profile Store versions and migrations are provider-internal. They never become acceptable where a Portable Profile Export or DCP is required, even when their payload records share public Evidence and Claim schemas.
 - Demand Profile versions remain public and independent from DCP versions. A Demand Profile is compiler input, not a packet, and must never be accepted as a developer assessment or delivered as a DCP.
 
-M3-S01 compiles the existing Protocol runtime root and its six validator-required schemas into a private `0.0.0` dry-run candidate. It adds no schema export, supported-version claim or released conformance surface; public SDK/schema/fixture/conformance distribution remains M3-S02. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md).
+M3-S01 establishes the private dry-run boundary. M3-S02 extends its Protocol candidate with a local installable `0.0.0` tarball: exact package subpaths expose the typed root SDK, typed Provider conformance validator, all seven public `0.1.0` schemas and their public JSON fixture corpora. Exact draft `0.1.0` inputs are supported by this candidate and unsupported versions fail closed; the artifact remains private and unpublished, so this is not a released compatibility promise. See [ADR-0034](adr/0034-community-package-dry-run-boundary.md) and [ADR-0035](adr/0035-protocol-sdk-conformance-distribution.md).
 
 ## 13. Conformance
 
@@ -469,6 +469,8 @@ A provider or consumer is conforming only if automated tests verify:
 - the same fixture has equivalent meaning across clients.
 
 M0-S12 adds the public [Profile Provider conformance corpus](../fixtures/conformance/profile-provider/0.1.0/README.md) and its [transcript schema](../schemas/conformance/profile-provider/0.1.0.schema.json). The fixtures cover all four operations, explicit subsets, typed failures, request/response correlation, advertised versions and operations, provider limits, exact DCP success, safe namespaced extensions, and content-free errors. They establish draft contract expectations only; executable provider/consumer SDKs, transports, authorization, redaction, and cross-client behavioral equivalence retain their later gates.
+
+M3-S02 distributes that transcript validation through the typed `@fork-me-up/protocol/conformance/profile-provider` entry point and exports every public schema and JSON fixture through exact package subpaths. The local install smoke test proves supported and unsupported draft-version behavior from the tarball alone. It does not establish transport, authorization, runtime Provider or cross-client behavioral conformance; M3-S03 retains the independent-consumer gate.
 
 ## 14. Open extension points
 

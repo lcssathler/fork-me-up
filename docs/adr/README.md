@@ -37,6 +37,8 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 
 ## Record format
 
+[ADR-0035](0035-protocol-sdk-conformance-distribution.md) is accepted: distribute a private local Protocol tarball with exact typed SDK, public schema/fixture exports and executable fail-closed Provider conformance validation.
+
 [ADR-0034](0034-community-package-dry-run-boundary.md) is accepted: package only the three client-neutral libraries into private bounded dry-run candidates with exact entry points, contents and publication safeguards.
 
 [ADR-0033](0033-targeted-documentation-and-verification.md) is accepted: route reading and verification by affected scope, preserve detailed history on demand and enforce compact entry documents with offline link checks.

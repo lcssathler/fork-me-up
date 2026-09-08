@@ -346,3 +346,16 @@ export type ProfileProviderResponse =
       data: null;
       error: ProfileProviderError;
     }>;
+
+export interface ProfileProviderExchange {
+  readonly request: ProfileProviderRequest;
+  readonly response: ProfileProviderResponse;
+}
+
+export interface ProfileProviderConformanceTranscript {
+  readonly conformanceVersion: "0.1.0";
+  readonly kind: "profile-provider-conformance";
+  readonly provider: ProfileProviderCapabilities;
+  readonly exchanges: readonly ProfileProviderExchange[];
+  readonly extensions?: Readonly<Record<string, boolean | number | string | readonly string[]>>;
+}

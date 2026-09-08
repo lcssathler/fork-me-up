@@ -14,6 +14,7 @@ const subprocessTimeoutMilliseconds = 30_000;
 
 const protocolSchemas = Object.freeze([
   "schemas/claim/0.1.0.schema.json",
+  "schemas/conformance/profile-provider/0.1.0.schema.json",
   "schemas/dcp/0.1.0.schema.json",
   "schemas/demand-profile/0.1.0.schema.json",
   "schemas/evidence/0.1.0.schema.json",
@@ -33,6 +34,7 @@ export const communityPackageDefinitions = Object.freeze([
       "src/developer-context-packet.ts",
       "src/index.ts",
       "src/portable-profile-export.ts",
+      "src/provider-conformance.ts",
       "src/profile-provider.ts",
       "src/types.ts",
     ]),
@@ -121,8 +123,13 @@ export function expectedArtifactFiles(definition) {
 /**
  * @param {(typeof communityPackageDefinitions)[number]} definition
  * @param {unknown} value
+ * @param {{
+ *   expectedFiles?: readonly string[],
+ *   manifest?: {private: boolean, exports: Record<string, unknown>},
+ *   releaseState?: string
+ * }} [options]
  */
-export function validatePackResult(definition, value) {
+export function validatePackResult(definition, value, options = {}) {
   if (!Array.isArray(value) || value.length !== 1) throw new Error("pack-result");
   const result = value[0];
   if (typeof result !== "object" || result === null || Array.isArray(result))
@@ -163,18 +170,19 @@ export function validatePackResult(definition, value) {
     return { path: file["path"], size: file["size"], mode: file["mode"] };
   });
   const actualPaths = files.map((file) => file.path).sort();
-  const expectedPaths = expectedArtifactFiles(definition);
+  const expectedPaths = [...(options.expectedFiles ?? expectedArtifactFiles(definition))].sort();
   if (JSON.stringify(actualPaths) !== JSON.stringify(expectedPaths))
     throw new Error("pack-allowlist");
 
+  const manifest = options.manifest ?? createCandidateManifest(definition);
   return {
     id: record["id"],
     name: record["name"],
     version: record["version"],
     workspace: definition.workspace,
-    releaseState: "private-unpublished",
-    private: true,
-    entrypoints: createCandidateManifest(definition).exports,
+    releaseState: options.releaseState ?? "private-unpublished",
+    private: manifest.private,
+    entrypoints: manifest.exports,
     dependencies: definition.dependencies,
     filename: record["filename"],
     size: record["size"],
@@ -424,15 +432,27 @@ function buildPackage(repositoryRoot, outputRoot, definition) {
   return report;
 }
 
-export function runCommunityPackageDryRun() {
+/**
+ * @param {{
+ *   retainPackages?: boolean,
+ *   outputDirectory?: "package-dry-run" | "protocol-package-staging"
+ * }} [options]
+ */
+export function runCommunityPackageDryRun(options = {}) {
   const repositoryRoot = realpathSync(fileURLToPath(new URL("../", import.meta.url)));
-  const outputRoot = path.join(repositoryRoot, "build", "package-dry-run");
+  const outputDirectory = options.outputDirectory ?? "package-dry-run";
+  if (!["package-dry-run", "protocol-package-staging"].includes(outputDirectory)) {
+    throw new Error("output-boundary");
+  }
+  const outputRoot = path.join(repositoryRoot, "build", outputDirectory);
   resetOutputRoot(repositoryRoot, outputRoot);
   try {
     const packages = communityPackageDefinitions.map((definition) =>
       buildPackage(repositoryRoot, outputRoot, definition),
     );
-    rmSync(path.join(outputRoot, "packages"), { recursive: true, force: false });
+    if (options.retainPackages !== true) {
+      rmSync(path.join(outputRoot, "packages"), { recursive: true, force: false });
+    }
     const summary = {
       schemaVersion: 1,
       kind: "community-package-dry-run",
