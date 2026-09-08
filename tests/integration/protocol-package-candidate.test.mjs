@@ -29,7 +29,27 @@ function runNpm(args, cwd, timeout = 60_000) {
   return result;
 }
 
-test("the local Protocol tarball installs offline and rejects unsupported versions", () => {
+/**
+ * @param {Record<string, {dependencies?: Record<string, string>}>} lockPackages
+ * @param {Record<string, string>} dependencies
+ */
+function collectLockedDependencyEntries(lockPackages, dependencies) {
+  /** @type {Record<string, {dependencies?: Record<string, string>}>} */
+  const selected = {};
+  const pending = Object.keys(dependencies).sort((left, right) => left.localeCompare(right, "en"));
+  while (pending.length > 0) {
+    const dependency = /** @type {string} */ (pending.shift());
+    const lockPath = `node_modules/${dependency}`;
+    if (Object.hasOwn(selected, lockPath)) continue;
+    const entry = lockPackages[lockPath];
+    assert.ok(entry, `missing hoisted lock entry: ${lockPath}`);
+    selected[lockPath] = entry;
+    pending.push(...Object.keys(entry.dependencies ?? {}));
+  }
+  return selected;
+}
+
+test("the local Protocol tarball installs from a lock offline and rejects unsupported versions", () => {
   runNpm(["run", "--silent", "package:protocol"], repositoryRoot);
   const reportText = readFileSync(path.join(outputRoot, "manifest.json"), "utf8");
   const report =
@@ -55,23 +75,67 @@ test("the local Protocol tarball installs offline and rejects unsupported versio
 
   const consumerRoot = mkdtempSync(path.join(os.tmpdir(), "fmu-protocol-consumer-"));
   try {
+    const candidateManifest = createProtocolCandidateManifest();
+    const tarballReference = `file:${path.resolve(outputRoot, tarballName).replaceAll("\\", "/")}`;
+    const consumerDependencies = {
+      [candidateManifest.name]: tarballReference,
+    };
     writeFileSync(
       path.join(consumerRoot, "package.json"),
-      '{"name":"fmu-protocol-consumer","private":true,"type":"module"}\n',
+      JSON.stringify(
+        {
+          name: "fmu-protocol-consumer",
+          version: "0.0.0",
+          private: true,
+          type: "module",
+          dependencies: consumerDependencies,
+        },
+        null,
+        2,
+      ) + "\n",
       "utf8",
     );
-    runNpm(
-      [
-        "install",
-        "--ignore-scripts",
-        "--offline",
-        "--no-audit",
-        "--no-fund",
-        "--package-lock=false",
-        path.join(outputRoot, tarballName),
-      ],
-      consumerRoot,
+    const repositoryLock =
+      /** @type {{
+       * lockfileVersion: number,
+       * packages: Record<string, {dependencies?: Record<string, string>}>
+       * }} */ (JSON.parse(readFileSync(path.join(repositoryRoot, "package-lock.json"), "utf8")));
+    assert.equal(repositoryLock.lockfileVersion, 3);
+    assert.ok(candidateManifest.dependencies);
+    const lockedDependencyEntries = collectLockedDependencyEntries(
+      repositoryLock.packages,
+      candidateManifest.dependencies,
     );
+    writeFileSync(
+      path.join(consumerRoot, "package-lock.json"),
+      JSON.stringify(
+        {
+          name: "fmu-protocol-consumer",
+          version: "0.0.0",
+          lockfileVersion: 3,
+          requires: true,
+          packages: {
+            "": {
+              name: "fmu-protocol-consumer",
+              version: "0.0.0",
+              dependencies: consumerDependencies,
+            },
+            [`node_modules/${candidateManifest.name}`]: {
+              version: candidateManifest.version,
+              resolved: tarballReference,
+              license: candidateManifest.license,
+              dependencies: candidateManifest.dependencies,
+              engines: candidateManifest.engines,
+            },
+            ...lockedDependencyEntries,
+          },
+        },
+        null,
+        2,
+      ) + "\n",
+      "utf8",
+    );
+    runNpm(["ci", "--ignore-scripts", "--offline", "--no-audit", "--no-fund"], consumerRoot);
     writeFileSync(
       path.join(consumerRoot, "verify.mjs"),
       `

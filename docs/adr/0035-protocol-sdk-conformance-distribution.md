@@ -20,7 +20,7 @@ In scope are the Protocol package, generated local artifact, exact public asset 
 - The root SDK and `./conformance/profile-provider` expose ECMAScript plus declarations through explicit `import` and `types` conditions. Every public schema and every JSON fixture receives an exact export subpath. The dedicated internal Store schema/corpus and development-only Developer Profile fixture carriers are excluded.
 - The public conformance function validates the accepted transcript schema and cross-record Provider semantics: correlation, advertised operations, typed errors, capabilities, limits, DCP meaning and evidence subsets. The repository schema checker delegates to that same SDK function so development and distributed validation cannot drift.
 - The distributed draft support set is exactly `0.1.0`. Top-level schema versions, Provider envelopes and conformance transcripts fail closed when changed to unsupported values. This is tested draft support, not a released compatibility promise.
-- `package:protocol` is part of the aggregate. Integration creates a fresh temporary npm consumer, installs the tarball with lifecycle scripts disabled and offline cache use, imports SDK/schemas/fixtures/conformance only through package exports, and removes the consumer afterward.
+- `package:protocol` is part of the aggregate. Integration creates a fresh temporary npm consumer, derives its exact production dependency closure from the repository lockfile, installs the tarball with `npm ci`, lifecycle scripts disabled and offline cache use, imports SDK/schemas/fixtures/conformance only through package exports, and removes the consumer afterward.
 
 ## Consequences and validation
 
