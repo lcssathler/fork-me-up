@@ -93,11 +93,17 @@ export const communityPackageDefinitions = Object.freeze([
   }),
 ]);
 
-/** @param {(typeof communityPackageDefinitions)[number]} definition */
-export function createCandidateManifest(definition) {
+/** @param {(typeof communityPackageDefinitions)[number]} definition @param {string} [version] */
+export function createCandidateManifest(definition, version = "0.0.0") {
+  const dependencies = Object.fromEntries(
+    Object.entries(definition.dependencies).map(([name, dependencyVersion]) => [
+      name,
+      name.startsWith("@fork-me-up/") ? version : dependencyVersion,
+    ]),
+  );
   return {
     name: definition.name,
-    version: "0.0.0",
+    version,
     description: definition.description,
     private: true,
     license: "Apache-2.0",
@@ -105,7 +111,7 @@ export function createCandidateManifest(definition) {
     engines: { node: ">=24.20.0 <25", npm: "11.19.0" },
     exports: { ".": { types: "./dist/index.d.ts", import: "./dist/index.js" } },
     files: ["dist/"],
-    dependencies: definition.dependencies,
+    dependencies,
   };
 }
 
@@ -125,7 +131,7 @@ export function expectedArtifactFiles(definition) {
  * @param {unknown} value
  * @param {{
  *   expectedFiles?: readonly string[],
- *   manifest?: {private: boolean, exports: Record<string, unknown>},
+ *   manifest?: {version: string, private: boolean, exports: Record<string, unknown>, dependencies: Record<string, string>},
  *   releaseState?: string
  * }} [options]
  */
@@ -135,11 +141,15 @@ export function validatePackResult(definition, value, options = {}) {
   if (typeof result !== "object" || result === null || Array.isArray(result))
     throw new Error("pack-result");
   const record = /** @type {Record<string, unknown>} */ (result);
+  const manifest = options.manifest ?? createCandidateManifest(definition);
   if (
     record["name"] !== definition.name ||
-    record["version"] !== "0.0.0" ||
-    record["id"] !== `${definition.name}@0.0.0` ||
-    record["filename"] !== `${definition.slug}-0.0.0.tgz` ||
+    record["version"] !== manifest.version ||
+    record["id"] !== `${definition.name}@${manifest.version}` ||
+    record["filename"] !== `${definition.slug}-${manifest.version}.tgz`
+  )
+    throw new Error("pack-identity");
+  if (
     typeof record["size"] !== "number" ||
     typeof record["unpackedSize"] !== "number" ||
     typeof record["shasum"] !== "string" ||
@@ -174,7 +184,6 @@ export function validatePackResult(definition, value, options = {}) {
   if (JSON.stringify(actualPaths) !== JSON.stringify(expectedPaths))
     throw new Error("pack-allowlist");
 
-  const manifest = options.manifest ?? createCandidateManifest(definition);
   return {
     id: record["id"],
     name: record["name"],
@@ -183,7 +192,7 @@ export function validatePackResult(definition, value, options = {}) {
     releaseState: options.releaseState ?? "private-unpublished",
     private: manifest.private,
     entrypoints: manifest.exports,
-    dependencies: definition.dependencies,
+    dependencies: manifest.dependencies,
     filename: record["filename"],
     size: record["size"],
     unpackedSize: record["unpackedSize"],
@@ -435,16 +444,20 @@ function buildPackage(repositoryRoot, outputRoot, definition) {
 /**
  * @param {{
  *   retainPackages?: boolean,
- *   outputDirectory?: "package-dry-run" | "protocol-package-staging" | "community-package-staging"
+ *   outputDirectory?: "package-dry-run" | "protocol-package-staging" | "community-package-staging" | "community-platform-initial-staging" | "community-platform-update-staging"
  * }} [options]
  */
 export function runCommunityPackageDryRun(options = {}) {
   const repositoryRoot = realpathSync(fileURLToPath(new URL("../", import.meta.url)));
   const outputDirectory = options.outputDirectory ?? "package-dry-run";
   if (
-    !["package-dry-run", "protocol-package-staging", "community-package-staging"].includes(
-      outputDirectory,
-    )
+    ![
+      "package-dry-run",
+      "protocol-package-staging",
+      "community-package-staging",
+      "community-platform-initial-staging",
+      "community-platform-update-staging",
+    ].includes(outputDirectory)
   ) {
     throw new Error("output-boundary");
   }

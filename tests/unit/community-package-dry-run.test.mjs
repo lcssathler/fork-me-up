@@ -42,6 +42,30 @@ test("candidate manifests stay private and expose only compiled entry points", (
   }
 });
 
+test("lifecycle candidate versions apply to the complete internal package graph", () => {
+  const version = "0.0.0-m3s05.0";
+  const manifests = Object.fromEntries(
+    communityPackageDefinitions.map((definition) => [
+      definition.name,
+      createCandidateManifest(definition, version),
+    ]),
+  );
+  const protocol = manifests["@fork-me-up/protocol"];
+  const core = manifests["@fork-me-up/core"];
+  const provider = manifests["@fork-me-up/community-provider"];
+  assert.ok(protocol);
+  assert.ok(core);
+  assert.ok(provider);
+  assert.equal(protocol.dependencies["ajv"], "8.20.0");
+  assert.deepEqual(core.dependencies, {
+    "@fork-me-up/protocol": version,
+  });
+  assert.deepEqual(provider.dependencies, {
+    "@fork-me-up/core": version,
+    "@fork-me-up/protocol": version,
+  });
+});
+
 test("pack inspection accepts only the exact package-relative artifact allowlist", () => {
   const definition = communityPackageDefinitions[1];
   assert.ok(definition);

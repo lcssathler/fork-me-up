@@ -174,6 +174,8 @@ The Protocol artifact build creates one local private tarball from that staging 
 
 The Community artifact build creates exact private local tarballs for the three libraries and installs them together through a temporary lockfile derived from the official dependency closure. Lifecycle scripts stay disabled; no registry package or internal workspace is resolved outside that lock/artifact set. The installed matrix proves unsupported versions/operations fail closed, export/import preserves typed correction links without Store bookkeeping, stale updates conflict, migration is explicit, corrupt-newest recovery retains prior valid state, and Store/Export/DCP envelopes remain distinct. Reports omit profile content, canaries and paths. See [ADR-0037](adr/0037-community-artifact-compatibility-matrix.md).
 
+The cross-platform lifecycle uses clean Windows, macOS and Linux jobs plus two exact private prerelease graphs. Both installs use derived locks, local tarball integrity and offline `npm ci` with lifecycle scripts disabled. A temporary synthetic application verifies Store reload across the package transition, explicit deletion and package uninstall while preserving selected source and an owner-retained export. Its fixed report excludes paths and content. The test owns no client adapter cache and therefore does not replace adapter-specific deletion coverage. See [ADR-0038](adr/0038-cross-platform-community-lifecycle.md).
+
 ### T-12 — Malicious provider, import, or DCP
 
 **Threat:** an independent provider or imported profile places instruction-like text in limitations, task summaries, extension fields, or identifiers that an adapter promotes into privileged instructions.

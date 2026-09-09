@@ -34,6 +34,7 @@ test("the manifest and aggregate expose the declared baseline and draft schema c
     "package:protocol": "node scripts/protocol-package-candidate.mjs",
     "package:community": "node scripts/community-package-candidate.mjs",
     "compatibility:check": "node scripts/community-compatibility-matrix.mjs",
+    "lifecycle:check": "node scripts/community-platform-lifecycle.mjs",
     typecheck: "tsc --project tsconfig.json --pretty false",
     test: "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",
@@ -74,6 +75,9 @@ test("CI uses immutable actions and least privilege", () => {
     "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
     "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
     "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+    "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+    "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+    "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
   ]);
   assert.ok(actionReferences.every((reference) => /@[0-9a-f]{40}$/u.test(reference)));
   assert.match(workflowText, /^permissions:\r?\n {2}contents: read$/mu);
@@ -86,8 +90,19 @@ test("CI uses immutable actions and least privilege", () => {
   assert.match(workflowText, /node-version-file: \.nvmrc/u);
   assert.match(workflowText, /^ {4}runs-on: windows-latest$/mu);
   assert.match(workflowText, /^ {4}timeout-minutes: 15$/mu);
+  assert.match(workflowText, /Community lifecycle \(\$\{\{ matrix\.os \}\}\)/u);
+  for (const operatingSystem of ["windows-latest", "macos-latest", "ubuntu-latest"]) {
+    assert.match(workflowText, new RegExp(`^ {10}- ${operatingSystem}$`, "mu"));
+  }
+  assert.match(workflowText, /npm run lifecycle:check/u);
+  assert.match(workflowText, /path: build\/community-platform-lifecycle\/manifest\.json/u);
   assert.deepEqual(
     [...workflowText.matchAll(/^\s*run:\s*(.+)$/gmu)].map((match) => match[1]),
-    ["npm ci --ignore-scripts", "npm run check"],
+    [
+      "npm ci --ignore-scripts",
+      "npm run check",
+      "npm ci --ignore-scripts",
+      "npm run lifecycle:check",
+    ],
   );
 });

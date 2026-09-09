@@ -37,6 +37,7 @@
     "package:protocol": "node scripts/protocol-package-candidate.mjs",
     "package:community": "node scripts/community-package-candidate.mjs",
     "compatibility:check": "node scripts/community-compatibility-matrix.mjs",
+    "lifecycle:check": "node scripts/community-platform-lifecycle.mjs",
     "typecheck": "tsc --project tsconfig.json --pretty false",
     "test": "node scripts/run-test-suite.mjs unit",
     "test:integration": "node scripts/run-test-suite.mjs integration",
