@@ -40,6 +40,7 @@ test("the manifest and aggregate expose the declared baseline and draft schema c
     "test:integration": "node scripts/run-test-suite.mjs integration",
     eval: "node scripts/run-test-suite.mjs eval",
     "measure:m2": "node scripts/measure-m2-quality.mjs",
+    "measure:m3": "node scripts/measure-m3-community-benchmark.mjs",
     check: "node scripts/run-checks.mjs",
     "schema:check": "node scripts/check-schemas.mjs",
   });
