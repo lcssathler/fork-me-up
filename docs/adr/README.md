@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Accepted ADRs refine architecture within the subject-specific authority order in [`AGENTS.md`](../../AGENTS.md). They cannot override product, security/privacy, delivery-process, milestone, or released-contract invariants unless every affected higher-authority source is updated and explicitly accepted in the same change. Superseded records remain in place and link to their replacement.
+Accepted ADRs refine architecture within the subject-specific authority order in [`AGENTS.md`](../../AGENTS.md). They cannot override product, security/privacy, delivery-process, milestone, or released-contract invariants unless every affected higher-authority source is updated and explicitly accepted in the same change. Accepted decisions are current architectural reference, selected by affected boundary rather than read as an onboarding sequence. Superseded records remain in place and link to their replacement; they preserve prior rationale without governing current behavior.
 
 | ADR | Status | Decision |
 |---|---|---|
@@ -34,21 +34,14 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0028](0028-owner-portability-and-verified-deletion.md) | Accepted | Add redacted owner portability and verified Store/cache deletion with persistent barriers and bounded recovery. |
 | [ADR-0029](0029-owner-evidence-and-safe-diagnostics.md) | Accepted | Provide bounded owner evidence metadata and read-only component diagnostics without private content or repair. |
 | [ADR-0030](0030-local-community-workflow-composition.md) | Accepted | Connect explicit owner collection and persistence to bounded Store-backed MCP context while preserving source/consumer authority separation. |
+| [ADR-0031](0031-evidence-method-and-frozen-quality-protocol.md) | Accepted | Distinguish evidence interpretation from AI/knowledge detection and freeze the owner-delegated M2 quality protocol before measurement. |
+| [ADR-0032](0032-reproducible-local-quality-measurement.md) | Accepted | Measure the frozen M2 sample through real local boundaries and independent scoring, retaining minimized failures and provenance. |
+| [ADR-0033](0033-targeted-documentation-and-verification.md) | Accepted | Route reading and verification by affected scope, preserve detailed history on demand and enforce compact entry documents with offline link checks. |
+| [ADR-0034](0034-community-package-dry-run-boundary.md) | Accepted | Package only the three client-neutral libraries into private bounded dry-run candidates with exact entry points, contents and publication safeguards. |
+| [ADR-0035](0035-protocol-sdk-conformance-distribution.md) | Accepted | Distribute a private local Protocol tarball with exact typed SDK, public schema/fixture exports and executable fail-closed Provider conformance validation. |
+| [ADR-0036](0036-independent-generic-conformance-consumer.md) | Accepted | Consume the public Protocol artifact through a stateless bounded CLI that preserves DCP Claim and Response Policy meaning without Core or client-specific dependencies. |
+| [ADR-0037](0037-community-artifact-compatibility-matrix.md) | Accepted | Install exact private Protocol/Core/Community Provider tarballs through a lockfile-derived offline consumer and verify import/export, version rejection, update conflict, migration, recovery and Store/interchange separation. |
 
 ## Record format
-
-[ADR-0037](0037-community-artifact-compatibility-matrix.md) is accepted: install exact private Protocol/Core/Community Provider tarballs through a lockfile-derived offline consumer and verify import/export, version rejection, update conflict, migration, recovery and Store/interchange separation.
-
-[ADR-0036](0036-independent-generic-conformance-consumer.md) is accepted: consume the public Protocol artifact through a stateless bounded CLI that preserves DCP Claim and Response Policy meaning without Core or client-specific dependencies.
-
-[ADR-0035](0035-protocol-sdk-conformance-distribution.md) is accepted: distribute a private local Protocol tarball with exact typed SDK, public schema/fixture exports and executable fail-closed Provider conformance validation.
-
-[ADR-0034](0034-community-package-dry-run-boundary.md) is accepted: package only the three client-neutral libraries into private bounded dry-run candidates with exact entry points, contents and publication safeguards.
-
-[ADR-0033](0033-targeted-documentation-and-verification.md) is accepted: route reading and verification by affected scope, preserve detailed history on demand and enforce compact entry documents with offline link checks.
-
-[ADR-0032](0032-reproducible-local-quality-measurement.md) is accepted: measure the frozen M2 sample through real local boundaries and independent scoring, retaining minimized failures and provenance.
-
-[ADR-0031](0031-evidence-method-and-frozen-quality-protocol.md) is accepted: distinguish evidence interpretation from AI/knowledge detection and freeze the owner-delegated M2 quality protocol before measurement.
 
 Each ADR should contain status, date, context, decision, consequences, rejected alternatives when relevant, and validation evidence. ADRs record durable decisions, not implementation progress.
