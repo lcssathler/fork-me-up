@@ -4,7 +4,7 @@ This policy applies the existing [protocol compatibility rules](docs/PROTOCOL.md
 
 ## Development status and version boundaries
 
-The root npm workspace and the Protocol, Core and Community Provider candidates use `0.0.0` and `private: true`. They remain unpublished even though the source repository is public. Local dry-run reports and private installable tarballs are inspection artifacts, not releases.
+The root npm workspace and the Protocol, Core and Community Provider source manifests use `0.0.0` and `private: true`. They remain unpublished even though the source repository is public. Local dry-run reports and private installable tarballs are inspection artifacts, not releases. The cross-platform lifecycle additionally generates exact `0.0.0-m3s05.0` and `0.0.0-m3s05.1` prerelease graphs from one source revision solely to test package replacement and Store compatibility; those build-only labels define no public version or support window.
 
 The protocol document revision is `0.1`. DCP, Evidence, Claim, Portable Profile Export, Demand Profile, Profile Provider and conformance schemas are unreleased `0.1.0` drafts. The separate Community Profile Store `0.1.0` draft is implementation-internal.
 

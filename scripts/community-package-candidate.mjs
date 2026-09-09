@@ -20,6 +20,26 @@ import {
 const maximumPackOutputBytes = 2 * 1024 * 1024;
 const subprocessTimeoutMilliseconds = 30_000;
 
+export const communityPlatformCandidateVersions = Object.freeze({
+  initial: "0.0.0-m3s05.0",
+  update: "0.0.0-m3s05.1",
+});
+
+const candidateConfigurations = Object.freeze({
+  "0.0.0": Object.freeze({
+    staging: "community-package-staging",
+    output: "community-package",
+  }),
+  [communityPlatformCandidateVersions.initial]: Object.freeze({
+    staging: "community-platform-initial-staging",
+    output: "community-platform-initial",
+  }),
+  [communityPlatformCandidateVersions.update]: Object.freeze({
+    staging: "community-platform-update-staging",
+    output: "community-platform-update",
+  }),
+});
+
 /** @param {string} root @param {string} candidate */
 function ensureContained(root, candidate) {
   const relative = path.relative(root, candidate);
@@ -62,15 +82,20 @@ function writeJson(file, value) {
   writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-export function runCommunityPackageCandidate() {
+/** @param {{version?: string}} [options] */
+export function runCommunityPackageCandidate(options = {}) {
   const repositoryRoot = realpathSync(fileURLToPath(new URL("../", import.meta.url)));
-  const stagingRoot = path.join(repositoryRoot, "build", "community-package-staging");
-  const outputRoot = path.join(repositoryRoot, "build", "community-package");
+  const version = options.version ?? "0.0.0";
+  const configuration =
+    candidateConfigurations[/** @type {keyof typeof candidateConfigurations} */ (version)];
+  if (configuration === undefined) throw new Error("candidate-version");
+  const stagingRoot = path.join(repositoryRoot, "build", configuration.staging);
+  const outputRoot = path.join(repositoryRoot, "build", configuration.output);
   resetOutputRoot(repositoryRoot, outputRoot);
   try {
     runCommunityPackageDryRun({
       retainPackages: true,
-      outputDirectory: "community-package-staging",
+      outputDirectory: configuration.staging,
     });
     const npmCli = process.env["npm_execpath"];
     if (npmCli === undefined) throw new Error("package-manager");
@@ -79,8 +104,8 @@ export function runCommunityPackageCandidate() {
       const packageRoot = path.join(stagingRoot, "packages", definition.slug);
       const protocol = definition.name === "@fork-me-up/protocol";
       const manifest = protocol
-        ? createProtocolCandidateManifest()
-        : createCandidateManifest(definition);
+        ? createProtocolCandidateManifest(version)
+        : createCandidateManifest(definition, version);
       const expectedFiles = protocol
         ? expectedProtocolArtifactFiles()
         : expectedArtifactFiles(definition);
@@ -91,9 +116,9 @@ export function runCommunityPackageCandidate() {
           "# @fork-me-up/protocol\n\nClient-neutral Fork Me Up SDK, public draft schemas, synthetic fixtures and Profile Provider conformance validation. This M3 artifact is private, local and unpublished.\n",
           "utf8",
         );
-        writeJson(path.join(packageRoot, "package.json"), manifest);
-        validateProtocolCandidateContents(repositoryRoot, packageRoot);
       }
+      writeJson(path.join(packageRoot, "package.json"), manifest);
+      if (protocol) validateProtocolCandidateContents(repositoryRoot, packageRoot);
       const packed = spawnSync(
         process.execPath,
         [npmCli, "pack", "--json", "--ignore-scripts", "--pack-destination", outputRoot, "."],

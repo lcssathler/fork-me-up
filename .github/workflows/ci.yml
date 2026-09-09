@@ -47,3 +47,44 @@ jobs:
           path: build/m2-quality-failures/
           if-no-files-found: ignore
           retention-days: 14
+
+  community-lifecycle:
+    name: Community lifecycle (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - macos-latest
+          - ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up pinned Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install from lockfile without lifecycle scripts
+        run: npm ci --ignore-scripts
+
+      - name: Verify artifact install, update, data removal, and uninstall
+        run: npm run lifecycle:check
+
+      - name: Preserve platform lifecycle report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: community-lifecycle-${{ matrix.os }}
+          path: build/community-platform-lifecycle/manifest.json
+          if-no-files-found: ignore
+          retention-days: 14

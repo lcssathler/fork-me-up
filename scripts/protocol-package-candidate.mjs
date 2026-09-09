@@ -120,8 +120,9 @@ const protocolDefinition = /** @type {(typeof communityPackageDefinitions)[numbe
 );
 if (protocolDefinition === undefined) throw new Error("protocol-definition");
 
-export function createProtocolCandidateManifest() {
-  const base = createCandidateManifest(protocolDefinition);
+/** @param {string} [version] */
+export function createProtocolCandidateManifest(version = "0.0.0") {
+  const base = createCandidateManifest(protocolDefinition, version);
   /** @type {Record<string, string | {types: string, import: string}>} */
   const exports = {
     ".": { types: "./dist/index.d.ts", import: "./dist/index.js" },

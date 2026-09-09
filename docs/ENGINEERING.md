@@ -186,7 +186,7 @@ Artifact compatibility uses exact private Protocol/Core/Community Provider tarba
 
 ### 6.5 End-to-end tests
 
-Exercise clean installation, first profile, correction, task packet, refresh, export, deletion, and uninstall. Later Cloud tests exercise source connection, consent, remote delivery, revocation, and account deletion.
+Exercise clean installation, first profile, correction, task packet, refresh, export, deletion, and uninstall. `npm run lifecycle:check` installs two exact private candidate graphs through derived offline locks, preserves Store/correction behavior across the transition, then verifies managed deletion, package removal and retained source/export data. The CI matrix runs that focused gate on Windows, macOS and Linux; its version-only candidate transition does not prove migration between different implementations or a released support window. Later Cloud tests exercise source connection, consent, remote delivery, revocation, and account deletion.
 
 ### 6.6 Behavioral evaluations
 
