@@ -38,3 +38,23 @@ The command reruns all 48 constructed M2 cases rather than copying a prior summa
 ## What a pass means
 
 A pass establishes only that these checked-in synthetic inputs reproduce the accepted evidence rules, disclosure accounting and structured behavior for the tested Codex and generic consumers without a Core fork or hosted dependency. It does not establish human accuracy, model-response quality, population calibration, real-world usefulness, time saved, seniority, employability, rankings, support for other clients or released package compatibility.
+
+## Measurement record
+
+The [clean result](results/m3-community-benchmark.json) was produced from committed implementation revision `ad1159f474b7fde98de0ac240d8dbd3047189583`; it records `worktreeDirty: false` and passed. Its exact SHA-256 is `44c8b31302ef88f5bb8578b386d61d00e8c27e3616424c8342eeb7cdea874dda`.
+
+| Measure | Observed result |
+|---|---:|
+| Repeated consumer pairs stable | 9/9 |
+| Policy-adherent consumer runs | 18/18 |
+| Cross-consumer structured meaning | 9/9 |
+| Portable-profile Export bytes, one pass | 5,145 |
+| DCP bytes/token upper bound, one pass | 3,676 |
+| Aggregate DCP/export ratio | 71.45% |
+| Three-repeat portable-profile Export / DCP bytes | 15,435 / 11,028 |
+| Frozen evidence cases accepted | 48/48 |
+| False `demonstrated` outcomes | 0/48; 0/36 demonstrated outputs; 0/12 insufficient-evidence oracles |
+| Exact frozen-oracle attribution | 52/52 Evidence records |
+| Expected unknown attribution retained | 10/52 Evidence records |
+
+The per-scenario report is material to interpretation. Demonstrated Java measured 1,729 Export bytes versus 1,097 DCP bytes; adjacent React measured 2,342 versus 1,353; insufficient CI measured 1,074 versus 1,226. The last case is a counterexample to any claim that a DCP is always smaller than a minimal profile fixture. Across all three constructed cases the task projection was smaller, and every DCP disclosed zero complete Evidence records.

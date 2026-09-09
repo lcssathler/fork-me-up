@@ -1,0 +1,166 @@
+{
+  "benchmarkVersion": "m3-community-benchmark-0.1.0",
+  "kind": "synthetic-community-benchmark-report",
+  "implementationRevision": "ad1159f474b7fde98de0ac240d8dbd3047189583",
+  "worktreeDirty": false,
+  "toolchain": {
+    "node": "24.20.0",
+    "npm": "11.19.0",
+    "git": "git version 2.54.0.windows.1",
+    "platform": "win32",
+    "architecture": "x64"
+  },
+  "limits": "Constructed conformance only; no human accuracy, model-response quality, population estimate, time saved, seniority or ranking claim.",
+  "passed": true,
+  "repeatedCalibration": {
+    "scenarios": 3,
+    "repetitionsPerScenario": 3,
+    "totalConsumerPairs": 9,
+    "stableConsumerPairs": 9,
+    "policyAdherentConsumerRuns": 18,
+    "expectedPolicyAdherentConsumerRuns": 18,
+    "sameMeaningPairs": 9,
+    "measurements": [
+      {
+        "scenarioId": "demonstrated-java",
+        "evaluationIds": [
+          "FMU-E-001",
+          "FMU-E-016"
+        ],
+        "expectedState": "demonstrated",
+        "expectedResponseMode": "concise",
+        "passed": true,
+        "failureCodes": [],
+        "cost": {
+          "portableProfileExportBytes": 1729,
+          "dcpBytes": 1097,
+          "dcpTokenUpperBound": 1097,
+          "codexGuidanceBytes": 493,
+          "genericProjectionBytes": 422,
+          "fullProfileClaims": 1,
+          "fullProfileEvidenceRecords": 1,
+          "disclosedClaims": 1,
+          "disclosedEvidenceRecords": 0,
+          "disclosedOpaqueEvidenceReferences": 1
+        }
+      },
+      {
+        "scenarioId": "adjacent-react",
+        "evaluationIds": [
+          "FMU-E-003",
+          "FMU-E-016"
+        ],
+        "expectedState": "adjacent",
+        "expectedResponseMode": "analogy",
+        "passed": true,
+        "failureCodes": [],
+        "cost": {
+          "portableProfileExportBytes": 2342,
+          "dcpBytes": 1353,
+          "dcpTokenUpperBound": 1353,
+          "codexGuidanceBytes": 509,
+          "genericProjectionBytes": 428,
+          "fullProfileClaims": 2,
+          "fullProfileEvidenceRecords": 1,
+          "disclosedClaims": 1,
+          "disclosedEvidenceRecords": 0,
+          "disclosedOpaqueEvidenceReferences": 1
+        }
+      },
+      {
+        "scenarioId": "insufficient-ci",
+        "evaluationIds": [
+          "FMU-E-002",
+          "FMU-E-004",
+          "FMU-E-016"
+        ],
+        "expectedState": "insufficient-evidence",
+        "expectedResponseMode": "teach-while-doing",
+        "passed": true,
+        "failureCodes": [],
+        "cost": {
+          "portableProfileExportBytes": 1074,
+          "dcpBytes": 1226,
+          "dcpTokenUpperBound": 1226,
+          "codexGuidanceBytes": 518,
+          "genericProjectionBytes": 443,
+          "fullProfileClaims": 1,
+          "fullProfileEvidenceRecords": 0,
+          "disclosedClaims": 1,
+          "disclosedEvidenceRecords": 0,
+          "disclosedOpaqueEvidenceReferences": 0
+        }
+      }
+    ]
+  },
+  "disclosureCost": {
+    "accounting": "Exact compact UTF-8 bytes; portable token upper bound is one token per DCP byte.",
+    "onePass": {
+      "portableProfileExportBytes": 5145,
+      "dcpBytes": 3676,
+      "byteDifference": 1469,
+      "dcpToPortableProfileExportRatio": 0.7144800777453839
+    },
+    "repeated": {
+      "repetitions": 3,
+      "portableProfileExportBytes": 15435,
+      "dcpBytes": 11028,
+      "byteDifference": 4407
+    }
+  },
+  "evidenceQuality": {
+    "experimentVersion": "m2-quality-0.2.0",
+    "freezeCommit": "3bf29ea6c8ba5671ed673c128acb8d2f8b855db0",
+    "implementationRevision": "ad1159f474b7fde98de0ac240d8dbd3047189583",
+    "worktreeDirty": false,
+    "evaluatorHashes": {
+      "measure-m2-quality": "30c6f8acee744cc44cc2d75fda8b3fec9ab0dee326fcf7a0743a0ba3a5a9894f",
+      "m2-quality-runner": "8b31a7c40e769d99ac0f831581aeff835041bdf655f516fb5999f7426e36c74c",
+      "m2-quality-scoring": "15d3688ac31501d63126bfee0537b561a41f12333a8eaddd284a6614de39b6b9"
+    },
+    "passed": true,
+    "cases": 48,
+    "accepted": 48,
+    "corrected": 0,
+    "rejected": 0,
+    "falseDemonstrated": {
+      "allCases": {
+        "numerator": 0,
+        "denominator": 48,
+        "rate": 0
+      },
+      "demonstratedOutputs": {
+        "numerator": 0,
+        "denominator": 36,
+        "rate": 0
+      },
+      "oracleInsufficient": {
+        "numerator": 0,
+        "denominator": 12,
+        "rate": 0
+      }
+    },
+    "attribution": {
+      "cases": {
+        "numerator": 48,
+        "denominator": 48,
+        "rate": 1
+      },
+      "records": {
+        "numerator": 52,
+        "denominator": 52,
+        "rate": 1
+      },
+      "missing": 0,
+      "extra": 0
+    },
+    "unknownAttribution": {
+      "numerator": 10,
+      "denominator": 52,
+      "rate": 0.19230769230769232
+    },
+    "unexpectedUnknownAttribution": 0,
+    "ceilingViolations": 0,
+    "limits": "Attribution is exact only for the frozen synthetic oracle; expected unknown attribution remains unknown and does not establish absence of skill."
+  }
+}

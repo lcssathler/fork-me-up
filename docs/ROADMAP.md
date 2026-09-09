@@ -46,8 +46,8 @@ No queue state authorizes publication, network sources, private-data access or a
 | 4 | [`M3-S04` — Import/export and compatibility matrix](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify artifact portability and recovery |
 | 5 | [`M3-S05` — Cross-platform install, update, and uninstall](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify installation, update and removal on three platforms |
 | 6 | [`M3-S06` — Optional public-history decision and boundary](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Enrich selected public history within local-first bounds |
-| 7 | [`M3-S07` — Public Community benchmark](#m3-s07) | `Ready` | Measure the public Community benchmark |
-| 8 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Blocked by M3-S07` | Provide release usage and compatibility guidance |
+| 7 | [`M3-S07` — Public Community benchmark](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Reproduce bounded evidence, disclosure and two-consumer calibration |
+| 8 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Ready` | Provide release usage and compatibility guidance |
 | 9 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
 | 10 | [`M3-S10` — Public Community release](#m3-s10) | `Blocked by M3-S09` | Publish the authorized Community release |
 | 11 | [`M3-S11` — M3 exit audit](#m3-s11) | `Blocked by M3-S10` | Audit every M3 exit requirement |
