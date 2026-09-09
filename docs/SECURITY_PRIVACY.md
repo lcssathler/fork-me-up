@@ -57,7 +57,7 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 ### Local Community invariants
 
 - Offline mode makes no network call and opens no network listener.
-- Optional public-history network use requires an unexpired explicit owner decision, an exact selected public repository mapping and pre-existing external `gh` authentication; consumers cannot trigger it.
+- Optional public-history network use requires an explicit owner decision that is unexpired against the runtime wall clock, an exact selected public repository mapping and pre-existing external `gh` authentication; a request timestamp cannot extend consent and consumers cannot trigger it.
 - Only canonical paths inside explicitly selected roots are read.
 - Symlinks cannot escape authorized roots.
 - No repository script, binary, hook, package manager, build, or test command is executed during evidence collection.
@@ -113,7 +113,7 @@ Local authorization uses a closed internal JSON boundary. It accepts only absolu
 
 **Controls:** no repository execution during collection; subprocess argument arrays; no shell-composed input; no dependency install; explicit allowlist of required Git operations; sanitized Git environment with pagers, hooks, fsmonitor, external diff, and textconv disabled; untrusted config/includes ignored or strictly controlled; bounded environment; negative fixtures for `.git/config`, `.gitattributes`, names, and shell metacharacters.
 
-Public-history network access uses only `gh api --method GET --hostname github.com`, fixed headers and validated relative repository/commit endpoints. Prompts and pagers are disabled, stdout/stderr and time are bounded, no retry occurs, and no source value can add an argument, method, host or header.
+Public-history network access uses only `gh api --method GET --hostname github.com`, fixed headers and validated relative repository/commit endpoints. Prompts and pagers are disabled, stdout/stderr and time are bounded, no retry occurs, and no source value can add an argument, method, host or header. The remote timeout cannot exceed the remaining enclosing collection/refresh deadline after local Git work.
 
 ### T-04 — Secret and personal-data leakage
 

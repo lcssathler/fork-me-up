@@ -46,6 +46,7 @@ export async function createLocalCommunityRuntime(
   options: LocalCommunityRuntimeOptions = {},
 ): Promise<CreationResult> {
   try {
+    const clock = options.clock ?? (() => new Date());
     const input = parse(configurationJson, localCommunityLimits.configurationBytes);
     const hasPublicHistory = record(input) && Object.hasOwn(input, "publicHistory");
     if (
@@ -107,7 +108,10 @@ export async function createLocalCommunityRuntime(
       identity.value,
       risk.value,
       JSON.stringify(refresh),
-      options.refreshPorts ?? {},
+      {
+        ...options.refreshPorts,
+        wallClock: options.refreshPorts?.wallClock ?? (() => clock().getTime()),
+      },
       publicHistory?.value ?? null,
     );
     if (!session.ok) return failure("invalid-config");
@@ -119,7 +123,7 @@ export async function createLocalCommunityRuntime(
     const provider = createLocalStoredProfileProvider(store.value, {
       projectRef,
       repositoryId,
-      clock: options.clock ?? (() => new Date()),
+      clock,
       createId: (kind) => `${kind}_${randomUUID()}`,
       source: () =>
         snapshots.find((snapshot) =>

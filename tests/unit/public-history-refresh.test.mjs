@@ -93,7 +93,12 @@ test("incremental refresh exposes bounded GitHub use and reuses it only from pro
     fixture.identity,
     fixture.risk,
     JSON.stringify(fixture.settings),
-    { commandPort: mockGit, githubPort, now: () => 0 },
+    {
+      commandPort: mockGit,
+      githubPort,
+      now: () => 0,
+      wallClock: () => Date.parse("2026-09-07T12:00:00Z"),
+    },
     resolved.value,
   );
   assert.equal(created.ok, true);

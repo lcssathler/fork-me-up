@@ -15,6 +15,7 @@ import {
 const head = "a".repeat(40);
 const parent = "b".repeat(40);
 const tree = "c".repeat(40);
+const activeConsentTime = () => Date.parse("2026-09-09T12:30:00Z");
 
 /** @param {import("node:test").TestContext} context @param {boolean} [shallow] */
 async function fixture(context, shallow = false) {
@@ -245,7 +246,12 @@ test("public-history configuration is authentic, exact, bounded and scoped to se
     otherSource.authorization,
     resolved.value,
     "2026-09-09T12:30:00Z",
-    { commandPort: localCommandPort(), githubPort: githubPort().port, now: () => 0 },
+    {
+      commandPort: localCommandPort(),
+      githubPort: githubPort().port,
+      now: () => 0,
+      wallClock: activeConsentTime,
+    },
   );
   assert.deepEqual(rebound, {
     ok: false,
@@ -274,6 +280,7 @@ test("complete local Git history is always preferred and makes no GitHub request
         },
       },
       now: () => 0,
+      wallClock: activeConsentTime,
     },
   );
   assert.equal(result.ok, true);
@@ -293,7 +300,12 @@ test("an explicitly consented shallow repository uses bounded GitHub public hist
     source.authorization,
     resolved.value,
     "2026-09-09T12:30:00Z",
-    { commandPort: localCommandPort(), githubPort: github.port, now: () => 0 },
+    {
+      commandPort: localCommandPort(),
+      githubPort: github.port,
+      now: () => 0,
+      wallClock: activeConsentTime,
+    },
   );
   assert.equal(result.ok, true);
   if (!result.ok) return;
@@ -313,6 +325,38 @@ test("an explicitly consented shallow repository uses bounded GitHub public hist
   );
 });
 
+test("remote history uses only the local collection deadline that remains", async (context) => {
+  const source = await fixture(context, true);
+  const resolved = policy(source.authorization, null, { maxDurationMs: 60000 });
+  assert.ok(resolved.ok);
+  if (!resolved.ok) return;
+  let tick = 0;
+  /** @type {number | null} */
+  let receivedTimeout = null;
+  const result = await collectPublicHistory(
+    source.authorization,
+    resolved.value,
+    "2026-09-09T12:30:00Z",
+    {
+      commandPort: localCommandPort(),
+      githubPort: {
+        async get(request) {
+          receivedTimeout = request.timeoutMs;
+          return { ok: false, reason: "deadline-exceeded" };
+        },
+      },
+      now: () => tick++,
+      wallClock: activeConsentTime,
+    },
+  );
+  assert.equal(result.ok, true);
+  assert.equal(result.githubStatus, "unavailable");
+  assert.equal(result.networkRequests, 1);
+  assert.ok(receivedTimeout !== null);
+  assert.ok(receivedTimeout > 0);
+  assert.ok(receivedTimeout < source.authorization.limits.maxDurationMs);
+});
+
 test("expired consent, private responses and unsafe remote paths fail closed to local history", async (context) => {
   const source = await fixture(context, true);
   const resolved = policy(source.authorization);
@@ -322,7 +366,7 @@ test("expired consent, private responses and unsafe remote paths fail closed to 
   const expired = await collectPublicHistory(
     source.authorization,
     resolved.value,
-    "2026-09-09T13:00:00Z",
+    "2026-09-09T12:30:00Z",
     {
       commandPort: localCommandPort(),
       githubPort: {
@@ -332,6 +376,7 @@ test("expired consent, private responses and unsafe remote paths fail closed to 
         },
       },
       now: () => 0,
+      wallClock: () => Date.parse("2026-09-09T13:00:00Z"),
     },
   );
   assert.equal(expired.ok, true);
@@ -348,7 +393,12 @@ test("expired consent, private responses and unsafe remote paths fail closed to 
     source.authorization,
     resolved.value,
     "2026-09-09T12:30:00Z",
-    { commandPort: localCommandPort(), githubPort: privateRepository.port, now: () => 0 },
+    {
+      commandPort: localCommandPort(),
+      githubPort: privateRepository.port,
+      now: () => 0,
+      wallClock: activeConsentTime,
+    },
   );
   assert.equal(rejected.ok, true);
   assert.equal(rejected.historySource, "local-git");
@@ -367,7 +417,12 @@ test("expired consent, private responses and unsafe remote paths fail closed to 
     source.authorization,
     resolved.value,
     "2026-09-09T12:30:00Z",
-    { commandPort: localCommandPort(), githubPort: unsafe.port, now: () => 0 },
+    {
+      commandPort: localCommandPort(),
+      githubPort: unsafe.port,
+      now: () => 0,
+      wallClock: activeConsentTime,
+    },
   );
   assert.equal(unsafeResult.ok, true);
   assert.equal(unsafeResult.githubStatus, "rejected");
@@ -390,7 +445,12 @@ test("GitHub can replace an unavailable local Git command only with an exact con
     source.authorization,
     withoutHead.value,
     "2026-09-09T12:30:00Z",
-    { commandPort: unavailable, githubPort: githubPort().port, now: () => 0 },
+    {
+      commandPort: unavailable,
+      githubPort: githubPort().port,
+      now: () => 0,
+      wallClock: activeConsentTime,
+    },
   );
   assert.equal(noFallback.ok, false);
   assert.equal(noFallback.githubStatus, "rejected");
@@ -401,7 +461,12 @@ test("GitHub can replace an unavailable local Git command only with an exact con
     source.authorization,
     withHead.value,
     "2026-09-09T12:30:00Z",
-    { commandPort: unavailable, githubPort: github.port, now: () => 0 },
+    {
+      commandPort: unavailable,
+      githubPort: github.port,
+      now: () => 0,
+      wallClock: activeConsentTime,
+    },
   );
   assert.equal(fallback.ok, true);
   assert.equal(fallback.historySource, "github");
@@ -477,7 +542,12 @@ test("remote request, response, path and timestamp limits fail closed to shallow
       source.authorization,
       scenario.policy.value,
       "2026-09-09T12:30:00Z",
-      { commandPort: localCommandPort(), githubPort: scenario.port, now: () => 0 },
+      {
+        commandPort: localCommandPort(),
+        githubPort: scenario.port,
+        now: () => 0,
+        wallClock: activeConsentTime,
+      },
     );
     assert.equal(result.ok, true);
     assert.equal(result.historySource, "local-git");
@@ -490,6 +560,8 @@ test("remote request, response, path and timestamp limits fail closed to shallow
 test("the Node GitHub port accepts only fixed read-only github.com API requests", async () => {
   for (const request of [
     { endpoint: "https://example.invalid/repos/a/b", maximumOutputBytes: 1, timeoutMs: 1 },
+    { endpoint: "/repos/a/..", maximumOutputBytes: 1, timeoutMs: 1 },
+    { endpoint: "/repos/a--b/repository", maximumOutputBytes: 1, timeoutMs: 1 },
     {
       endpoint: "/repos/a/b/commits/" + head + "?per_page=100&page=5",
       maximumOutputBytes: 1,

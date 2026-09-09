@@ -72,6 +72,10 @@ This file records notable repository and public-contract changes. There are no p
 - A private generation-addressed Community Profile Store runtime that validates the accepted internal `0.1.0` envelope, atomically activates synced/read-back immutable files without overwriting a generation, detects concurrent writers, retains rollback state, recovers the newest valid candidate, ignores orphan staging, reports cleanup debt, and rehearses an explicit synthetic `0.0.0` to `0.1.0` migration (`M2-S06`; `FMU-FR-004`, `FMU-FR-009`; `FMU-NFR-009`, `FMU-NFR-014`; `FMU-E-011`; ADR-0023). No public schema, dependency, Claim/Evidence derivation, owner operation, Provider integration, release, or real-data migration is added.
 - A pure private source-language Evidence and Claim derivation boundary with stable opaque IDs, semantic fingerprints, project scope, injected freshness, conservative authorship/risk ceilings, exact Profile-payload validation, and explicit refresh invalidation (`M2-S07`; `FMU-FR-004` through `FMU-FR-006`, `FMU-FR-020`; `FMU-NFR-006`; ADR-0024). It never infers from prose or dependencies, emits high confidence or demonstrated depth, changes a public schema, or adds a dependency, model, network, persistence orchestration, owner workflow, Provider operation, or release.
 
+### Fixed
+
+- M3-S06: evaluate public-history consent expiry against the runtime wall clock rather than owner-supplied observation metadata, charge local Git time to the enclosing collection deadline and cap every remote request to the smaller remaining refresh or configured GitHub duration (`FMU-NFR-007`, `FMU-NFR-012`; ADR-0039).
+
 ### Changed
 
 - Simplify product explanations and user/agent navigation; consolidate delivery rules in Engineering, expose the current roadmap queue first, and preserve completed execution evidence separately. Requirements, public contracts, milestone gates and frozen measurements remain unchanged (ADR-0033 editorial refinement; Engineering Section 11).
