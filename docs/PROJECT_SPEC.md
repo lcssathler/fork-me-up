@@ -469,6 +469,8 @@ The commercial MLP is **GitHub → Profile → task-scoped DCP → authenticated
 - Community-to-Pro conversion after Pro exists;
 - cost per active managed profile and remote context request.
 
+The [M3 Community benchmark](evaluations/M3_COMMUNITY_BENCHMARK.md) measures only constructed evidence outcomes, exact payload disclosure and repeated structured policy conformance across the Codex and generic consumers. It does not measure conversational turns avoided, response usefulness, human accuracy, time saved, population behavior or rankings; those metrics require separate studies.
+
 <a id="18-product-level-definition-of-done"></a>
 
 ## 18. When is a milestone complete?

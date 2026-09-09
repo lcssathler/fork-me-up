@@ -35,7 +35,7 @@ Accepted ADRs remain applicable within the authority order in AGENTS. Superseded
 
 Execution records: [M0](history/M0_EXECUTION.md), [M1](history/M1_EXECUTION.md), [M2](history/M2_EXECUTION.md) and [M3](history/M3_EXECUTION.md).
 
-Exit audits: [M0](audits/M0_EXIT_AUDIT.md), [M1](audits/M1_EXIT_AUDIT.md), [M2 verdict](audits/M2_EXIT_AUDIT.md) and [complete M2 evidence](audits/details/M2_EXIT_AUDIT.md). The [quality results](evaluations/M2_QUALITY_RESULTS.md) retain the frozen measurement and its limits.
+Exit audits: [M0](audits/M0_EXIT_AUDIT.md), [M1](audits/M1_EXIT_AUDIT.md), [M2 verdict](audits/M2_EXIT_AUDIT.md) and [complete M2 evidence](audits/details/M2_EXIT_AUDIT.md). The [M2 quality results](evaluations/M2_QUALITY_RESULTS.md) retain the frozen evidence measurement, while the [M3 Community benchmark and result](evaluations/M3_COMMUNITY_BENCHMARK.md#measurement-record) retain repeated disclosure and two-consumer calibration with explicit limits.
 
 The [handoff entry](HANDOFF.md) helps resume a task. Older navigation is retained in the [M2 development baseline](history/README_M2_BASELINE.md), [M2 generic handoff](history/HANDOFF_M2_BASELINE.md) and [measurement handoff](handoffs/M2_NEXT_MACHINE.md).
 
