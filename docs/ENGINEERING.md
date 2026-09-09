@@ -1,10 +1,12 @@
 # Fork Me Up — Engineering Process
 
-> Status: mandatory pre-implementation process  
+> Status: current delivery policy
 > Version: 0.1  
-> Last updated: September 4, 2026
+> Last updated: September 9, 2026
 
 This document defines how Fork Me Up is built and is authoritative for delivery-process details. `AGENTS.md` summarizes mandatory guardrails. Product claims require evidence; engineering claims do too.
+
+Fork Me Up is developed by agents. Its product rules and user guides must also be clear to the person reviewing and using the system. The [editorial policy](#11-documentation-and-traceability) applies to both audiences.
 
 ## 1. Delivery principles
 
@@ -28,14 +30,17 @@ Discovery → Contract/ADR → Implementation → Verification
 
 ### 2.1 Discovery
 
-Read-only inspection ends with:
+Inspect current behavior and evidence, then record one task contract in the task or PR:
 
-- applicable requirement, use-case, evaluation, milestone-slice, gate, and ADR identifiers, as applicable; when no behavioral evaluation applies, record that fact and its reason instead of inventing an ID;
-- current behavior and evidence;
-- observable outcome;
-- files, packages, data classes, and systems in scope;
-- risks and explicit non-goals;
-- required tests and stopping conditions.
+1. Applicable requirement, use-case, evaluation, milestone-slice, gate or ADR IDs. If no behavioral evaluation applies, explain why; do not invent an ID.
+2. Expected observable result, including the behavior before and after.
+3. Files, packages, data classes and external systems in scope.
+4. Hard constraints, risks and explicit non-goals.
+5. Required tests, evaluations and security checks, using Section 2.4.
+6. Compatibility and migration impact.
+7. Allowed effects and stopping conditions.
+
+Ask for direction if a choice materially changes scope, risk, accessed data, public contracts, licensing or external effects. Otherwise choose the smallest safe option and record the assumption. For roadmap work, first apply the eligibility and ownership rules in [AGENTS.md](../AGENTS.md#milestone-request-routing).
 
 ### 2.2 Contract and decision
 
@@ -50,6 +55,8 @@ Change a public schema or architecture only after:
 ### 2.3 Implementation
 
 Implement the smallest end-to-end behavior. Use dependency injection at side-effect boundaries, explicit types at persistence and transport boundaries, and pure functions for policy and claim logic where practical.
+
+Extract abstractions from repeated working code. Keep public contracts stable and client-neutral, and prefer deterministic Community evidence extraction. Do not add a dedicated LLM dependency, hosted service, database, embeddings or remote connector before its roadmap gate and accepted ADR. Preserve progressive disclosure: metadata first, task context second, and evidence details only when authorized and useful. Finish with runnable, verifiable work.
 
 ### 2.4 Verification
 
@@ -75,6 +82,8 @@ Update all affected normative sources in the same branch. Do not rely on a hando
 
 Keep one authoritative location for each rule and one detailed record for each verification result. Prefer a link to repeating either. The editorial policy in Section 11 governs future additions as well as reorganizations.
 
+For interrupted work, append only the observed revision, branch, changed files, completed checks and next action to that task's handoff. On resumption, verify those observations against Git and current authority. A historical handoff neither supplies a competing queue nor authorizes new effects.
+
 ### 2.6 Release
 
 Passing tests does not authorize publishing. Release is a separately authorized action with its own reproducibility, security, artifact, and rollback gates.
@@ -91,6 +100,7 @@ Passing tests does not authorize publishing. Release is a separately authorized 
 
 ### 3.2 Branches
 
+- Inspect branch, base, working tree, local branches, worktrees and active ownership before editing. Update `main` before starting a short branch; preserve user edits and unintegrated work. Remove only verified integrated branches. Squash integration requires PR and content evidence before deleting a non-ancestor branch.
 - Use one short-lived branch per observable outcome.
 - Name branches by change type and intent, such as `feat/m1-bootstrap-context`, `fix/profile-atomic-write`, `security/path-boundary`, or `docs/protocol-draft`.
 - A branch should map primarily to one requirement, defect, or bootstrap roadmap slice.
@@ -122,7 +132,7 @@ Authentication, persistence, redaction, filesystem boundaries, public schemas, l
 
 ## 4. Reproducible environment
 
-M0 selects and records exact tooling. The implementation must then:
+The committed toolchain defines reproducibility. Development and CI must:
 
 - pin the exact Node.js version used by development and CI in a committed tool file and declare the tested public support range separately in package metadata;
 - pin the exact package-manager/Corepack version;
@@ -133,7 +143,7 @@ M0 selects and records exact tooling. The implementation must then:
 - use synthetic fixtures and temporary repositories;
 - inject clock, randomness, identifiers, filesystem roots, and network clients where required;
 - normalize platform-specific paths;
-- keep tests independent of user credentials, locale, timezone, machine repositories, and live network services.
+- keep tests independent of user credentials, locale, timezone, wall clock, machine repositories, global tools and live network services.
 
 A clean checkout must reproduce the documented checks. Any platform limitation is explicit and prevents a broader compatibility claim.
 
@@ -154,6 +164,8 @@ The M2 evidence-quality gate is reproducible with `npm run measure:m2 -- --outpu
 
 ## 6. Test strategy
 
+Bug fixes include regression coverage when practical. Test valid, missing, invalid, stale, partial, unauthorized and degraded states. Public contract changes require schema, compatibility and MCP integration tests; evidence changes require positive and adversarial attribution fixtures. Skills, tool descriptions, adapters and response policies require behavioral evaluations. Security-sensitive parsers and paths require malformed, traversal, symlink, size-limit and injection cases. Assert required and forbidden behavior instead of exact generated prose.
+
 ### 6.1 Unit tests
 
 Cover pure evidence rules, claim precedence, adjacency, task relevance, disclosure budgeting, response policy, cache validity, redaction, and migration behavior.
@@ -169,6 +181,8 @@ Use where they add value for parsers, Unicode, paths, symlinks, size/depth limit
 ### 6.4 Integration tests
 
 Exercise MCP `stdio`, local persistence, adapters, cache invalidation, export, deletion, and diagnostics with temporary roots and controlled subprocesses. Git tests use a sanitized environment with pagers, hooks, fsmonitor, external diff, textconv, and untrusted config/includes disabled.
+
+Artifact compatibility uses exact private Protocol/Core/Community Provider tarballs and a temporary consumer lockfile derived from the official production dependency closure. Start clean artifact verification with a fresh root `npm ci` and an empty npm cache; install the consumer offline with lifecycle scripts disabled. Verify version/operation rejection, export/import, expected-generation conflict, migration, recovery and Store/interchange separation through `npm run compatibility:check`. Never run aggregate checks concurrently with another artifact build.
 
 ### 6.5 End-to-end tests
 
@@ -189,6 +203,8 @@ Evaluate outcomes rather than exact wording. Every scenario declares:
 ### 6.7 Security and privacy tests
 
 Required adversarial categories are maintained in `SECURITY_PRIVACY.md`, including malicious repository instructions, path escape, shell metacharacters, resource exhaustion, false attribution, canary secrets, unauthorized evidence, persistence interruption, and future cross-tenant access.
+
+Canary tests must prove redaction in logs, diagnostics, exports, errors and context packets. Report the checks actually executed, including failures and untested areas.
 
 ## 7. Initial behavioral evaluation catalog
 
@@ -213,21 +229,7 @@ Required adversarial categories are maintained in `SECURITY_PRIVACY.md`, includi
 | FMU-E-017 | Sharing Grant is absent, expired, revoked, or under-scoped. | Return no protected context. |
 | FMU-E-018 | Consumer requests another developer or unrelated task data. | Reject without revealing whether the target exists. |
 
-M1-S02 makes FMU-E-001 through FMU-E-004 executable against the structured client-neutral Response Policy and preserved Claim output. M1-S03 makes FMU-E-006 executable against pure Demand/Profile intersection and proves unrelated expertise is absent from its intermediate task projection. M1-S04 makes FMU-E-012 and FMU-E-013 executable against the pure compiler, proving policy isolation/canary redaction and deterministic strict-budget reduction. M1-S06 exercises those three policy modes through the Codex fixed renderer and makes FMU-E-014 executable against unavailable Provider and adapter state, proving the hook neither blocks the host nor exposes context on failure. Model-authored prose and equivalent behavior in a materially different second consumer remain later gates.
-
-M2-S08 makes `FMU-E-009` and `FMU-E-010` executable at the private Demand producer boundary. Explicit candidate interpretations with different effective capabilities/relevance or operation risk yield one clarification; a valid choice resolves the pending object without another question. Equivalent interpretations, absent ambiguity and missing evidence proceed without a questionnaire. These tests exercise structured behavior, not model-authored questions or an owner/client UI.
-
-M2-S10 exercises `FMU-E-005` through persisted/reloaded correction and Core DCP compilation: owner input controls behavior, archival knowledge is not projected as current, and original provenance stays privately inspectable. Its `FMU-E-011` evaluation verifies owner acknowledgment after persistence and prior-state retention after failed staging. Real subprocess tests cover the no-LLM CLI.
-
-M2-S11 exercises `FMU-E-015` through redacted export, absent-only import and subsequent Core intersection: canaries stay out of artifacts/results and historical knowledge remains excluded after correction round trips. Unit fault injection covers persistence/readback/cleanup failures, deletion barriers and session disposal. Real filesystem/subprocess tests isolate Store and adapter roots, verify cache deletion and non-resurrection, reject junctions and preserve source/unrelated files. Full aggregate checks and focused human review remain integration gates.
-
-M2-S12 extends `FMU-E-015` to owner evidence and doctor outputs, including sensitive private limitations, opaque identifiers, injected cache errors and DCP task content. Tests validate nested Provider metadata, historical/self-targeted correction behavior, byte/count bounds, real missing-dependency diagnostics, unchanged files/directories, cache expiry and junction rejection. Diagnostic success is checked independently from component health; no repair is performed.
-
-M2-S13 verifies the local-utility exit gate through an actual CLI/MCP subprocess workflow over two temporary Git repositories: collection, unchanged cache reuse, persisted rejection, changed-source refresh, restart, corrected context, doctor, export and verified deletion. Unit tests independently exercise the Store-backed Provider and runtime failure boundaries, including no consumer source/write authority, malformed owner commands, partial refresh and Store/source overlap. Existing behavioral evaluations remain applicable; no new evaluation ID is invented for this composition gate.
-
-M3-S03 makes `FMU-E-016` executable against two materially different consumers. The Codex lifecycle adapter and a stateless generic JSON process receive the same all-state DCP fixture and preserve identical allowlisted Claim capability/state/depth, Response Policy and expiry meaning. The generic path is separately installed with only the Protocol artifact and rejects invalid, expired, oversized or audience-mismatched packets without emitting free text. The evaluation proves structured behavior for these two consumers, not equivalent model prose or untested compatibility.
-
-M3-S04 builds exact private tarballs for Protocol, Core and Community Provider, generates a temporary consumer lock from the official production dependency closure, and installs with lifecycle scripts disabled and offline cache use. Its seven artifact-only cases cover public version/operation rejection, owner portability, expected-generation conflict, explicit synthetic migration, prior-state recovery and Store/interchange separation. Clean verification begins with a fresh root `npm ci` and empty cache so the consumer's offline install relies only on the official lock-populated tree; the aggregate must not race another artifact build.
+Current executable coverage is maintained in [behavioral evaluations](../evaluations/) and [integration tests](../tests/integration/). These tests prove structured behavior within their declared scope; they do not establish equivalent model-written answers or untested compatibility. The execution narratives are retained in the [M1](history/M1_EXECUTION.md#verification-coverage-recorded-at-84921df), [M2](history/M2_EXECUTION.md#verification-coverage-recorded-at-84921df) and [M3](history/M3_EXECUTION.md#verification-coverage-recorded-at-84921df) records.
 
 ## 8. CI strategy
 
@@ -325,13 +327,38 @@ Every delegated task includes:
 - Decide shared contracts before parallel consumer work.
 - Prefer separate branches or worktrees when Git is available.
 - Stop and re-coordinate dependent tasks after a shared contract changes.
-- Subagents do not merge, publish, or declare integrated success.
+- Subagents report changed files, checks run, assumptions, findings and residual risks. They do not expand scope, merge, publish or declare integrated success.
 
 ### 10.4 Integration
 
 The lead reviews changed files, resolves conflicts intentionally, reruns integrated checks, verifies documentation and security invariants, and reports what was not tested. Agent-generated code receives the same review as human-authored code.
 
 ## 11. Documentation and traceability
+
+### Write for the reader
+
+- Explain the product and its business rules in plain English in the authoritative document itself. Introduce a technical term when it is first needed, and use a small example when a rule could be misunderstood. Do not maintain a separate simplified specification that can drift from the contract.
+- Give each document one responsibility. State a rule once in its responsible source; elsewhere use a short contextual explanation and a direct link. Repeat a safety limit where the user must see it to act correctly, such as the scope of deletion.
+- Separate required behavior, currently available behavior and future work. Technical references describe current contracts and explicit future boundaries; completed implementation narratives belong in history. Do not describe a test result as broader product compatibility or human accuracy.
+- A short file with dense paragraphs is not necessarily easy to read. Prefer meaningful headings, short paragraphs, one rule per bullet and narrow tables. Do not replace a long paragraph with an equally long table cell or a mandatory chain of summaries.
+
+### Keep one responsible source
+
+| Subject | Responsible source |
+|---|---|
+| Product behavior and business rules | `PROJECT_SPEC.md` |
+| Security, privacy, consent, retention and threats | `SECURITY_PRIVACY.md` |
+| Public objects and wire semantics | `PROTOCOL.md` and public schemas |
+| Compatibility and version changes | `VERSIONING.md` |
+| Component responsibilities and data flow | `ARCHITECTURE.md` |
+| Delivery process, task contracts and verification | `ENGINEERING.md` |
+| Milestone scope, states, queue and gates | `ROADMAP.md` |
+| Architectural rationale and accepted decisions | ADRs |
+| Detailed execution and verification evidence | Task/PR records, history, evaluations and audits |
+
+This division follows the authority order in [AGENTS.md](../AGENTS.md). Accepted ADRs remain applicable within that order; only superseded decisions are historical authority. When a change affects more than one subject, update every affected source together. Product changes update requirements and evaluations; security changes update threats and negative tests; public contract changes update schemas, generated types, fixtures, examples, compatibility, migration notes and changelog. Material architecture changes require an ADR before or with implementation.
+
+### Preserve traceability and navigation
 
 - Requirements use stable `FMU-FR-*` and `FMU-NFR-*` IDs.
 - Behavioral evaluations use stable `FMU-E-*` IDs.
@@ -341,9 +368,10 @@ The lead reviews changed files, resolves conflicts intentionally, reruns integra
 - ADRs record decisions; they are not used as progress logs.
 - `ROADMAP.md` records milestone state and gates; it does not redefine product behavior.
 - The generic handoff contains navigation, not unique decisions or a duplicate current queue.
+- `AGENTS.md` owns agent entry routes and mandatory guardrails. `AGENT_POLICY.md` is a compatibility index into this delivery policy, not a second copy of it. New task routes point directly to the responsible sections.
 - The roadmap is the sole authority for milestone states and the current ordered queue. README, handoffs and the documentation map link there instead of maintaining another status list. An optional task handoff records its observed revision and pending work, not a competing queue.
 - Keep completed slice narratives in `docs/history/`; retain decisions, thresholds, authorizations and verification evidence with their original task context. Archives are not current authority for external actions. Preserve links when moving material. Frozen experiment inputs/reports retain exact bytes and paths.
-- Keep README focused on purpose, setup and navigation. Put detailed implementation descriptions in the applicable subject document. Prefer short paragraphs, one rule per bullet and narrow comparison tables; do not turn a long paragraph into an equally long table cell.
+- Keep README focused on purpose, how the product works, user control, availability limits, setup and navigation. Put package internals and verification mechanics in technical references. The documentation map offers separate paths for understanding, using and developing the product; it must not require users to start with agent instructions.
 - Record task contracts and verification once in the task/PR or durable decision. Changelogs describe the outcome briefly. Routine slices need a short record/link; reserve comprehensive gate tables for milestone/security/release audits. Put long audit evidence behind a concise verdict page.
 - `npm run docs:check` enforces local Markdown targets/fragments and byte budgets for entry documents: README 7 KiB, handoff 3 KiB, documentation map 6 KiB, roadmap 40 KiB and AGENTS 12 KiB. When approaching a budget, move background to a linked subject/history file while preserving content and authority. Raising a budget requires an explicit process rationale; splitting content into mandatory recursive reading does not satisfy the reading policy.
 - English is the normative documentation language. Translations, if added, are labeled non-normative and link to the canonical source.
@@ -383,7 +411,9 @@ M0 must define what each command includes and keep local and CI behavior aligned
 
 ## 14. External effects
 
-Normal implementation work may read local files, edit in-scope files, and run non-destructive local verification. Publishing, deploying, creating releases, changing license terms, accessing private repositories, writing to external services, modifying billing or authentication infrastructure, and destructive data operations require explicit authorization and their roadmap gates.
+Normal implementation work may read local files, edit in-scope files, run non-destructive local verification and fix failures caused by those changes without another confirmation.
+
+Push, external pull-request creation, merge, force-push, shared-history rewrites, tags, publication, deployment, releases, license changes, private-repository access, external-service writes, billing/authentication infrastructure changes and material data deletion require explicit authorization and applicable roadmap gates. Stop before an unplanned production dependency or a material scope expansion. Tests passing never supply that authorization.
 
 ## 15. References
 

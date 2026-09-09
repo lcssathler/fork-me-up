@@ -1,0 +1,24 @@
+# M3 execution history
+
+> Historical record preserved from integrated main `84921df` (September 9, 2026). M3 is not closed by this record. Use the [current roadmap](../ROADMAP.md#15-current-m3-execution-queue) for state, gates and eligible work; historical authorization does not authorize a new task.
+
+## Delivered slices
+
+These rows preserve the completed slice outcomes and traceability from the roadmap at that revision.
+
+| Order | Slice | State | Observable outcome | Prerequisites and traceability |
+|---:|---|---|---|---|
+| 1 | `M3-S01` — Community packaging and release boundary | `Complete` | ADR-0034 fixes Protocol/Core/Community Provider candidates, compiled root entry points, private unpublished manifests and exact bounded content allowlists; the pinned local npm dry-run emits deterministic package-relative inspection reports without tarballs, registry access or internal path leakage. | M2 exit; M3 public SDK/package and package-dry-run deliverables; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`, `FMU-NFR-018`; ADR-0005/0034; `VERSIONING.md`; Engineering package gate. |
+| 2 | `M3-S02` — Public Protocol SDK and conformance distribution | `Complete` | A private local Protocol tarball exposes typed SDK/conformance entry points plus exact public schema and fixture subpaths; isolated offline installation accepts the supported `0.1.0` drafts and rejects unsupported versions without repository imports. | Integrated M3-S01; `FMU-FR-009`, `FMU-FR-010`, `FMU-FR-023`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`; ADR-0035; M3 public SDK/protocol/conformance deliverable. |
+| 3 | `M3-S03` — Independent generic conformance consumer | `Complete` | A stateless bounded JSON consumer installs only the private local Protocol artifact, validates DCP expiry/audience, emits no free text or authority and preserves all Claim states plus exact Response Policy intent against Codex under `FMU-E-016`, without Core/Provider/client imports. | M3-S02; hypothesis H-04; `FMU-FR-024`; `FMU-E-016`; ADR-0036; M3 two-consumer exit gate. |
+| 4 | `M3-S04` — Import/export and compatibility matrix | `Complete` | Exact private Protocol/Core/Community Provider tarballs install together through a lockfile-derived offline consumer; seven artifact-only cases cover supported/rejected Provider and public versions, owner Export/Import round trip, verified update/conflict, explicit legacy migration, prior-generation recovery and Store/Export/DCP separation. | M3-S03; `FMU-FR-009`, `FMU-FR-015`, `FMU-FR-023`; `FMU-NFR-009`, `FMU-NFR-020`; ADR-0037; M3 tested import/export and compatibility deliverable. |
+
+Architectural decisions: [packaging boundary](../adr/0034-community-package-dry-run-boundary.md), [Protocol artifact](../adr/0035-protocol-sdk-conformance-distribution.md), [generic consumer](../adr/0036-independent-generic-conformance-consumer.md) and [artifact compatibility](../adr/0037-community-artifact-compatibility-matrix.md). These accepted decisions retain their authority; this execution record does not replace them.
+
+## Verification coverage recorded at 84921df
+
+The following narrative was moved unchanged from Engineering Section 7. It records the scope of verification, including limits on what those results prove.
+
+M3-S03 makes `FMU-E-016` executable against two materially different consumers. The Codex lifecycle adapter and a stateless generic JSON process receive the same all-state DCP fixture and preserve identical allowlisted Claim capability/state/depth, Response Policy and expiry meaning. The generic path is separately installed with only the Protocol artifact and rejects invalid, expired, oversized or audience-mismatched packets without emitting free text. The evaluation proves structured behavior for these two consumers, not equivalent model prose or untested compatibility.
+
+M3-S04 builds exact private tarballs for Protocol, Core and Community Provider, generates a temporary consumer lock from the official production dependency closure, and installs with lifecycle scripts disabled and offline cache use. Its seven artifact-only cases cover public version/operation rejection, owner portability, expected-generation conflict, explicit synthetic migration, prior-state recovery and Store/interchange separation. Clean verification begins with a fresh root `npm ci` and empty cache so the consumer's offline install relies only on the official lock-populated tree; the aggregate must not race another artifact build.

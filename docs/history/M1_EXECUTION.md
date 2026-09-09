@@ -111,3 +111,9 @@ Pinned Windows verification passed a lockfile-enforced clean installation, the c
 The behavioral proof is intentionally bounded to the client-neutral structured policy and the reference adapter's fixed allowlisted renderer. It does not claim model-authored prose, a second consumer, production repository inference, a released protocol, or cross-platform compatibility; those remain later gates. No M2 collector, persistence, owner workflow, dependency, public schema revision, package, release, deployment, or private-source access is introduced.
 
 No M1 exit blocker remains. The proposed M1 `Complete`, M1-S07 `Complete`, M2 `Ready`, and M2-S01 `Ready` transitions become authoritative only after this audit revision passes required pull-request CI and integrates into protected `main`.
+
+## Verification coverage recorded at 84921df
+
+The following execution narrative was moved unchanged from Engineering Section 7 on September 9, 2026. It describes its original implementation scope; consult the current engineering policy and tests for new work.
+
+M1-S02 makes FMU-E-001 through FMU-E-004 executable against the structured client-neutral Response Policy and preserved Claim output. M1-S03 makes FMU-E-006 executable against pure Demand/Profile intersection and proves unrelated expertise is absent from its intermediate task projection. M1-S04 makes FMU-E-012 and FMU-E-013 executable against the pure compiler, proving policy isolation/canary redaction and deterministic strict-budget reduction. M1-S06 exercises those three policy modes through the Codex fixed renderer and makes FMU-E-014 executable against unavailable Provider and adapter state, proving the hook neither blocks the host nor exposes context on failure. Model-authored prose and equivalent behavior in a materially different second consumer remain later gates.
