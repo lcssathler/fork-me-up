@@ -1,8 +1,16 @@
-# Local owner inspection, corrections and portability
+<a id="local-owner-inspection-corrections-and-portability"></a>
 
-For selected-source collection and Store-backed MCP delivery, use the [complete local Community workflow](LOCAL_COMMUNITY.md). Its owner mode accepts the same request objects directly, with Store configuration supplied once at launch.
+# Inspect, correct, export and delete your local profile
 
-M2-S10 provides a first-party local CLI without an LLM or network service. Run it from the repository using the pinned Node.js version:
+Use this guide to manage a profile you own through the local command line. You can inspect assessments, correct them, diagnose local state, move a redacted profile between Stores and delete managed data. No LLM or network service is required.
+
+For source collection and MCP delivery, start with the [local Community workflow](LOCAL_COMMUNITY.md). Its owner mode accepts the request objects below directly; configure the Store once at launch and omit the standalone CLI's outer `store` wrapper.
+
+Choose an action: [inspect](#inspect-the-profile), [correct](#correct-an-assessment), [declare](#declare-experience), [find evidence](#evidence-lookup-and-doctor), [diagnose](#diagnose-local-state), [export or import](#export-and-import), or [delete](#delete-managed-local-data).
+
+## Run the owner command
+
+Run from the repository using the pinned Node.js version:
 
 ```text
 node scripts/owner-profile.mjs
@@ -10,7 +18,9 @@ node scripts/owner-profile.mjs
 
 Send one UTF-8 JSON document on stdin and close stdin. The command reads at most 4 MiB within 30 seconds; inspection/correction requests retain their 32 KiB service limit. It returns one bounded JSON result on stdout and exits with zero on success or one on failure. Supply an existing Store directory explicitly; there is no implicit directory discovery. This private owner interface is separate from Provider/MCP tools. Do not publish inspection output as a diagnostic.
 
-Example input to list Claims:
+## Inspect the profile
+
+This request lists Claims, the profile's individual capability assessments:
 
 ```json
 {
@@ -28,9 +38,13 @@ Example input to list Claims:
 }
 ```
 
-Replace the directory and identifiers with the existing owner-selected configuration. A missing profile returns `absent`; inspection does not create or migrate a Store. Set `claimId` to one returned identifier for structured evidence and correction details. The view includes state, scope, observed depth, confidence, freshness and whether a Claim is historical. Detailed provenance includes evidence fingerprints, authorship categories and correction IDs/kinds/times. Notes, source paths and native diagnostics are omitted.
+Replace the directory and identifiers with the existing owner-selected configuration. A missing profile returns `absent`; inspection does not create or migrate a Store.
 
-To correct an evidence-backed Claim, keep the same `store` and replace `request` with:
+Set `claimId` to one returned identifier for structured evidence and correction details. The view includes state, scope, observed depth, confidence, freshness and whether a Claim is historical. Detailed provenance includes evidence fingerprints, authorship categories and correction IDs/kinds/times. Notes, source paths and native diagnostics are omitted.
+
+## Correct an assessment
+
+Keep the same `store` and replace `request` with the following to correct an evidence-backed Claim:
 
 ```json
 {
@@ -43,9 +57,13 @@ To correct an evidence-backed Claim, keep the same `store` and replace `request`
 }
 ```
 
-Use the generation returned by inspection and a canonical UTC timestamp at or after the prior mutation and target observation. `correct` and `dispute` append an adjustment; `reject` appends a rejection. The effective Claim becomes `disputed`, with its original observation preserved in history. Another correction appends a new record and becomes current, including same-second edits. Notes are private inert text of 1–256 characters; controls and malformed Unicode are rejected. Notes are persisted but not echoed. Do not include credentials or raw source.
+Use the generation returned by inspection and a canonical UTC timestamp at or after the prior mutation and target observation. `correct` and `dispute` append an adjustment; `reject` appends a rejection. The effective Claim becomes `disputed`, with its original observation preserved in history. Another correction appends a new record and becomes current, including same-second edits.
 
-Independent assertions use `declare`:
+Notes are private inert text of 1–256 characters; controls and malformed Unicode are rejected. Notes are persisted but not echoed. Do not include credentials or raw source.
+
+## Declare experience
+
+Use `declare` for an independent assertion about your experience:
 
 ```json
 {
@@ -59,15 +77,23 @@ Independent assertions use `declare`:
 }
 ```
 
-`null` expected generation creates an absent profile; an existing Store requires its observed generation. A declaration creates a `self-declared` Claim with no observed depth or Evidence. A non-null project reference scopes it to that project. Corrections target observed evidence-backed Claims; self-declared, unobserved and historical targets return `unsupported-target`. Manual input cannot promote a Claim to demonstrated knowledge. Declaration withdrawal and correction revocation are not implemented in this slice.
+`null` expected generation creates an absent profile; an existing Store requires its observed generation. A declaration creates a `self-declared` Claim with no observed depth or Evidence. A non-null project reference scopes it to that project.
+
+Corrections target observed evidence-backed Claims; self-declared, unobserved and historical targets return `unsupported-target`. Manual input cannot promote a Claim to demonstrated knowledge. Declaration withdrawal and correction revocation are not implemented.
+
+## Check whether a write succeeded
 
 `saved` means the candidate was validated and reread after atomic activation. `conflict` requires new inspection before deciding on another mutation. `commit-outcome-unknown` means activation may have occurred; inspect rather than blindly retrying. Recovery and pending cleanup are explicit. History exhaustion rejects the whole mutation and preserves the prior valid state.
 
-For local application composition, `saveOwnerDerivation` accepts only an authentic Community derivation, explicit Store authority and a closed `{version, expectedGeneration, at}` JSON request. It initializes or refreshes automated state while retaining declarations, corrections and archived provenance. Disputed scopes suppress replacement inference; changed, absent or newly observed sources conservatively mark effective disputes stale without revoking them. Recompute a derivation at or after the latest Store validation before saving; old snapshots cannot roll state back. Core task intersection excludes historical originals linked by effective disputes.
+### Application composition
+
+For local application composition, `saveOwnerDerivation` accepts only an authentic Community derivation, explicit Store authority and a closed `{version, expectedGeneration, at}` JSON request. It initializes or refreshes automated state while retaining declarations, corrections and archived provenance.
+
+Disputed scopes suppress replacement inference; changed, absent or newly observed sources conservatively mark effective disputes stale without revoking them. Recompute a derivation at or after the latest Store validation before saving; old snapshots cannot roll state back. Core task intersection excludes historical originals linked by effective disputes.
 
 ## Evidence lookup and doctor
 
-M2-S12 adds two read-only requests through this same CLI. To look up one exact capability, use:
+Use `get-capability-evidence` to look up one exact capability without changing the profile:
 
 ```json
 {
@@ -78,9 +104,17 @@ M2-S12 adds two read-only requests through this same CLI. To look up one exact c
 }
 ```
 
-The result reports at most eight matching Claims with at most eight Evidence summaries each. `totalClaims`, `totalEvidence` and `truncated` distinguish limited output from missing evidence. An unknown capability produces an empty result, never a claim of ignorance. Assessment state, depth, confidence, scope, freshness and historical status remain visible; each nested evidence object validates the existing Provider evidence contract. References are hashes for correlation inside the diagnostic view, not correction handles: use `inspect` for mutation identifiers. Known limitation codes are allowlisted, while private prose becomes `private-limitations-omitted`. No source locations, notes, author identities or native errors are returned. Consumer/MCP evidence disclosure remains disabled.
+The result reports at most eight matching Claims with at most eight Evidence summaries each. `totalClaims`, `totalEvidence` and `truncated` distinguish limited output from missing evidence. An unknown capability produces an empty result, never a claim of ignorance.
 
-The `doctor` request diagnoses local state without repair or mutation:
+Assessment state, depth, confidence, scope, freshness and historical status remain visible; each nested evidence object validates the existing Provider evidence contract.
+
+References are hashes for correlation inside the diagnostic view, not correction handles: use `inspect` for mutation identifiers.
+
+Known limitation codes are allowlisted, while private prose becomes `private-limitations-omitted`. No source locations, notes, author identities or native errors are returned. Consumer/MCP evidence disclosure remains disabled.
+
+### Diagnose local state
+
+The `doctor` request checks local state without repair or mutation:
 
 ```json
 {
@@ -103,7 +137,11 @@ Diagnostic requests are limited to 64 KiB and results to 32 KiB. Installation ch
 
 ## Export and import
 
-M2-S11 adds portability through the same command and `store` wrapper. To export an inspected generation, replace `request` with:
+Use the same command and `store` wrapper to move a redacted profile between local Stores.
+
+### Export an inspected generation
+
+Replace `request` with:
 
 ```json
 {
@@ -116,11 +154,17 @@ M2-S11 adds portability through the same command and `store` wrapper. To export 
 }
 ```
 
-The destination must already exist. Use the current generation and a timestamp no earlier than the profile's validation or observations. `exported` returns a relative `fileName` after exclusive creation, schema validation, synchronization and exact readback. Existing exports are never overwritten. `export-outcome-unknown` means a final file may exist: inspect that artifact before deciding whether to retry with a new ID. `maintenanceRequired` reports a verified artifact whose temporary cleanup failed. Artifacts are limited to 4 MiB minus 32 KiB, reserving space for an import wrapper.
+The destination must already exist. Use the current generation and a timestamp no earlier than the profile's validation or observations.
+
+`exported` returns a relative `fileName` after exclusive creation, schema validation, synchronization and exact readback. Existing exports are never overwritten.
+
+`export-outcome-unknown` means a final file may exist: inspect that artifact before deciding whether to retry with a new ID. `maintenanceRequired` reports a verified artifact whose temporary cleanup failed. Artifacts are limited to 4 MiB minus 32 KiB, reserving space for an import wrapper.
 
 The public `0.1.0` Portable Profile Export retains typed assessments, freshness, preferences, correction order and all provenance links. Redaction deliberately replaces private notes, rationale and limitation prose with fixed text; source locations and record/project/repository identifiers become opaque hashes. Source grants, sharing grants, credentials, raw source and Store bookkeeping are excluded. Semantic capabilities and the configured subject identity remain and must pass sensitive-content checks. This is a lossy portable profile, not a byte-for-byte private backup or source-location map.
 
-For import, select a different existing, empty Store directory in `store`, with the same `subjectRef`. Use this request shape, replacing the illustrative empty object with the complete parsed export document:
+### Import into an empty Store
+
+Select a different existing, empty Store directory in `store`, with the same `subjectRef`. Use this request shape, replacing the illustrative empty object with the complete parsed export document:
 
 ```json
 {
@@ -157,10 +201,14 @@ The explicit cache scope is required because the Codex fixture adapter cache is 
 | Source repositories, unrelated entries, directories, final exports and independent backups | Preserve. Exported copies and backups must be managed separately by their owner. |
 | Already returned immutable objects and other processes | Their owners must release the objects or stop the processes; this operation does not erase their memory. |
 
+### Resume incomplete deletion or recover a stopped writer
+
 An exclusive `.community-profile-store.mutation.lock` coordinates Store writers/migration/deletion; the adapter uses `.mutation.lock`. The deletion barrier is synchronized before removal and retained on interruption. `deletion-incomplete` never claims complete removal: resolve the cause and explicitly repeat the same delete operation to resume. Disposed in-process sessions stay disposed even when a later deletion step fails. A failed gate release after a successful write reports `maintenanceRequired`; after deletion it reports `deletion-incomplete`.
 
 A crashed process can leave its gate. After verifying that every writer has stopped and confirming the exact selected directory, the owner may remove only that directory's mutation lock and retry. There is no automatic stale-lock breaking. Keep deletion barriers: initialize future profile data in a new owner-selected Store directory. Automatic adapter-cache reactivation is not implemented.
 
-Store scans are bounded to 64 entries and adapter scans to 256, including unrelated entries. Recognized corrupt Store files up to the 4 MiB read limit can be removed; oversized corrupt files, links/special entries, redirected roots and exhausted scan limits fail closed and require owner maintenance. No successful deletion is reported for those failures. Filesystem guarantees retain the same-OS-user trust limit and do not constitute secure disk erasure. There is no managed backup retention or cross-process memory erasure in this local slice.
+### Deletion limits
 
-Persistent source cache and source-to-consumer command composition remain later roadmap work. See [ADR-0027](adr/0027-local-owner-correction-workflow.md), [ADR-0028](adr/0028-owner-portability-and-verified-deletion.md), [architecture](ARCHITECTURE.md), and [security/privacy](SECURITY_PRIVACY.md).
+Store scans are bounded to 64 entries and adapter scans to 256, including unrelated entries. Recognized corrupt Store files up to the 4 MiB read limit can be removed; oversized corrupt files, links/special entries, redirected roots and exhausted scan limits fail closed and require owner maintenance. No successful deletion is reported for those failures. Filesystem guarantees retain the same-OS-user trust limit and do not constitute secure disk erasure. There is no managed backup retention or cross-process memory erasure in this local workflow.
+
+Persistent source caching remains future work. For the current source-to-consumer command workflow, use [local Community](LOCAL_COMMUNITY.md). See [ADR-0027](adr/0027-local-owner-correction-workflow.md), [ADR-0028](adr/0028-owner-portability-and-verified-deletion.md), [architecture](ARCHITECTURE.md), and [security/privacy](SECURITY_PRIVACY.md).

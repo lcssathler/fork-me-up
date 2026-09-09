@@ -1,48 +1,52 @@
 # Fork Me Up
 
-> Portable, evidence-bounded developer context for AI tools.
+Fork Me Up helps AI agents adapt their explanations to your technical background, so you spend less time repeating what you know and where you want guidance.
 
-Fork Me Up reduces repeated explanations of your technical background. It builds an inspectable private profile from explicitly selected local repository evidence and your corrections, then compiles a small task-relevant Developer Context Packet (DCP) for compatible consumers.
+It builds a private profile from repositories you explicitly select and conclusions you can inspect and correct. For each task, a compatible agent receives only the relevant context in a small **Developer Context Packet (DCP)**.
 
-Evidence remains bounded: demonstrated observations, adjacent experience, declarations, disputes and insufficient evidence stay distinct. A DCP is advisory and grants no permissions. The project produces no seniority, hiring or employability score.
+## How it works
 
-## Product and limits
+1. **Select evidence.** Choose the local repositories the system may read. Collection never runs their code or scripts.
+2. **Review your profile.** Inspect the evidence behind a conclusion and correct or reject it.
+3. **Use task context.** A compatible consumer receives a limited packet for a specific task, purpose and audience.
 
-The public Community runtime works locally without an account, dedicated model API or proprietary service. Protocol and Core are client-neutral; Codex is a reference adapter. Owner operations collect, inspect, correct, diagnose, export, import and delete managed local data. A separate Store-backed MCP process serves minimized read-only context.
+Missing evidence means uncertainty, not lack of knowledge. Your corrections take priority over automated conclusions, with their history preserved. A packet grants no permissions. Fork Me Up does not score seniority, employability or candidates.
 
-The current development setup is verified on Windows with local MCP `stdio` revision `2025-11-25`. Packages remain private and unreleased; `npm run package:dry-run` inspects three client-neutral candidates, `npm run package:protocol` creates the Protocol SDK/schema/fixture/conformance candidate, and `npm run compatibility:check` installs exact Protocol/Core/Community Provider tarballs into an isolated lockfile-derived offline consumer to verify import/export, version, migration and recovery boundaries. Codex and the stateless [generic conformance consumer](consumers/generic/README.md) preserve the same structured DCP Claim/Response Policy meaning in synthetic tests. Other platforms, clients and release capabilities are claimed only after their roadmap gates pass.
+See the [product rules](docs/PROJECT_SPEC.md) for how evidence, corrections and sharing work.
 
-See the [roadmap and current queue](docs/ROADMAP.md#15-current-m3-execution-queue) for authoritative status, the [evidence method](docs/EVIDENCE_METHOD.md) for interpretation limits and the [M2 exit audit](docs/audits/M2_EXIT_AUDIT.md) for the local workflow evidence.
+<a id="product-and-limits"></a>
+
+## What is available
+
+The Community development workflow runs locally without an account, a dedicated model API or a paid service. You can collect evidence, inspect and correct your profile, obtain task context, diagnose the installation, export data and delete managed local data.
+
+Packages are **private and unreleased**. Windows is the verified development platform. Codex is a reference adapter, and a separate generic consumer tests the same structured packet meaning. This does not establish compatibility with every agent or equivalent model-written answers. Cloud/Pro is a future optional service.
+
+The [roadmap](docs/ROADMAP.md#15-current-m3-execution-queue) is the source for completed work, the next eligible step and pending decisions. See [versioning and compatibility](VERSIONING.md) for technical limits.
 
 ## Start locally
 
-Use Node.js **24.20.0**, its bundled npm **11.19.0**, and Git. A full-history checkout is required by the frozen M2 measurement.
+Use Node.js **24.20.0**, its bundled npm **11.19.0**, Git and a full-history checkout. The history is required by the reproducible quality check.
 
 ```text
 npm ci --ignore-scripts
 npm run check
 ```
 
-Follow the [local Community guide](docs/LOCAL_COMMUNITY.md) to configure selected repositories and run the owner and Store-backed MCP modes. The [owner guide](docs/OWNER_WORKFLOW.md) covers correction, portability, diagnostics and deletion.
+Then follow the [local Community guide](docs/LOCAL_COMMUNITY.md) to configure your repositories and run the workflow. The [owner guide](docs/OWNER_WORKFLOW.md) explains inspection, correction, diagnostics, export, import and deletion.
 
-For a development-only synthetic MCP process:
+<a id="develop"></a>
 
-```text
-npm run mcp
-```
+## Develop with agents
 
-Fixture selections are `demonstrated`, `adjacent`, `insufficient-evidence` and `unavailable`. They exercise transport behavior. The [Codex adapter](adapters/codex/README.md) documents its separate lifecycle hooks and explicit trust requirements; checked-in hooks default to unavailable.
+Fork Me Up is developed by agents and provides context for agents. Product rules and user guides are written for people to understand and review. The core is independent of any client or model provider.
 
-## Develop
+Agents start with [AGENTS.md](AGENTS.md). The [contribution guide](CONTRIBUTING.md) covers development setup and checks; the [documentation map](docs/README.md) locates the remaining references.
 
-Use the [documentation map](docs/README.md) and [AGENTS.md](AGENTS.md) to select the relevant reading. The [contribution guide](CONTRIBUTING.md) documents setup, verification and review.
+<a id="license-and-governance"></a>
 
-`npm run check` runs the full deterministic baseline, including document checks, schemas, unit/integration tests, behavioral evaluations and the frozen M2 integration. For prose-only edits, the [verification matrix](docs/ENGINEERING.md#24-verification) selects the smaller local check; required PR CI still runs the full baseline.
+## License and security
 
-The [quality results](docs/evaluations/M2_QUALITY_RESULTS.md) explain standalone reproduction and its synthetic limits. Detailed implementation descriptions from M2 are preserved in the [historical development baseline](docs/history/README_M2_BASELINE.md).
+Repository content uses [Apache-2.0](LICENSE), with [NOTICE](NOTICE) and a separate [trademark policy](TRADEMARKS.md). Your profile data is not relicensed by using the software. A future Cloud/Pro implementation may be proprietary and is not included here.
 
-## License and governance
-
-Public repository content is [Apache-2.0](LICENSE), with [NOTICE](NOTICE) and a separate [trademark policy](TRADEMARKS.md). Profiles and other user-owned data are not relicensed by using the software. The optional Cloud/Pro implementation may remain proprietary and is not included here.
-
-See [security reporting](SECURITY.md), [versioning](VERSIONING.md), [changelog](CHANGELOG.md) and the [decision index](docs/adr/README.md).
+See [security reporting](SECURITY.md) and the [changelog](CHANGELOG.md).
