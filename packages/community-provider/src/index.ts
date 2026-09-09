@@ -55,6 +55,25 @@ export {
   type RepositoryGitMetadata,
 } from "./git-metadata-collector.ts";
 export {
+  publicHistoryConfigHardLimits,
+  publicHistoryConfigVersion,
+  resolvePublicHistoryConfig,
+  type PublicHistoryConfigErrorCategory,
+  type ResolvedPublicHistoryConfig,
+  type ResolvedPublicHistoryRepository,
+  type ResolvePublicHistoryConfigResult,
+} from "./public-history-config.ts";
+export {
+  collectPublicHistory,
+  nodeGitHubPublicHistoryPort,
+  type CollectPublicHistoryResult,
+  type GitHubHistoryStatus,
+  type GitHubPublicHistoryFailureReason,
+  type GitHubPublicHistoryPort,
+  type GitHubPublicHistoryPortResult,
+  type GitHubPublicHistoryRequest,
+} from "./public-history-collector.ts";
+export {
   developerIdentityConfigHardLimits,
   developerIdentityConfigVersion,
   resolveDeveloperIdentityConfig,

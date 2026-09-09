@@ -78,6 +78,7 @@ The public product combines open contracts with a useful local Community runtime
 - evidence, claim, portable-export, profile-provider, and evidence-collector contracts;
 - local CLI and storage;
 - deterministic basic scanner for selected local repositories;
+- optional bounded public-history enrichment that prefers local Git and uses an existing external GitHub login only with explicit owner consent;
 - manual profile editing and explicit corrections;
 - task-context compiler and response policy;
 - local MCP server over `stdio`;

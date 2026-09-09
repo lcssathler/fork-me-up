@@ -36,6 +36,65 @@ test("runtime rejects mismatched identities/projects and closed configuration vi
   assert.deepEqual(await readdir(fixture.store), []);
 });
 
+test("runtime accepts explicit public-history consent while complete local Git prevents network use", async (context) => {
+  const fixture = await communityFixture(context);
+  const publicHistory = {
+    historyVersion: "0.1.0",
+    mode: "local-first",
+    github: {
+      authentication: "existing-gh",
+      permission: "public-metadata-read-only",
+      consent: {
+        decision: "allow-read-selected-public-history",
+        issuedAt: "2026-09-07T11:59:00Z",
+        expiresAt: "2026-09-07T13:00:00Z",
+      },
+      repositories: [
+        {
+          repositoryId: "repo_a",
+          owner: "example-owner",
+          name: "example-repository",
+          expectedHeadObjectId: null,
+        },
+      ],
+      limits: {
+        maxCommits: 8,
+        maxRequests: 16,
+        maxResponseBytes: 65536,
+        maxTotalResponseBytes: 1048576,
+        maxDurationMs: 30000,
+        maxPagesPerCommit: 2,
+        maxChangedPaths: 1000,
+      },
+    },
+  };
+  let requests = 0;
+  const created = await createLocalCommunityRuntime(
+    JSON.stringify({ ...fixture.config, publicHistory }),
+    {
+      clock,
+      refreshPorts: {
+        githubPort: {
+          async get() {
+            requests += 1;
+            throw new Error("NETWORK_CANARY");
+          },
+        },
+      },
+    },
+  );
+  assert.equal(created.ok, true);
+  if (!created.ok) return;
+  const refreshed = /** @type {any} */ (
+    await created.value.run(JSON.stringify(ownerRefresh(null, 0)))
+  );
+  assert.equal(refreshed.ok, true);
+  assert.equal(refreshed.work.networkRequests, 0);
+  assert.equal(refreshed.repositories[0]?.githubStatus, "not-needed");
+  assert.equal(refreshed.repositories[1]?.githubStatus, "disabled");
+  assert.equal(requests, 0);
+});
+
 test("malformed owner commands preserve usable context and do not mutate stored data", async (context) => {
   const fixture = await communityFixture(context);
   const created = await createLocalCommunityRuntime(JSON.stringify(fixture.config), { clock });

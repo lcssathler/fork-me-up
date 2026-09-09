@@ -18,7 +18,7 @@ See the [product rules](docs/PROJECT_SPEC.md) for how evidence, corrections and 
 
 ## What is available
 
-The Community development workflow runs locally without an account, a dedicated model API or a paid service. You can collect evidence, inspect and correct your profile, obtain task context, diagnose the installation, export data and delete managed local data.
+The Community development workflow runs locally without an account, a dedicated model API or a paid service. You can collect evidence, inspect and correct your profile, obtain task context, diagnose the installation, export data and delete managed local data. Optional owner-only public-history enrichment prefers local Git and can use an already authenticated `gh` installation for explicitly selected public repositories; it is read-only, temporary, disabled by default and never required for local use.
 
 Packages are **private and unreleased**. Windows is the verified development platform. Codex is a reference adapter, and a separate generic consumer tests the same structured packet meaning. This does not establish compatibility with every agent or equivalent model-written answers. Cloud/Pro is a future optional service.
 

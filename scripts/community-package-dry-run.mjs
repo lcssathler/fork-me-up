@@ -87,6 +87,8 @@ export const communityPackageDefinitions = Object.freeze([
       "src/owner-profile-diagnostics.ts",
       "src/owner-profile-portability.ts",
       "src/owner-profile-workflow.ts",
+      "src/public-history-collector.ts",
+      "src/public-history-config.ts",
       "src/repository-fingerprint.ts",
     ]),
     schemas: Object.freeze([]),

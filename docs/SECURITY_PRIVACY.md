@@ -57,6 +57,7 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 ### Local Community invariants
 
 - Offline mode makes no network call and opens no network listener.
+- Optional public-history network use requires an unexpired explicit owner decision, an exact selected public repository mapping and pre-existing external `gh` authentication; consumers cannot trigger it.
 - Only canonical paths inside explicitly selected roots are read.
 - Symlinks cannot escape authorized roots.
 - No repository script, binary, hook, package manager, build, or test command is executed during evidence collection.
@@ -96,6 +97,8 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 - source text cannot directly set `responsePolicy`, grants, scopes, or configuration;
 - adversarial fixtures assert that instruction-like text has no privileged effect.
 
+The optional GitHub history path treats commit messages and identities as transient untrusted input. It derives only bounded identity/coauthor digests and fixed metadata, then discards raw response text before the existing authorship/risk boundary. No issue, pull-request or repository document text is requested. See [ADR-0039](adr/0039-local-first-bounded-public-history.md).
+
 ### T-02 — Path traversal, symlink escape, and unsafe filesystem access
 
 **Threat:** crafted paths escape a selected root or cause excessive reads.
@@ -110,11 +113,15 @@ Local authorization uses a closed internal JSON boundary. It accepts only absolu
 
 **Controls:** no repository execution during collection; subprocess argument arrays; no shell-composed input; no dependency install; explicit allowlist of required Git operations; sanitized Git environment with pagers, hooks, fsmonitor, external diff, and textconv disabled; untrusted config/includes ignored or strictly controlled; bounded environment; negative fixtures for `.git/config`, `.gitattributes`, names, and shell metacharacters.
 
+Public-history network access uses only `gh api --method GET --hostname github.com`, fixed headers and validated relative repository/commit endpoints. Prompts and pagers are disabled, stdout/stderr and time are bounded, no retry occurs, and no source value can add an argument, method, host or header.
+
 ### T-04 — Secret and personal-data leakage
 
 **Threat:** credentials, code, personal paths, emails, or task content appear in packets, logs, errors, diagnostics, telemetry, tests, or crash reports.
 
 **Controls:** data classification, minimization before serialization, structured logging allowlists, secret redaction, opaque identifiers, canary tests in every output channel, and no real-data fixtures.
+
+Fork Me Up accepts no GitHub token, account field or credential path. The external `gh` process owns any existing authentication. Sanitized snapshots and owner results omit GitHub owner/repository names, URLs, identities, messages, raw responses and native diagnostics; only fixed source/status/request-count fields expose network use.
 
 ### T-05 — Incorrect authorship and inflated claims
 
@@ -145,6 +152,8 @@ Evidence/Claim derivation accepts only an in-process authentic source-risk snaps
 **Threat:** a consumer token is reused against a source provider, or a source token is exposed downstream.
 
 **Controls:** separate OAuth roles and token stores, resource/audience validation, no token passthrough, per-call authorization, least privilege, short-lived tokens, PKCE `S256`, exact redirect-URI and `state` validation, revocation, and secret-safe diagnostics. If client metadata or dynamic registration is supported, metadata retrieval is SSRF-restricted and registration, redirects, and discovery are rate-limited and abuse-monitored.
+
+Community public-history access is not an OAuth or managed connector. A closed owner configuration authorizes fixed public metadata reads for at most 24 hours; the external `gh` login is never accepted as input, copied into profile state or exposed to a consumer. Removing the configuration or allowing consent to expire prevents future GitHub requests.
 
 ### T-09 — Cross-tenant or cache leakage
 
@@ -207,6 +216,8 @@ Authorizes Fork Me Up to read a defined source. It records:
 
 The first managed connector should be a GitHub App with selected-repository, read-only, least-privilege access and short-lived installation tokens. Connecting one source does not authorize other repositories or providers.
 
+Community public-history consent is an implementation-internal, process-start configuration rather than a managed Source Grant or stored credential. It records the fixed provider/authentication/permission decision, issue and expiry times, and exact selected repository mappings. It lasts at most 24 hours, authorizes only public metadata reads during owner refresh and is revoked by removing the block or expiry. It does not authorize private access, another provider, a consumer, or a future Cloud connector.
+
 Source revocation offers two explicit owner choices. `disconnect` stops new collection and marks affected evidence and claims stale according to retention policy. `disconnect-and-delete` also removes derived evidence, claims, caches, and scheduled refresh, recompiles the profile, and applies documented backup deletion. Existing Sharing Grants are re-evaluated and may return less or no context.
 
 ### 6.2 Sharing Grant
@@ -236,6 +247,8 @@ The server authorizes before revealing profile existence. It returns `401` for a
 
 Stale context may be used only while the token and Sharing Grant remain valid and the source-retention policy permits it. Schema or redaction failure never falls back to stale output. An expired DCP is not reused silently. Source unavailability may produce an explicitly stale packet only within its configured freshness and retention bounds.
 
+The optional Community GitHub path relies only on a separately installed and already authenticated `gh` executable. Fork Me Up does not inspect authentication state, prompt, receive a token, persist a credential or accept authentication material in configuration. Missing or failed authentication is a content-free optional-source failure; valid local Git history remains usable.
+
 ## 8. Logging, telemetry, and diagnostics
 
 - Telemetry is off by default.
@@ -248,6 +261,8 @@ Stale context may be used only while the token and Sharing Grant remain valid an
 ## 9. Retention, export, and deletion
 
 Community stores only documented local profile and cache files. Export validates the output schema and excludes credentials and raw private source by default. Deletion is scoped to Fork Me Up data and must never alter source repositories.
+
+Public-history responses are retained only long enough to validate and sanitize a collection. The existing process-memory refresh cache may retain the sanitized Git snapshot, and the Store may retain only the already documented derived Evidence/Claim data. No raw GitHub response, owner/repository name, URL or credential is written to Fork Me Up storage; normal Store/cache deletion semantics are unchanged.
 
 Local owner export/import and managed deletion enforce this boundary. An allowlist projection removes private prose and source locations, consistently remaps identifiers and checks retained semantic fields and final serialization for sensitive content. Export is exclusive, bounded and reread before acknowledgment; import validates the exact public graph and matching subject and refuses occupied Stores. This is deliberately lossy portability, not a private backup.
 
@@ -328,6 +343,8 @@ Local-source collection and pre-Evidence assessment cannot treat configuration-t
 Git collection supports only standard contained `.git` and object directories. It parses bounded `HEAD`, branch/packed-ref, and shallow metadata directly, rejects links, special objects and alternates, fingerprints the object tree before and after commands, and runs only exact plumbing argument arrays in a fresh trusted bare quarantine. The original repository configuration and worktree are never command inputs; system/global/local config, attributes, hooks, filters, external diff/textconv, pagers, replacement objects, lazy fetch, prompts, credentials, remotes, shell evaluation, and source writes are disabled or structurally excluded.
 
 SHA-1/SHA-256 histories, object/path/output/deadline limits, hostile controls, malformed config, canaries, merges, coauthors, truncation, packed and shallow heads, Git failures, and object-store escape/exhaustion are tested using only temporary synthetic repositories.
+
+Optional public-history tests inject synthetic GitHub response bytes and never use live credentials or network. They cover exact temporary consent, repository-authority binding, local-first zero-network behavior, public/private visibility, expected-head matching, safe pagination/parent traversal, request/response/commit/path/time limits, expired consent, missing authentication, malicious messages/identities/paths, content-free failure and process-memory cache reuse. Static checks keep the Node port on fixed `github.com` GET endpoints with no write method, shell, prompt, retry or credential field. See [ADR-0039](adr/0039-local-first-bounded-public-history.md).
 
 The resulting collector, authorship, and source-risk snapshots are private pre-Evidence metadata. They contain hashes and therefore remain sensitive, but no raw text, heading text, source snippet, package value, raw identity or commit message, absolute path, native diagnostic, stack, or partial result. Invalid content, identity/risk configuration, metadata or annotation, budget exhaustion, authorization change, snapshot mismatch, and filesystem/command failures return fixed category/retryability only. Synthetic assessment tests cover normalization, duplicate/forged configuration, every attribution/history/source-risk state, bot/coauthor/committer limitations, SHA identifier formats, malformed snapshots, dangling annotations, deterministic immutable results, raw-identity/content canaries, and real collector compatibility.
 
