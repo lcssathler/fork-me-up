@@ -1,11 +1,9 @@
-# Continuing work on Fork Me Up
+<a id="continuing-work-on-fork-me-up"></a>
 
-Read [AGENTS.md](../AGENTS.md) and use its subject-specific reading routes. The [documentation map](README.md) locates authoritative sources; the [roadmap](ROADMAP.md#15-current-m3-execution-queue) owns current state, gates and queue order.
+# Continue a task
 
-At task start, verify branch/base, working tree, worktrees and relevant PR ownership. Update main and remove only verified integrated branches before starting one short isolated branch. Follow the roadmap rules for an eligible slice, or the explicitly authorized scope for other work.
+Start with [AGENTS.md](../AGENTS.md) for task scope and required reading. Use the [current roadmap queue](ROADMAP.md#15-current-m3-execution-queue) for eligibility and the [documentation map](README.md) to find a subject.
 
-Record the task contract once: traceability, outcome, scope/data, constraints, checks, compatibility, allowed effects and stopping conditions. Reuse unchanged context and successful verification according to the [engineering process](ENGINEERING.md#24-verification). Report the actual result and pending integration.
+For interrupted work, use the task's own handoff and verify its observed revision against the current repository. Follow [Engineering's resumption rules](ENGINEERING.md#25-documentation); an old handoff is evidence, not a new authorization.
 
-Completed milestone records and old handoffs are historical evidence, not instructions to resume an old task or authorization for external effects. The [former M2 handoff](history/HANDOFF_M2_BASELINE.md) remains available for provenance.
-
-For an interrupted task, append only its observed revision, branch, changed files, completed checks and next action to the task's own handoff. Do not duplicate the current roadmap or normative rules here.
+This entry owns no task contract, queue or delivery rules. The [former M2 handoff](history/HANDOFF_M2_BASELINE.md) is retained for provenance.

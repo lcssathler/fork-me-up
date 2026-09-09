@@ -2,7 +2,7 @@
 
 > Status: active development; unreleased
 > Version: 0.1  
-> Last updated: September 8, 2026
+> Last updated: September 9, 2026
 
 This roadmap orders work by uncertainty and risk, not by feature count or calendar promises. A milestone begins only when its entry conditions are satisfied and ends only when its exit gate has executable evidence.
 
@@ -16,7 +16,7 @@ Fork Me Up proves three products in sequence:
 
 Cloud work must not outrun protocol, evidence quality, local trust, or willingness-to-pay validation. A named external product is never a roadmap dependency; integrations are validated through generic contracts and tested client capabilities.
 
-Navigation: [current queue](#15-current-m3-execution-queue) · [state rules](#12-m0-execution-record) · [documentation map](README.md). Historical execution narratives are available on demand; milestone definitions and gates remain below.
+Navigation: [current queue](#15-current-m3-execution-queue) · [state rules](#queue-states) · [documentation map](README.md). Historical execution narratives are available on demand; milestone definitions and gates remain below.
 
 ## 2. Milestone summary
 
@@ -29,6 +29,42 @@ Navigation: [current queue](#15-current-m3-execution-queue) · [state rules](#12
 | M4 | Pro alpha with managed selected repositories | Not started |
 | M5 | Commercial MLP with governed remote MCP | Not started |
 | M6 | Demand-led ecosystem and enterprise expansion | Deferred |
+
+<a id="15-current-m3-execution-queue"></a>
+
+## Current M3 execution queue
+
+This is the routing source for active M3 work. The linked slice contracts retain the exact outcome, prerequisites and traceability. Completed implementation narratives are in [M3 history](history/M3_EXECUTION.md). Select work using the [state rules](#queue-states) and [AGENTS ownership rules](../AGENTS.md#milestone-request-routing). A milestone-only request authorizes at most one eligible slice.
+
+No queue state authorizes publication, network sources, private-data access or another external effect. M3 begins with local unpublished artifacts.
+
+| Order | Slice and contract | State | Result |
+|---:|---|---|---|
+| 1 | [`M3-S01` — Community packaging and release boundary](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Inspect private package candidates |
+| 2 | [`M3-S02` — Public Protocol SDK and conformance distribution](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Install the Protocol SDK and conformance artifact |
+| 3 | [`M3-S03` — Independent generic conformance consumer](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Compare two independent consumers |
+| 4 | [`M3-S04` — Import/export and compatibility matrix](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify artifact portability and recovery |
+| 5 | [`M3-S05` — Cross-platform install, update, and uninstall](#m3-s05) | `Ready` | Verify installation, update and removal on three platforms |
+| 6 | [`M3-S06` — Optional public-history decision and boundary](#m3-s06) | `Blocked by M3-S05` | Decide whether selected public history is needed |
+| 7 | [`M3-S07` — Public Community benchmark](#m3-s07) | `Blocked by M3-S06` | Measure the public Community benchmark |
+| 8 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Blocked by M3-S07` | Provide release usage and compatibility guidance |
+| 9 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
+| 10 | [`M3-S10` — Public Community release](#m3-s10) | `Blocked by M3-S09` | Publish the authorized Community release |
+| 11 | [`M3-S11` — M3 exit audit](#m3-s11) | `Blocked by M3-S10` | Audit every M3 exit requirement |
+
+<a id="12-m0-execution-record"></a>
+
+## Queue states
+
+States have precise meanings:
+
+- `Complete`: the result and its verification evidence are integrated into `main`.
+- `Ready`: prerequisites are integrated, ownership is clear, and one task may take the slice.
+- `Owner decision required`: the project owner must make a material choice; the slice becomes eligible only when the current task contains that exact decision.
+- `External authorization required`: prerequisites are integrated, but the action changes remote or external state; the slice becomes eligible only when the current task contains explicit authorization for that effect.
+- `Blocked by ...`: named prerequisites are not yet integrated; later slices cannot start.
+
+A slice branch may propose its completion and the accurate next state after required checks pass. The transition becomes authoritative only after lead review and integration into `main`. Branches and worktrees do not establish completion. Apply the eligibility, prerequisite, ownership, assignment and transition rules in [AGENTS.md](../AGENTS.md#milestone-request-routing) before acting.
 
 ## 3. M0 — Normative and reproducible foundation
 
@@ -168,6 +204,66 @@ Prove interoperability and publish a trustworthy open implementation.
 - Security disclosure, upgrade, migration, and data-removal paths are documented and tested.
 - The release is built from a protected, clean revision and artifacts match documented checks.
 
+### Remaining M3 slice contracts
+
+These contracts define the remaining work; the current queue above is the only state list.
+
+<a id="m3-s05"></a>
+
+### M3-S05 — Cross-platform install, update, and uninstall
+
+**Required outcome:** Clean Windows, macOS and Linux jobs install exact local artifacts, complete the synthetic Community value loop, update across supported candidate versions, and uninstall/delete managed state while preserving sources and explicit owner-retained exports.
+
+**Prerequisites and traceability:** M3-S04; `FMU-FR-015`, `FMU-FR-016`, `FMU-FR-022`; `FMU-NFR-010`, `FMU-NFR-017`, `FMU-NFR-020`; M3 platform/install exit gates.
+
+<a id="m3-s06"></a>
+
+### M3-S06 — Optional public-history decision and boundary
+
+**Required outcome:** After the local release path is proven, the owner either excludes selected public-history access with a recorded usefulness decision or authorizes exact existing authentication/network boundaries for an opt-in bounded implementation and accepted security ADR. The release remains useful without this source.
+
+**Prerequisites and traceability:** M3-S05; M3 bounded optional public-history deliverable; Section 11 source decision; `FMU-FR-002`, `FMU-FR-016`, `FMU-FR-026`; `FMU-NFR-004`, `FMU-NFR-012`; Architecture Section 4.2. Transition to `Owner decision required` after M3-S05.
+
+<a id="m3-s07"></a>
+
+### M3-S07 — Public Community benchmark
+
+**Required outcome:** A reproducible public benchmark reports repeated calibration, token/disclosure cost, false-Claim outcomes, attribution limits and behavior-policy adherence across both consumers without turning synthetic conformance into human-accuracy or ranking claims.
+
+**Prerequisites and traceability:** Resolved M3-S06 decision; hypotheses H-02 through H-04 and H-06; `FMU-E-001` through `FMU-E-016` where Community-relevant; M3 benchmark deliverable.
+
+<a id="m3-s08"></a>
+
+### M3-S08 — Release documentation and compatibility table
+
+**Required outcome:** Public quickstart, contribution/security/versioning/changelog/migration/removal guidance and one tested compatibility table let a new user complete the local loop while stating exact transport, auth, lifecycle, platform and consumer limits.
+
+**Prerequisites and traceability:** M3-S07; `FMU-FR-013` through `FMU-FR-016`, `FMU-FR-022` through `FMU-FR-025`; `FMU-NFR-009`, `FMU-NFR-010`, `FMU-NFR-016`, `FMU-NFR-020`; M3 documentation and local-utility exit gates.
+
+<a id="m3-s09"></a>
+
+### M3-S09 — Reproducible release-candidate supply chain
+
+**Required outcome:** Protected CI builds a clean local release candidate, reruns every Community-relevant check, installs/uninstalls exact artifacts, rejects unexpected contents, and produces reviewed license/SBOM reports, checksums and provenance/signing evidence where supported plus rollback/withdrawal instructions.
+
+**Prerequisites and traceability:** M3-S08; `FMU-NFR-017`, `FMU-NFR-018`; T-11; Engineering release gate; M3 protected-CI and artifact deliverables.
+
+<a id="m3-s10"></a>
+
+### M3-S10 — Public Community release
+
+**Required outcome:** With explicit owner authorization, the exact protected release candidate is published through the selected channels and its immutable source, artifacts, checksums, SBOM, provenance, documentation and compatibility record are read back and matched.
+
+**Prerequisites and traceability:** M3-S09; M3 objective and release-built-from-protected-revision gate; Section 11 publication decision. Transition to `External authorization required` after M3-S09.
+
+<a id="m3-s11"></a>
+
+### M3-S11 — M3 exit audit
+
+**Required outcome:** An integrated audit verifies every M3 deliverable, required evaluation, platform/install/update/export/delete/uninstall test, artifact/release record and cross-milestone gate, then either closes M3 or names a blocker.
+
+**Prerequisites and traceability:** M3-S01 through M3-S10; full M3 exit gate, `FMU-E-016`, all Community-relevant prior evaluations, and cross-milestone quality gates.
+
 ## 7. M4 — Pro alpha: managed profile compilation
 
 ### Entry conditions
@@ -292,42 +388,17 @@ The project owner explicitly decides before:
 - adding any new personal-data source;
 - publishing packages, releases, deployments, or marketplace entries.
 
-## 12. M0 execution record
+## Execution evidence
 
-The [complete M0 record](history/M0_EXECUTION.md) preserves its decisions, outcomes and validation. The following state rules continue to govern the current queue.
+Completed milestone records preserve their original outcomes and evidence. They do not route new work or grant new authority.
 
-States have precise meanings:
+- [M0 execution](history/M0_EXECUTION.md) and [exit audit](audits/M0_EXIT_AUDIT.md).
 
-- `Complete`: the result and its verification evidence are integrated into `main`.
-- `Ready`: prerequisites are integrated, ownership is clear, and one task may take the slice.
-- `Owner decision required`: the project owner must make a material choice; the slice becomes eligible only when the current task contains that exact decision.
-- `External authorization required`: prerequisites are integrated, but the action changes remote or external state; the slice becomes eligible only when the current task contains explicit authorization for that effect.
-- `Blocked by ...`: named prerequisites are not yet integrated; later slices cannot start.
+<a id="13-m1-execution-record"></a>
 
-A slice branch may propose `Complete` for itself and update the next dependent slice to its accurate state in the same diff after its required checks pass. The transitions become authoritative only after lead review and integration into `main`; an isolated worktree or branch is not completion evidence. A single unassigned task records the selected earliest eligible slice in its task contract and establishes its claim with a slice-specific branch after verifying that no active claim exists. Parallel ownership requires an explicit lead assignment plus the assigned branch, worktree, or pull request. Only active, unintegrated claims block another task. Never run multiple unassigned milestone-only requests concurrently.
+- [M1 execution](history/M1_EXECUTION.md) and [exit audit](audits/M1_EXIT_AUDIT.md).
 
-## 13. M1 execution record
+<a id="14-m2-execution-record"></a>
 
-See the [complete M1 record](history/M1_EXECUTION.md) and [M1 exit audit](audits/M1_EXIT_AUDIT.md).
-
-## 14. M2 execution record
-
-See the [complete M2 record](history/M2_EXECUTION.md) and [M2 exit audit](audits/M2_EXIT_AUDIT.md).
-
-## 15. Current M3 execution queue
-
-This is the routing source for a request such as "continue the roadmap" after M2-S16 integrates. The eligibility, ownership, and transition rules in `AGENTS.md` and the state meanings recorded in Section 12 apply. An unassigned task takes at most the earliest eligible incomplete slice. M3 begins with local unpublished artifact boundaries; no queue state itself authorizes a package/release publication, network source, external consumer with personal data, private-repository access, or another external effect.
-
-| Order | Slice | State | Observable outcome | Prerequisites and traceability |
-|---:|---|---|---|---|
-| 1 | `M3-S01` — Community packaging and release boundary | `Complete` | ADR-0034 fixes Protocol/Core/Community Provider candidates, compiled root entry points, private unpublished manifests and exact bounded content allowlists; the pinned local npm dry-run emits deterministic package-relative inspection reports without tarballs, registry access or internal path leakage. | M2 exit; M3 public SDK/package and package-dry-run deliverables; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`, `FMU-NFR-018`; ADR-0005/0034; `VERSIONING.md`; Engineering package gate. |
-| 2 | `M3-S02` — Public Protocol SDK and conformance distribution | `Complete` | A private local Protocol tarball exposes typed SDK/conformance entry points plus exact public schema and fixture subpaths; isolated offline installation accepts the supported `0.1.0` drafts and rejects unsupported versions without repository imports. | Integrated M3-S01; `FMU-FR-009`, `FMU-FR-010`, `FMU-FR-023`; `FMU-NFR-001`, `FMU-NFR-009`, `FMU-NFR-017`; ADR-0035; M3 public SDK/protocol/conformance deliverable. |
-| 3 | `M3-S03` — Independent generic conformance consumer | `Complete` | A stateless bounded JSON consumer installs only the private local Protocol artifact, validates DCP expiry/audience, emits no free text or authority and preserves all Claim states plus exact Response Policy intent against Codex under `FMU-E-016`, without Core/Provider/client imports. | M3-S02; hypothesis H-04; `FMU-FR-024`; `FMU-E-016`; ADR-0036; M3 two-consumer exit gate. |
-| 4 | `M3-S04` — Import/export and compatibility matrix | `Complete` | Exact private Protocol/Core/Community Provider tarballs install together through a lockfile-derived offline consumer; seven artifact-only cases cover supported/rejected Provider and public versions, owner Export/Import round trip, verified update/conflict, explicit legacy migration, prior-generation recovery and Store/Export/DCP separation. | M3-S03; `FMU-FR-009`, `FMU-FR-015`, `FMU-FR-023`; `FMU-NFR-009`, `FMU-NFR-020`; ADR-0037; M3 tested import/export and compatibility deliverable. |
-| 5 | `M3-S05` — Cross-platform install, update, and uninstall | `Ready` | Clean Windows, macOS and Linux jobs install exact local artifacts, complete the synthetic Community value loop, update across supported candidate versions, and uninstall/delete managed state while preserving sources and explicit owner-retained exports. | M3-S04; `FMU-FR-015`, `FMU-FR-016`, `FMU-FR-022`; `FMU-NFR-010`, `FMU-NFR-017`, `FMU-NFR-020`; M3 platform/install exit gates. |
-| 6 | `M3-S06` — Optional public-history decision and boundary | `Blocked by M3-S05` | After the local release path is proven, the owner either excludes selected public-history access with a recorded usefulness decision or authorizes exact existing authentication/network boundaries for an opt-in bounded implementation and accepted security ADR. The release remains useful without this source. | M3-S05; M3 bounded optional public-history deliverable; Section 11 source decision; `FMU-FR-002`, `FMU-FR-016`, `FMU-FR-026`; `FMU-NFR-004`, `FMU-NFR-012`; Architecture Section 4.2. Transition to `Owner decision required` after M3-S05. |
-| 7 | `M3-S07` — Public Community benchmark | `Blocked by M3-S06` | A reproducible public benchmark reports repeated calibration, token/disclosure cost, false-Claim outcomes, attribution limits and behavior-policy adherence across both consumers without turning synthetic conformance into human-accuracy or ranking claims. | Resolved M3-S06 decision; hypotheses H-02 through H-04 and H-06; `FMU-E-001` through `FMU-E-016` where Community-relevant; M3 benchmark deliverable. |
-| 8 | `M3-S08` — Release documentation and compatibility table | `Blocked by M3-S07` | Public quickstart, contribution/security/versioning/changelog/migration/removal guidance and one tested compatibility table let a new user complete the local loop while stating exact transport, auth, lifecycle, platform and consumer limits. | M3-S07; `FMU-FR-013` through `FMU-FR-016`, `FMU-FR-022` through `FMU-FR-025`; `FMU-NFR-009`, `FMU-NFR-010`, `FMU-NFR-016`, `FMU-NFR-020`; M3 documentation and local-utility exit gates. |
-| 9 | `M3-S09` — Reproducible release-candidate supply chain | `Blocked by M3-S08` | Protected CI builds a clean local release candidate, reruns every Community-relevant check, installs/uninstalls exact artifacts, rejects unexpected contents, and produces reviewed license/SBOM reports, checksums and provenance/signing evidence where supported plus rollback/withdrawal instructions. | M3-S08; `FMU-NFR-017`, `FMU-NFR-018`; T-11; Engineering release gate; M3 protected-CI and artifact deliverables. |
-| 10 | `M3-S10` — Public Community release | `Blocked by M3-S09` | With explicit owner authorization, the exact protected release candidate is published through the selected channels and its immutable source, artifacts, checksums, SBOM, provenance, documentation and compatibility record are read back and matched. | M3-S09; M3 objective and release-built-from-protected-revision gate; Section 11 publication decision. Transition to `External authorization required` after M3-S09. |
-| 11 | `M3-S11` — M3 exit audit | `Blocked by M3-S10` | An integrated audit verifies every M3 deliverable, required evaluation, platform/install/update/export/delete/uninstall test, artifact/release record and cross-milestone gate, then either closes M3 or names a blocker. | M3-S01 through M3-S10; full M3 exit gate, `FMU-E-016`, all Community-relevant prior evaluations, and cross-milestone quality gates. |
+- [M2 execution](history/M2_EXECUTION.md) and [exit audit](audits/M2_EXIT_AUDIT.md).
+- [M3 delivered slices](history/M3_EXECUTION.md); M3 closure still requires its complete exit gate.

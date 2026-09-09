@@ -9,7 +9,7 @@ The owner explicitly requested a faster development process after a retrospectiv
 
 ## Decision
 
-- Route reading by task and affected boundary. Reuse unchanged context; reload affected authority when scope or base changes. Keep product/security invariants in AGENTS and move detailed operational sections unchanged into the active `docs/AGENT_POLICY.md` appendix, selected by subject rather than recursively read in full. Full audits and release gates retain complete coverage.
+- Route reading by task and affected boundary. Reuse unchanged context; reload affected authority when scope or base changes. Keep product/security invariants in AGENTS. Detailed operational sections were initially preserved in `docs/AGENT_POLICY.md`; the editorial refinement below consolidates them into Engineering without removing obligations. Full audits and release gates retain complete coverage.
 - Keep milestone definitions, states, queue and gates in the roadmap. Move completed narratives into dated history with adjusted links. Preserve detailed audit evidence behind a short verdict page. Keep frozen experiment inputs/reports byte-identical at their existing paths.
 - Use one preflight and one sufficient verification set for each change. Prose-only local verification checks documents and the diff; runtime/tooling changes receive focused tests and one final aggregate. Required PR CI and risk-specific gates remain mandatory.
 - Enforce entry-document byte budgets and offline local-link/heading validation with `npm run docs:check`, included in the existing aggregate. Add no dependency or network step. Preserve the existing runtime test/evaluation order after the new document check.
@@ -20,3 +20,11 @@ The owner explicitly requested a faster development process after a retrospectiv
 This reduces the default reading surface; it does not promise a measured development-time or token reduction. Histories retain duplication for provenance but are no longer active routing documents. The link checker supports repository Markdown conventions (inline links, reference definitions, ATX headings and explicit HTML anchors); it is not a general Markdown renderer or an external URL checker.
 
 Validate moved content against main `cc93ae9`, preserve the M2 freeze and result hashes, test broken-link/heading and budget failures, review authority/routing consistency, and run the pinned aggregate once after tooling changes stabilize. Traceability: owner-requested process improvement; `FMU-NFR-017`; Engineering Sections 2.4 and 11; roadmap cross-milestone documentation/reproducibility gates. No behavioral `FMU-E-*` applies because product/consumer behavior is unchanged. No migration is required. Publication and integration remain separate workflow actions.
+
+## Editorial refinement — September 9, 2026
+
+The owner requested implementation of the documentation simplification discussed in the task: clear product rules for people, distinct user/agent entry paths, current technical references, a readable current queue, preserved execution evidence and one responsible source for each rule. This refines navigation and wording; it does not change product behavior or permissions.
+
+Engineering now owns the complete delivery policy. Unique obligations from the former agent appendix are consolidated into the applicable Engineering sections; `AGENT_POLICY.md` retains section links for compatibility. AGENTS routes tasks directly to Engineering. Accepted ADRs continue to constrain architecture within the existing authority order.
+
+Validate against integrated base `84921df`: compare relocated evidence and retained requirements, gates and examples; check local links, heading compatibility and entry budgets. Preserve frozen measurement files at their original paths and bytes. This refinement changes no verification tooling, so the prose-only verification path applies; PR CI and integration remain separate requirements.

@@ -19,7 +19,7 @@ Read this file once per task, then use the subject routes below. Read selected s
 | Toolchain, dependency or CI | `docs/ENGINEERING.md` Sections 4, 8–9; relevant accepted toolchain/check ADRs; manifests, lockfile and CI configuration. |
 | Milestone exit, security audit or release | Full applicable normative documents, accepted ADRs and gates; bounded reading is not an exemption from an audit's complete coverage. |
 
-Use `docs/README.md` to locate sources. Read `docs/adr/README.md` to select relevant accepted ADRs; do not automatically load the entire ADR directory. If scope expands, load the additional authority before implementing it. Security and product invariants below apply to every task regardless of which reading route is selected.
+This project is developed by agents and provides context for agents. Product rules and user guides must also be clear to the person reviewing and using the system; follow Engineering Section 11. Use `docs/README.md` to locate sources. Read `docs/adr/README.md` to select relevant accepted ADRs; do not automatically load the entire ADR directory. If scope expands, load the additional authority before implementing it. Security and product invariants below apply to every task regardless of which reading route is selected.
 
 Use subject-specific authority when sources disagree:
 
@@ -88,4 +88,4 @@ The ordered queue in `docs/ROADMAP.md` routes active milestone work but cannot r
 - Verify proportionally using Engineering Section 2.4. Reuse checks for unchanged inputs; review the complete diff and report actual checks and pending CI/integration.
 - External writes, publication, merge, release, private-data access, unplanned production dependencies, licensing changes and material deletion retain their explicit authorization requirements.
 
-The [detailed workflow policy](docs/AGENT_POLICY.md) preserves the complete operational rules. Read its working-method, task-contract, Git and Definition-of-Done sections for implementation; its tests/reproducibility sections for executable changes; its dependency, multi-agent, documentation and external-effect sections when those subjects are in scope. These rules apply within scope even when their text is not copied into this entry file.
+The [engineering process](docs/ENGINEERING.md) owns delivery rules. The routes above include the working method, task contract, Git workflow and Definition of Done. Also read Section 6 for executable changes, Section 9 for dependencies and Section 10 for multi-agent work. Section 11 owns documentation rules and Section 14 owns external effects. The former [agent policy](docs/AGENT_POLICY.md) is a compatibility index; it adds no separate reading requirement. All applicable rules remain mandatory even when they are not copied into this entry file.

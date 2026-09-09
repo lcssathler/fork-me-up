@@ -70,6 +70,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Changed
 
+- Simplify product explanations and user/agent navigation; consolidate delivery rules in Engineering, expose the current roadmap queue first, and preserve completed execution evidence separately. Requirements, public contracts, milestone gates and frozen measurements remain unchanged (ADR-0033 editorial refinement; Engineering Section 11).
+
 - Completed the authorized GitHub Free public cutover and activated basic protection for `main`: pull requests are required, deletion and non-fast-forward updates are blocked, no actor can bypass the ruleset, and zero approvals are required under the explicitly accepted single-maintainer policy (`M0-S02`). Required CI status checks remain the separately authorized M0-S06 gate; this visibility transition is not a product or package release.
 - Required the real GitHub Actions `Windows baseline` check from its verified integration before pull requests can merge into an up-to-date `main`, while retaining the existing no-bypass pull-request, deletion, and non-fast-forward rules (`M0-S06`; `FMU-NFR-011`, `FMU-NFR-017`; ADR-0006). No workflow, dependency, product, schema, package, or release changed.
 

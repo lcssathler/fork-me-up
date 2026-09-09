@@ -1,28 +1,44 @@
 # Documentation map
 
-Start with [AGENTS.md](../AGENTS.md) for reading routes, authority and task rules; its [detailed workflow policy](AGENT_POLICY.md) preserves the operational rules by subject. Select the relevant sections below; historical records are read only when a task needs their evidence. A milestone exit, security audit or release retains its complete required coverage.
+Choose the question you need to answer. Understanding or using the product does not require reading the agent development instructions.
 
-| Question | Authoritative source |
+## Understand and use the product
+
+| I want to… | Read |
 |---|---|
-| What should the product do? | [Product specification](PROJECT_SPEC.md): principles, use cases and stable requirement IDs. |
-| What may cross a public boundary? | [Protocol](PROTOCOL.md): objects, semantics, disclosure, versions and conformance; [schemas](../schemas/). |
-| Which component owns a responsibility? | [Architecture](ARCHITECTURE.md): layers, data flow and failure semantics. |
-| What must fail closed? | [Security and privacy](SECURITY_PRIVACY.md): data classes, trust boundaries, threats and security gates. |
-| How should this change be delivered and checked? | [Engineering](ENGINEERING.md#24-verification): verification matrix, Git workflow, editorial rules and Definition of Done. |
-| What is eligible next? | [Roadmap](ROADMAP.md#15-current-m3-execution-queue): current queue; [state rules](ROADMAP.md#12-m0-execution-record) and milestone gates. |
-| Why was an architectural choice made? | [ADR index](adr/README.md): read the accepted decisions relevant to the affected boundary. |
-| How do I run or control local data? | [Local Community](LOCAL_COMMUNITY.md) and [owner workflow](OWNER_WORKFLOW.md). |
-| What does the evidence mean? | [Evidence method](EVIDENCE_METHOD.md) and [frozen measurement/results](evaluations/M2_QUALITY_RESULTS.md). |
-| How do I contribute or report a vulnerability? | [Contributing](../CONTRIBUTING.md), [security policy](../SECURITY.md) and [versioning](../VERSIONING.md). |
+| Understand the product and its limits | [Project overview](../README.md) |
+| Understand the business rules | [Product specification](PROJECT_SPEC.md): evidence, corrections, sharing and user control |
+| Run the local workflow | [Local Community guide](LOCAL_COMMUNITY.md) |
+| Inspect, correct, export or delete my profile | [Owner guide](OWNER_WORKFLOW.md) |
+| See progress and what can happen next | [Roadmap and current queue](ROADMAP.md#15-current-m3-execution-queue) |
+| Report a vulnerability | [Security reporting](../SECURITY.md) |
 
-## Evidence on demand
+## Develop and integrate
 
-Completed execution narratives: [M0](history/M0_EXECUTION.md), [M1](history/M1_EXECUTION.md), [M2](history/M2_EXECUTION.md). These records preserve their original decisions, prerequisites, test results and task authorizations; they do not grant authority to a new task.
+Agents enter through [AGENTS.md](../AGENTS.md), which selects the reading required for a task. The [contribution guide](../CONTRIBUTING.md) covers setup and checks. A full audit or release still requires its complete gate coverage.
 
-Exit audits: [M0](audits/M0_EXIT_AUDIT.md), [M1](audits/M1_EXIT_AUDIT.md), [M2 summary](audits/M2_EXIT_AUDIT.md) and [M2 complete evidence](audits/details/M2_EXIT_AUDIT.md).
+| Reference | Owns |
+|---|---|
+| [Protocol](PROTOCOL.md), [schemas](../schemas/) and [versioning](../VERSIONING.md) | Public objects, wire semantics and compatibility |
+| [Architecture](ARCHITECTURE.md) | Components, data flow and failure behavior |
+| [Security and privacy](SECURITY_PRIVACY.md) | Protected data, permissions, threats, retention and security gates |
+| [Engineering](ENGINEERING.md) | Task contracts, Git, verification and delivery rules |
+| [Roadmap](ROADMAP.md) | Milestone scope, states, ordered queue and gates |
+| [Evidence method](EVIDENCE_METHOD.md) | How evidence is interpreted and what it cannot prove |
+| [ADR index](adr/README.md) | Architectural decisions and their reasons |
 
-Previous navigation material: [M2 development baseline](history/README_M2_BASELINE.md), [M2 generic handoff](history/HANDOFF_M2_BASELINE.md) and [S15 machine handoff](handoffs/M2_NEXT_MACHINE.md). Start new work from the [current handoff](HANDOFF.md).
+Accepted ADRs remain applicable within the authority order in AGENTS. Superseded ADRs preserve the reason for an older choice; they do not govern current behavior.
 
-## Maintaining this structure
+<a id="evidence-on-demand"></a>
 
-Use `npm run docs:check` for local links, heading fragments and entry-document budgets. Product requirements, security invariants and roadmap gates keep their existing authority; this map is navigation only. Keep current state in the roadmap, decisions in ADRs and detailed evidence in its own record. Frozen experiment files and raw reports retain their bytes and paths. See [editorial policy](ENGINEERING.md#11-documentation-and-traceability).
+## Consult evidence when needed
+
+Execution records: [M0](history/M0_EXECUTION.md), [M1](history/M1_EXECUTION.md), [M2](history/M2_EXECUTION.md) and [M3](history/M3_EXECUTION.md).
+
+Exit audits: [M0](audits/M0_EXIT_AUDIT.md), [M1](audits/M1_EXIT_AUDIT.md), [M2 verdict](audits/M2_EXIT_AUDIT.md) and [complete M2 evidence](audits/details/M2_EXIT_AUDIT.md). The [quality results](evaluations/M2_QUALITY_RESULTS.md) retain the frozen measurement and its limits.
+
+The [handoff entry](HANDOFF.md) helps resume a task. Older navigation is retained in the [M2 development baseline](history/README_M2_BASELINE.md), [M2 generic handoff](history/HANDOFF_M2_BASELINE.md) and [measurement handoff](handoffs/M2_NEXT_MACHINE.md).
+
+<a id="maintaining-this-structure"></a>
+
+Historical results and authorizations describe their original tasks. They do not establish current status or authorize a new action. This map is navigation; the [editorial policy](ENGINEERING.md#11-documentation-and-traceability) defines how to keep each rule in its responsible source.

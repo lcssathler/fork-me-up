@@ -188,3 +188,17 @@ A full clean Windows clone with Node.js 24.20.0 and npm 11.19.0 installed the lo
 The only demonstrated gap was stale navigation and governance prose that still routed work to early M2/M1 state and described an ended integration exception. M2-S16 corrects those claims, adds no runtime behavior, contract, dependency, migration, release, platform support or source connector, and records all retained local limitations in the audit. No new `FMU-E-*` applies because this slice audits existing behavior rather than changing it.
 
 The proposed M2 `Complete`, M3 `Ready`, M2-S16 `Complete`, and M3-S01 `Ready` transitions become authoritative only after this audit revision passes required pull-request CI and integrates into protected `main`.
+
+## Verification coverage recorded at 84921df
+
+The following execution narrative was moved unchanged from Engineering Section 7 on September 9, 2026. It describes its original implementation scope; consult the current engineering policy and tests for new work.
+
+M2-S08 makes `FMU-E-009` and `FMU-E-010` executable at the private Demand producer boundary. Explicit candidate interpretations with different effective capabilities/relevance or operation risk yield one clarification; a valid choice resolves the pending object without another question. Equivalent interpretations, absent ambiguity and missing evidence proceed without a questionnaire. These tests exercise structured behavior, not model-authored questions or an owner/client UI.
+
+M2-S10 exercises `FMU-E-005` through persisted/reloaded correction and Core DCP compilation: owner input controls behavior, archival knowledge is not projected as current, and original provenance stays privately inspectable. Its `FMU-E-011` evaluation verifies owner acknowledgment after persistence and prior-state retention after failed staging. Real subprocess tests cover the no-LLM CLI.
+
+M2-S11 exercises `FMU-E-015` through redacted export, absent-only import and subsequent Core intersection: canaries stay out of artifacts/results and historical knowledge remains excluded after correction round trips. Unit fault injection covers persistence/readback/cleanup failures, deletion barriers and session disposal. Real filesystem/subprocess tests isolate Store and adapter roots, verify cache deletion and non-resurrection, reject junctions and preserve source/unrelated files. Full aggregate checks and focused human review remain integration gates.
+
+M2-S12 extends `FMU-E-015` to owner evidence and doctor outputs, including sensitive private limitations, opaque identifiers, injected cache errors and DCP task content. Tests validate nested Provider metadata, historical/self-targeted correction behavior, byte/count bounds, real missing-dependency diagnostics, unchanged files/directories, cache expiry and junction rejection. Diagnostic success is checked independently from component health; no repair is performed.
+
+M2-S13 verifies the local-utility exit gate through an actual CLI/MCP subprocess workflow over two temporary Git repositories: collection, unchanged cache reuse, persisted rejection, changed-source refresh, restart, corrected context, doctor, export and verified deletion. Unit tests independently exercise the Store-backed Provider and runtime failure boundaries, including no consumer source/write authority, malformed owner commands, partial refresh and Store/source overlap. Existing behavioral evaluations remain applicable; no new evaluation ID is invented for this composition gate.

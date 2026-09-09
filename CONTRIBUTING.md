@@ -8,7 +8,7 @@ Start with the [documentation map](docs/README.md) and follow the subject-specif
 
 For an ordinary bug report, provide the affected revision, expected and actual behavior, and a minimal synthetic reproduction. Request scope alignment before substantial changes. Use [SECURITY.md](SECURITY.md) for suspected vulnerabilities; do not disclose them in an ordinary issue or pull request.
 
-For roadmap work, verify the current queue, integrated prerequisites, branch/base, working tree, worktrees, and active assignments or pull requests. Claim only an eligible, unowned slice on a short-lived branch. Historical or integrated branches are not active claims. Record the task contract before editing: traceability, observable result, scope, constraints, checks, compatibility impact, allowed effects, and stopping conditions. A slice ID does not bypass a gate.
+For roadmap work, apply the [eligibility and ownership rules](AGENTS.md#milestone-request-routing). Before editing, record the [task contract](docs/ENGINEERING.md#21-discovery) and select the required checks. A slice ID does not bypass a gate.
 
 ## Local setup and verification
 
@@ -46,23 +46,27 @@ Unit, integration, and evaluation suites are non-empty and have no bootstrap exc
 
 The [CI workflow](.github/workflows/ci.yml) runs the same clean install and aggregate command in the `Windows baseline` job for pull requests and pushes to `main`. This is the current verification path, not the complete release gate. It includes the full current unit/schema/integration/evaluation baseline, the frozen M2 controls and private package dry-run inspection. GitGuardian runs on pull requests; dependency/vulnerability and license review plus local Markdown validation are still recorded explicitly when applicable. Automated cross-platform install/uninstall, released-artifact inspection, SBOM, license report, checksums, and provenance/signing remain later M3 release gates. There is no product release artifact yet.
 
+## Try the synthetic transport
+
+For a development-only synthetic MCP process:
+
+```text
+npm run mcp
+```
+
+Fixture selections are `demonstrated`, `adjacent`, `insufficient-evidence` and `unavailable`. They exercise transport behavior, not your repository profile. The [Codex adapter](adapters/codex/README.md) documents lifecycle hooks and explicit trust requirements; checked-in hooks default to unavailable. Use the [local Community guide](docs/LOCAL_COMMUNITY.md) for a saved profile and the [generic consumer guide](consumers/generic/README.md) for independent packet conformance.
+
 ## Preparing a change
 
-- Keep one observable outcome per branch and atomic commit. Preserve pre-existing user changes; avoid unrelated formatting, generated files, upgrades, or refactoring.
-- Cite applicable requirement, use case, evaluation, slice, gate, and ADR IDs. If no behavioral evaluation applies, explain why and cite the applicable slice or gate instead of inventing an ID.
-- Use synthetic fixtures and temporary repositories. Never attach real credentials, personal profiles, private repository content, conversations, or personal paths to tests, logs, issues, or pull requests.
-- Add proportionate regression and negative coverage. Public contract changes synchronize schemas, generated types, fixtures, examples, compatibility notes, migrations, and the [changelog](CHANGELOG.md). Follow [versioning policy](VERSIONING.md).
-- Update affected normative documents in the same change. Material architecture decisions require an ADR; scope, licensing, private-data access, new source/consumer integrations, and external effects retain their owner-decision and security gates.
-- Review dependencies under [ENGINEERING.md Section 9](docs/ENGINEERING.md#9-dependency-and-supply-chain-policy). Keep Protocol and Core client-neutral and public packages independent of proprietary Cloud/Pro code.
-- Review every AI-assisted change and every resulting diff. Generated code has the same evidence, security, attribution, and verification requirements as any other contribution.
+Keep one observable outcome per branch and cohesive commits. Preserve user edits and use synthetic reproductions; never submit credentials, personal profiles, private source or conversations.
+
+Follow [Engineering](docs/ENGINEERING.md) for the complete delivery rules: [Git isolation](docs/ENGINEERING.md#3-git-workflow), [verification](docs/ENGINEERING.md#24-verification), [dependencies](docs/ENGINEERING.md#9-dependency-and-supply-chain-policy), [documentation](docs/ENGINEERING.md#11-documentation-and-traceability) and [Definition of Done](docs/ENGINEERING.md#12-definition-of-done). Public contract changes also follow [versioning](VERSIONING.md). Review agent-generated changes with the same rigor as any contribution.
 
 ## Review and integration
 
-A pull request should explain the problem and resulting behavior, traceability, scope and non-goals, data/security/privacy impact, compatibility and migration impact, checks and evaluations actually executed, rollback or recovery, and remaining limitations. Do not include sensitive reproduction details; coordinate them through the security-reporting process.
+A PR explains the problem, result, traceability, scope, data/security impact, compatibility, executed checks and remaining limits. Use the [PR evidence requirements](docs/ENGINEERING.md#34-pull-request-evidence), including focused human review for sensitive boundaries. Coordinate sensitive reproductions through [security reporting](SECURITY.md).
 
-Run the documented checks on the revision submitted for review and inspect the complete diff. Relevant CI must pass before merge. The [engineering process](docs/ENGINEERING.md#34-pull-request-evidence) requires focused human review for authentication, persistence, redaction, filesystem boundaries, public schemas, lifecycle hooks, release automation, and private-source access.
-
-Use pull requests to integrate into `main`; its active ruleset requires the GitHub Actions `Windows baseline` check from the expected integration and blocks deletion and non-fast-forward updates without bypass actors. Pull-request branches must be tested with the latest `main`. Direct pushes, force pushes, deletion, and shared-history rewrites remain prohibited. Agents must stop before push, external pull-request creation, merge, publication, release, deployment, or remote configuration unless the current task explicitly authorizes that effect.
+Review the complete diff and test the submitted revision with the latest `main`. Required CI must pass before merge. The current ruleset requires the GitHub Actions `Windows baseline` check from the expected integration and blocks deletion and non-fast-forward updates without bypass actors. Use a PR; direct pushes and shared-history rewrites are prohibited. Agents need explicit authorization for push, external PR creation, merge, publication or other [external effects](docs/ENGINEERING.md#14-external-effects).
 
 ## Licensing and attribution
 

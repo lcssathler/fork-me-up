@@ -4,7 +4,11 @@ This policy applies the existing [protocol compatibility rules](docs/PROTOCOL.md
 
 ## Development status and version boundaries
 
-The root npm workspace is versioned `0.0.0` as a development placeholder, has `private: true`, and remains non-publishable even though the source repository is public. M3-S01-generated Protocol, Core and Community Provider candidates also remain `0.0.0`, private and unpublished; their local dry-run reports are inspection evidence, not releases or compatibility claims. M3-S02 creates a private locally installable Protocol tarball with exact SDK/schema/fixture/conformance exports. M3-S04 creates exact local tarballs for all three candidates and tests only the unreleased public `0.1.0` drafts plus the Community Store's explicit synthetic `0.0.0` to `0.1.0` migration and rejection/recovery behavior. That bounded local evidence does not assign a release version, promise cross-platform compatibility or authorize publication. The protocol document's `0.1` revision and DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and Profile Provider/conformance schemas `0.1.0` are unreleased drafts. M0-S08 through M0-S12 supply these authoring contracts plus the separate implementation-internal Community Profile Store `0.1.0` draft. Runnable behavior and releases have separate roadmap gates.
+The root npm workspace and the Protocol, Core and Community Provider candidates use `0.0.0` and `private: true`. They remain unpublished even though the source repository is public. Local dry-run reports and private installable tarballs are inspection artifacts, not releases.
+
+The protocol document revision is `0.1`. DCP, Evidence, Claim, Portable Profile Export, Demand Profile, Profile Provider and conformance schemas are unreleased `0.1.0` drafts. The separate Community Profile Store `0.1.0` draft is implementation-internal.
+
+The local artifact matrix tests those public drafts plus explicit synthetic Store migration from `0.0.0` to `0.1.0`, rejection and recovery. It assigns no release version, promises no cross-platform compatibility and authorizes no publication. Protocol's exact SDK/schema/fixture/conformance exports and the three-library artifact boundary are described in [Architecture](docs/ARCHITECTURE.md#private-package-candidates). Runtime completion and releases retain their separate [roadmap gates](docs/ROADMAP.md).
 
 Keep these versions distinct:
 
@@ -36,7 +40,7 @@ Evidence and Claim start at unreleased `0.1.0`, so no existing released record r
 
 Portable Profile Export and the Community Profile Store also start at unreleased `0.1.0`; no released data requires migration. Store versions are internal to that provider and use `storeSchemaVersion`; export versions are public protocol versions and use `schemaVersion`. Matching numeric versions do not make the envelopes interchangeable. A future store migration must preserve prior valid state and a future export must be explicitly constructed and validated rather than relabeling or copying the Store envelope.
 
-Demand Profile starts independently at unreleased `0.1.0`; no released data requires migration. Its version is not coupled to a DCP version. A future compiler negotiates and validates both contracts and constructs a DCP from demand plus authorized profile state; it must not relabel or deliver a Demand Profile as a DCP.
+Demand Profile starts independently at unreleased `0.1.0`; no released data requires migration. Its version is not coupled to a DCP version. A compiler must negotiate and validate both contracts and construct a DCP from demand plus authorized profile state; it must not relabel or deliver a Demand Profile as a DCP.
 
 Profile Provider capabilities, exchanges, and conformance transcripts start at unreleased `0.1.0`; no released implementation requires migration. Provider schema versions and advertised protocol versions remain distinct. Exact draft objects are closed except for bounded namespaced extension maps; a later released optional addition requires synchronized compatibility fixtures and cannot redefine required fields, authorization, disclosure, errors, or core semantics within a major version.
 

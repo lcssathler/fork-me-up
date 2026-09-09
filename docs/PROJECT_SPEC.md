@@ -1,39 +1,33 @@
 # Fork Me Up — Product Specification
 
-> Status: pre-implementation product contract  
+> Status: normative product contract
 > Version: 0.5
-> Last updated: September 4, 2026  
+> Last updated: September 9, 2026
 > Canonical language: English
 
-This is the single normative product specification. Accepted product changes must update this document, affected requirements and evaluations, and any dependent protocol or architecture documents in the same change.
+This is the official source for product behavior and business rules. Accepted product changes must update the affected requirements, evaluations and dependent protocol or architecture documents in the same change.
 
-## 1. Executive summary
+Read Sections 1–8 for purpose, scope and principles; Sections 10–11 and 15 for how evidence becomes useful context; and Sections 12–14 for the stable requirement IDs used by agents and tests. These are product requirements, not a release checklist. The [roadmap](ROADMAP.md) records implementation state and gates; [local usage](LOCAL_COMMUNITY.md) explains the runnable checkout workflow.
 
-Fork Me Up is a client-neutral developer-context system. It turns evidence from developer-approved repositories, explicit developer statements, and corrections into an inspectable, versioned profile. It then compiles a small, purpose-bound Developer Context Packet (DCP) for an AI tool and the task at hand.
+<a id="1-executive-summary"></a>
 
-The product exists to remove repetitive calibration. A developer should not have to tell each model, coding agent, interview-preparation tool, or compatible harness what they already understand, which knowledge transfers from another stack, and where they want more explanation. Fork Me Up carries that context across tools without pretending that repository evidence is a complete account of the person.
+## 1. What does Fork Me Up do?
 
-The public product consists of an open protocol and a useful local Community runtime. A future paid service may provide deeper multi-repository compilation, continuous refresh, private-repository connectivity, secure remote delivery, and operational guarantees. The paid value is depth, freshness, convenience, and governed delivery—not ownership of a closed profile format.
+Fork Me Up helps AI tools adapt their explanations to a developer's technical context. It builds a private, inspectable profile from repositories the developer selects, explicit statements and corrections. For each task, it sends a small relevant projection called a **Developer Context Packet (DCP)** to a compatible tool.
 
-## 2. Problem
+The developer can reuse this context across clients and model providers. Repository evidence is a limited view of their experience, so every assessment must keep its uncertainty and source visible.
 
-AI tools can inspect a project but usually start each relationship without durable knowledge of the developer using them. This creates recurring costs:
+<a id="2-problem"></a>
 
-- the developer repeats their technical background and preferences;
-- the same calibration consumes turns and context tokens in every client;
-- familiar subjects are over-explained;
-- unfamiliar commands and operational decisions are under-explained;
-- a tool may infer expertise from a dependency, fork, template, or team repository;
-- personal context becomes trapped in one vendor or conversation;
-- the developer cannot inspect why the tool made an assumption.
+## 2. What problem does it solve?
 
-The problem is not to determine everything a developer knows. It is to preserve a useful, evidence-bounded calibration that clearly distinguishes what was observed, inferred, declared, corrected, disputed, or not sufficiently evidenced.
+Developers repeatedly explain their background and preferences to coding agents, models and compatible preparation tools. This costs turns and tokens. Tools may over-explain familiar subjects, under-explain unfamiliar commands, or mistake a dependency, template, fork or team repository for personal expertise. Assumptions can also become trapped in a vendor or conversation, with no way to inspect why they were made.
 
-## 3. Product thesis
+Fork Me Up preserves reusable calibration: what was observed, inferred, declared, corrected, disputed or insufficiently evidenced. It does not attempt to determine everything a person knows.
 
-> Build developer context once, keep it inspectable, and carry only the relevant part into each AI-assisted task.
+<a id="3-product-thesis"></a>
 
-Fork Me Up owns the boundary between developer evidence and AI behavior:
+## 3. How does the context reach an agent?
 
 ```text
 developer-approved evidence + explicit corrections
@@ -47,9 +41,11 @@ task + purpose + audience + disclosure budget
        compatible AI tool or harness behavior
 ```
 
-The DCP is advisory context. It never grants permissions and never overrides the user's current instructions, repository policy, or the consuming tool's safety boundaries.
+The DCP is advisory context. It never grants permissions or overrides the user's current instructions, repository policy or the consuming tool's safety boundaries.
 
-## 4. Target users
+<a id="4-target-users"></a>
+
+## 4. Who is it for?
 
 Initial Community users are individual developers who:
 
@@ -60,7 +56,7 @@ Initial Community users are individual developers who:
 - have local or public repositories they choose to analyze;
 - value inspectable evidence, corrections, portability, and local control.
 
-Initial paid users are developers who additionally value:
+Future paid users are developers who additionally value:
 
 - managed analysis of selected public and private repositories;
 - continuous, incremental profile refresh;
@@ -70,7 +66,11 @@ Initial paid users are developers who additionally value:
 
 Partners and enterprise teams are later consumers of the same open protocol. They are not allowed to enumerate developers or obtain profiles without a grant from each developer.
 
-## 5. Product boundary
+<a id="5-product-boundary"></a>
+
+## 5. What belongs in each product?
+
+The public product combines open contracts with a useful local Community runtime. Cloud/Pro is an optional future service. Its paid value is deeper analysis, freshness, convenience and governed delivery; the profile format remains open. These boundaries define scope, while the roadmap records delivery state.
 
 ### 5.1 Fork Me Up Community — public and useful on its own
 
@@ -87,6 +87,8 @@ Partners and enterprise teams are later consumers of the same open protocol. The
 Community must provide meaningful value without an account, hosted backend, or proprietary service.
 
 ### 5.2 Fork Me Up Cloud/Pro — optional paid service
+
+This is future service scope, not currently available hosted functionality.
 
 - accounts and secure credential storage;
 - a GitHub App limited to repositories explicitly selected by the developer;
@@ -113,9 +115,11 @@ The adopted model is:
 - a separate [trademark policy](../TRADEMARKS.md) for the Fork Me Up name and visual identity;
 - user-owned, fully exportable profile data with no format lock-in and no relicensing merely because Fork Me Up processes it.
 
-On September 4, 2026, the project owner confirmed authority to license the current project content and explicitly accepted this license, its Community/Cloud implications, the separate trademark policy, and the residual risk from the preliminary name review. [ADR-0004](adr/0004-apache-license-and-trademark-policy.md) records the decision. Publishing code, packages, or repository history remains separately gated.
+[ADR-0004](adr/0004-apache-license-and-trademark-policy.md) records the owner's licensing authority, acceptance of these terms and Community/Cloud implications, and acceptance of the residual risk from the preliminary name review. Publishing code, packages or repository history remains separately gated.
 
-## 6. Goals
+<a id="6-goals"></a>
+
+## 6. What outcomes should it deliver?
 
 ### 6.1 Community goals
 
@@ -137,7 +141,9 @@ On September 4, 2026, the project owner confirmed authority to license the curre
 - Deliver minimized context to authorized consumers without exposing upstream tokens or raw repositories.
 - Provide observable revocation, retention, deletion, audit, and cost boundaries.
 
-## 7. Non-goals
+<a id="7-non-goals"></a>
+
+## 7. What is outside the product?
 
 Fork Me Up is not:
 
@@ -160,7 +166,9 @@ The initial product also does not include:
 - execution of analyzed repository code;
 - an additional LLM dependency in the Community reference provider.
 
-## 8. Product principles
+<a id="8-product-principles"></a>
+
+## 8. Which rules always apply?
 
 ### P-01 — Evidence is bounded
 
@@ -168,11 +176,11 @@ Every material automated claim has provenance, confidence, freshness, and limita
 
 ### P-02 — Missing evidence is uncertainty
 
-The default state is `insufficient-evidence`, never `does-not-know`.
+The default state is `insufficient-evidence`, never `does-not-know`. For example, no React evidence in the selected repositories means the system lacks evidence about React; it does not mean the developer lacks React knowledge.
 
 ### P-03 — The developer remains the authority
 
-Explicit corrections and rejections outrank automated inference while the conflicting evidence remains traceable.
+Explicit corrections and rejections outrank automated inference while the conflicting evidence remains traceable. If a developer rejects an inferred capability, refreshing the repository must not silently restore that inference.
 
 ### P-04 — The profile is private; packets are projections
 
@@ -202,7 +210,9 @@ Ask only when the answer materially changes behavior, risk, or scope, and ask at
 
 Source access, profile sharing, telemetry, and model processing require distinct, understandable consent. Profile data is not sold or used for model training without a separate explicit opt-in.
 
-## 9. Hypotheses and invalidation signals
+<a id="9-hypotheses-and-invalidation-signals"></a>
+
+## 9. How will we know it is useful?
 
 | ID | Hypothesis | Validation | Invalidation signal |
 |---|---|---|---|
@@ -217,7 +227,9 @@ Source access, profile sharing, telemetry, and model processing require distinct
 | H-09 | Integration can remain partner-neutral. | Implement through open contracts and generic authentication. | A target integration requires proprietary profile semantics. |
 | H-10 | Evidence-bounded calibration changes AI behavior usefully. | Behavioral evaluations for direct, adjacent, and insufficient evidence. | Responses remain indistinguishable or less useful. |
 
-## 10. Domain model
+<a id="10-domain-model"></a>
+
+## 10. What information does the system handle?
 
 - **Evidence:** an immutable observation with source, repository, revision, author assessment, timestamp, visibility, strength, limitations, and invalidation rule.
 - **Claim:** a capability statement derived from evidence or supplied by the developer, with state, confidence, scope, provenance references, and freshness.
@@ -233,7 +245,9 @@ Source access, profile sharing, telemetry, and model processing require distinct
 
 Source Grants and Sharing Grants are independent. Authorizing repository ingestion never authorizes delivery to another tool.
 
-## 11. Assessment model
+<a id="11-assessment-model"></a>
+
+## 11. How are assessments made and controlled?
 
 ### 11.1 Claim states
 
@@ -263,7 +277,31 @@ AI assistance alone neither establishes nor negates a developer's understanding.
 
 The current Community two-observation practical-use rule is a project-evidence heuristic, not a validated scale of expertise. All its automated claims remain project-scoped and at most medium confidence/practical-use. The [evidence method](EVIDENCE_METHOD.md) records primary-source research, rejected alternatives and interpretation limits. The [M2 quality protocol](evaluations/M2_QUALITY_PROTOCOL.md) measures frozen synthetic conformance, including assisted-workflow invariance; its rates must not be advertised as human knowledge accuracy or human acceptance rates. [ADR-0031](adr/0031-evidence-method-and-frozen-quality-protocol.md) records the owner-delegated decision.
 
-## 12. Primary use cases
+### 11.5 What happens when repositories change?
+
+Community refresh uses a bounded private cache in the current process (`FMU-FR-017`/`FMU-FR-020`). Unchanged metadata within the maximum observation age avoids content rescanning and Git processes, but still requires bounded path and metadata verification.
+
+Original source age, cache origin, fingerprint changes and partial or invalid outcomes remain inspectable. A `fresh` refresh means the source cache passed validation; individual Claims can still be stale. An incomplete source set cannot produce an aggregate assessment that drops the limitations of missing repositories. Restart or changed configuration begins a cold source cache; the persisted profile and correction history remain available.
+
+### 11.6 How can the developer inspect and correct the profile?
+
+The local owner CLI works without an LLM (`FMU-FR-013`/`FMU-FR-014`). Corrections, disputes and rejections override automated interpretation while preserving its original provenance. Declarations stay self-declared and never acquire observed depth. History survives source refresh, source removal and restart; only verified persistence reports success.
+
+Owner collection and persistence are separate from Store-backed MCP delivery of bounded current-project context. Source authority never crosses into consumer requests.
+
+Historical automated Claims remain privately inspectable but do not count as current task knowledge. Notes remain private and inert. See [inspection and corrections](OWNER_WORKFLOW.md).
+
+Owner-only capability evidence lookup preserves assessment and history metadata while omitting private content. Read-only diagnostics report installation/module, Store schema/gate, adapter cache and optional DCP size, expiry and budget state. Missing and unchecked components remain explicit. These owner operations do not expand public contracts or consumer disclosure (`FMU-FR-010`/`FMU-FR-022`/`FMU-FR-023`/`FMU-FR-026`). See [diagnostics](OWNER_WORKFLOW.md#evidence-lookup-and-doctor).
+
+### 11.7 What can be exported, imported or deleted?
+
+Owner exports retain typed profile and correction behavior in the open format while omitting private prose, source locations and internal authority. Imports require an absent Store and matching subject (`FMU-FR-015`/`FMU-FR-026`, `FMU-NFR-020`).
+
+Explicit local deletion covers recognized Store files, subject-scoped in-process caches and, with separate explicit scope, all local Codex adapter cache entries. Content-free barriers prevent recreation. Independent exports and backups, source repositories and already returned objects remain owner-managed. Bounded failures never claim successful deletion. The [deletion inventory and recovery procedure](OWNER_WORKFLOW.md#delete-managed-local-data) defines the exact scope and steps.
+
+<a id="12-primary-use-cases"></a>
+
+## 12. Which user journeys must be supported?
 
 - **UC-01 — Reuse calibration:** start a session without re-explaining technical background and explanation preferences.
 - **UC-02 — Direct knowledge:** remain concise and focus on trade-offs when task-relevant depth is demonstrated.
@@ -282,6 +320,8 @@ The current Community two-observation practical-use rule is a project-evidence h
 - **UC-15 — Delete data:** remove local or hosted profile data without modifying source repositories.
 
 ## 13. Functional requirements
+
+These stable IDs specify required behavior. Priority names a delivery obligation, not current availability.
 
 | ID | Requirement | Priority |
 |---|---|---|
@@ -341,7 +381,9 @@ The current Community two-observation practical-use rule is a project-evidence h
 | FMU-NFR-019 | A consumer receives only data allowed by its grant, purpose, scopes, and disclosure policy. |
 | FMU-NFR-020 | The developer can export and delete their data without losing access to the open format. |
 
-## 15. Generated response policy
+<a id="15-generated-response-policy"></a>
+
+## 15. How should an agent adapt its response?
 
 For a demonstrated capability, a consuming agent should use direct technical language, omit unnecessary fundamentals, and emphasize decisions, alternatives, and trade-offs.
 
@@ -359,19 +401,22 @@ For commands and operational actions, the policy may require:
 
 Irreversible or security-sensitive actions receive explanation and confirmation regardless of inferred experience.
 
-The first source-backed Community Demand producer (`M2-S08`) accepts explicit structured task capabilities and optional candidate interpretations rather than interpreting natural-language prose. Selected current-project source languages provide supporting demand; an explicit collected-file selection can narrow that scope. An empty demand or equivalent interpretations do not start an onboarding questionnaire. Only interpretations with different effective capabilities/relevance or operation risk require a single clarification, and an offered answer resolves that pending decision without another question. This does not establish developer knowledge or authorize an operation. Potentially sensitive task prose is replaced with a fixed minimized summary in the produced Demand Profile. `FMU-E-009` and `FMU-E-010` verify this bounded implementation of `FMU-FR-003` and `FMU-FR-021`; natural-language interpretation and owner/client workflows remain later work.
+### 15.1 How does Community determine task needs?
 
-The first incremental Community refresh (`M2-S09`, `FMU-FR-017`/`FMU-FR-020`) uses a bounded private process-local cache. Unchanged metadata within an explicit maximum observation age avoids content rescanning and Git processes; it still performs bounded path and metadata verification. Original source age, cache origin, fingerprint changes and partial/invalid outcomes remain inspectable. `fresh` refresh status means the source cache passed current validation, independently of each Claim's stale flag. An incomplete source set cannot produce a new aggregate assessment that drops the limitations of missing repositories. Restart or changed configuration begins a cold cache; persisted correction/declaration workflows remain later work.
+The Community Demand producer accepts explicit structured task capabilities and optional candidate interpretations; it does not interpret natural-language prose. Source languages from the selected current project provide supporting demand. An explicit collected-file selection can narrow that scope.
 
-M2-S10 provides manual inspection and correction through a bounded local owner CLI (`FMU-FR-013`/`FMU-FR-014`). Corrections, disputes and rejections preserve original automated provenance while overriding interpretation; declarations never become observed depth. History survives source refresh/removal and restart, and only verified persistence reports success. Historical automated Claims remain privately inspectable but are excluded from current task knowledge. Notes remain private and inert. See [owner workflow](OWNER_WORKFLOW.md).
+- Empty demand and equivalent interpretations do not start an onboarding questionnaire.
+- Interpretations require one clarification only when effective capabilities, relevance or operation risk differ. An offered answer resolves that decision without another question.
+- Demand does not establish developer knowledge or authorize an operation.
+- Potentially sensitive task prose is replaced with a fixed minimized summary.
 
-M2-S11 implements owner import, redacted export and verified managed local deletion (`FMU-FR-015`/`FMU-FR-026`, `FMU-NFR-020`). Open-format exports retain typed profile and correction behavior while omitting private prose, source locations and internal authority. Imports require an absent Store and matching subject. Explicit deletion covers recognized Store files, subject-scoped in-process caches and all local Codex adapter cache entries with separate explicit scope; content-free barriers prevent recreation. Independent exported copies/backups, source repositories and already returned objects remain owner-managed. Bounded failures never claim successful deletion. See the [inventory and recovery procedure](OWNER_WORKFLOW.md#delete-managed-local-data).
+`FMU-E-009` and `FMU-E-010` verify this implementation of `FMU-FR-003` and `FMU-FR-021`. Natural-language interpretation remains future work. The [local workflow](LOCAL_COMMUNITY.md) documents the separate owner and consumer entry points.
 
-## 16. Product stages
+<a id="16-product-stages"></a>
 
-M2-S13 connects the local Community workflow without an account, network/model runtime or proprietary service (`FMU-FR-016`/`FMU-FR-023`, `FMU-NFR-004`/`FMU-NFR-011`/`FMU-NFR-016`). A documented owner launcher collects, persists, corrects, diagnoses, exports and deletes; a separate Store-backed MCP mode serves bounded current-project context. Source authority never crosses into consumer requests. Synthetic end-to-end verification exercises actual subprocesses and real temporary Git repositories; this does not constitute a packaged release or a new live-client hook integration. See [local usage](LOCAL_COMMUNITY.md).
+## 16. What defines each delivery stage?
 
-M2-S12 adds owner-only bounded capability evidence and read-only local diagnostics (`FMU-FR-010`/`FMU-FR-022`/`FMU-FR-023`/`FMU-FR-026`). Evidence metadata preserves assessment/history while omitting private content; doctor reports installation/module, Store schema/gate, adapter cache and optional DCP size/expiry/budget state. Missing or unchecked components remain explicit. Existing public contracts and consumer disclosures are unchanged. See [owner diagnostics](OWNER_WORKFLOW.md#evidence-lookup-and-doctor).
+These are stage acceptance outcomes. Completion and release eligibility are recorded only in the [roadmap](ROADMAP.md). The current [local checkout workflow](LOCAL_COMMUNITY.md) has synthetic end-to-end verification using actual subprocesses and temporary Git repositories. That evidence does not establish a packaged release, new live-client hook integration or model-authored output.
 
 ### Technical MVP
 
@@ -387,7 +432,9 @@ A developer can connect selected GitHub repositories, receive a managed and revi
 
 The commercial MLP is **GitHub → Profile → task-scoped DCP → authenticated MCP**. It excludes Google Workspace and broad personal-data connectors.
 
-## 17. Metrics
+<a id="17-metrics"></a>
+
+## 17. What should be measured?
 
 ### Calibration value
 
@@ -421,7 +468,9 @@ The commercial MLP is **GitHub → Profile → task-scoped DCP → authenticated
 - Community-to-Pro conversion after Pro exists;
 - cost per active managed profile and remote context request.
 
-## 18. Product-level definition of done
+<a id="18-product-level-definition-of-done"></a>
+
+## 18. When is a milestone complete?
 
 A milestone is complete only when:
 
@@ -433,7 +482,9 @@ A milestone is complete only when:
 - residual limitations are documented without overstating compatibility;
 - no unrelated future-milestone functionality is bundled into the release.
 
-## 19. Deferred decisions
+<a id="19-deferred-decisions"></a>
+
+## 19. Which decisions need further evidence?
 
 The following require a validated need, a dedicated ADR, and an updated threat model:
 
