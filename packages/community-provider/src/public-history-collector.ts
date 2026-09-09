@@ -93,7 +93,7 @@ interface ParsedCommit {
 const decoder = new TextDecoder("utf-8", { fatal: true });
 const sha1Pattern = /^[0-9a-f]{40}$/u;
 const safeEndpointPattern =
-  /^\/repos\/[A-Za-z0-9-]{1,39}\/[A-Za-z0-9._-]{1,100}(?:\/commits\/[0-9a-f]{40}\?per_page=100&page=[1-4])?$/u;
+  /^\/repos\/(?![A-Za-z0-9-]*--)[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?\/[A-Za-z0-9](?:[A-Za-z0-9._-]{0,98}[A-Za-z0-9_-])?(?:\/commits\/[0-9a-f]{40}\?per_page=100&page=[1-4])?$/u;
 
 export const nodeGitHubPublicHistoryPort: GitHubPublicHistoryPort = Object.freeze({
   async get(request: GitHubPublicHistoryRequest): Promise<GitHubPublicHistoryPortResult> {
@@ -178,6 +178,7 @@ export async function collectPublicHistory(
     readonly commandPort?: BoundedGitCommandPort;
     readonly githubPort?: GitHubPublicHistoryPort;
     readonly now?: () => number;
+    readonly wallClock?: () => number;
   } = {},
 ): Promise<CollectPublicHistoryResult> {
   if (
@@ -188,9 +189,16 @@ export async function collectPublicHistory(
   ) {
     return resultFailure("invalid-input", false, "rejected", 0);
   }
+  const now = options.now ?? (() => performance.now());
+  let startedAt: number;
+  try {
+    startedAt = clock(now);
+  } catch {
+    return resultFailure("invalid-input", false, "rejected", 0);
+  }
   const local = await collectGitMetadata(authorization, {
     ...(options.commandPort === undefined ? {} : { commandPort: options.commandPort }),
-    ...(options.now === undefined ? {} : { now: options.now }),
+    now,
   });
   const repository = authorization.repositories[0];
   if (repository === undefined) return resultFailure("invalid-input", false, "rejected", 0);
@@ -208,10 +216,17 @@ export async function collectPublicHistory(
   if (local.ok && localRepository !== undefined && !localRepository.shallow) {
     return localResult(local, "not-needed");
   }
-  const observed = Date.parse(observedAt);
+  let consentTime: number;
+  try {
+    consentTime = readWallClock(options.wallClock ?? (() => Date.now()));
+  } catch {
+    return local.ok
+      ? localResult(local, "rejected")
+      : resultFailure("invalid-input", false, "rejected", 0);
+  }
   if (
-    observed < Date.parse(policy.github.consent.issuedAt) ||
-    observed >= Date.parse(policy.github.consent.expiresAt)
+    consentTime < Date.parse(policy.github.consent.issuedAt) ||
+    consentTime >= Date.parse(policy.github.consent.expiresAt)
   ) {
     return local.ok
       ? localResult(local, "expired")
@@ -230,13 +245,30 @@ export async function collectPublicHistory(
       ? localResult(local, "rejected")
       : resultFailure("not-authorized", false, "rejected", 0);
   }
+  let maximumDurationMs: number;
+  try {
+    const current = clock(now);
+    if (current < startedAt) return resultFailure("invalid-input", false, "rejected", 0);
+    maximumDurationMs = Math.min(
+      policy.github.limits.maxDurationMs,
+      Math.floor(authorization.limits.maxDurationMs - (current - startedAt)),
+    );
+  } catch {
+    return resultFailure("invalid-input", false, "rejected", 0);
+  }
+  if (maximumDurationMs < 1) {
+    return local.ok
+      ? localResult(local, "unavailable")
+      : resultFailure("deadline-exceeded", true, "unavailable", 0);
+  }
   const remote = await collectGitHubHistory(
     authorization,
     mapping,
     policy,
     expectedHead,
     options.githubPort ?? nodeGitHubPublicHistoryPort,
-    options.now ?? (() => performance.now()),
+    now,
+    maximumDurationMs,
   );
   if (remote.ok) {
     return deepFreeze({
@@ -271,6 +303,7 @@ async function collectGitHubHistory(
   head: string,
   port: GitHubPublicHistoryPort,
   now: () => number,
+  maximumDurationMs: number,
 ): Promise<RemoteResult> {
   let requests = 0;
   let totalResponseBytes = 0;
@@ -281,7 +314,7 @@ async function collectGitHubHistory(
       const current = clock(now);
       if (current < last) throw new RemoteFault("invalid-input");
       last = current;
-      const value = Math.floor(policy.github.limits.maxDurationMs - (current - started));
+      const value = Math.floor(maximumDurationMs - (current - started));
       if (value < 1) throw new RemoteFault("deadline-exceeded");
       return value;
     };
@@ -603,6 +636,12 @@ function record(value: unknown): value is Record<string, unknown> {
 
 function clock(now: () => number): number {
   const value = now();
+  if (!Number.isFinite(value) || value < 0) throw new RemoteFault("invalid-input");
+  return value;
+}
+
+function readWallClock(wallClock: () => number): number {
+  const value = wallClock();
   if (!Number.isFinite(value) || value < 0) throw new RemoteFault("invalid-input");
   return value;
 }

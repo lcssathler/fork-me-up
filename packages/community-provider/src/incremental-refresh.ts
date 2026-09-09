@@ -76,6 +76,7 @@ export interface IncrementalRefreshPorts {
   readonly commandPort?: BoundedGitCommandPort;
   readonly githubPort?: GitHubPublicHistoryPort;
   readonly now?: () => number;
+  readonly wallClock?: () => number;
 }
 export type RefreshReason =
   | "cold"
@@ -439,6 +440,7 @@ export async function refreshLocalRepositories(
             : { commandPort: state.ports.commandPort }),
           ...(state.ports.githubPort === undefined ? {} : { githubPort: state.ports.githubPort }),
           now,
+          ...(state.ports.wallClock === undefined ? {} : { wallClock: state.ports.wallClock }),
         },
       );
       work.networkRequests += git.networkRequests;
