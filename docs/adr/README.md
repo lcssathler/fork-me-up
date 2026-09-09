@@ -42,6 +42,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0036](0036-independent-generic-conformance-consumer.md) | Accepted | Consume the public Protocol artifact through a stateless bounded CLI that preserves DCP Claim and Response Policy meaning without Core or client-specific dependencies. |
 | [ADR-0037](0037-community-artifact-compatibility-matrix.md) | Accepted | Install exact private Protocol/Core/Community Provider tarballs through a lockfile-derived offline consumer and verify import/export, version rejection, update conflict, migration, recovery and Store/interchange separation. |
 | [ADR-0038](0038-cross-platform-community-lifecycle.md) | Accepted | Install, update, exercise, delete and uninstall the private Community artifact graph through clean Windows, macOS and Linux lifecycle jobs. |
+| [ADR-0039](0039-local-first-bounded-public-history.md) | Accepted | Prefer bounded local Git history and allow explicit, temporary, read-only public GitHub history through an existing external `gh` login. |
 
 ## Record format
 

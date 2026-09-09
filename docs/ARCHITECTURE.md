@@ -144,7 +144,9 @@ Properties:
 
 ### 4.2 Community with bounded public history
 
-A later Community provider may use an existing local Git or GitHub authentication path for repositories selected by the developer. Network use must be explicit, visible, bounded, cached, and optional. No token is copied into Fork Me Up profile data or logs.
+The Community provider prefers the quarantined local Git collector for every selected repository. An optional owner-only configuration can map that same authorized repository to a public `github.com` repository for a maximum 24-hour consent window. A complete local history makes no network request. A shallow history may be enriched from its exact local head; eligible local Git unavailability requires an exact owner-configured head before GitHub can be used.
+
+GitHub access invokes only fixed read-only REST endpoints through an already authenticated external `gh` installation. Fork Me Up accepts no token or credential path, never prompts for or stores authentication, verifies the repository is public, enforces request/response/commit/path/time limits and performs no automatic retry. Only sanitized Git snapshot fields enter the existing authorship/risk pipeline. Owner refresh reports the history source, GitHub status and request count; unchanged source cache hits are process-local and make zero requests. Offline operation and MCP consumers retain no network capability. See [ADR-0039](adr/0039-local-first-bounded-public-history.md).
 
 ### 4.3 Cloud/Pro
 
@@ -376,6 +378,8 @@ Collection is sequential and all-or-nothing. Fixed version-control, dependency a
 The Git port reads bounded `HEAD`, branch/packed-ref and shallow control data, validates the entire selected object-store metadata before and after use, and rejects alternate or linked object databases. Exact allowlisted plumbing commands run with `shell: false` against the authorized object directory from a fresh trusted temporary bare directory. Repository configuration, worktree attributes, hooks, filters, external diff, text conversion, pagers, replacement objects, lazy fetching, remotes and credentials stay outside that boundary.
 
 Git output contains only SHA-1/SHA-256 object IDs, parent relationships, UTC timestamps, SHA-256 identity/coauthor digests and safe changed paths under commit/object/path/output/time ceilings. Neither collector emits raw source, absolute paths, manifest values, raw identities/messages, native diagnostics, Evidence, Claims or policy. See [ADR-0020](adr/0020-quarantined-bounded-git-metadata-collector.md).
+
+The optional public-history port remains inside Community Provider and owner refresh. Its closed temporary consent binds exact authorized repository objects to validated public `github.com` names. The port uses only fixed `gh api` GET calls, verifies public visibility and converts bounded commit responses into the same private Git snapshot fields. Local Git remains first, remote failure cannot bypass an authorization/validation failure, no raw response or credential is persisted, and Provider/MCP requests cannot trigger collection. See [ADR-0039](adr/0039-local-first-bounded-public-history.md).
 
 Identity resolution hashes explicitly configured developer/shared/bot identities through the collector's normalization and rejects duplicate cross-role digests. Its immutable configuration contains no raw identity. The pure assessor validates the complete Git snapshot and annotation references, then emits only opaque IDs, fixed enums/limitations, timestamps and conservative ceilings. Malformed or dangling input yields no partial result. Pair/squash annotations describe attribution, never capability; automatic identity/bot/squash heuristics are prohibited. See [ADR-0021](adr/0021-explicit-conservative-git-authorship-assessment.md).
 

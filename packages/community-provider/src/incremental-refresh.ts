@@ -18,7 +18,7 @@ import {
   type FilesystemMetadataPort,
   type FilesystemMetadataSnapshot,
 } from "./filesystem-metadata-collector.ts";
-import { collectGitMetadata, type GitMetadataSnapshot } from "./git-metadata-collector.ts";
+import type { GitMetadataSnapshot } from "./git-metadata-collector.ts";
 import type { BoundedGitCommandPort } from "./bounded-git-command.ts";
 import { assessGitAuthorship } from "./git-authorship-assessment.ts";
 import { classifyEvidenceSourceRisk } from "./evidence-source-risk-classifier.ts";
@@ -28,6 +28,15 @@ import {
   type EvidenceClaimRepositoryProject,
 } from "./evidence-claim-derivation.ts";
 import { fingerprintRepository, type RepositoryFingerprintPort } from "./repository-fingerprint.ts";
+import {
+  collectPublicHistory,
+  type GitHubHistoryStatus,
+  type GitHubPublicHistoryPort,
+} from "./public-history-collector.ts";
+import {
+  isIssuedPublicHistoryConfigFor,
+  type ResolvedPublicHistoryConfig,
+} from "./public-history-config.ts";
 
 export const incrementalRefreshVersion = "0.1.0" as const;
 export const incrementalRefreshHardLimits = Object.freeze({
@@ -65,6 +74,7 @@ export interface IncrementalRefreshPorts {
   readonly fingerprintPort?: RepositoryFingerprintPort;
   readonly fileSystemPort?: FilesystemMetadataPort;
   readonly commandPort?: BoundedGitCommandPort;
+  readonly githubPort?: GitHubPublicHistoryPort;
   readonly now?: () => number;
 }
 export type RefreshReason =
@@ -87,6 +97,8 @@ export interface RepositoryRefreshState {
   readonly collectedAt: string | null;
   readonly checkedAt: string;
   readonly reason: RefreshReason;
+  readonly historySource: "local-git" | "github" | null;
+  readonly githubStatus: GitHubHistoryStatus;
 }
 export interface IncrementalRefreshSnapshot {
   readonly kind: "incremental-refresh-snapshot";
@@ -98,6 +110,7 @@ export interface IncrementalRefreshSnapshot {
   readonly work: {
     readonly probeEntries: number;
     readonly collections: number;
+    readonly networkRequests: number;
     readonly cacheBytes: number;
   };
   readonly failure: "incomplete-sources" | "derivation-failed" | null;
@@ -121,6 +134,8 @@ interface CacheEntry {
   readonly collectedAt: string;
   readonly filesystem: FilesystemMetadataSnapshot;
   readonly git: GitMetadataSnapshot;
+  readonly historySource: "local-git" | "github";
+  readonly githubStatus: GitHubHistoryStatus;
   readonly bytes: number;
 }
 interface SessionState {
@@ -129,6 +144,7 @@ interface SessionState {
   readonly risk: ResolvedEvidenceSourceRiskConfig;
   readonly configuration: IncrementalRefreshConfiguration;
   readonly ports: IncrementalRefreshPorts;
+  readonly publicHistory: ResolvedPublicHistoryConfig | null;
   readonly cache: Map<string, CacheEntry>;
   lastObservedAt: string | null;
   previous: EvidenceClaimDerivationSnapshot | null;
@@ -170,6 +186,7 @@ export function createIncrementalRefreshSession(
   risk: ResolvedEvidenceSourceRiskConfig,
   configurationJson: string,
   ports: IncrementalRefreshPorts = {},
+  publicHistory: ResolvedPublicHistoryConfig | null = null,
 ): CreateIncrementalRefreshResult {
   try {
     for (const reference of sessionReferences) {
@@ -182,7 +199,8 @@ export function createIncrementalRefreshSession(
     if (
       !isIssuedAuthorizedRepositoryConfig(authorization) ||
       !isIssuedDeveloperIdentityConfig(identity) ||
-      !isIssuedEvidenceSourceRiskConfig(risk)
+      !isIssuedEvidenceSourceRiskConfig(risk) ||
+      !(publicHistory === null || isIssuedPublicHistoryConfigFor(publicHistory, authorization))
     )
       return failure("not-configured");
     const configuration = parseConfiguration(configurationJson, authorization);
@@ -203,6 +221,7 @@ export function createIncrementalRefreshSession(
       risk,
       configuration,
       ports: { ...ports },
+      publicHistory,
       cache: new Map(),
       lastObservedAt: null,
       previous: null,
@@ -274,7 +293,7 @@ export async function refreshLocalRepositories(
     };
     remaining();
     state.lastObservedAt = request.observedAt;
-    const work = { probeEntries: 0, collections: 0 };
+    const work = { probeEntries: 0, collections: 0, networkRequests: 0 };
     const records: RepositoryRefreshState[] = [];
     const selected = [...state.configuration.repositoryProjects].sort((a, b) =>
       compare(a.repositoryId, b.repositoryId),
@@ -286,6 +305,8 @@ export async function refreshLocalRepositories(
         origin: RepositoryRefreshState["origin"],
         reason: RefreshReason,
         entry: CacheEntry | undefined,
+        history:
+          Pick<RepositoryRefreshState, "historySource" | "githubStatus"> | undefined = undefined,
       ) => {
         records.push({
           ...mapping,
@@ -295,9 +316,18 @@ export async function refreshLocalRepositories(
           fingerprint: entry?.fingerprint ?? null,
           collectedAt: entry?.collectedAt ?? null,
           checkedAt: request.observedAt,
+          historySource: history?.historySource ?? entry?.historySource ?? null,
+          githubStatus:
+            history?.githubStatus ??
+            entry?.githubStatus ??
+            (state.publicHistory === null ? "disabled" : "not-needed"),
         });
       };
-      const unavailable = (reason: RefreshReason, evict: boolean) => {
+      const unavailable = (
+        reason: RefreshReason,
+        evict: boolean,
+        history?: Pick<RepositoryRefreshState, "historySource" | "githubStatus">,
+      ) => {
         if (evict) state.cache.delete(mapping.repositoryId);
         const retained = evict ? undefined : cached;
         report(
@@ -305,6 +335,7 @@ export async function refreshLocalRepositories(
           retained === undefined ? "none" : "memory-cache",
           reason,
           retained,
+          history,
         );
       };
       const authority = () =>
@@ -398,10 +429,19 @@ export async function refreshLocalRepositories(
         unavailable("budget-exhausted", changed);
         continue;
       }
-      const git = await collectGitMetadata(gitAuthority, {
-        ...(state.ports.commandPort === undefined ? {} : { commandPort: state.ports.commandPort }),
-        now,
-      });
+      const git = await collectPublicHistory(
+        gitAuthority,
+        state.publicHistory,
+        request.observedAt,
+        {
+          ...(state.ports.commandPort === undefined
+            ? {}
+            : { commandPort: state.ports.commandPort }),
+          ...(state.ports.githubPort === undefined ? {} : { githubPort: state.ports.githubPort }),
+          now,
+        },
+      );
+      work.networkRequests += git.networkRequests;
       if (!git.ok) {
         const budget =
           git.error.category === "deadline-exceeded" || git.error.category === "limit-exceeded";
@@ -412,6 +452,7 @@ export async function refreshLocalRepositories(
               ? "unavailable"
               : "invalid-source",
           changed || (!budget && !git.error.retryable),
+          { historySource: null, githubStatus: git.githubStatus },
         );
         continue;
       }
@@ -431,6 +472,8 @@ export async function refreshLocalRepositories(
         collectedAt: request.observedAt,
         filesystem: filesystem.value,
         git: git.value,
+        historySource: git.historySource,
+        githubStatus: git.githubStatus,
         bytes: Buffer.byteLength(JSON.stringify([filesystem.value, git.value]), "utf8"),
       };
       if (

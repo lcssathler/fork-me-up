@@ -5,6 +5,7 @@ import { resolveAuthorizedRepositoryConfig } from "./authorized-repository-confi
 import { resolveDeveloperIdentityConfig } from "./developer-identity-config.ts";
 import { resolveEvidenceSourceRiskConfig } from "./evidence-source-risk-config.ts";
 import { resolveLocalProfileStoreConfig } from "./local-profile-store-config.ts";
+import { resolvePublicHistoryConfig } from "./public-history-config.ts";
 import {
   createIncrementalRefreshSession,
   refreshLocalRepositories,
@@ -46,8 +47,18 @@ export async function createLocalCommunityRuntime(
 ): Promise<CreationResult> {
   try {
     const input = parse(configurationJson, localCommunityLimits.configurationBytes);
+    const hasPublicHistory = record(input) && Object.hasOwn(input, "publicHistory");
     if (
-      !shape(input, ["version", "sources", "identity", "risk", "refresh", "store", "project"]) ||
+      !shape(input, [
+        "version",
+        "sources",
+        "identity",
+        "risk",
+        "refresh",
+        "store",
+        "project",
+        ...(hasPublicHistory ? ["publicHistory"] : []),
+      ]) ||
       input["version"] !== "0.1.0" ||
       !shape(input["project"], ["projectRef", "repositoryId"]) ||
       !identifier(input["project"]["projectRef"]) ||
@@ -69,6 +80,10 @@ export async function createLocalCommunityRuntime(
       identity.value.subjectRef !== store.value.subjectRef
     )
       return failure("invalid-config");
+    const publicHistory = hasPublicHistory
+      ? resolvePublicHistoryConfig(JSON.stringify(input["publicHistory"]), sources.value)
+      : null;
+    if (publicHistory !== null && !publicHistory.ok) return failure("invalid-config");
     if (
       sources.value.repositories.some((repository) =>
         overlaps(repository.canonicalPath, store.value.directoryPath),
@@ -93,6 +108,7 @@ export async function createLocalCommunityRuntime(
       risk.value,
       JSON.stringify(refresh),
       options.refreshPorts ?? {},
+      publicHistory?.value ?? null,
     );
     if (!session.ok) return failure("invalid-config");
     // The authentic session resolver has validated and detached all refresh settings.
@@ -186,6 +202,8 @@ export async function createLocalCommunityRuntime(
                 status: item.status,
                 origin: item.origin,
                 reason: item.reason,
+                historySource: item.historySource,
+                githubStatus: item.githubStatus,
               })),
               work: refreshed.value.work,
             });

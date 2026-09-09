@@ -182,6 +182,8 @@ Use where they add value for parsers, Unicode, paths, symlinks, size/depth limit
 
 Exercise MCP `stdio`, local persistence, adapters, cache invalidation, export, deletion, and diagnostics with temporary roots and controlled subprocesses. Git tests use a sanitized environment with pagers, hooks, fsmonitor, external diff, textconv, and untrusted config/includes disabled.
 
+Optional public-history tests use an injected GitHub byte port and synthetic public/private/malformed responses; routine checks never require a credential or live network. Verify local-first zero-request behavior, explicit temporary consent, exact repository/head binding, fixed read-only endpoints, request/byte/commit/path/deadline ceilings, content-free degradation and process-memory cache reuse.
+
 Artifact compatibility uses exact private Protocol/Core/Community Provider tarballs and a temporary consumer lockfile derived from the official production dependency closure. Start clean artifact verification with a fresh root `npm ci` and an empty npm cache; install the consumer offline with lifecycle scripts disabled. Verify version/operation rejection, export/import, expected-generation conflict, migration, recovery and Store/interchange separation through `npm run compatibility:check`. Never run aggregate checks concurrently with another artifact build.
 
 ### 6.5 End-to-end tests

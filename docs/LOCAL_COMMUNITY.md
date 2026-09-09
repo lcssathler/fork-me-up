@@ -2,7 +2,7 @@
 
 # Build and use a local developer profile
 
-This guide takes you from selected repositories to a saved profile, corrections and task context for a compatible MCP client. Everything runs locally without an account, network service or model API.
+This guide takes you from selected repositories to a saved profile, corrections and task context for a compatible MCP client. The default workflow runs locally without an account, network service or model API. An optional owner-only setting can enrich shallow or otherwise unavailable local Git history from a selected public GitHub repository; the rest of the workflow does not require it.
 
 Use this checkout with pinned Node.js 24.20.0/npm 11.19.0 and installed workspace dependencies. This is a development workflow on the tested Windows baseline, not a packaged release.
 
@@ -54,6 +54,49 @@ The selected identity and Store subjects must match. Each repository needs exact
 
 Configuration reads accept at most 128 KiB, reject non-regular/linked files and verify file identity, timestamps and canonical target before and after the bounded read. Invalid configuration returns a fixed failure without echoing its contents or paths.
 
+### Optionally allow selected public GitHub history
+
+Keep the configuration above unchanged to disable network access. To opt in, add this top-level `publicHistory` block, replace the repository mapping and use current canonical UTC timestamps. Consent must expire after `issuedAt` and within 24 hours:
+
+```json
+{
+  "publicHistory": {
+    "historyVersion": "0.1.0",
+    "mode": "local-first",
+    "github": {
+      "authentication": "existing-gh",
+      "permission": "public-metadata-read-only",
+      "consent": {
+        "decision": "allow-read-selected-public-history",
+        "issuedAt": "2026-09-09T12:00:00Z",
+        "expiresAt": "2026-09-10T12:00:00Z"
+      },
+      "repositories": [
+        {
+          "repositoryId": "repo_local",
+          "owner": "public-owner",
+          "name": "public-repository",
+          "expectedHeadObjectId": null
+        }
+      ],
+      "limits": {
+        "maxCommits": 64,
+        "maxRequests": 257,
+        "maxResponseBytes": 1048576,
+        "maxTotalResponseBytes": 16777216,
+        "maxDurationMs": 60000,
+        "maxPagesPerCommit": 4,
+        "maxChangedPaths": 4096
+      }
+    }
+  }
+}
+```
+
+Merge that block into the base configuration rather than using it as a separate file. `repositoryId` must name the corresponding locally authorized repository. Keep `expectedHeadObjectId` as `null` when local Git can supply the shallow head. If local Git itself is unavailable, remote fallback is denied unless the owner supplies the exact 40-character lowercase SHA-1 head expected for that selected repository.
+
+GitHub access requires a previously authenticated `gh` CLI installation. Fork Me Up does not prompt for login, accept a token or credential path in this configuration, create credentials, or persist authentication. It issues fixed read-only `github.com` metadata requests only during an owner refresh, verifies that the mapped repository is public and performs no automatic retry. Complete local Git history always wins and produces zero network requests. An expired consent block also produces no request; remove the entire block to opt out immediately for the next process start. MCP consumers cannot start collection or network access.
+
 <a id="collect-and-control-the-profile"></a>
 
 ## Collect evidence and correct the profile
@@ -74,7 +117,7 @@ For a first profile, send this refresh command with current canonical UTC timest
 {"version":"0.1.0","operation":"refresh","request":{"refreshVersion":"0.1.0","observedAt":"2026-09-07T12:00:00Z","staleBefore":"2026-09-07T11:00:00Z","force":false},"expectedGeneration":null,"at":"2026-09-07T12:00:00Z"}
 ```
 
-`expectedGeneration: null` requires an absent Store. Later refreshes use the last observed generation. `at` cannot precede collection or prior Store validation. Only verified correction-preserving persistence returns `refreshed`, with its new generation, cleanup status and bounded work/origin metadata.
+`expectedGeneration: null` requires an absent Store. Later refreshes use the last observed generation. `at` cannot precede collection or prior Store validation. Only verified correction-preserving persistence returns `refreshed`, with its new generation, cleanup status and bounded work/origin metadata. Each repository reports `historySource` (`local-git`, `github` or `null`) and `githubStatus`; aggregate work reports the actual `networkRequests` count.
 
 A second unchanged refresh in the same process reuses the source cache and reports zero collections. Restart starts a cold source cache while retaining the persisted profile and owner history.
 
@@ -91,7 +134,7 @@ All existing [owner requests](OWNER_WORKFLOW.md) are accepted directly as lines,
 
 ### Handle collection failures
 
-Incomplete or failed collection preserves the prior Store but blocks context from that runtime until a complete refresh is verified. Malformed commands do not invalidate a previously usable runtime. Sources are never deleted or repaired. Collection can fail on unsupported Git layouts, unsafe roots or exhausted budgets; those failures cannot produce a partial aggregate with inflated support. Uncommitted files and uncertain attribution remain conservative evidence, not proof of ownership.
+Incomplete or failed collection preserves the prior Store but blocks context from that runtime until a complete refresh is verified. Malformed commands do not invalidate a previously usable runtime. Sources are never deleted or repaired. Collection can fail on unsupported Git layouts, unsafe roots or exhausted budgets; those failures cannot produce a partial aggregate with inflated support. A remote timeout or unavailable GitHub path falls back to a valid local snapshot when one exists. Private, mismatched, malformed or over-limit remote data is rejected without content-bearing diagnostics and cannot bypass local authorization. Uncommitted files and uncertain attribution remain conservative evidence, not proof of ownership.
 
 <a id="compile-and-consume-task-context"></a>
 
@@ -133,6 +176,6 @@ Deletion requires the explicit confirmation and all-local-adapter-cache scope fr
 
 ## Verification
 
-The real synthetic workflow test covers two repositories, first collection, unchanged cache reuse, correction, changed-source refresh, process restart, Store-backed MCP delivery, doctor, export and verified deletion with source preservation. Negative tests cover configuration size/shape/identity/root boundaries, malformed commands, partial refresh, unavailable/deleted state, consumer authority rejection and context redaction. See [ADR-0030](adr/0030-local-community-workflow-composition.md) and the [M2 execution record](ROADMAP.md#14-m2-execution-record).
+The real synthetic workflow test covers two repositories, first collection, unchanged cache reuse, correction, changed-source refresh, process restart, Store-backed MCP delivery, doctor, export and verified deletion with source preservation. Negative tests cover configuration size/shape/identity/root boundaries, malformed commands, partial refresh, unavailable/deleted state, consumer authority rejection and context redaction. Public-history tests use injected synthetic GitHub bytes, including private/mismatched/malformed responses, and prove local-first zero-request behavior, temporary consent, exact repository/head binding, bounded traversal and process-memory cache reuse without live credentials or network. See [ADR-0030](adr/0030-local-community-workflow-composition.md), [ADR-0039](adr/0039-local-first-bounded-public-history.md) and the [M2 execution record](ROADMAP.md#14-m2-execution-record).
 
 `npm run lifecycle:check` separately installs exact private library artifacts into a temporary application, replaces one build-only candidate graph with another, reloads the Store with corrections intact, then deletes managed state and uninstalls the packages while retaining synthetic source and an explicit export. CI runs this focused gate on Windows, macOS and Linux. It is installation evidence for the private candidates, not a packaged application, public release or support promise. See [ADR-0038](adr/0038-cross-platform-community-lifecycle.md).
