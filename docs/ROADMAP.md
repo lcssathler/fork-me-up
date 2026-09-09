@@ -44,8 +44,8 @@ No queue state authorizes publication, network sources, private-data access or a
 | 2 | [`M3-S02` — Public Protocol SDK and conformance distribution](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Install the Protocol SDK and conformance artifact |
 | 3 | [`M3-S03` — Independent generic conformance consumer](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Compare two independent consumers |
 | 4 | [`M3-S04` — Import/export and compatibility matrix](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify artifact portability and recovery |
-| 5 | [`M3-S05` — Cross-platform install, update, and uninstall](#m3-s05) | `Ready` | Verify installation, update and removal on three platforms |
-| 6 | [`M3-S06` — Optional public-history decision and boundary](#m3-s06) | `Blocked by M3-S05` | Decide whether selected public history is needed |
+| 5 | [`M3-S05` — Cross-platform install, update, and uninstall](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify installation, update and removal on three platforms |
+| 6 | [`M3-S06` — Optional public-history decision and boundary](#m3-s06) | `Owner decision required` | Decide whether selected public history is needed |
 | 7 | [`M3-S07` — Public Community benchmark](#m3-s07) | `Blocked by M3-S06` | Measure the public Community benchmark |
 | 8 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Blocked by M3-S07` | Provide release usage and compatibility guidance |
 | 9 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
@@ -207,14 +207,6 @@ Prove interoperability and publish a trustworthy open implementation.
 ### Remaining M3 slice contracts
 
 These contracts define the remaining work; the current queue above is the only state list.
-
-<a id="m3-s05"></a>
-
-### M3-S05 — Cross-platform install, update, and uninstall
-
-**Required outcome:** Clean Windows, macOS and Linux jobs install exact local artifacts, complete the synthetic Community value loop, update across supported candidate versions, and uninstall/delete managed state while preserving sources and explicit owner-retained exports.
-
-**Prerequisites and traceability:** M3-S04; `FMU-FR-015`, `FMU-FR-016`, `FMU-FR-022`; `FMU-NFR-010`, `FMU-NFR-017`, `FMU-NFR-020`; M3 platform/install exit gates.
 
 <a id="m3-s06"></a>
 
