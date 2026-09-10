@@ -4,7 +4,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 
 | ADR | Status | Decision |
 |---|---|---|
-| [ADR-0001](0001-open-contracts-managed-intelligence.md) | Accepted | Keep contracts and a useful Community runtime public; monetize managed intelligence and operations. |
+| [ADR-0001](0001-open-contracts-managed-intelligence.md) | Superseded | Historical product scope; replaced by ADR-0041. |
 | [ADR-0002](0002-client-neutral-core.md) | Accepted | Keep Protocol and Core client-neutral; use adapters for client capabilities. |
 | [ADR-0003](0003-separate-source-and-sharing-grants.md) | Accepted | Treat evidence-source access and context sharing as independent grants. |
 | [ADR-0004](0004-apache-license-and-trademark-policy.md) | Accepted | License public repository content under Apache-2.0 and govern project marks separately. |
@@ -44,6 +44,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0038](0038-cross-platform-community-lifecycle.md) | Accepted | Install, update, exercise, delete and uninstall the private Community artifact graph through clean Windows, macOS and Linux lifecycle jobs. |
 | [ADR-0039](0039-local-first-bounded-public-history.md) | Accepted | Prefer bounded local Git history and allow explicit, temporary, read-only public GitHub history through an existing external `gh` login. |
 | [ADR-0040](0040-reproducible-public-community-benchmark.md) | Accepted | Reproduce frozen evidence outcomes plus bounded disclosure and two-consumer policy calibration without human-accuracy or ranking claims. |
+| [ADR-0041](0041-guided-evidence-backed-local-mvp.md) | Accepted | Prioritize a guided local MVP, selective authorized sources, evidence-backed interpretation and live owner calibration before distribution. |
 
 ## Record format
 

@@ -78,6 +78,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Changed
 
+- Refocus the planned local MVP on guided client use, selected public/private GitHub sources, persistent evidence reuse and agent-assisted explanations with live owner calibration before distribution (ADR-0041; FMU-FR-031–037). This documentation decision changes no runtime, public schema, package, license or frozen benchmark result.
+
 - Simplify product explanations and user/agent navigation; consolidate delivery rules in Engineering, expose the current roadmap queue first, and preserve completed execution evidence separately. Requirements, public contracts, milestone gates and frozen measurements remain unchanged (ADR-0033 editorial refinement; Engineering Section 11).
 
 - Completed the authorized GitHub Free public cutover and activated basic protection for `main`: pull requests are required, deletion and non-fast-forward updates are blocked, no actor can bypass the ruleset, and zero approvals are required under the explicitly accepted single-maintainer policy (`M0-S02`). Required CI status checks remain the separately authorized M0-S06 gate; this visibility transition is not a product or package release.

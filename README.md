@@ -12,6 +12,8 @@ It builds a private profile from repositories you explicitly select and conclusi
 
 Missing evidence means uncertainty, not lack of knowledge. Your corrections take priority over automated conclusions, with their history preserved. A packet grants no permissions. Fork Me Up does not score seniority, employability or candidates.
 
+The next product target is a guided workflow: confirm your identity, select a small relevant set of repositories, review the resulting overview and receive brief explanations connected to your experience. The [roadmap](docs/ROADMAP.md#15-current-m3-execution-queue) places a real owner trial before public release preparation.
+
 See the [product rules](docs/PROJECT_SPEC.md) for how evidence, corrections and sharing work.
 
 <a id="product-and-limits"></a>
@@ -20,7 +22,7 @@ See the [product rules](docs/PROJECT_SPEC.md) for how evidence, corrections and 
 
 The Community development workflow runs locally without an account, a dedicated model API or a paid service. You can collect evidence, inspect and correct your profile, obtain task context, diagnose the installation, export data and delete managed local data. Optional owner-only public-history enrichment prefers local Git and can use an already authenticated `gh` installation for explicitly selected public repositories; it is read-only, temporary, disabled by default and never required for local use.
 
-Packages are **private and unreleased**. Windows is the verified development platform. Codex is a reference adapter, and a separate generic consumer tests the same structured packet meaning. This does not establish compatibility with every agent or equivalent model-written answers. Cloud/Pro is a future optional service.
+Packages are **private and unreleased**. Windows is the verified development platform. Codex is a reference adapter, and a separate generic consumer tests the same structured packet meaning. This does not establish compatibility with every agent or equivalent model-written answers. A guided skill, selected private GitHub reads and agent-assisted interpretation are planned; they are not available in this workflow yet.
 
 The [roadmap](docs/ROADMAP.md#15-current-m3-execution-queue) is the source for completed work, the next eligible step and pending decisions. See [versioning and compatibility](VERSIONING.md) for technical limits.
 
@@ -47,6 +49,6 @@ Agents start with [AGENTS.md](AGENTS.md). The [contribution guide](CONTRIBUTING.
 
 ## License and security
 
-Repository content uses [Apache-2.0](LICENSE), with [NOTICE](NOTICE) and a separate [trademark policy](TRADEMARKS.md). Your profile data is not relicensed by using the software. A future Cloud/Pro implementation may be proprietary and is not included here.
+Repository content uses [Apache-2.0](LICENSE), with [NOTICE](NOTICE) and a separate [trademark policy](TRADEMARKS.md). Your profile data is not relicensed by using the software.
 
 See [security reporting](SECURITY.md) and the [changelog](CHANGELOG.md).

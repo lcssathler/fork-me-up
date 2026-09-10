@@ -2,19 +2,15 @@
 
 > Status: active development; unreleased
 > Version: 0.1  
-> Last updated: September 9, 2026
+> Last updated: September 10, 2026
 
 This roadmap orders work by uncertainty and risk, not by feature count or calendar promises. A milestone begins only when its entry conditions are satisfied and ends only when its exit gate has executable evidence.
 
 ## 1. Strategy
 
-Fork Me Up proves three products in sequence:
+The next objective is a usable local MVP: a developer configures sources, reviews a profile and receives better task explanations in a real client. Codex is the first live target; open contracts remain client-neutral and compatibility is limited to tested surfaces.
 
-1. **Technical MVP:** task-scoped context changes AI behavior correctly.
-2. **Community MVP:** a useful local, portable, open implementation works without proprietary infrastructure.
-3. **Commercial MLP:** managed repository analysis and authenticated remote delivery solve enough recurring pain that users pay for them.
-
-Cloud work must not outrun protocol, evidence quality, local trust, or willingness-to-pay validation. A named external product is never a roadmap dependency; integrations are validated through generic contracts and tested client capabilities.
+Prove that value before resuming release preparation. Selected public/private GitHub sources, bounded reuse, agent-assisted interpretation and cross-project transfer belong in this MVP. Remote deployment and additional integrations remain deferred. [ADR-0041](adr/0041-guided-evidence-backed-local-mvp.md) records this revision; product and security requirements remain in their responsible documents.
 
 Navigation: [current queue](#15-current-m3-execution-queue) · [state rules](#queue-states) · [documentation map](README.md). Historical execution narratives are available on demand; milestone definitions and gates remain below.
 
@@ -25,9 +21,9 @@ Navigation: [current queue](#15-current-m3-execution-queue) · [state rules](#qu
 | M0 | Normative and reproducible foundation | Complete |
 | M1 | Client-neutral behavioral vertical slice | Complete |
 | M2 | Trustworthy local evidence and profile | Complete |
-| M3 | Portable Community release | Ready |
-| M4 | Pro alpha with managed selected repositories | Not started |
-| M5 | Commercial MLP with governed remote MCP | Not started |
+| M3 | Usable Community MVP and verified public distribution | In progress |
+| M4 | Remote deployment safeguards | Deferred |
+| M5 | External-consumer validation | Deferred |
 | M6 | Demand-led ecosystem and enterprise expansion | Deferred |
 
 <a id="15-current-m3-execution-queue"></a>
@@ -36,7 +32,7 @@ Navigation: [current queue](#15-current-m3-execution-queue) · [state rules](#qu
 
 This is the routing source for active M3 work. The linked slice contracts retain the exact outcome, prerequisites and traceability. Completed implementation narratives are in [M3 history](history/M3_EXECUTION.md). Select work using the [state rules](#queue-states) and [AGENTS ownership rules](../AGENTS.md#milestone-request-routing). A milestone-only request authorizes at most one eligible slice.
 
-No queue state authorizes publication, network sources, private-data access or another external effect. M3 begins with local unpublished artifacts.
+No queue state authorizes publication, private-data access, model disclosure or another external effect. The documentation revision inserts new slices without renumbering completed work or the existing release slices. Proposed states become authoritative only after review and integration into main.
 
 | Order | Slice and contract | State | Result |
 |---:|---|---|---|
@@ -47,10 +43,15 @@ No queue state authorizes publication, network sources, private-data access or a
 | 5 | [`M3-S05` — Cross-platform install, update, and uninstall](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify installation, update and removal on three platforms |
 | 6 | [`M3-S06` — Optional public-history decision and boundary](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Enrich selected public history within local-first bounds |
 | 7 | [`M3-S07` — Public Community benchmark](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Reproduce bounded evidence, disclosure and two-consumer calibration |
-| 8 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Ready` | Provide release usage and compatibility guidance |
-| 9 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
-| 10 | [`M3-S10` — Public Community release](#m3-s10) | `Blocked by M3-S09` | Publish the authorized Community release |
-| 11 | [`M3-S11` — M3 exit audit](#m3-s11) | `Blocked by M3-S10` | Audit every M3 exit requirement |
+| 8 | [`M3-S12` — Guided local Codex pilot](#m3-s12) | `Ready` | Configure and exercise real Store-backed context |
+| 9 | [`M3-S13` — Selected GitHub source access](#m3-s13) | `Blocked by M3-S12` | Read authorized public/private sources locally |
+| 10 | [`M3-S14` — Persistent catalog and selective reuse](#m3-s14) | `Blocked by M3-S13` | Find useful evidence within a visible work budget |
+| 11 | [`M3-S15` — Agent interpretation and project transfer](#m3-s15) | `Blocked by M3-S14` | Ground explanations in reviewed prior experience |
+| 12 | [`M3-S16` — Owner calibration and usable-MVP gate](#m3-s16) | `Blocked by M3-S15` | Validate actual explanations and total context cost |
+| 13 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Blocked by M3-S16` | Provide tested installation and usage guidance |
+| 14 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
+| 15 | [`M3-S10` — Public Community release](#m3-s10) | `Blocked by M3-S09` | Publish the authorized Community release |
+| 16 | [`M3-S11` — M3 exit audit](#m3-s11) | `Blocked by M3-S10` | Audit every M3 exit requirement |
 
 <a id="12-m0-execution-record"></a>
 
@@ -76,7 +77,7 @@ Remove ambiguity before implementation and create the smallest safe repository f
 
 - Adopt the Fork Me Up name throughout normative documentation.
 - Maintain one canonical product specification and one root `AGENTS.md`.
-- Accept the Community/Cloud/Connect boundary.
+- Accept the public runtime, protocol and adapter boundary; preserve the original M0 decision record.
 - Accept the client-neutral Core decision.
 - Draft DCP, Evidence, Claim, Portable Profile Export, Demand Profile, and Provider contracts while keeping every Developer Profile Store schema implementation-internal rather than an interchange contract.
 - Define protocol compatibility and initial conformance fixtures.
@@ -173,18 +174,20 @@ Replace fixtures with bounded evidence from developer-selected local repositorie
 - Before measurement begins, an experiment brief freezes the sample, acceptable false-`demonstrated` and correction thresholds, and decision owner; results satisfy that brief for the limited taxonomy.
 - The local workflow is useful without an account, dedicated LLM API, or proprietary service.
 
-## 6. M3 — Portable Community release
+## 6. M3 — Usable Community MVP and public distribution
 
 ### Objective
 
-Prove interoperability and publish a trustworthy open implementation.
+Prove the local value loop with the owner in a real client, then publish a reproducible implementation with honest compatibility limits.
 
 ### Deliverables
 
 - A second materially different consumer or generic conformance client.
 - Public SDK, protocol packages, fixtures, and provider/consumer conformance suite.
 - Tested import/export and compatibility policy.
-- Bounded optional access to selected public repository history where useful.
+- Guided setup, profile review and correction in the first live client.
+- Selected public/private GitHub access with explicit authorization and no hosted dependency.
+- Persistent bounded catalog/reuse and evidence-backed agent interpretation across projects.
 - Reproducible installation and uninstall on the declared platform matrix.
 - README quickstart, contributing guide, security policy, changelog, semantic versioning, and migration guidance.
 - Protected CI, package dry-run, SBOM, license report, checksums, and provenance/signing where supported.
@@ -193,14 +196,16 @@ Prove interoperability and publish a trustworthy open implementation.
 
 ### Required evaluations
 
-- `FMU-E-016` plus all Community-relevant prior evaluations.
+- `FMU-E-016`, `FMU-E-019` through `FMU-E-024`, plus all Community-relevant prior evaluations.
 - Clean-checkout, install, update, export, delete, uninstall, artifact-content, and platform tests.
 
 ### Exit gate
 
 - Two consumers preserve the same claim meaning and required behavior without a Core fork.
 - Community users can complete the local value loop from public documentation.
-- The public runtime remains useful without Cloud.
+- The public runtime remains useful without a hosted service.
+- The owner-reviewed live experiment passes its frozen usefulness, progressive-guidance and total-cost criteria; synthetic conformance is not a substitute.
+- Guided setup, selected private-source denial cases, persistent-cache deletion and cross-project correction/transfer have executable evidence.
 - Security disclosure, upgrade, migration, and data-removal paths are documented and tested.
 - The release is built from a protected, clean revision and artifacts match documented checks.
 
@@ -210,11 +215,55 @@ These contracts define the remaining work; the current queue above is the only s
 
 <a id="m3-s07"></a>
 
-### M3-S07 — Public Community benchmark
+M3-S07's completed benchmark contract and bounded result remain in [M3 history](history/M3_EXECUTION.md). It is not a live usefulness study.
 
-**Required outcome:** A reproducible public benchmark reports repeated calibration, token/disclosure cost, false-Claim outcomes, attribution limits and behavior-policy adherence across both consumers without turning synthetic conformance into human-accuracy or ranking claims.
+<a id="m3-s12"></a>
 
-**Prerequisites and traceability:** Resolved M3-S06 decision; hypotheses H-02 through H-04 and H-06; `FMU-E-001` through `FMU-E-016` where Community-relevant; M3 benchmark deliverable.
+### M3-S12 — Guided local Codex pilot
+
+**Outcome:** A discoverable local skill guides identity/source selection, owner refresh, profile review and explicit declarations/corrections, then a configured Codex client calls the real Store-backed MCP. Verify restart and correction reuse without fixture substitution. Keep the existing deterministic profile and local source limits visible; this first pilot does not claim general interpretation.
+
+**Boundary:** Accept the focused owner-orchestration/disclosure contract before enabling writes or interpretation views. Keep read-only consumer MCP separate from owner operations. Use no new model API. An owner-run live smoke requires explicit source/client scope; without it, implementation may be prepared with synthetic tests but the slice stays incomplete.
+
+**Prerequisites and checks:** Integrated M3-S07 and this planning revision; ADR-0041 and affected adapter/owner ADRs; FMU-FR-031/036, UC-17, FMU-E-019 plus correction, redaction and ordinary-work-continuation regressions. The outcome is the earliest guided product test.
+
+<a id="m3-s13"></a>
+
+### M3-S13 — Selected GitHub source access
+
+**Outcome:** Owner-authorized metadata discovery and bounded content/history reads for selected public/private repositories, with explicit identity, local processing and optional authentication. Keep the existing offline path usable.
+
+**Boundary:** Accept a source-specific ADR, authentication/credential ownership, exact selection and security review before implementation. Apply Security's private-source gate before live private data. GitHub account permissions do not supply collection or model-disclosure consent. The current public-history connector is not widened implicitly.
+
+**Prerequisites and checks:** M3-S12; FMU-FR-032, FMU-E-020; T-01/T-03/T-04/T-08. Synthetic tests cover excluded/private repositories, expired or revoked authority, malicious source data, fixed request budgets, missing authentication and content-free failures. Live data access remains separately authorized.
+
+<a id="m3-s14"></a>
+
+### M3-S14 — Persistent catalog and selective reuse
+
+**Outcome:** Consult the profile first, use a private metadata catalog to choose relevant and adjacent candidates, and reuse verified results across sessions. Expose counts, cost and incomplete coverage. An account with more repositories than a collection batch remains bounded; do not increase collector ceilings merely to scan everything.
+
+**Boundary:** Define cache schema, inventory, expiry, invalidation, canonical storage, atomic recovery, revocation, export and deletion before persistent writes. Bind hits to current authority, identity, source state and algorithm version. Recheck local uncommitted changes; never renew observation age from a cache hit or discard risk evidence to inflate support. Concept-aware refinement may follow in M3-S15.
+
+**Prerequisites and checks:** M3-S13; FMU-FR-033, FMU-E-021; focused persistence ADR refining ADR-0026/0028; restart, changed-source, revoked-grant, poisoned-cache, interrupted-write and deletion regressions. Three to five deep candidates is an experiment hypothesis, not a required fixed limit.
+
+<a id="m3-s15"></a>
+
+### M3-S15 — Agent interpretation and project transfer
+
+**Outcome:** The existing agent interprets bounded authorized evidence into provisional assessments, task needs and cross-project analogies. Present an initial overview for owner review; persist explicit declarations and corrections through the owner flow. Guide unfamiliar concepts briefly without blocking useful technologies or inferring ignorance from a question.
+
+**Boundary:** Accept typed owner-only interpretation-view/proposal and transfer contracts, including bounded redacted excerpts when needed, with deterministic admission, provenance, disclosure and versioning rules before code changes. Preserve original project scope and conservative evidence ceilings. No exhaustive technology catalog, raw-source DCP, separate model API or arbitrary provider write tool. Update every affected schema, producer, consumer, migration and conformance fixture if wire behavior changes.
+
+**Prerequisites and checks:** M3-S14; FMU-FR-034/035/036, UC-16/17, FMU-E-022 and synthetic FMU-E-023 coverage; ADR-0041 plus explicit refinements to affected derivation/intersection/owner ADRs. Reject invented evidence, policy-bearing prose, unsupported global promotion and correction loss; verify novel identifiers and relations without treating model text as authority.
+
+<a id="m3-s16"></a>
+
+### M3-S16 — Owner calibration and usable-MVP gate
+
+**Outcome:** Run the [live calibration contract](evaluations/MVP_CALIBRATION.md) with the owner: unfamiliar-project explanation, cross-project analogy and progressive concept introduction. Compare no profile, a manual summary and Fork Me Up while counting setup and interpretation overhead. Keep failed attempts and version prompt changes.
+
+**Prerequisites and checks:** M3-S15; FMU-FR-037, H-01/H-05/H-10, FMU-E-019 through FMU-E-024. After M3-S15, transition to `Owner decision required` until the brief's cases, thresholds, retention and exact source/client disclosure scope are accepted. Owner feedback refines prompts; it does not replace synthetic negative tests or establish population accuracy. A failed criterion blocks release preparation and routes a bounded fix to the responsible slice.
 
 <a id="m3-s08"></a>
 
@@ -222,7 +271,7 @@ These contracts define the remaining work; the current queue above is the only s
 
 **Required outcome:** Public quickstart, contribution/security/versioning/changelog/migration/removal guidance and one tested compatibility table let a new user complete the local loop while stating exact transport, auth, lifecycle, platform and consumer limits.
 
-**Prerequisites and traceability:** M3-S07; `FMU-FR-013` through `FMU-FR-016`, `FMU-FR-022` through `FMU-FR-025`; `FMU-NFR-009`, `FMU-NFR-010`, `FMU-NFR-016`, `FMU-NFR-020`; M3 documentation and local-utility exit gates.
+**Prerequisites and traceability:** M3-S16; `FMU-FR-013` through `FMU-FR-016`, `FMU-FR-022` through `FMU-FR-025`; `FMU-NFR-009`, `FMU-NFR-010`, `FMU-NFR-016`, `FMU-NFR-020`; M3 documentation and local-utility exit gates.
 
 <a id="m3-s09"></a>
 
@@ -246,103 +295,19 @@ These contracts define the remaining work; the current queue above is the only s
 
 **Required outcome:** An integrated audit verifies every M3 deliverable, required evaluation, platform/install/update/export/delete/uninstall test, artifact/release record and cross-milestone gate, then either closes M3 or names a blocker.
 
-**Prerequisites and traceability:** M3-S01 through M3-S10; full M3 exit gate, `FMU-E-016`, all Community-relevant prior evaluations, and cross-milestone quality gates.
+**Prerequisites and traceability:** M3-S01 through M3-S10 and M3-S12 through M3-S16; full M3 exit gate, `FMU-E-016`, all Community-relevant prior evaluations, and cross-milestone quality gates.
 
-## 7. M4 — Pro alpha: managed profile compilation
+## 7. M4 — Deferred remote deployment safeguards
 
-### Entry conditions
+No current queue. Remote operation requires a separate product need, accepted architecture/data inventory, least-privilege source credentials, tenant isolation, retention/deletion/recovery and the complete [private-source security gate](SECURITY_PRIVACY.md#before-any-private-repository-reaches-cloud). Local GitHub access is part of M3 and does not depend on this milestone.
 
-- Community evidence quality is measured.
-- Interviews, prototypes, or commitments show willingness to pay for managed depth and freshness.
-- A Cloud data inventory, architecture ADR, and updated threat model are accepted.
-- Legal/privacy terms for private repository processing are reviewed.
-- Before any real private data, an independent or documented second-responsible security review covers the GitHub App, webhooks, token/key management, tenant isolation, negative authorization, backup deletion, recovery, and incident response.
-- An experiment brief freezes what counts as material improvement and sufficient user trust before alpha measurement begins.
+## 8. M5 — Deferred external-consumer validation
 
-### Objective
-
-Validate the paid profile compiler without building a broad partner platform.
-
-### Deliverables
-
-- Account and owner authentication.
-- GitHub App with selected-repository, read-only, least-privilege access.
-- Secure credential and key-management design.
-- Isolated bounded ingestion workers.
-- Tenant-bound evidence, claims, and profile versions.
-- Improved attribution and cross-repository evidence fusion.
-- Incremental refresh and freshness reporting.
-- Minimal owner review/correction experience.
-- Export, source disconnect, profile deletion, retention, and backup behavior.
-- Content-free audit and operational observability.
-- Cost, quota, and abuse limits.
-
-### Explicit non-goals
-
-- No Google Workspace or broad personal-data connector.
-- No remote third-party consumer access yet unless required for a closed alpha and separately gated.
-- No employer dashboard, team ranking, enterprise SSO, marketplace, or white labeling.
-
-### Exit gate
-
-- Repository selection and least privilege are enforced end to end.
-- Tenant isolation, authorization-negative, token, retention, deletion, and recovery tests pass.
-- Private source content and tokens are absent from logs and ordinary profile output.
-- Managed analysis meets the predeclared material-improvement threshold for freshness, false-claim rate, attribution, or convenience over Community.
-- Alpha users understand, review, and trust the claims enough to continue.
-- The private-data review has no confirmed, unresolved, unmitigated critical or high-severity finding.
-
-## 8. M5 — Commercial MLP: governed remote delivery
-
-### Entry conditions
-
-- Pro compilation has validated value.
-- At least one real consumer workflow needs remote context.
-- Remote MCP authorization and consent designs pass security review.
-- Before measurement begins, an experiment brief freezes the minimum paid-user sample, retention window, acceptable unit-cost boundary, and decision owner.
-
-### Objective
-
-Let a paying developer securely reuse a managed profile from compatible tools.
-
-### Deliverables
-
-- Stable HTTPS MCP Streamable HTTP endpoint.
-- OAuth 2.1-compatible flow with PKCE, protected-resource discovery, audience/resource binding, token validation, and revocation.
-- Registered consumers or a standards-compliant discovery path.
-- Independent Source and Sharing Grants.
-- Default `context:task:read` scope and step-up scope handling.
-- Purpose-, audience-, expiry-, and budget-bound DCP compilation.
-- No raw-evidence remote scope.
-- Developer grant, audit, and revocation views.
-- Rate limits, quotas, billing, support, and incident response.
-- Generic integration examples and a local bridge only where client capability requires it.
-
-### Required evaluations
-
-- `FMU-E-017` and `FMU-E-018` plus full Cloud authorization and isolation tests.
-- Invalid token, wrong audience, insufficient scope, revoked/expired grant, enumeration, replay, and confused-deputy cases.
-
-### Exit gate
-
-- A real external workflow consumes a minimized DCP without receiving upstream tokens, raw repositories, or broader profile data.
-- Revocation takes effect observably within the documented boundary.
-- The same remote contract works without a partner-specific Core fork.
-- The paid-user sample meets the predeclared value-loop, retention, and unit-cost thresholds.
-- A security review appropriate to public exposure has no confirmed, unresolved, unmitigated critical or high-severity findings.
+No current queue. A future remote consumer requires a demonstrated workflow, independent Source/Sharing Grants, authenticated minimized MCP delivery, observable revocation, abuse limits, FMU-E-017/018 and the complete [remote-access gate](SECURITY_PRIVACY.md#before-remote-consumer-access). No partner-specific integration or availability promise is made.
 
 ## 9. M6 — Demand-led expansion
 
-Only validated demand may promote these items:
-
-- additional Git providers;
-- partner sandbox, SDK support, webhooks, and service levels;
-- enterprise SSO, audit, data residency, VPC, or self-hosting;
-- more capability taxonomies and community rules;
-- source-available or commercial self-hosted inference engine;
-- additional personal-data sources.
-
-Google Workspace, email, calendar, and broad personal-document connectors remain explicitly deferred. Each new source requires a separate hypothesis, ADR, consent model, retention policy, provider compliance review, adversarial fixtures, and security gate.
+Additional clients, providers, personal-data sources and deployment modes require validated demand, an accepted ADR and relevant security/compatibility evidence. Broad document or conversation ingestion remains outside the local MVP. No current queue.
 
 ## 10. Cross-milestone quality gates
 
@@ -366,7 +331,7 @@ The project owner explicitly decides before:
 - selecting and publishing a license;
 - changing repository visibility or exposing previously private Git history;
 - accessing any private repository;
-- running a public Cloud beta;
+- running a public hosted beta;
 - charging users;
 - onboarding an external consumer with personal data;
 - adding any new personal-data source;

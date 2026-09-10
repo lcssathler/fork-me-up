@@ -2,7 +2,7 @@
 
 > Status: mandatory security and privacy baseline
 > Version: 0.1  
-> Last updated: September 9, 2026
+> Last updated: September 10, 2026
 
 This document turns “do not leak anything” into explicit, testable boundaries. It is normative for security and privacy. A feature that cannot satisfy these invariants does not ship.
 
@@ -50,7 +50,7 @@ DCP disclosure boundary
 External client and its model provider
 ```
 
-Future Cloud adds separate boundaries for source providers, ingestion workers, tenant storage, authorization, remote MCP, and third-party consumers. Each boundary validates inputs and re-authorizes access independently.
+Future hosted operation adds separate boundaries for source providers, ingestion workers, tenant storage, authorization, remote MCP, and third-party consumers. Each boundary validates inputs and re-authorizes access independently.
 
 ## 4. Testable invariants
 
@@ -69,7 +69,7 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 - Failed redaction returns no affected payload.
 - Failed profile writes leave the prior valid version available and are never reported as saved.
 
-### Future Cloud invariants
+### Future hosted operation invariants
 
 - Every record and cache key is tenant-bound.
 - Every protected operation derives subject and consumer from validated authorization.
@@ -82,6 +82,16 @@ Future Cloud adds separate boundaries for source providers, ingestion workers, t
 - Repository selection is enforced end to end, not only in the UI.
 - Audit records omit source content, DCP bodies, prompts, and tokens.
 - Export and deletion cover primary data, derived data, caches, and documented backup retention.
+
+### Planned local MVP boundaries
+
+These requirements govern future implementation under ADR-0041; current consumer tools, public-history access and cache behavior remain unchanged.
+
+- Metadata discovery and content reads have separate explicit scopes and budgets. A GitHub login does not authorize every accessible repository. Selection, visibility and revocation are checked at use, including cache hits.
+- Agent interpretation requires an owner-approved minimized evidence view and declared model disclosure. A source excerpt requires a separate first-party owner-view contract with reference validation, redaction, byte/token limits and ephemeral handling; it is excluded from consumer MCP and DCPs. Source permission alone does not allow model processing. Existing agent usage is still external processing when its model is hosted.
+- Proposed interpretations and conversational updates are untrusted input. Validate references, scope, identity, versions, limits and provenance deterministically; model text cannot set policy or turn itself into an owner declaration. Owner-approved writes retain generation checks, correction precedence and verified acknowledgment.
+- A provisional inference remains distinguishable from an observation and a declaration. Cross-project reuse retains source scope and risk ceilings. Missing or unexamined evidence does not establish ignorance; an incomplete scan cannot strengthen a Claim.
+- Persistent catalog/evidence caches contain only an approved minimized inventory, outside source roots. No credentials, complete conversations or raw response bodies are persisted. Permission changes, expiry, source changes and deletion invalidate cached authority; derived projections must be re-evaluated under the source-retention policy.
 
 ## 5. Threat model
 
@@ -121,7 +131,7 @@ Public-history network access uses only `gh api --method GET --hostname github.c
 
 **Controls:** data classification, minimization before serialization, structured logging allowlists, secret redaction, opaque identifiers, canary tests in every output channel, and no real-data fixtures.
 
-Fork Me Up accepts no GitHub token, account field or credential path. The external `gh` process owns any existing authentication. Sanitized snapshots and owner results omit GitHub owner/repository names, URLs, identities, messages, raw responses and native diagnostics; only fixed source/status/request-count fields expose network use.
+The current public-history port accepts no GitHub token, account field or credential path. The external `gh` process owns any existing authentication. Sanitized snapshots and owner results omit GitHub owner/repository names, URLs, identities, messages, raw responses and native diagnostics; only fixed source/status/request-count fields expose network use.
 
 ### T-05 — Incorrect authorship and inflated claims
 
@@ -135,6 +145,8 @@ Source-risk classification validates the complete bounded filesystem/Git/authors
 
 Evidence/Claim derivation accepts only an in-process authentic source-risk snapshot. It permits only normalized source language to become a capability signal and keeps Claims project-scoped. Unknown, shared, or bot-only observations produce `insufficient-evidence`; attributable weak or collaboratively capped evidence remains low/exposure; two distinct direct moderate source observations reach at most medium/practical-use only when their upstream authorship ceilings permit it. High confidence, demonstrated depth, global generalization, dependency/prose inference, arbitrary taxonomy rules, and partial output are prohibited. Every emitted Evidence/Claim graph is validated against the exact Profile payload contract. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
 
+The planned interpretation admission boundary must also reject invented references, instruction-bearing proposals, unsupported global promotion and automatic subskill mastery. This adds no exception to the current deterministic producer's ceilings; any new representation needs focused compatibility and negative tests before use.
+
 ### T-06 — Profile poisoning or unsafe correction text
 
 **Threat:** imported profiles or free-text corrections inject instructions or permanently distort the profile.
@@ -145,7 +157,7 @@ Evidence/Claim derivation accepts only an in-process authentic source-risk snaps
 
 **Threat:** a client or model requests the complete profile, raw evidence, unrelated capabilities, or another person's profile.
 
-**Controls:** server-side task relevance, disclosure budgets, scope checks, purpose-bound grants, subject and audience derivation, opaque evidence references, no remote raw-evidence scope in the commercial MLP, and authorization-negative tests.
+**Controls:** server-side task relevance, disclosure budgets, scope checks, purpose-bound grants, subject and audience derivation, opaque evidence references, no remote raw-evidence scope in remote delivery, and authorization-negative tests.
 
 ### T-08 — Confused deputy and token passthrough
 
@@ -216,7 +228,7 @@ Authorizes Fork Me Up to read a defined source. It records:
 
 The first managed connector should be a GitHub App with selected-repository, read-only, least-privilege access and short-lived installation tokens. Connecting one source does not authorize other repositories or providers.
 
-Community public-history consent is an implementation-internal, process-start configuration rather than a managed Source Grant or stored credential. It records the fixed provider/authentication/permission decision, issue and expiry times, and exact selected repository mappings. It lasts at most 24 hours, authorizes only public metadata reads during owner refresh and is revoked by removing the block or expiry. It does not authorize private access, another provider, a consumer, or a future Cloud connector.
+Community public-history consent is an implementation-internal, process-start configuration rather than a managed Source Grant or stored credential. It records the fixed provider/authentication/permission decision, issue and expiry times, and exact selected repository mappings. It lasts at most 24 hours, authorizes only public metadata reads during owner refresh and is revoked by removing the block or expiry. It does not authorize private access, another provider, a consumer, or a future hosted connector.
 
 Source revocation offers two explicit owner choices. `disconnect` stops new collection and marks affected evidence and claims stale according to retention policy. `disconnect-and-delete` also removes derived evidence, claims, caches, and scheduled refresh, recompiles the profile, and applies documented backup deletion. Existing Sharing Grants are re-evaluated and may return less or no context.
 
@@ -235,7 +247,7 @@ Remote purposes come from a versioned allowlist and must match the saved grant e
 
 ### 6.3 Owner operations
 
-Connecting or revoking sources, correcting claims, managing Sharing Grants, exporting, and deleting data are owner-controlled operations. Initially they should use a first-party CLI or UI rather than unconstrained model-callable tools.
+Connecting or revoking sources, correcting claims, managing Sharing Grants, exporting, and deleting data are owner-controlled operations. A guided skill may orchestrate the first-party owner interface only within explicit approved scope; consumer MCP reads never grant collection, interpretation disclosure or writes. Broad standing authority cannot be inferred from ordinary conversation. Destructive operations retain their separate confirmation.
 
 ## 7. Authentication and authorization baseline
 
@@ -247,7 +259,7 @@ The server authorizes before revealing profile existence. It returns `401` for a
 
 Stale context may be used only while the token and Sharing Grant remain valid and the source-retention policy permits it. Schema or redaction failure never falls back to stale output. An expired DCP is not reused silently. Source unavailability may produce an explicitly stale packet only within its configured freshness and retention bounds.
 
-The optional Community GitHub path relies only on a separately installed and already authenticated `gh` executable. Fork Me Up does not inspect authentication state, prompt, receive a token, persist a credential or accept authentication material in configuration. Missing or failed authentication is a content-free optional-source failure; valid local Git history remains usable.
+The current optional public-history path relies only on a separately installed and already authenticated `gh` executable. Fork Me Up does not inspect authentication state, prompt, receive a token, persist a credential or accept authentication material in configuration. Missing or failed authentication is a content-free optional-source failure; valid local Git history remains usable.
 
 ## 8. Logging, telemetry, and diagnostics
 
@@ -272,7 +284,9 @@ Deletion synchronizes barriers before removal and verifies absence within fixed 
 
 Synthetic unit, subprocess/filesystem and `FMU-E-015` tests cover redaction, portability, races, partial failure, barriers, cache invalidation and untouched sources.
 
-Before Cloud beta, the project must publish and test:
+Before any persistent catalog or interpretation cache ships, define its exact data classes, private canonical location, byte/entry/age limits, versioned validation and atomic recovery. Test restart, changed authorization/source/identity/algorithm, stale reads and interrupted writes. Never revive revoked authority or deleted data from a saved cache. Cover catalog, proposals, derived claims and approved interpretation views in disconnect, export exclusions and verified deletion; preserve source repositories and disclose independent backups. The current five-minute in-process cache is not this persistent design.
+
+Before hosted beta, the project must publish and test:
 
 - data inventory and purpose;
 - retention periods per data class;
@@ -314,7 +328,7 @@ Required cases include:
 - interrupted, concurrent, and failed writes;
 - unauthorized evidence lookup and excessive task context;
 - invalid token, wrong audience, insufficient scope, expired grant, and revoked grant;
-- cross-tenant identifiers and poisoned caches before Cloud;
+- cross-tenant identifiers and poisoned caches before hosted operation;
 - dependency, artifact, and release-content inspection.
 
 ### Contracts and pure Core behavior
@@ -391,7 +405,9 @@ Evidence interpretation is also a trust boundary: Git identities, prose claiming
 - Offline no-network behavior is tested.
 - Profile write, export, and deletion behavior is specified.
 
-### Before any private repository reaches Cloud
+<a id="before-any-private-repository-reaches-cloud"></a>
+
+### Before any private repository reaches a hosted service
 
 - Updated data-flow diagram and data inventory.
 - GitHub App permissions documented and minimized.
@@ -400,6 +416,20 @@ Evidence interpretation is also a trust boundary: Git identities, prose claiming
 - Retention, export, deletion, backup, and incident plans documented.
 - Independent security review or a documented second-responsible review appropriate to the exposure, covering GitHub App permissions/webhooks, token and key management, isolation, deletion including backups, recovery, and incident response.
 - No confirmed, unresolved, unmitigated critical or high-severity finding before real private data is processed.
+
+### Before authenticated private-source collection in the local MVP
+
+- Accept the source-specific ADR, selected-repository grant and least-privilege authentication/credential ownership.
+- Specify metadata/content/model-disclosure boundaries, retention, disconnect/deletion and content-free diagnostics.
+- Pass synthetic tests for excluded repositories, invalid/revoked credentials, malicious metadata, source leakage and all work limits.
+- Complete an independent or documented second-responsible security review appropriate to local source and model exposure; no unresolved unmitigated critical/high issue remains.
+- Obtain explicit owner source and downstream disclosure scope before a real-data trial. A roadmap or documentation task grants neither.
+
+### Before guided interpretation and persistent reuse
+
+- Pass the coverage applicable to the boundary being delivered: FMU-E-019 for guided owner/client use, FMU-E-020 for source access, FMU-E-021 for persistent reuse and FMU-E-022 for interpretation. Together these cover fabricated references, poisoned catalogs, source/grant mismatch, prompt injection, correction loss, scope inflation, invalid writes, restart and deletion.
+- Keep ordinary consumer MCP read-only; review any owner proposal tool separately before exposing it.
+- Keep real calibration inputs/results private by default; public evidence is owner-approved and minimized. No profile or conversation is a test fixture.
 
 ### Before remote consumer access
 
@@ -412,7 +442,7 @@ Evidence interpretation is also a trust boundary: Git identities, prose claiming
 
 ## 12. Deferred sources
 
-Google Workspace, email, calendar, and broad personal-document sources are deliberately outside the initial Community and commercial MLP. Adding any such source requires a validated product need, source-specific privacy analysis, consent design, provider verification requirements, new adversarial fixtures, accepted ADR, and updated retention policy.
+Google Workspace, email, calendar, and broad personal-document sources are deliberately outside the local MVP and planned remote delivery. Adding any such source requires a validated product need, source-specific privacy analysis, consent design, provider verification requirements, new adversarial fixtures, accepted ADR, and updated retention policy.
 
 ## 13. References
 

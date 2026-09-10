@@ -2,7 +2,7 @@
 
 > Status: current architecture and future boundaries
 > Version: 0.1  
-> Last updated: September 9, 2026
+> Last updated: September 10, 2026
 
 ## 1. Architectural objective
 
@@ -100,23 +100,17 @@ Possible delivery mechanisms:
 
 Every adapter publishes its tested transport, authentication, lifecycle, size, and schema-version compatibility. Unsupported capabilities degrade explicitly; the project does not claim universal compatibility.
 
-### 3.5 Cloud/Pro — proprietary service, optional
+### 3.5 Guided interpretation — planned boundary
 
-The managed product may add:
+[ADR-0041](adr/0041-guided-evidence-backed-local-mvp.md) adds a target workflow, not new runtime capabilities:
 
-- accounts, subscription, and control plane;
-- GitHub App installation and selected-repository grants;
-- isolated ingestion workers and encrypted credential storage;
-- stronger cross-repository attribution and evidence fusion;
-- continuously updated profile versions;
-- owner review, corrections, export, and deletion;
-- a policy and consent service;
-- authenticated remote MCP delivery;
-- audit events, quotas, rate limits, reliability, and support.
+- **Owner orchestration:** a local skill guides identity, source/disclosure selection, overview review and bounded owner operations. Read-only Provider/MCP tools cannot acquire these permissions.
+- **Source catalog:** Community owns authenticated discovery, deterministic collection and a private bounded persistent index. Selection ranks candidate repositories for relevance, never people for ability.
+- **Interpretation:** the existing host agent proposes task capabilities, assessments and analogies from a minimized authorized evidence view. The view is separate from ordinary DCP delivery and may include explicitly authorized bounded redacted source excerpts with resolvable references; language labels alone cannot establish concept-level experience. A deterministic admission service validates evidence references, versions, scope, uncertainty and owner intent before storage.
+- **Transfer:** a task projection may use validated relationships to experience in another project without rewriting the source Claim's scope. The present exact-match Core remains unchanged until its affected contracts and consumers are updated together.
+- **Delivery:** Core compiles validated data; the client renders progressive explanations. A skill is orchestration, not a source grant or permission to write.
 
-Revocation blocks future calls within a documented enforcement SLA but cannot retrieve an already delivered packet. Short DCP TTLs limit exposure, and consent states this limitation.
-
-Cloud implements the open Profile Provider and DCP contracts. Its internal storage may contain private implementation fields, but ordinary consumers never require them and owner exports remain conformant to the public Portable Profile Export.
+The implementing slices must specify exact proposal/view schemas, disclosure budgets, credential ownership, source/cache inventory, admission rules and compatibility. Unsupported host capabilities yield an explicit manual path or no context; no second model API is required.
 
 ## 4. Deployment modes
 
@@ -138,7 +132,7 @@ Properties:
 
 - no account;
 - no network in offline mode;
-- no private data leaves the machine through Fork Me Up;
+- source collection and profile storage remain local in this mode;
 - the host model may still receive the minimized DCP according to that host's own configuration and terms;
 - profile inspection, correction, export, and deletion remain local.
 
@@ -148,23 +142,15 @@ The Community provider prefers the quarantined local Git collector for every sel
 
 GitHub access invokes only fixed read-only REST endpoints through an already authenticated external `gh` installation. Fork Me Up accepts no token or credential path, never prompts for or stores authentication, verifies the repository is public, enforces request/response/commit/path/time limits and performs no automatic retry. Local Git consumes the enclosing collection budget first, and remote work receives only the smaller configured or remaining deadline. Only sanitized Git snapshot fields enter the existing authorship/risk pipeline. Owner refresh reports the history source, GitHub status and request count; unchanged source cache hits are process-local and make zero requests. Offline operation and MCP consumers retain no network capability. See [ADR-0039](adr/0039-local-first-bounded-public-history.md).
 
-### 4.3 Cloud/Pro
+### 4.3 Selected GitHub collection — planned local mode
 
-```text
-selected GitHub repositories
-          ↓  Source Grant
-GitHub App + ingestion workers
-          ↓
-tenant-isolated evidence and profile versions
-          ↓
-policy + Sharing Grant + DCP compiler
-          ↓
-authenticated remote MCP
-          ↓
-authorized consumer
-```
+An owner connector discovers metadata only within its approved scope, reads selected public/private repositories under a separate bounded content grant, and stores minimized derived state locally. Public-only history in Section 4.2 remains unchanged until this connector's dedicated ADR and private-source review pass. A broader catalog is not an expanded collection batch.
 
-The ingestion authorization and delivery authorization are separate. A consumer never receives the GitHub token, raw repository, or a queryable developer directory.
+The catalog checks saved context first, selects task-relevant and adjacent candidates, and deepens reads within fixed budgets. Permission/identity/source/version changes invalidate reuse. Revalidation never refreshes an old observation timestamp. Local source fingerprints must include relevant uncommitted changes. Persistent state uses separate validated storage, not serialized in-process authority.
+
+### 4.4 Remote deployment — deferred
+
+Any remote provider implements the same open contracts. Source credentials and consumer authorization remain separate; tenant isolation, minimized disclosure, expiry, revocation and deletion follow Security and Protocol. A consumer never receives upstream tokens, raw repositories or a queryable developer directory. This mode is not required for the local MVP.
 
 ## 5. Domain data flow
 
@@ -213,7 +199,7 @@ Claims are produced from evidence rules and developer input. The engine:
 - applies correction precedence without erasing history;
 - never converts a confidence category into a person-ranking score.
 
-The pure Community Evidence/Claim producer admits only authentic source-risk snapshots and an exact request with injected source/derivation/staleness times plus complete repository-to-project bindings. Supported source languages become project-scoped `language.*` Evidence; no other collected or free-text field has capability authority. Stable IDs and semantic fingerprints make source changes observable across refreshes. Claims aggregate only exact same-project capability observations, require attributable/coauthored support for `demonstrated`, preserve upstream strength plus authorship depth/confidence ceilings, stop at medium/practical-use, and otherwise remain `insufficient-evidence`. The entire reference graph is revalidated through the accepted Profile payload contract. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
+The currently implemented pure Community Evidence/Claim producer admits only authentic source-risk snapshots and an exact request with injected source/derivation/staleness times plus complete repository-to-project bindings. Supported source languages become project-scoped `language.*` Evidence; no other collected or free-text field has capability authority. Stable IDs and semantic fingerprints make source changes observable across refreshes. Claims aggregate only exact same-project capability observations, require attributable/coauthored support for `demonstrated`, preserve upstream strength plus authorship depth/confidence ceilings, stop at medium/practical-use, and otherwise remain `insufficient-evidence`. The entire reference graph is revalidated through the accepted Profile payload contract. See [ADR-0024](adr/0024-deterministic-evidence-claim-derivation.md).
 
 ### 5.4 Developer Profile
 
@@ -241,7 +227,7 @@ The Demand Profile represents capabilities relevant to a current project and tas
 
 The draft public envelope carries only opaque demand/project/revision references, bounded task context, typed project-metadata availability, and unique required or supporting capability identifiers with a typed task/project basis. It deliberately excludes Developer Profile content, Evidence, Claims, response policy, grants, credentials, paths, and raw metadata. An empty capability set is valid when demand cannot be established without inventing it. Schema validation does not perform derivation or authorize project access.
 
-At runtime, Protocol validates this canonical envelope before Core intersects it with an already loaded Developer Profile. Core uses exact capability identifiers, admits global Claims and current-project-scoped Claims only, preserves unmatched demand explicitly, and returns no Evidence records or complete profile. The result is an immutable compiler input, not a DCP; task prose cannot change selection or policy.
+In the current runtime, Protocol validates this canonical envelope before Core intersects it with an already loaded Developer Profile. Core uses exact capability identifiers, admits global Claims and current-project-scoped Claims only, preserves unmatched demand explicitly, and returns no Evidence records or complete profile. The result is an immutable compiler input, not a DCP; task prose cannot change selection or policy.
 
 The pure Community Demand producer consumes an authentic filesystem snapshot or explicit unavailable state, one current repository/project binding, optional exact collected-file selection, and bounded structured task capabilities. Only source-language metadata contributes supporting demand; explicit task requirements take priority, and unrelated repositories cannot contribute. Coverage and a deterministic opaque metadata revision remain visible. A bounded set of explicit interpretations triggers one fixed clarification only when effective capability relevance or operation risk differs; equivalent interpretations retain common task input without asking. The authentic pending object resolves an offered choice into a validated Demand Profile with no further question.
 
@@ -290,7 +276,7 @@ The local runtime combines authentic configuration, incremental refresh, correct
 
 Bounded owner capability-evidence lookup and `doctor` run through the first-party CLI. Evidence summaries reuse the public Provider evidence shape and validate it before returning a private owner view with typed assessment/history and explicit truncation. Diagnostic references are hashes and limitation text is an exact allowlist. This does not enable evidence disclosure through consumer MCP. Doctor independently reports actual module/runtime checks, Store validation and mutation-gate state, adapter-owned read-only cache inventory, and optional DCP size/expiry/budget validation. The Community service receives a trusted adapter probe without importing a client. It exposes only fixed states/counts, performs no repair, and explicitly identifies checks it cannot perform. See [ADR-0029](adr/0029-owner-evidence-and-safe-diagnostics.md).
 
-An `EvidenceCollector` or `SourceAdapter` reads an authorized source and emits normalized evidence; it does not own profile or delivery semantics. A `ProfileProvider` may be the local Community implementation, an independent implementation, or Fork Me Up Cloud. It can operate from collectors or an imported profile and need not collect sources itself. At minimum it must be able to:
+An `EvidenceCollector` or `SourceAdapter` reads an authorized source and emits normalized evidence; it does not own profile or delivery semantics. A `ProfileProvider` may be the local Community implementation, an independent implementation, or a future remote provider. It can operate from collectors or an imported profile and need not collect sources itself. At minimum it must be able to:
 
 - report supported protocol versions and capabilities;
 - return profile metadata;
@@ -321,7 +307,7 @@ It may not:
 - silently expand disclosure;
 - interpret the profile as authorization.
 
-Codex is the first reference adapter because MCP and lifecycle hooks can exercise the full flow. Portability is not considered proven until the same protocol semantics work through a materially different consumer without a Core fork.
+Codex is the first live-client target. The existing hook adapter is fixture-backed; guided Store-backed use must be verified separately. The generic consumer proves only structured conformance, not equivalent model responses or support for every client.
 
 ## 8. MCP surfaces
 
@@ -331,19 +317,19 @@ The initial MCP server uses `stdio` and a small read-oriented tool surface. Proc
 
 ### 8.2 Remote
 
-The commercial MLP may expose MCP over Streamable HTTP on stable HTTPS. Private data requires OAuth 2.1-compatible authorization, PKCE, protected-resource metadata, resource/audience binding, per-call token validation, short-lived access, revocation, and minimal step-up scopes.
+A future remote provider may expose MCP over Streamable HTTP on stable HTTPS. Private data requires OAuth 2.1-compatible authorization, PKCE, protected-resource metadata, resource/audience binding, per-call token validation, short-lived access, revocation, and minimal step-up scopes.
 
 The remote MCP derives the subject, consumer, grant, and tenant from validated authorization. It never accepts a client-supplied arbitrary developer identifier as authority and never passes a consumer token to an upstream source provider.
 
-## 9. Cloud planes
+## 9. Remote deployment planes
 
 The future hosted implementation separates:
 
-- **Control plane:** accounts, billing, source connections, consumer registration, consent, grants, retention, and audit policy.
+- **Control plane:** accounts, source connections, consumer registration, consent, grants, retention, and audit policy.
 - **Data plane:** bounded ingestion, evidence normalization, claim derivation, profile versions, correction precedence, and DCP compilation.
 - **Integration plane:** remote MCP, SDK/API compatibility, rate limits, protocol negotiation, and revocation enforcement.
 
-Every persisted Cloud record carries a tenant boundary. Consumer-facing identifiers are opaque and may be pairwise per developer-consumer relationship to reduce cross-service correlation.
+Every persisted hosted record carries a tenant boundary. Consumer-facing identifiers are opaque and may be pairwise per developer-consumer relationship to reduce cross-service correlation.
 
 ## 10. Suggested repository boundaries
 
@@ -361,7 +347,7 @@ apps/cli             apps/mcp-local
 adapters/reference-clients
 ```
 
-Future proprietary services should live in a separately access-controlled repository or workspace while consuming released public protocol packages. Public packages must not import proprietary modules.
+Optional deployment components depend on public protocol packages. Protocol, Core and the local runtime must not depend on a hosted implementation.
 
 ### Libraries and applications
 

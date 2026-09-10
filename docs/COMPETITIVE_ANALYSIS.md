@@ -1,7 +1,7 @@
 # Fork Me Up — Competitive Landscape and Differentiation Strategy
 
 > Research date: September 3, 2026  
-> Updated framing: September 4, 2026  
+> Updated framing: September 10, 2026; original research unchanged
 > Scope: public repositories and official project documentation related to developer-skill inference, repository intelligence, agent memory, and MCP delivery.  
 > Role: point-in-time research and design rationale; not a normative product specification.
 
@@ -209,40 +209,17 @@ Public evaluation scenarios should include:
 
 Measure false `demonstrated` claims, unnecessary over-explanation, unsafe under-explanation, useful-question rate, explanation tokens, time to first correct action, command-purpose coverage, and recovery after correction.
 
-## 8. Open and commercial boundary
+<a id="8-open-and-commercial-boundary"></a>
 
-### Community
+## 8. Product scope
 
-- DCP, schemas, types, SDKs, and provider interface.
-- Local CLI, profile store, corrections, export, and deletion.
-- Basic deterministic selected-repository scanner.
-- Local MCP and reference adapters.
-- Fixtures, evaluations, conformance, and documentation.
+Current product scope is defined by the [product specification](PROJECT_SPEC.md#5-what-is-the-public-product) and [ADR-0041](adr/0041-guided-evidence-backed-local-mvp.md). Earlier scope recommendations from this research are superseded; this document does not allocate features or services.
 
-### Cloud/Pro
+<a id="9-lowest-cost-community-mvp"></a>
 
-- Managed selected public/private repository connectivity.
-- Stronger attribution and multi-repository evidence fusion.
-- Continuous incremental refresh and profile history.
-- Secure credential operations and tenant isolation.
-- Owner review, audit, grants, and revocation.
-- Authenticated remote MCP, quotas, support, and service levels.
+## 9. MVP implications
 
-The paid product sells compilation quality, freshness, convenience, governance, and operations. It does not sell access to a closed version of the developer's own profile.
-
-## 9. Lowest-cost Community MVP
-
-The research supports a narrow local-first path:
-
-1. Client-neutral TypeScript Protocol and Core.
-2. Local CLI and MCP `stdio` server.
-3. Selected local repositories first; bounded public history later.
-4. Deterministic extraction without executing repository code.
-5. Versioned local evidence/profile storage with atomic writes.
-6. One compact `get_task_context` operation and bounded owner evidence lookup.
-7. Thin adapters using lifecycle hooks only where supported.
-8. A small capability taxonomy expanded only with fixtures and evaluations.
-9. No hosted dependency, private connector, vector database, or second LLM in Community.
+The research supports client-neutral context, deterministic collection, inspectable evidence and local owner control. The revised MVP adds selective authorized GitHub collection, bounded reuse and agent-assisted interpretation, tested through real explanations before distribution. The [roadmap](ROADMAP.md#15-current-m3-execution-queue) owns the implementation order; these are targets, not findings established by the original research.
 
 Do not rebuild generic agent memory, semantic code editing, or a complete repository digest. Integrate through open provider and consumer boundaries.
 
