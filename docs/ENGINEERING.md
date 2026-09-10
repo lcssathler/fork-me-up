@@ -233,6 +233,8 @@ Canary tests must prove redaction in logs, diagnostics, exports, errors and cont
 | FMU-E-017 | Sharing Grant is absent, expired, revoked, or under-scoped. | Return no protected context. |
 | FMU-E-018 | Consumer requests another developer or unrelated task data. | Reject without revealing whether the target exists. |
 
+Planned FMU-E-019 through FMU-E-024 are defined in the [usable MVP evaluation contract](evaluations/MVP_CALIBRATION.md): guided client use, selected sources, persistent reuse, evidence-backed interpretation, progressive explanations and measured owner benefit. They become executable coverage in their implementing slices; this planning revision adds no passing result.
+
 Current executable coverage is maintained in [behavioral evaluations](../evaluations/) and [integration tests](../tests/integration/). These tests prove structured behavior within their declared scope; they do not establish equivalent model-written answers or untested compatibility. The execution narratives are retained in the [M1](history/M1_EXECUTION.md#verification-coverage-recorded-at-84921df), [M2](history/M2_EXECUTION.md#verification-coverage-recorded-at-84921df) and [M3](history/M3_EXECUTION.md#verification-coverage-recorded-at-b5b8cef) records.
 
 ## 8. CI strategy

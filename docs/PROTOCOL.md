@@ -6,6 +6,8 @@
 
 This document defines exchanged objects, their meaning, disclosure rules and conformance. DCP, Evidence, Claim, Portable Profile Export, Demand Profile, Profile Provider and conformance schemas are unreleased `0.1.0` drafts. The Community Profile Store is implementation-internal. Released versions follow Section 12; private package versions follow [VERSIONING.md](../VERSIONING.md).
 
+The [guided MVP decision](adr/0041-guided-evidence-backed-local-mvp.md) adds planned source, interpretation and owner workflows. It changes no current wire shape or operation: new proposals require their own validated boundary, and consumer context reads acquire no collection or write authority.
+
 ## 1. Purpose
 
 The Developer Context Protocol lets an evidence provider communicate a small, traceable, task-relevant view of a developer profile to a compatible AI tool without exposing the complete profile or requiring a particular model, client, source provider, or backend.
@@ -364,7 +366,7 @@ Returns protected profile version, freshness, and coverage metadata. It does not
 
 ### 9.4 `get_capability_evidence`
 
-Returns bounded evidence metadata and limitations for one claim or capability. In the initial release it is local/owner-oriented and disabled for model access by default. A future remote form requires a separate step-up scope and returns metadata only. Raw evidence is never returned by a DCP or the commercial MLP remote MCP; any later owner-only source viewer is a separate first-party contract.
+Returns bounded evidence metadata and limitations for one claim or capability. In the initial release it is local/owner-oriented and disabled for model access by default. A future remote form requires a separate step-up scope and returns metadata only. Raw evidence is never returned by a DCP or a remote MCP; any later owner-only source viewer is a separate first-party contract.
 
 ### 9.5 Administrative operations
 
@@ -392,14 +394,14 @@ Successful output contains only Claim capability/state/observed-depth, DCP expir
 
 ## 10. Future remote authorization
 
-The commercial remote MCP is expected to use OAuth 2.1-compatible authorization over HTTPS.
+The future remote MCP is expected to use OAuth 2.1-compatible authorization over HTTPS.
 
 Consumer data-plane scopes are deliberately narrow:
 
 - `context:task:read` — the only default scope;
 - `evidence:metadata:read` — optional step-up access to bounded provenance metadata.
 
-Protected-resource metadata advertises only the minimum basic scope. Elevated access is requested incrementally for the specific operation. `evidence:raw` does not exist in the commercial MLP.
+Protected-resource metadata advertises only the minimum basic scope. Elevated access is requested incrementally for the specific operation. `evidence:raw` does not exist in the initial remote service.
 
 Owner operations—source connection, correction, refresh, export, deletion, and grant management—use a separate first-party control-plane audience/resource and are not consumer MCP scopes.
 

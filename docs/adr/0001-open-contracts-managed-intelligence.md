@@ -1,7 +1,10 @@
 # ADR-0001: Open contracts and managed intelligence
 
-- Status: Accepted
+- Status: Superseded
+- Superseded by: [ADR-0041](0041-guided-evidence-backed-local-mvp.md)
 - Date: 2026-09-04
+
+The product-scope decision below is retained as historical rationale. Current scope follows ADR-0041; the separately accepted license and trademark terms in ADR-0004 remain unchanged.
 
 ## Context
 

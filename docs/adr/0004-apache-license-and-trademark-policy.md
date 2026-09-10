@@ -3,6 +3,8 @@
 - Status: Accepted
 - Date: 2026-09-04
 
+Product scope now follows [ADR-0041](0041-guided-evidence-backed-local-mvp.md). The original service-scope context below is historical; this accepted license, NOTICE and trademark decision remains unchanged.
+
 ## Context
 
 ADR-0001 established that Fork Me Up would publish open contracts and a useful Community runtime while keeping a separately operated Cloud/Pro implementation proprietary. It named Apache-2.0 as the public-code candidate and required owner review before public code or packages could be released.

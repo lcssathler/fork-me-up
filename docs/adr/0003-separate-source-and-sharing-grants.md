@@ -3,6 +3,8 @@
 - Status: Accepted
 - Date: 2026-09-04
 
+[ADR-0041](0041-guided-evidence-backed-local-mvp.md) brings selected authenticated sources into the local MVP. The source/sharing separation and revocation rules here still apply; the original remote-service scope is historical.
+
 ## Context
 
 Fork Me Up may read developer-selected repositories to construct a private profile and may later deliver a minimized DCP to an external consumer. These are different actions, actors, purposes, credentials, and risks. Treating one consent as authority for the other would create excessive disclosure and confused-deputy risk.

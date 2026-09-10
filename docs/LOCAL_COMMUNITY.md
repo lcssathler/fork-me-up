@@ -6,6 +6,8 @@ This guide takes you from selected repositories to a saved profile, corrections 
 
 Use this checkout with pinned Node.js 24.20.0/npm 11.19.0 and installed workspace dependencies. This is a development workflow on the tested Windows baseline, not a packaged release.
 
+This guide describes the current manual workflow. The planned guided skill and selected private GitHub collection are tracked in the [roadmap](ROADMAP.md#15-current-m3-execution-queue).
+
 Follow the steps to [configure sources](#configure-explicitly), [collect and correct](#collect-and-control-the-profile), [request task context](#compile-and-consume-task-context), then [diagnose, export or delete](#diagnose-export-and-delete). Owner mode manages the profile. MCP mode only reads context; it cannot collect sources or change the profile.
 
 <a id="configure-explicitly"></a>

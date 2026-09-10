@@ -7,7 +7,7 @@ Choose the question you need to answer. Understanding or using the product does 
 | I want to… | Read |
 |---|---|
 | Understand the product and its limits | [Project overview](../README.md) |
-| Understand the business rules | [Product specification](PROJECT_SPEC.md): evidence, corrections, sharing and user control |
+| Understand the product rules | [Product specification](PROJECT_SPEC.md): evidence, corrections, sharing and user control |
 | Run the local workflow | [Local Community guide](LOCAL_COMMUNITY.md) |
 | Inspect, correct, export or delete my profile | [Owner guide](OWNER_WORKFLOW.md) |
 | See progress and what can happen next | [Roadmap and current queue](ROADMAP.md#15-current-m3-execution-queue) |
@@ -36,6 +36,8 @@ Accepted ADRs remain applicable within the authority order in AGENTS. Superseded
 Execution records: [M0](history/M0_EXECUTION.md), [M1](history/M1_EXECUTION.md), [M2](history/M2_EXECUTION.md) and [M3](history/M3_EXECUTION.md).
 
 Exit audits: [M0](audits/M0_EXIT_AUDIT.md), [M1](audits/M1_EXIT_AUDIT.md), [M2 verdict](audits/M2_EXIT_AUDIT.md) and [complete M2 evidence](audits/details/M2_EXIT_AUDIT.md). The [M2 quality results](evaluations/M2_QUALITY_RESULTS.md) retain the frozen evidence measurement, while the [M3 Community benchmark and result](evaluations/M3_COMMUNITY_BENCHMARK.md#measurement-record) retain repeated disclosure and two-consumer calibration with explicit limits.
+
+The [usable MVP evaluation contract](evaluations/MVP_CALIBRATION.md) defines planned live calibration; it records no result.
 
 The [handoff entry](HANDOFF.md) helps resume a task. Older navigation is retained in the [M2 development baseline](history/README_M2_BASELINE.md), [M2 generic handoff](history/HANDOFF_M2_BASELINE.md) and [measurement handoff](handoffs/M2_NEXT_MACHINE.md).
 
