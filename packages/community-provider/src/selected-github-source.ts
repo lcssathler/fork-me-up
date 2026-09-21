@@ -49,6 +49,7 @@ export interface SelectedGitHubObservation {
   readonly fork: boolean;
   readonly archived: boolean;
   readonly revision: string | null;
+  readonly sourceState: string;
   readonly files: readonly {
     readonly sourceRef: string;
     readonly language: string;
@@ -61,7 +62,7 @@ export interface SelectedGitHubObservation {
     readonly parentCount: number;
   }[];
   readonly skippedEntries: number;
-  readonly coverage: "metadata-only" | "bounded-sample";
+  readonly coverage: "metadata-only" | "revision-only" | "bounded-sample";
 }
 export type SelectedGitHubResult =
   | {
@@ -112,7 +113,7 @@ const languages: Readonly<Record<string, string>> = Object.freeze({
 /** Owner-only read operation. The live authority reader must return the current exact configuration. */
 export async function readSelectedGitHubSources(
   configurationJson: string,
-  operation: "discover" | "collect",
+  operation: "discover" | "probe" | "collect",
   options: {
     readonly readAuthority: () => Promise<string | null>;
     readonly port?: SelectedGitHubPort;
@@ -124,7 +125,8 @@ export async function readSelectedGitHubSources(
   let bytes = 0;
   try {
     const config = configuration(configurationJson);
-    if (operation !== "discover" && operation !== "collect") fail("invalid-input");
+    if (operation !== "discover" && operation !== "probe" && operation !== "collect")
+      fail("invalid-input");
     const clock = options.clock ?? Date.now;
     const monotonic = options.monotonic ?? (() => performance.now());
     const start = monotonic();
@@ -189,7 +191,7 @@ export async function readSelectedGitHubSources(
       config.repositories.some(
         (selection) =>
           !selection.metadata ||
-          (operation === "collect" && !selection.content && !selection.history),
+          (operation !== "discover" && !selection.content && !selection.history),
       )
     )
       fail("not-authorized");
@@ -198,7 +200,7 @@ export async function readSelectedGitHubSources(
     for (const selection of config.repositories) {
       if (
         !selection.metadata ||
-        (operation === "collect" && !selection.content && !selection.history)
+        (operation !== "discover" && !selection.content && !selection.history)
       )
         fail("not-authorized");
       const base = `/repos/${selection.owner}/${selection.name}`;
@@ -210,7 +212,7 @@ export async function readSelectedGitHubSources(
       const commits: SelectedGitHubObservation["commits"][number][] = [];
       let revision: string | null = null;
       let skippedEntries = 0;
-      if (operation === "collect") {
+      if (operation !== "discover") {
         // Resolving a ref avoids the REST commit endpoint, which includes unselected patches.
         const branch = metadata["default_branch"];
         if (
@@ -229,121 +231,125 @@ export async function readSelectedGitHubSources(
         )
           fail("invalid-response");
         revision = ref["object"]["sha"];
-        const head = await get(`${objectBase}/git/commits/${revision}`);
-        if (
-          !record(head) ||
-          head["sha"] !== revision ||
-          !record(head["tree"]) ||
-          !objectId(head["tree"]["sha"])
-        )
-          fail("invalid-response");
-        const treeId = head["tree"]["sha"];
-        if (selection.content) {
-          const tree = await get(`${objectBase}/git/trees/${treeId}?recursive=1`);
+        if (operation === "collect") {
+          const head = await get(`${objectBase}/git/commits/${revision}`);
           if (
-            !record(tree) ||
-            tree["sha"] !== treeId ||
-            tree["truncated"] !== false ||
-            !Array.isArray(tree["tree"]) ||
-            tree["tree"].length > config.limits.treeEntries
+            !record(head) ||
+            head["sha"] !== revision ||
+            !record(head["tree"]) ||
+            !objectId(head["tree"]["sha"])
           )
-            fail("limit-exceeded");
-          const seen = new Set<string>();
-          for (const entry of tree["tree"]) {
+            fail("invalid-response");
+          const treeId = head["tree"]["sha"];
+          if (selection.content) {
+            const tree = await get(`${objectBase}/git/trees/${treeId}?recursive=1`);
             if (
-              !record(entry) ||
-              !safePath(entry["path"]) ||
-              !objectId(entry["sha"]) ||
-              seen.has(entry["path"])
+              !record(tree) ||
+              tree["sha"] !== treeId ||
+              tree["truncated"] !== false ||
+              !Array.isArray(tree["tree"]) ||
+              tree["tree"].length > config.limits.treeEntries
             )
-              fail("invalid-response");
-            seen.add(entry["path"]);
-            const language = sourceLanguage(entry["path"]);
-            if (
-              entry["type"] !== "blob" ||
-              !["100644", "100755"].includes(String(entry["mode"])) ||
-              language === null ||
-              !integer(entry["size"], 0, config.limits.fileBytes) ||
-              files.length >= config.limits.files
-            ) {
-              skippedEntries++;
-              continue;
-            }
-            const blob = await get(`${objectBase}/git/blobs/${entry["sha"]}`);
-            if (
-              !record(blob) ||
-              blob["sha"] !== entry["sha"] ||
-              blob["encoding"] !== "base64" ||
-              blob["size"] !== entry["size"] ||
-              typeof blob["content"] !== "string"
-            )
-              fail("invalid-response");
-            const encoded = blob["content"].replace(/\n/gu, "");
-            if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(encoded))
-              fail("invalid-response");
-            const content = Buffer.from(encoded, "base64");
-            if (
-              content.byteLength !== entry["size"] ||
-              createHash("sha1")
-                .update(`blob ${content.byteLength}\0`)
-                .update(content)
-                .digest("hex") !== entry["sha"]
-            )
-              fail("invalid-response");
-            // No prose leaves the collection boundary, including instruction-bearing source.
-            try {
-              if (decoder.decode(content).includes("\0")) {
+              fail("limit-exceeded");
+            const seen = new Set<string>();
+            for (const entry of tree["tree"]) {
+              if (
+                !record(entry) ||
+                !safePath(entry["path"]) ||
+                !objectId(entry["sha"]) ||
+                seen.has(entry["path"])
+              )
+                fail("invalid-response");
+              seen.add(entry["path"]);
+              const language = sourceLanguage(entry["path"]);
+              if (
+                entry["type"] !== "blob" ||
+                !["100644", "100755"].includes(String(entry["mode"])) ||
+                language === null ||
+                !integer(entry["size"], 0, config.limits.fileBytes) ||
+                files.length >= config.limits.files
+              ) {
                 skippedEntries++;
                 continue;
               }
-            } catch {
-              skippedEntries++;
-              continue;
+              const blob = await get(`${objectBase}/git/blobs/${entry["sha"]}`);
+              if (
+                !record(blob) ||
+                blob["sha"] !== entry["sha"] ||
+                blob["encoding"] !== "base64" ||
+                blob["size"] !== entry["size"] ||
+                typeof blob["content"] !== "string"
+              )
+                fail("invalid-response");
+              const encoded = blob["content"].replace(/\n/gu, "");
+              if (
+                !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(encoded)
+              )
+                fail("invalid-response");
+              const content = Buffer.from(encoded, "base64");
+              if (
+                content.byteLength !== entry["size"] ||
+                createHash("sha1")
+                  .update(`blob ${content.byteLength}\0`)
+                  .update(content)
+                  .digest("hex") !== entry["sha"]
+              )
+                fail("invalid-response");
+              // No prose leaves the collection boundary, including instruction-bearing source.
+              try {
+                if (decoder.decode(content).includes("\0")) {
+                  skippedEntries++;
+                  continue;
+                }
+              } catch {
+                skippedEntries++;
+                continue;
+              }
+              files.push(
+                Object.freeze({
+                  sourceRef: digest(entry["path"]),
+                  language,
+                  bytes: content.byteLength,
+                  fingerprint: digest(content),
+                }),
+              );
             }
-            files.push(
-              Object.freeze({
-                sourceRef: digest(entry["path"]),
-                language,
-                bytes: content.byteLength,
-                fingerprint: digest(content),
-              }),
-            );
           }
-        }
-        if (selection.history) {
-          const pending = [revision];
-          const seen = new Set<string>();
-          while (pending.length > 0 && commits.length < config.limits.commits) {
-            const next = pending.shift();
-            if (next === undefined || seen.has(next)) continue;
-            seen.add(next);
-            const commit =
-              next === revision ? head : await get(`${objectBase}/git/commits/${next}`);
-            if (
-              !record(commit) ||
-              commit["sha"] !== next ||
-              !Array.isArray(commit["parents"]) ||
-              commit["parents"].length > 16
-            )
-              fail("invalid-response");
-            for (const parent of commit["parents"]) {
-              if (!record(parent) || !objectId(parent["sha"])) fail("invalid-response");
-              if (!seen.has(parent["sha"])) pending.push(parent["sha"]);
+          if (selection.history) {
+            const pending = [revision];
+            const seen = new Set<string>();
+            while (pending.length > 0 && commits.length < config.limits.commits) {
+              const next = pending.shift();
+              if (next === undefined || seen.has(next)) continue;
+              seen.add(next);
+              const commit =
+                next === revision ? head : await get(`${objectBase}/git/commits/${next}`);
+              if (
+                !record(commit) ||
+                commit["sha"] !== next ||
+                !Array.isArray(commit["parents"]) ||
+                commit["parents"].length > 16
+              )
+                fail("invalid-response");
+              for (const parent of commit["parents"]) {
+                if (!record(parent) || !objectId(parent["sha"])) fail("invalid-response");
+                if (!seen.has(parent["sha"])) pending.push(parent["sha"]);
+              }
+              const author = commit["author"];
+              const authorDigest =
+                record(author) &&
+                typeof author["name"] === "string" &&
+                typeof author["email"] === "string"
+                  ? (digestGitIdentity(author["name"], author["email"]) ?? null)
+                  : null;
+              commits.push(
+                Object.freeze({
+                  revision: next,
+                  authorDigest,
+                  parentCount: commit["parents"].length,
+                }),
+              );
             }
-            const author = commit["author"];
-            const authorDigest =
-              record(author) &&
-              typeof author["name"] === "string" &&
-              typeof author["email"] === "string"
-                ? (digestGitIdentity(author["name"], author["email"]) ?? null)
-                : null;
-            commits.push(
-              Object.freeze({
-                revision: next,
-                authorDigest,
-                parentCount: commit["parents"].length,
-              }),
-            );
           }
         }
       }
@@ -355,10 +361,24 @@ export async function readSelectedGitHubSources(
           fork: metadata["fork"] === true,
           archived: metadata["archived"] === true,
           revision,
+          sourceState: digest(
+            JSON.stringify([
+              repositoryId,
+              selection.visibility,
+              metadata["fork"],
+              metadata["archived"],
+              revision,
+            ]),
+          ),
           files: Object.freeze(files),
           commits: Object.freeze(commits),
           skippedEntries,
-          coverage: operation === "discover" ? "metadata-only" : "bounded-sample",
+          coverage:
+            operation === "discover"
+              ? "metadata-only"
+              : operation === "probe"
+                ? "revision-only"
+                : "bounded-sample",
         }),
       );
     }

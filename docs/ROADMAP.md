@@ -45,8 +45,8 @@ No queue state authorizes publication, private-data access, model disclosure or 
 | 7 | [`M3-S07` — Public Community benchmark](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Reproduce bounded evidence, disclosure and two-consumer calibration |
 | 8 | [`M3-S12` — Guided local Codex pilot](#m3-s12) | `Complete` | Configure and exercise real Store-backed context |
 | 9 | [`M3-S13` — Selected GitHub source access](#m3-s13) | `Complete` | Read authorized public/private sources locally |
-| 10 | [`M3-S14` — Persistent catalog and selective reuse](#m3-s14) | `Ready` | Find useful evidence within a visible work budget |
-| 11 | [`M3-S15` — Agent interpretation and project transfer](#m3-s15) | `Blocked by M3-S14` | Ground explanations in reviewed prior experience |
+| 10 | [`M3-S14` — Persistent catalog and selective reuse](#m3-s14) | `Complete` | Find useful evidence within a visible work budget |
+| 11 | [`M3-S15` — Agent interpretation and project transfer](#m3-s15) | `Ready` | Ground explanations in reviewed prior experience |
 | 12 | [`M3-S16` — Owner calibration and usable-MVP gate](#m3-s16) | `Blocked by M3-S15` | Validate actual explanations and total context cost |
 | 13 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Blocked by M3-S16` | Provide tested installation and usage guidance |
 | 14 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
@@ -239,7 +239,7 @@ The guided owner/consumer boundary is defined in [ADR-0042](adr/0042-guided-loca
 
 **Prerequisites and checks:** M3-S12; FMU-FR-032, FMU-E-020; T-01/T-03/T-04/T-08. Synthetic tests cover excluded/private repositories, expired or revoked authority, malicious source data, fixed request budgets, missing authentication and content-free failures. Live data access remains separately authorized.
 
-The selected-source boundary is defined in [ADR-0043](adr/0043-selected-github-source-access.md); use the [owner guide](GITHUB_SOURCES.md). The [verification record](history/M3_EXECUTION.md#m3-s13-selected-github-source-access) separates synthetic security checks and bounded live reads. This branch proposes S13 completion and S14 readiness; these transitions require review and integration into main before S14 can start.
+The selected-source boundary is defined in [ADR-0043](adr/0043-selected-github-source-access.md); use the [owner guide](GITHUB_SOURCES.md). The [verification record](history/M3_EXECUTION.md#m3-s13-selected-github-source-access) separates synthetic security checks and bounded live reads. S13 was integrated through PR #50 at `521c42a`.
 
 <a id="m3-s14"></a>
 
@@ -250,6 +250,8 @@ The selected-source boundary is defined in [ADR-0043](adr/0043-selected-github-s
 **Boundary:** Define cache schema, inventory, expiry, invalidation, canonical storage, atomic recovery, revocation, export and deletion before persistent writes. Bind hits to current authority, identity, source state and algorithm version. Recheck local uncommitted changes; never renew observation age from a cache hit or discard risk evidence to inflate support. Concept-aware refinement may follow in M3-S15.
 
 **Prerequisites and checks:** M3-S13; FMU-FR-033, FMU-E-021; focused persistence ADR refining ADR-0026/0028; restart, changed-source, revoked-grant, poisoned-cache, interrupted-write and deletion regressions. Three to five deep candidates is an experiment hypothesis, not a required fixed limit.
+
+The persistence boundary is defined in [ADR-0044](adr/0044-persistent-selective-source-catalog.md); use the [catalog guide](SOURCE_CATALOG.md). The [verification record](history/M3_EXECUTION.md#m3-s14-private-catalog-and-selective-reuse) separates synthetic checks and the owner-authorized real pilot. This branch proposes S14 completion and S15 readiness; those states require review and integration into main before S15 can start.
 
 <a id="m3-s15"></a>
 

@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M3-S14 (ADR-0044; FMU-FR-033; FMU-E-021): add a private persistent source catalog with profile-first bounded selection, live revalidation, restart reuse without renewed observation age, minimized export and verified independent deletion. No Claims, raw source or credentials are cached.
+
 - M3-S13 (ADR-0043; FMU-FR-032; FMU-E-020): add bounded owner-only discovery and content/history reads for explicitly selected public/private GitHub sources, with external authentication, revocation checks and content-free receipts.
 
 - M3-S12: add a repository-local guided Codex pilot over existing owner commands and Store-backed MCP, with synthetic restart/correction and read-only boundary coverage (ADR-0042; FMU-E-019). Verification distinguishes native client delivery from transport-only checks; this does not establish general interpretation or measured usefulness.
