@@ -10,6 +10,7 @@ Choose the question you need to answer. Understanding or using the product does 
 | Understand the product rules | [Product specification](PROJECT_SPEC.md): evidence, corrections, sharing and user control |
 | Run the local workflow | [Local Community guide](LOCAL_COMMUNITY.md) |
 | Read selected public/private GitHub sources | [GitHub owner workflow](GITHUB_SOURCES.md) |
+| Reuse a private bounded source catalog | [Catalog owner workflow](SOURCE_CATALOG.md) |
 | Set up a guided local Codex pilot | [Guided Codex workflow](GUIDED_CODEX.md) |
 | Inspect, correct, export or delete my profile | [Owner guide](OWNER_WORKFLOW.md) |
 | See progress and what can happen next | [Roadmap and current queue](ROADMAP.md#15-current-m3-execution-queue) |

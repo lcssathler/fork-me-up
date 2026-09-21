@@ -244,3 +244,10 @@ export {
   type SelectedGitHubResult,
   type SelectedGitHubObservation,
 } from "./selected-github-source.ts";
+
+export {
+  runSourceCatalog,
+  sourceCatalogLimits,
+  type CatalogResult,
+  type CatalogReceipt,
+} from "./source-catalog.ts";

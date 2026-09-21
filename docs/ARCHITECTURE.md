@@ -150,7 +150,7 @@ The separate owner [GitHub source command](GITHUB_SOURCES.md) discovers metadata
 
 Collection pins a revision/tree, verifies blob identity and reduces supported source files and bounded ancestor metadata to immutable private observations. No raw content, GitHub names or identities reach the aggregate CLI receipt, and no source snapshot enters consumer MCP. This command writes no profile/cache and does not interpret expertise. See [ADR-0043](adr/0043-selected-github-source-access.md) for limits, retention and security verification.
 
-Persistent catalog selection/reuse remains planned under M3-S14. Permission/identity/source/version changes must invalidate reuse; revalidation must never renew observation age, and local fingerprints must include relevant uncommitted changes. Persistent state needs separate validated storage, not serialized in-process authority.
+The owner-only `runSourceCatalog` composition consults Store context before ranking explicit candidates by language/adjacent-stack metadata. Its separate private catalog persists normalized counts, language identifiers, hashed bindings and original dates; it never serializes source authority, raw source or Claims. GitHub revision probes and local fingerprints (including uncommitted changes) precede reuse. Permission/identity/source/version changes invalidate reuse without renewing age. The catalog port owns bounded validation, atomic generations, recovery and its independent deletion barrier. See [ADR-0044](adr/0044-persistent-selective-source-catalog.md) and the [owner command](SOURCE_CATALOG.md).
 
 ### 4.4 Remote deployment — deferred
 

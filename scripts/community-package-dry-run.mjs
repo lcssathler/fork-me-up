@@ -92,6 +92,8 @@ export const communityPackageDefinitions = Object.freeze([
       "src/repository-fingerprint.ts",
       "src/selected-github-source.ts",
       "src/selected-github-transport.ts",
+      "src/source-catalog.ts",
+      "src/source-catalog-store.ts",
     ]),
     schemas: Object.freeze([]),
   }),
