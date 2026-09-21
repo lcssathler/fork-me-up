@@ -269,8 +269,9 @@ function isListToolsParams(value: unknown): boolean {
   return (
     value === undefined ||
     (isRecord(value) &&
-      hasOnlyKeys(value, ["cursor"]) &&
-      (value["cursor"] === undefined || typeof value["cursor"] === "string"))
+      hasOnlyKeys(value, ["cursor", "_meta"]) &&
+      (value["cursor"] === undefined || typeof value["cursor"] === "string") &&
+      (value["_meta"] === undefined || isRecord(value["_meta"])))
   );
 }
 

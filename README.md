@@ -22,7 +22,7 @@ See the [product rules](docs/PROJECT_SPEC.md) for how evidence, corrections and 
 
 The Community development workflow runs locally without an account, a dedicated model API or a paid service. You can collect evidence, inspect and correct your profile, obtain task context, diagnose the installation, export data and delete managed local data. Optional owner-only public-history enrichment prefers local Git and can use an already authenticated `gh` installation for explicitly selected public repositories; it is read-only, temporary, disabled by default and never required for local use.
 
-Packages are **private and unreleased**. Windows is the verified development platform. Codex is a reference adapter, and a separate generic consumer tests the same structured packet meaning. This does not establish compatibility with every agent or equivalent model-written answers. A guided skill, selected private GitHub reads and agent-assisted interpretation are planned; they are not available in this workflow yet.
+Packages are **private and unreleased**. Windows is the verified development platform. A repository-local [guided Codex pilot](docs/GUIDED_CODEX.md) orchestrates the existing owner commands and Store-backed MCP; live validation is tracked in the roadmap. The generic consumer tests structured packet meaning, not equivalent model-written answers or compatibility with every agent. Selected private GitHub reads and agent-assisted interpretation remain planned.
 
 The [roadmap](docs/ROADMAP.md#15-current-m3-execution-queue) is the source for completed work, the next eligible step and pending decisions. See [versioning and compatibility](VERSIONING.md) for technical limits.
 

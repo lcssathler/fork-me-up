@@ -331,6 +331,8 @@ The asynchronous Store-backed Provider serves the existing public read operation
 
 The initial surface is deliberately small and read-oriented.
 
+MCP `tools/list` accepts optional object-valued `_meta` request metadata, including client progress tokens, within the existing frame limit. It is ignored and never forwarded to the Provider, persisted or echoed. Malformed metadata and unknown tool-list parameter fields are rejected; metadata confers no collection, disclosure or write authority.
+
 The transport-neutral request and response envelopes are `urn:fork-me-up:profile-provider:0.1.0#/$defs/request` and `#/$defs/response`. MCP, SDK, CLI, or file adapters map these envelopes without changing their meaning; this schema does not define transport framing, authentication, lifecycle, or side-effect metadata.
 
 ### 9.1 `get_task_context`
