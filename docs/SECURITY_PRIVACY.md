@@ -69,6 +69,8 @@ Future hosted operation adds separate boundaries for source providers, ingestion
 - Failed redaction returns no affected payload.
 - Failed profile writes leave the prior valid version available and are never reported as saved.
 
+The separate selected GitHub owner connector enforces an exact account/repository/visibility selection and independent metadata/content/history flags. Temporary authority is checked before/after requests and immediately before TLS after credential acquisition. It neither widens public-history access nor adds consumer network authority. [ADR-0043](adr/0043-selected-github-source-access.md) records the accepted boundary and [usage](GITHUB_SOURCES.md) explains its bounded sampling.
+
 ### Future hosted operation invariants
 
 - Every record and cache key is tenant-bound.
@@ -85,7 +87,7 @@ Future hosted operation adds separate boundaries for source providers, ingestion
 
 ### Planned local MVP boundaries
 
-These requirements govern future implementation under ADR-0041; current consumer tools, public-history access and cache behavior remain unchanged.
+These requirements govern implementation under ADR-0041. Selected-source access is implemented under ADR-0043; interpretation and persistent reuse remain future work. Consumer tools, public-history access and existing cache behavior remain unchanged.
 
 - Metadata discovery and content reads have separate explicit scopes and budgets. A GitHub login does not authorize every accessible repository. Selection, visibility and revocation are checked at use, including cache hits.
 - Agent interpretation requires an owner-approved minimized evidence view and declared model disclosure. A source excerpt requires a separate first-party owner-view contract with reference validation, redaction, byte/token limits and ephemeral handling; it is excluded from consumer MCP and DCPs. Source permission alone does not allow model processing. Existing agent usage is still external processing when its model is hosted.
@@ -133,6 +135,8 @@ Public-history network access uses only `gh api --method GET --hostname github.c
 
 The current public-history port accepts no GitHub token, account field or credential path. The external `gh` process owns any existing authentication. Sanitized snapshots and owner results omit GitHub owner/repository names, URLs, identities, messages, raw responses and native diagnostics; only fixed source/status/request-count fields expose network use.
 
+Selected-source authentication uses `gh` only as the durable credential owner. A bounded subprocess obtains a transient token, validates it, and passes it only in the Authorization header to `api.github.com:443` with explicit certificate validation. All redirects/non-200 statuses and compressed responses are rejected without forwarding credentials or following response URLs. Credential subprocess errors, HTTP diagnostics and response bodies never appear in failures or CLI receipts. The allowlisted environment disables debugging/prompting; request time includes credential acquisition, DNS, TLS and response streaming. No source data becomes a command argument.
+
 ### T-05 — Incorrect authorship and inflated claims
 
 **Threat:** team code, forks, templates, vendor files, generated output, tutorials, bots, squash commits, or copied examples are treated as demonstrated personal depth.
@@ -166,6 +170,8 @@ The planned interpretation admission boundary must also reject invented referenc
 **Controls:** separate OAuth roles and token stores, resource/audience validation, no token passthrough, per-call authorization, least privilege, short-lived tokens, PKCE `S256`, exact redirect-URI and `state` validation, revocation, and secret-safe diagnostics. If client metadata or dynamic registration is supported, metadata retrieval is SSRF-restricted and registration, redirects, and discovery are rate-limited and abuse-monitored.
 
 Community public-history access is not an OAuth or managed connector. A closed owner configuration authorizes fixed public metadata reads for at most 24 hours; the external `gh` login is never accepted as input, copied into profile state or exposed to a consumer. Removing the configuration or allowing consent to expire prevents future GitHub requests.
+
+The selected-source connector has a separate closed configuration with an explicit account, opaque subject/repository references, exact source visibility and at most 24-hour authority. It compares the external login account before and after a run, validates selected repository metadata, pins object reads and checks repository identity again before return. Each request rereads owner authority; an in-flight request may finish but revoked/expired runs release no result. No consumer token, credential field, arbitrary URL or model disclosure is accepted.
 
 ### T-09 — Cross-tenant or cache leakage
 
@@ -277,6 +283,8 @@ The current optional public-history path relies only on a separately installed a
 Community stores only documented local profile and cache files. Export validates the output schema and excludes credentials and raw private source by default. Deletion is scoped to Fork Me Up data and must never alter source repositories.
 
 Public-history responses are retained only long enough to validate and sanitize a collection. The existing process-memory refresh cache may retain the sanitized Git snapshot, and the Store may retain only the already documented derived Evidence/Claim data. No raw GitHub response, owner/repository name, URL or credential is written to Fork Me Up storage; normal Store/cache deletion semantics are unchanged.
+
+Selected GitHub collection persists no source/derived state: responses and plaintext identities are transient; normalized observations last only as long as their owner-side in-process result. The CLI releases that result after emitting aggregate counts. Removing/changing its configuration disconnects future reads, and stopping the process releases memory; no profile/cache/backups or scheduled refresh exist for this command. It does not silently delete or update existing Store records. Future persistence must implement source-aware invalidation/deletion before integration.
 
 Local owner export/import and managed deletion enforce this boundary. An allowlist projection removes private prose and source locations, consistently remaps identifiers and checks retained semantic fields and final serialization for sensitive content. Export is exclusive, bounded and reread before acknowledgment; import validates the exact public graph and matching subject and refuses occupied Stores. This is deliberately lossy portability, not a private backup.
 

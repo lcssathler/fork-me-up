@@ -90,6 +90,8 @@ export const communityPackageDefinitions = Object.freeze([
       "src/public-history-collector.ts",
       "src/public-history-config.ts",
       "src/repository-fingerprint.ts",
+      "src/selected-github-source.ts",
+      "src/selected-github-transport.ts",
     ]),
     schemas: Object.freeze([]),
   }),

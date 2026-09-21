@@ -6,7 +6,7 @@ This guide takes you from selected repositories to a saved profile, corrections 
 
 Use this checkout with pinned Node.js 24.20.0/npm 11.19.0 and installed workspace dependencies. This is a development workflow on the tested Windows baseline, not a packaged release.
 
-This guide describes the manual workflow. For guided local setup, use the [Codex pilot](GUIDED_CODEX.md). Selected private GitHub collection remains tracked in the [roadmap](ROADMAP.md#15-current-m3-execution-queue).
+This guide describes the manual workflow. For guided local setup, use the [Codex pilot](GUIDED_CODEX.md). For separately authorized public/private remote reads, use [selected GitHub sources](GITHUB_SOURCES.md); that command does not refresh this Store.
 
 Follow the steps to [configure sources](#configure-explicitly), [collect and correct](#collect-and-control-the-profile), [request task context](#compile-and-consume-task-context), then [diagnose, export or delete](#diagnose-export-and-delete). Owner mode manages the profile. MCP mode only reads context; it cannot collect sources or change the profile.
 

@@ -236,3 +236,11 @@ export {
   type LocalCommunityRuntime,
 } from "./local-community-runtime.ts";
 export { createLocalStoredProfileProvider } from "./local-stored-profile-provider.ts";
+
+export {
+  readSelectedGitHubSources,
+  selectedGitHubLimits,
+  type SelectedGitHubPort,
+  type SelectedGitHubResult,
+  type SelectedGitHubObservation,
+} from "./selected-github-source.ts";

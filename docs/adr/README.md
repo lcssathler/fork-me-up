@@ -46,6 +46,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0040](0040-reproducible-public-community-benchmark.md) | Accepted | Reproduce frozen evidence outcomes plus bounded disclosure and two-consumer policy calibration without human-accuracy or ranking claims. |
 | [ADR-0041](0041-guided-evidence-backed-local-mvp.md) | Accepted | Prioritize a guided local MVP, selective authorized sources, evidence-backed interpretation and live owner calibration before distribution. |
 | [ADR-0042](0042-guided-local-owner-orchestration.md) | Accepted | Define guided local owner/consumer separation and live pilot verification. |
+| [ADR-0043](0043-selected-github-source-access.md) | Accepted | Bound selected public/private GitHub owner reads through external authentication and ephemeral local observations. |
 
 ## Record format
 

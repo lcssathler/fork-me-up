@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M3-S13 (ADR-0043; FMU-FR-032; FMU-E-020): add bounded owner-only discovery and content/history reads for explicitly selected public/private GitHub sources, with external authentication, revocation checks and content-free receipts.
+
 - M3-S12: add a repository-local guided Codex pilot over existing owner commands and Store-backed MCP, with synthetic restart/correction and read-only boundary coverage (ADR-0042; FMU-E-019). Verification distinguishes native client delivery from transport-only checks; this does not establish general interpretation or measured usefulness.
 
 - M3-S06: add opt-in bounded public-history enrichment that always prefers authorized local Git, permits fixed read-only `github.com` metadata requests only with an explicit owner decision lasting at most 24 hours and an existing external `gh` login, verifies exact selected public repositories/heads, sanitizes remote commit metadata into the private Git snapshot boundary, and reports source/status/request counts with process-memory cache reuse (ADR-0039; `FMU-FR-002`, `FMU-FR-016`, `FMU-FR-026`; `FMU-NFR-004`, `FMU-NFR-012`). No token input or persistence, private-repository access, public schema, dependency, consumer-triggered collection or network requirement is added.

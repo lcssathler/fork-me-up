@@ -1,6 +1,6 @@
 # M3 execution history
 
-> Integrated history through M3-S07, followed by a pending-integration M3-S12 verification record. M3 is not closed by this record. Use the [current roadmap](../ROADMAP.md#15-current-m3-execution-queue) for state, gates and eligible work; historical authorization does not authorize a new task.
+> Integrated history through M3-S12, followed by a pending-integration M3-S13 verification record. M3 is not closed by this record. Use the [current roadmap](../ROADMAP.md#15-current-m3-execution-queue) for state, gates and eligible work; historical authorization does not authorize a new task.
 
 ## Delivered slices
 
@@ -36,7 +36,7 @@ M3-S07 reexecutes the 48-case frozen M2 evidence experiment and independently sc
 
 ## M3-S12 guided local pilot
 
-Verification on `codex/m3-s12`, based on `b481a2b`, September 21, 2026; review, required PR CI and integration remain pending. Traceability: FMU-FR-031/036, UC-17, FMU-E-019 and ADR-0042. The skill orchestrates existing owner commands and real Store-backed MCP without a new public schema or dependency.
+Verification on `codex/m3-s12`, based on `b481a2b`, September 21, 2026; subsequently integrated by [PR #49](https://github.com/lcssathler/fork-me-up/pull/49) at `f0af6cc`. Traceability: FMU-FR-031/036, UC-17, FMU-E-019 and ADR-0042. The skill orchestrates existing owner commands and real Store-backed MCP without a new public schema or dependency.
 
 The final Windows Node.js 24.20.0/npm 11.19.0 aggregate passed 281 unit tests, 65 integration tests and 22 evaluations, plus formatting, documentation, lint, type checking, schema and package checks. The skill validator and diff checks passed. Synthetic E-019 covers explicit rejection/declaration persistence through refresh and restart, stale-generation rejection, consumer write denial and unavailable-profile continuation. A new metadata regression failed before the transport fix and passed afterward; it covers discovery metadata, malformed values and no reflection.
 
@@ -44,4 +44,16 @@ The owner-authorized local pilot separately exercised collection, review, explic
 
 The first desktop connection failed because `tools/list` rejected standard request metadata. A bounded Codex app-server probe reproduced the progress-token envelope; accepting inert object-valued `_meta` resolved discovery. Native tool invocation was then observed in the resumed desktop conversation, rather than inferred from a configuration listing or custom protocol client.
 
-Limits: automatic language evidence remains project-scoped and may be stale; declarations remain self-declared with no observed depth. Private declaration notes are not delivered in DCPs. Source cache persistence, general interpretation, cross-project analogies and usefulness/token savings are not established. Remote CI, review and main integration remain pending.
+Limits: automatic language evidence remains project-scoped and may be stale; declarations remain self-declared with no observed depth. Private declaration notes are not delivered in DCPs. Source cache persistence, general interpretation, cross-project analogies and usefulness/token savings are not established.
+
+## M3-S13 selected GitHub source access
+
+Verification on `codex/m3-s13`, based on integrated `f0af6cc`, September 21, 2026. Scope and security decisions are in [ADR-0043](../adr/0043-selected-github-source-access.md); traceability is FMU-FR-032, FMU-E-020 and T-01/T-03/T-04/T-08. The separate owner command returns minimized receipts for selected public/private source reads, without changing public schemas, Core, MCP tools or stored profiles.
+
+The final Windows Node.js 24.20.0/npm 11.19.0 `npm run check` passed **300 unit tests, 68 integration tests and 23 evaluations**, plus formatting, documentation, lint, type checking, schema and package checks. Focused cases cover separate scopes, excluded sources, temporary authority/revocation, account/visibility/repository changes, malicious responses, object hashes, limits, missing credentials, redirects, transient credentials and content-free failures. The offline refresh test intercepts HTTPS and verifies zero calls. Earlier iterations exposed TypeScript strip-mode/test setup/format/lint errors and the former blanket network-import assertion; these were corrected, with only the dedicated HTTPS transport exempted from that static import ban and runtime offline coverage added.
+
+Before private reads, an owner-authorized independent agent reviewed code and synthetic tests only. It found automatic `gh api` redirects, configuration paths admitted by the source filter and inherited object properties escaping the extension allowlist. All three were fixed and regression-tested. Subsequent review confirmed fixed-host HTTPS without redirects, explicit certificate validation, transient credential handling, authority checks immediately before TLS, numeric-repository object binding and preserved offline gates. No unresolved critical/high issue was identified within that bounded review; this is not a hosted-security or hostile-same-OS-user audit.
+
+The separately authorized live trial used one public and one private repository, with processing and detailed receipts kept in owner-selected private storage outside Git. The first private address returned HTTP 301 and was rejected without following it. The owner supplied the current exact selection. Final discovery read two repositories in **6 requests / 25,954 response bytes**, with zero files/commits. Final collection read **32 files and 16 commits across two repositories**, in **58 requests / 486,778 response bytes**, reporting `bounded-sample`. Both processes exited successfully with empty stderr. Store file hashes were unchanged. No private name, raw source, identity, credential, profile or source observation is included in this record.
+
+Limits: sampling is not exhaustive evidence, metadata is not expertise, and the existing external login may have broader permissions than the fixed read-only operations exercised. This slice persists no catalog and does not derive or update Claims; persistent reuse and interpretation remain separate work. Local verification and bounded live access are complete; required remote CI, lead review and main integration remain pending.
