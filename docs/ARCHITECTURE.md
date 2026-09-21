@@ -112,6 +112,8 @@ Every adapter publishes its tested transport, authentication, lifecycle, size, a
 
 The implementing slices must specify exact proposal/view schemas, disclosure budgets, credential ownership, source/cache inventory, admission rules and compatibility. Unsupported host capabilities yield an explicit manual path or no context; no second model API is required.
 
+The repository-local guided skill now orchestrates the existing owner CLI and optional Store-backed MCP under [ADR-0042](adr/0042-guided-local-owner-orchestration.md). It adds no interpretation view, grant format or consumer write operation. Live acceptance remains separate from synthetic process verification.
+
 ## 4. Deployment modes
 
 ### 4.1 Community local

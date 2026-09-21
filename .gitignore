@@ -22,6 +22,7 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Local environment and credentials
+.codex/config.toml
 .env
 .env.*
 !.env.example

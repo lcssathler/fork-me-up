@@ -6,7 +6,7 @@ Use this guide to manage a profile you own through the local command line. You c
 
 For source collection and MCP delivery, start with the [local Community workflow](LOCAL_COMMUNITY.md). Its owner mode accepts the request objects below directly; configure the Store once at launch and omit the standalone CLI's outer `store` wrapper.
 
-Conversational declarations and corrections are a [planned guided workflow](PROJECT_SPEC.md#planned-conversational-updates); the current commands below remain the way to save changes.
+The [guided Codex pilot](GUIDED_CODEX.md) can orchestrate the commands below for explicit conversational declarations and corrections within owner-approved write scope. General agent interpretation remains planned.
 
 Choose an action: [inspect](#inspect-the-profile), [correct](#correct-an-assessment), [declare](#declare-experience), [find evidence](#evidence-lookup-and-doctor), [diagnose](#diagnose-local-state), [export or import](#export-and-import), or [delete](#delete-managed-local-data).
 

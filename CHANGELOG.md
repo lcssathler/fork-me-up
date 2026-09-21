@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M3-S12: add a repository-local guided Codex pilot over existing owner commands and Store-backed MCP, with synthetic restart/correction and read-only boundary coverage (ADR-0042; FMU-E-019). Verification distinguishes native client delivery from transport-only checks; this does not establish general interpretation or measured usefulness.
+
 - M3-S06: add opt-in bounded public-history enrichment that always prefers authorized local Git, permits fixed read-only `github.com` metadata requests only with an explicit owner decision lasting at most 24 hours and an existing external `gh` login, verifies exact selected public repositories/heads, sanitizes remote commit metadata into the private Git snapshot boundary, and reports source/status/request counts with process-memory cache reuse (ADR-0039; `FMU-FR-002`, `FMU-FR-016`, `FMU-FR-026`; `FMU-NFR-004`, `FMU-NFR-012`). No token input or persistence, private-repository access, public schema, dependency, consumer-triggered collection or network requirement is added.
 
 - M3-S05: add clean Windows/macOS/Linux lifecycle jobs that install two exact private Protocol/Core/Community Provider candidate graphs through derived offline locks, preserve Store and correction behavior across package replacement, complete the synthetic local loop, verify managed deletion and retained source/export data, and uninstall the packages (ADR-0038; `FMU-FR-015`, `FMU-FR-016`, `FMU-FR-022`; `FMU-NFR-010`, `FMU-NFR-017`, `FMU-NFR-020`). The candidates share one source revision and do not establish a packaged application, implementation migration, public support window or release.
@@ -73,6 +75,8 @@ This file records notable repository and public-contract changes. There are no p
 - A pure private source-language Evidence and Claim derivation boundary with stable opaque IDs, semantic fingerprints, project scope, injected freshness, conservative authorship/risk ceilings, exact Profile-payload validation, and explicit refresh invalidation (`M2-S07`; `FMU-FR-004` through `FMU-FR-006`, `FMU-FR-020`; `FMU-NFR-006`; ADR-0024). It never infers from prose or dependencies, emits high confidence or demonstrated depth, changes a public schema, or adds a dependency, model, network, persistence orchestration, owner workflow, Provider operation, or release.
 
 ### Fixed
+
+- M3-S12: fix MCP startup with clients that include standard `_meta` in `tools/list`; keep metadata inert and reject malformed values.
 
 - M3-S06: evaluate public-history consent expiry against the runtime wall clock rather than owner-supplied observation metadata, charge local Git time to the enclosing collection deadline and cap every remote request to the smaller remaining refresh or configured GitHub duration (`FMU-NFR-007`, `FMU-NFR-012`; ADR-0039).
 

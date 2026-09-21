@@ -43,8 +43,8 @@ No queue state authorizes publication, private-data access, model disclosure or 
 | 5 | [`M3-S05` — Cross-platform install, update, and uninstall](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Verify installation, update and removal on three platforms |
 | 6 | [`M3-S06` — Optional public-history decision and boundary](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Enrich selected public history within local-first bounds |
 | 7 | [`M3-S07` — Public Community benchmark](history/M3_EXECUTION.md#delivered-slices) | `Complete` | Reproduce bounded evidence, disclosure and two-consumer calibration |
-| 8 | [`M3-S12` — Guided local Codex pilot](#m3-s12) | `Ready` | Configure and exercise real Store-backed context |
-| 9 | [`M3-S13` — Selected GitHub source access](#m3-s13) | `Blocked by M3-S12` | Read authorized public/private sources locally |
+| 8 | [`M3-S12` — Guided local Codex pilot](#m3-s12) | `Complete` | Configure and exercise real Store-backed context |
+| 9 | [`M3-S13` — Selected GitHub source access](#m3-s13) | `Ready` | Read authorized public/private sources locally |
 | 10 | [`M3-S14` — Persistent catalog and selective reuse](#m3-s14) | `Blocked by M3-S13` | Find useful evidence within a visible work budget |
 | 11 | [`M3-S15` — Agent interpretation and project transfer](#m3-s15) | `Blocked by M3-S14` | Ground explanations in reviewed prior experience |
 | 12 | [`M3-S16` — Owner calibration and usable-MVP gate](#m3-s16) | `Blocked by M3-S15` | Validate actual explanations and total context cost |
@@ -226,6 +226,8 @@ M3-S07's completed benchmark contract and bounded result remain in [M3 history](
 **Boundary:** Accept the focused owner-orchestration/disclosure contract before enabling writes or interpretation views. Keep read-only consumer MCP separate from owner operations. Use no new model API. An owner-run live smoke requires explicit source/client scope; without it, implementation may be prepared with synthetic tests but the slice stays incomplete.
 
 **Prerequisites and checks:** Integrated M3-S07 and this planning revision; ADR-0041 and affected adapter/owner ADRs; FMU-FR-031/036, UC-17, FMU-E-019 plus correction, redaction and ordinary-work-continuation regressions. The outcome is the earliest guided product test.
+
+The guided owner/consumer boundary is defined in [ADR-0042](adr/0042-guided-local-owner-orchestration.md); usage is in the [Codex pilot guide](GUIDED_CODEX.md). The [verification record](history/M3_EXECUTION.md#m3-s12-guided-local-pilot) distinguishes synthetic, transport and native client evidence. This branch proposes completion and S13 readiness; neither transition is authoritative before review and integration into main.
 
 <a id="m3-s13"></a>
 

@@ -19,6 +19,47 @@ const initialize = {
 };
 const initialized = { jsonrpc: "2.0", method: "notifications/initialized" };
 
+test("tool discovery accepts inert MCP request metadata while rejecting malformed parameters", async () => {
+  const valid = [
+    undefined,
+    {},
+    { _meta: { progressToken: 0 } },
+    {
+      cursor: "page",
+      _meta: { progressToken: "META_CANARY", arbitrary: { instruction: "META_CANARY" } },
+    },
+  ];
+  const invalid = [
+    { _meta: null },
+    { _meta: [] },
+    { _meta: "META_CANARY" },
+    { cursor: 1 },
+    { sourceRoot: "META_CANARY" },
+  ];
+  const result = await runServer("unavailable", [
+    initialize,
+    initialized,
+    ...[...valid, ...invalid].map((params, index) => ({
+      jsonrpc: "2.0",
+      id: index + 2,
+      method: "tools/list",
+      ...(params === undefined ? {} : { params }),
+    })),
+    { jsonrpc: "2.0", id: 20, method: "ping" },
+  ]);
+  assert.equal(result.code, 0);
+  for (const message of result.messages.slice(1, valid.length + 1)) {
+    assert.deepEqual(
+      message.result?.tools.map((/** @type {{name: string}} */ tool) => tool.name),
+      ["get_task_context", "get_profile_metadata"],
+    );
+  }
+  for (const message of result.messages.slice(valid.length + 1, valid.length + invalid.length + 1))
+    assert.equal(message.error?.code, -32602);
+  assert.deepEqual(result.messages.at(-1).result, {});
+  assert.doesNotMatch(result.stdout + result.stderr, /META_CANARY|progressToken|sourceRoot/u);
+});
+
 test("the MCP stdio subprocess negotiates, lists only the bounded tools and serves both operations", async () => {
   const canary = "FMU_MCP_CANARY_DO_NOT_LOG";
   const result = await runServer("adjacent", [
