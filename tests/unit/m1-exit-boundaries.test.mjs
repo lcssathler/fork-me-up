@@ -19,7 +19,7 @@ test("M1 exit: every Protocol and Core source remains client and lifecycle neutr
   }
 });
 
-test("M1 exit: all local runtime sources remain free of network and listener primitives", async () => {
+test("M1 offline boundary: only the ADR-0043 owner transport may import HTTPS; listeners remain forbidden", async () => {
   const files = await sourceFiles([
     "packages/community-provider/src",
     "apps/mcp-local/src",
@@ -29,8 +29,13 @@ test("M1 exit: all local runtime sources remain free of network and listener pri
 
   for (const path of files) {
     const source = await readFile(new URL(path.replaceAll("\\", "/"), repositoryRoot), "utf8");
+    // ADR-0043 adds one explicit opt-in owner transport; all other network/listener bans remain.
+    const checkedSource =
+      path.replaceAll("\\", "/") === "packages/community-provider/src/selected-github-transport.ts"
+        ? source.replace('import { request as httpsRequest } from "node:https";', "")
+        : source;
     assert.doesNotMatch(
-      source,
+      checkedSource,
       /(?:from|import\s*\(|require\s*\()\s*["']node:(?:http|https|http2|net|tls|dgram|dns)["']|\bfetch\s*\(|\.listen\s*\(/u,
       `${path} contains a network or listener primitive`,
     );

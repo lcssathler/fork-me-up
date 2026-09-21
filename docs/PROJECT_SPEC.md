@@ -65,7 +65,7 @@ The MVP target includes:
 - inspection, explicit declarations, corrections, export and deletion;
 - short explanations and bounded analogies that keep the current task moving.
 
-These are requirements, not availability claims. The current checkout has deterministic language signals, project-scoped automatic Claims, a process-local source cache and Store-backed MCP reads. The [local guided pilot](GUIDED_CODEX.md) orchestrates those existing boundaries; its live acceptance is tracked in the [current queue](ROADMAP.md#15-current-m3-execution-queue). General agent interpretation, persistent source cataloging and authenticated private GitHub collection remain to be implemented.
+These are requirements, not availability claims. The current checkout has deterministic language signals, project-scoped automatic Claims, a process-local source cache and Store-backed MCP reads. The [local guided pilot](GUIDED_CODEX.md) orchestrates those existing boundaries; its live acceptance is tracked in the [current queue](ROADMAP.md#15-current-m3-execution-queue). The separate [selected GitHub owner command](GITHUB_SOURCES.md) performs bounded authenticated public/private reads into ephemeral local observations without changing the profile. General agent interpretation and persistent source cataloging remain to be implemented.
 
 ### Integration and licensing
 

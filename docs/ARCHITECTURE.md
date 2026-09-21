@@ -21,7 +21,7 @@ Client adapters, source connectors, and hosted operations sit outside the domain
 
 ```text
 Authorized sources
-local Git / selected public repositories / future selected private repositories
+local Git / selected public and private GitHub repositories
                               ↓
                     Collection adapters
                 bounds, consent, normalization
@@ -144,11 +144,13 @@ The Community provider prefers the quarantined local Git collector for every sel
 
 GitHub access invokes only fixed read-only REST endpoints through an already authenticated external `gh` installation. Fork Me Up accepts no token or credential path, never prompts for or stores authentication, verifies the repository is public, enforces request/response/commit/path/time limits and performs no automatic retry. Local Git consumes the enclosing collection budget first, and remote work receives only the smaller configured or remaining deadline. Only sanitized Git snapshot fields enter the existing authorship/risk pipeline. Owner refresh reports the history source, GitHub status and request count; unchanged source cache hits are process-local and make zero requests. Offline operation and MCP consumers retain no network capability. See [ADR-0039](adr/0039-local-first-bounded-public-history.md).
 
-### 4.3 Selected GitHub collection — planned local mode
+### 4.3 Selected GitHub collection
 
-An owner connector discovers metadata only within its approved scope, reads selected public/private repositories under a separate bounded content grant, and stores minimized derived state locally. Public-only history in Section 4.2 remains unchanged until this connector's dedicated ADR and private-source review pass. A broader catalog is not an expanded collection batch.
+The separate owner [GitHub source command](GITHUB_SOURCES.md) discovers metadata only for exact selected repositories and reads bounded content/history under separate flags. An explicit account and temporary configuration authorize reads, not model disclosure. The external `gh` login owns credential storage; a transient token goes only to fixed TLS GitHub GET requests with certificate validation, no redirects and strict response/deadline limits. Every request rechecks current owner authority; the configured account, repository identity and visibility are revalidated. ADR-0039's public-only fallback and the offline workflow remain unchanged.
 
-The catalog checks saved context first, selects task-relevant and adjacent candidates, and deepens reads within fixed budgets. Permission/identity/source/version changes invalidate reuse. Revalidation never refreshes an old observation timestamp. Local source fingerprints must include relevant uncommitted changes. Persistent state uses separate validated storage, not serialized in-process authority.
+Collection pins a revision/tree, verifies blob identity and reduces supported source files and bounded ancestor metadata to immutable private observations. No raw content, GitHub names or identities reach the aggregate CLI receipt, and no source snapshot enters consumer MCP. This command writes no profile/cache and does not interpret expertise. See [ADR-0043](adr/0043-selected-github-source-access.md) for limits, retention and security verification.
+
+Persistent catalog selection/reuse remains planned under M3-S14. Permission/identity/source/version changes must invalidate reuse; revalidation must never renew observation age, and local fingerprints must include relevant uncommitted changes. Persistent state needs separate validated storage, not serialized in-process authority.
 
 ### 4.4 Remote deployment — deferred
 
