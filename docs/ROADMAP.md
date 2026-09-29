@@ -46,8 +46,8 @@ No queue state authorizes publication, private-data access, model disclosure or 
 | 8 | [`M3-S12` — Guided local Codex pilot](#m3-s12) | `Complete` | Configure and exercise real Store-backed context |
 | 9 | [`M3-S13` — Selected GitHub source access](#m3-s13) | `Complete` | Read authorized public/private sources locally |
 | 10 | [`M3-S14` — Persistent catalog and selective reuse](#m3-s14) | `Complete` | Find useful evidence within a visible work budget |
-| 11 | [`M3-S15` — Agent interpretation and project transfer](#m3-s15) | `Ready` | Ground explanations in reviewed prior experience |
-| 12 | [`M3-S16` — Owner calibration and usable-MVP gate](#m3-s16) | `Blocked by M3-S15` | Validate actual explanations and total context cost |
+| 11 | [`M3-S15` — Agent interpretation and project transfer](#m3-s15) | `Complete` | Ground explanations in reviewed prior experience |
+| 12 | [`M3-S16` — Owner calibration and usable-MVP gate](#m3-s16) | `Owner decision required` | Validate actual explanations and total context cost |
 | 13 | [`M3-S08` — Release documentation and compatibility table](#m3-s08) | `Blocked by M3-S16` | Provide tested installation and usage guidance |
 | 14 | [`M3-S09` — Reproducible release-candidate supply chain](#m3-s09) | `Blocked by M3-S08` | Build and verify a protected release candidate |
 | 15 | [`M3-S10` — Public Community release](#m3-s10) | `Blocked by M3-S09` | Publish the authorized Community release |
@@ -251,7 +251,7 @@ The selected-source boundary is defined in [ADR-0043](adr/0043-selected-github-s
 
 **Prerequisites and checks:** M3-S13; FMU-FR-033, FMU-E-021; focused persistence ADR refining ADR-0026/0028; restart, changed-source, revoked-grant, poisoned-cache, interrupted-write and deletion regressions. Three to five deep candidates is an experiment hypothesis, not a required fixed limit.
 
-The persistence boundary is defined in [ADR-0044](adr/0044-persistent-selective-source-catalog.md); use the [catalog guide](SOURCE_CATALOG.md). The [verification record](history/M3_EXECUTION.md#m3-s14-private-catalog-and-selective-reuse) separates synthetic checks and the owner-authorized real pilot. This branch proposes S14 completion and S15 readiness; those states require review and integration into main before S15 can start.
+The persistence boundary is defined in [ADR-0044](adr/0044-persistent-selective-source-catalog.md); use the [catalog guide](SOURCE_CATALOG.md). The [verification record](history/M3_EXECUTION.md#m3-s14-private-catalog-and-selective-reuse) separates synthetic checks and the owner-authorized real pilot. S14 was integrated through PR #51 at `a4b069a`.
 
 <a id="m3-s15"></a>
 
@@ -262,6 +262,10 @@ The persistence boundary is defined in [ADR-0044](adr/0044-persistent-selective-
 **Boundary:** Accept typed owner-only interpretation-view/proposal and transfer contracts, including bounded redacted excerpts when needed, with deterministic admission, provenance, disclosure and versioning rules before code changes. Preserve original project scope and conservative evidence ceilings. No exhaustive technology catalog, raw-source DCP, separate model API or arbitrary provider write tool. Update every affected schema, producer, consumer, migration and conformance fixture if wire behavior changes.
 
 **Prerequisites and checks:** M3-S14; FMU-FR-034/035/036, UC-16/17, FMU-E-022 and synthetic FMU-E-023 coverage; ADR-0041 plus explicit refinements to affected derivation/intersection/owner ADRs. Reject invented evidence, policy-bearing prose, unsupported global promotion and correction loss; verify novel identifiers and relations without treating model text as authority.
+
+The owner-only interpretation boundary is defined in [ADR-0045](adr/0045-owner-interpretation-and-scoped-transfer.md) and [the owner guide](OWNER_WORKFLOW.md#review-interpretation-and-transfer). It keeps proposals ephemeral and consumer contracts unchanged. Live explanation quality and total-cost measurement remain M3-S16.
+
+This branch proposes S15 completion and S16's owner-decision state. These transitions become authoritative only after review and integration into `main`.
 
 <a id="m3-s16"></a>
 

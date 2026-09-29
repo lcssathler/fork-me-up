@@ -24,7 +24,7 @@ enabled_tools = ["get_task_context", "get_profile_metadata"]
 
 Reload the client if the tools are not available. Configuration alone is not proof of connection: ask Codex to call `get_task_context` for a short concrete task, purpose `technical-learning` or `coding-assistance`, budget at most 8192, and explicit capabilities such as `language.typescript`. Check the actual tool call. See [Codex MCP configuration](https://learn.chatgpt.com/docs/extend/mcp?surface=cli).
 
-The packet is advisory. Unknown evidence must not become “you do not know this.” If the optional tool fails, keep working without personalized context. The current fixture hooks do not supply your saved profile.
+The packet is advisory. Unknown evidence must not become “you do not know this.” If the optional tool fails, keep working without personalized context. The current fixture hooks do not supply your saved profile. For a new project, the owner can separately approve a [bounded interpretation view](OWNER_WORKFLOW.md#review-interpretation-and-transfer) through the private owner command. Its proposed analogies remain provisional and do not enter the MCP packet.
 
 ## Correct and reuse
 

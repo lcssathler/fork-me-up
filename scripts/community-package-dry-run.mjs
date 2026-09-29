@@ -94,6 +94,7 @@ export const communityPackageDefinitions = Object.freeze([
       "src/selected-github-transport.ts",
       "src/source-catalog.ts",
       "src/source-catalog-store.ts",
+      "src/owner-interpretation.ts",
     ]),
     schemas: Object.freeze([]),
   }),

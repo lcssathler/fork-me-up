@@ -13,6 +13,7 @@ Choose the question you need to answer. Understanding or using the product does 
 | Reuse a private bounded source catalog | [Catalog owner workflow](SOURCE_CATALOG.md) |
 | Set up a guided local Codex pilot | [Guided Codex workflow](GUIDED_CODEX.md) |
 | Inspect, correct, export or delete my profile | [Owner guide](OWNER_WORKFLOW.md) |
+| Review bounded interpretation and transfer proposals | [Owner interpretation guide](OWNER_WORKFLOW.md#review-interpretation-and-transfer) |
 | See progress and what can happen next | [Roadmap and current queue](ROADMAP.md#15-current-m3-execution-queue) |
 | Report a vulnerability | [Security reporting](../SECURITY.md) |
 

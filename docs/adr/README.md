@@ -48,6 +48,7 @@ Accepted ADRs refine architecture within the subject-specific authority order in
 | [ADR-0042](0042-guided-local-owner-orchestration.md) | Accepted | Define guided local owner/consumer separation and live pilot verification. |
 | [ADR-0043](0043-selected-github-source-access.md) | Accepted | Bound selected public/private GitHub owner reads through external authentication and ephemeral local observations. |
 | [ADR-0044](0044-persistent-selective-source-catalog.md) | Accepted | Persist a minimized private source catalog with bounded profile-first selection, live reuse validation and independent recovery/deletion. |
+| [ADR-0045](0045-owner-interpretation-and-scoped-transfer.md) | Accepted | Expose a minimized owner-only interpretation view and admit scoped provisional proposals without changing Claims or consumer contracts. |
 
 ## Record format
 

@@ -14,6 +14,8 @@ This file records notable repository and public-contract changes. There are no p
 
 ### Added
 
+- M3-S15 (ADR-0045; FMU-FR-034/035/036; FMU-E-022): add an owner-only, bounded interpretation view and typed provisional proposals for assessments, task needs and cross-project transfer. References, scope and provenance are rechecked against the current Store; proposals are ephemeral and cannot alter Claims, policy or consumer packets. Existing owner operations remain the verified write path.
+
 - M3-S14 (ADR-0044; FMU-FR-033; FMU-E-021): add a private persistent source catalog with profile-first bounded selection, live revalidation, restart reuse without renewed observation age, minimized export and verified independent deletion. No Claims, raw source or credentials are cached.
 
 - M3-S13 (ADR-0043; FMU-FR-032; FMU-E-020): add bounded owner-only discovery and content/history reads for explicitly selected public/private GitHub sources, with external authentication, revocation checks and content-free receipts.
