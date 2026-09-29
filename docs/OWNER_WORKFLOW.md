@@ -6,9 +6,9 @@ Use this guide to manage a profile you own through the local command line. You c
 
 For source collection and MCP delivery, start with the [local Community workflow](LOCAL_COMMUNITY.md). Its owner mode accepts the request objects below directly; configure the Store once at launch and omit the standalone CLI's outer `store` wrapper.
 
-The [guided Codex pilot](GUIDED_CODEX.md) can orchestrate the commands below for explicit conversational declarations and corrections within owner-approved write scope. General agent interpretation remains planned.
+The [guided Codex pilot](GUIDED_CODEX.md) can orchestrate the commands below for explicit conversational declarations and corrections within owner-approved write scope. The separate [interpretation flow](#review-interpretation-and-transfer) lets the existing agent reason from selected structured evidence without gaining write access.
 
-Choose an action: [inspect](#inspect-the-profile), [correct](#correct-an-assessment), [declare](#declare-experience), [find evidence](#evidence-lookup-and-doctor), [diagnose](#diagnose-local-state), [export or import](#export-and-import), or [delete](#delete-managed-local-data).
+Choose an action: [inspect](#inspect-the-profile), [review interpretation](#review-interpretation-and-transfer), [correct](#correct-an-assessment), [declare](#declare-experience), [find evidence](#evidence-lookup-and-doctor), [diagnose](#diagnose-local-state), [export or import](#export-and-import), or [delete](#delete-managed-local-data).
 
 ## Run the owner command
 
@@ -43,6 +43,54 @@ This request lists Claims, the profile's individual capability assessments:
 Replace the directory and identifiers with the existing owner-selected configuration. A missing profile returns `absent`; inspection does not create or migrate a Store.
 
 Set `claimId` to one returned identifier for structured evidence and correction details. The view includes state, scope, observed depth, confidence, freshness and whether a Claim is historical. Detailed provenance includes evidence fingerprints, authorship categories and correction IDs/kinds/times. Notes, source paths and native diagnostics are omitted.
+
+## Review interpretation and transfer
+
+Use the configured Community owner mode for this flow. Its configuration selects the Store and authorized local projects; the model-facing MCP mode does not offer these operations. Before sending the result to your existing agent, choose the exact source projects and capabilities and approve disclosure of this minimized metadata for this task. A source-read permission alone is not model-disclosure approval. The operation reads saved profile data and does not collect new files.
+
+Send this request to `node scripts/community.mjs --config <your-config> --mode owner`:
+
+```json
+{
+  "version": "0.1.0",
+  "operation": "view",
+  "disclosure": {
+    "mode": "existing-agent",
+    "approved": true,
+    "approvedAt": "2026-09-29T12:00:00Z",
+    "expiresAt": "2026-09-29T12:05:00Z"
+  },
+  "targetProjectRef": "project_current",
+  "sourceProjectRefs": ["project_previous"],
+  "capabilities": ["language.typescript"]
+}
+```
+
+Use current UTC times; the disclosure window may last at most ten minutes. Replace the example identifiers with opaque IDs from your own configuration/profile. The result shows at most sixteen selected active Claims and thirty-two Evidence records from up to four configured source projects, plus coverage and fixed limitations. It contains no source paths, code excerpts, credentials, owner notes or complete profile. If a limitation is not one of the fixed reviewed codes, the view fails closed. Do not paste the complete profile or unselected repositories into the agent conversation.
+
+The agent can propose an assessment, a task need or a transfer using only the returned identifiers. Send a second `admit` request with the same selection and disclosure, the returned `generation` and `viewId`, and up to eight proposals. For example, the `proposals` field can contain:
+
+```json
+[
+  {
+    "kind": "transfer",
+    "capability": "concept.new-tool",
+    "sourceClaimId": "claim_from_view",
+    "evidenceRefs": ["evidence_from_that_claim"],
+    "relation": "shared-concept",
+    "transferLimit": "different-apis"
+  },
+  {
+    "kind": "task-need",
+    "capability": "concept.new-tool",
+    "relevance": "required"
+  }
+]
+```
+
+Copy the Claim's exact `evidenceRefs`; an invented or omitted reference fails. Transfer also accepts `similar-workflow`. State where the analogy stops with `different-apis`, `different-runtime`, `different-domain` or `unverified`; the last option preserves uncertainty when a difference cannot be established. A task need describes the new task and says nothing about your knowledge. Admission rejects stale or aged observations using the configured local age limit. The admitted result keeps the source project, state, depth, confidence and limitations and labels the transfer `provisional-owner-review`. It never creates a global or target-project Claim, changes response policy, or writes the profile. The existing agent may explain the shared idea briefly and must state where the analogy stops. Its explanation is a suggestion for your review, not verified evidence.
+
+To save your own declaration or correction, explicitly choose it and use [declare](#declare-experience) or [correct](#correct-an-assessment) with the current generation. Those existing operations verify the write and preserve correction history. Merely asking about a concept is not a declaration or evidence of ignorance. The interpretation view and proposals are ephemeral; no separate interpretation files, migration or deletion step exist. Live explanation usefulness and cost are evaluated in M3-S16.
 
 ## Correct an assessment
 

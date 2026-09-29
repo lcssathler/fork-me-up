@@ -15,6 +15,7 @@ import {
 import { saveOwnerDerivation, runOwnerProfileOperation } from "./owner-profile-workflow.ts";
 import { runOwnerPortabilityOperation } from "./owner-profile-portability.ts";
 import { runOwnerDiagnostics } from "./owner-profile-diagnostics.ts";
+import { runOwnerInterpretationOperation } from "./owner-interpretation.ts";
 import { createLocalStoredProfileProvider } from "./local-stored-profile-provider.ts";
 import type { FilesystemMetadataSnapshot } from "./filesystem-metadata-collector.ts";
 
@@ -245,6 +246,15 @@ export async function createLocalCommunityRuntime(
                 ...(options.installation === undefined
                   ? {}
                   : { installation: options.installation }),
+              }),
+            );
+          }
+          if (["view", "admit"].includes(String(request["operation"]))) {
+            return bounded(
+              await runOwnerInterpretationOperation(store.value, requestJson, {
+                clock,
+                authorizedProjectRefs: settings.repositoryProjects.map((item) => item.projectRef),
+                maxObservationAgeMs: settings.limits.maxCacheAgeMs,
               }),
             );
           }

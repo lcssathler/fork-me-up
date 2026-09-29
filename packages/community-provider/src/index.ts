@@ -251,3 +251,11 @@ export {
   type CatalogResult,
   type CatalogReceipt,
 } from "./source-catalog.ts";
+
+export {
+  runOwnerInterpretationOperation,
+  ownerInterpretationLimits,
+  type AdmittedProposal,
+  type OwnerInterpretationResult,
+  type OwnerInterpretationView,
+} from "./owner-interpretation.ts";

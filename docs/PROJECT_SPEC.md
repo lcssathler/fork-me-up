@@ -65,7 +65,7 @@ The MVP target includes:
 - inspection, explicit declarations, corrections, export and deletion;
 - short explanations and bounded analogies that keep the current task moving.
 
-These are requirements, not availability claims. The current checkout has deterministic language signals, project-scoped automatic Claims, a process-local source cache and Store-backed MCP reads. The [local guided pilot](GUIDED_CODEX.md) orchestrates those existing boundaries; its live acceptance is tracked in the [current queue](ROADMAP.md#15-current-m3-execution-queue). The separate [selected GitHub owner command](GITHUB_SOURCES.md) performs bounded authenticated public/private reads into ephemeral local observations without changing the profile. The separate [source catalog](SOURCE_CATALOG.md) consults the saved profile first, selects a bounded batch by language and adjacent stack metadata, and reuses revalidated observations across sessions. It preserves corrections and never turns catalog metadata into Claims. General agent interpretation and concept-aware transfer remain to be implemented.
+These are requirements, not availability claims. The current checkout has deterministic language signals, project-scoped automatic Claims, a process-local source cache and Store-backed MCP reads. The [local guided pilot](GUIDED_CODEX.md) orchestrates those existing boundaries; its live acceptance is tracked in the [current queue](ROADMAP.md#15-current-m3-execution-queue). The separate [selected GitHub owner command](GITHUB_SOURCES.md) performs bounded authenticated public/private reads into ephemeral local observations without changing the profile. The separate [source catalog](SOURCE_CATALOG.md) consults the saved profile first, selects a bounded batch by language and adjacent stack metadata, and reuses revalidated observations across sessions. It preserves corrections and never turns catalog metadata into Claims. The [owner interpretation operation](OWNER_WORKFLOW.md#review-interpretation-and-transfer) now presents selected structured evidence and validates ephemeral transfer hypotheses. Live explanation usefulness remains unmeasured.
 
 ### Integration and licensing
 
@@ -219,7 +219,7 @@ AI assistance alone neither establishes nor negates a developer's understanding.
 
 The current Community two-observation practical-use rule is a project-evidence heuristic, not a validated scale of expertise. All its automated claims remain project-scoped and at most medium confidence/practical-use. The [evidence method](EVIDENCE_METHOD.md) records primary-source research, rejected alternatives and interpretation limits. The [M2 quality protocol](evaluations/M2_QUALITY_PROTOCOL.md) measures frozen synthetic conformance, including assisted-workflow invariance; its rates must not be advertised as human knowledge accuracy or human acceptance rates. [ADR-0031](adr/0031-evidence-method-and-frozen-quality-protocol.md) records the owner-delegated decision.
 
-### Planned interpretation and transfer
+### Interpretation and transfer
 
 The existing agent may suggest task capabilities, concept relationships and assessments from a bounded authorized evidence view. No complete technology catalog is required before use. Names, descriptions and language metadata select candidates; they do not establish personal knowledge. Concept-level interpretation needs relevant collected facts or bounded redacted source excerpts in a separately authorized owner view, never raw code inside a DCP. New identifiers and relationships still need validated representations and executable compatibility checks.
 
@@ -227,7 +227,7 @@ An interpretation is a provisional inference with evidence references, confidenc
 
 Reuse across projects must retain the original evidence scope and express transfer as a hypothesis. Never relabel an old project Claim as global or treat the new project's stack as evidence about its developer. A new or empty project can supply intended task needs while prior authorized projects supply experience. Analogy generation must identify both the shared concept and where the comparison stops.
 
-These requirements extend the current producer; they do not enable free-text interpretation or cross-project selection in today's Core.
+The implemented owner-only view and proposal admission satisfy the structured boundary for selected saved evidence. They do not interpret free text in Core, infer concepts from raw code, persist provisional assessments, or promote other-project Claims into consumer context. The existing agent explains admitted hypotheses to the owner, with its prose remaining untrusted; owner-reviewed live usefulness is assessed separately.
 
 ### 11.5 What happens when repositories change?
 
@@ -385,7 +385,7 @@ The Community Demand producer accepts explicit structured task capabilities and 
 - Demand does not establish developer knowledge or authorize an operation.
 - Potentially sensitive task prose is replaced with a fixed minimized summary.
 
-`FMU-E-009` and `FMU-E-010` verify this implementation of `FMU-FR-003` and `FMU-FR-021`. The planned agent-assisted interpretation must validate proposed task needs before this boundary; it remains unimplemented. The [local workflow](LOCAL_COMMUNITY.md) documents the separate owner and consumer entry points.
+`FMU-E-009` and `FMU-E-010` verify this implementation of `FMU-FR-003` and `FMU-FR-021`. Owner interpretation validates typed proposed task needs separately before they may be supplied as explicit task input to this producer; the proposal does not itself create a Demand Profile or grant permission. The [local workflow](LOCAL_COMMUNITY.md) documents the separate owner and consumer entry points.
 
 <a id="16-product-stages"></a>
 
